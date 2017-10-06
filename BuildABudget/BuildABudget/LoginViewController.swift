@@ -8,8 +8,8 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+class LoginViewController: UIViewController {
+    
     @IBOutlet weak var login: UIButton!
     @IBOutlet weak var register: UIButton!
     override func viewDidLoad() {
@@ -19,12 +19,12 @@ class ViewController: UIViewController {
         login.layer.cornerRadius = 5
         register.layer.cornerRadius = 5
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
+    
+    
 }
 

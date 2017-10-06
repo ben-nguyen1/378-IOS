@@ -1,0 +1,10 @@
+Launch Screen
+ - The launch screen is where the user will first see when the user first launches the app. There is nothing for the user to do besides to wait for the app to take him to the logins screen.
+
+ Login Screen
+ - This screen is where the user can login or create an account. If the user wishes to login to his current account, he must enter both his email address (which serves as his username) and his password. The user can also create a new account to use the app. Clicking on the 'Create' button will take the user to the create account screen.
+
+ Create Screen
+ - This is where a new user can create a new account so he can start using the app. The user must provide both his first and last name. His email address will be used as his username to login in. Of course, a provide is required as well. The 'Create!' button will create the account, assuming that an account with that email address hasn't already been taken.
+
+ 

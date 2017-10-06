@@ -8,22 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		CC457A341F8813E400C98537 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC457A331F8813E400C98537 /* AppDelegate.swift */; };
-		CC457A361F8813E400C98537 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC457A351F8813E400C98537 /* ViewController.swift */; };
 		CC457A391F8813E400C98537 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC457A371F8813E400C98537 /* Main.storyboard */; };
 		CC457A3C1F8813E400C98537 /* BuildABudget.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CC457A3A1F8813E400C98537 /* BuildABudget.xcdatamodeld */; };
 		CC457A3E1F8813E400C98537 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC457A3D1F8813E400C98537 /* Assets.xcassets */; };
 		CC457A411F8813E400C98537 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC457A3F1F8813E400C98537 /* LaunchScreen.storyboard */; };
+		CC53D9A81F882504008977D6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC53D9A71F882504008977D6 /* LoginViewController.swift */; };
+		CC53D9AA1F882521008977D6 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC53D9A91F882521008977D6 /* CreateAccountViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		CC457A301F8813E400C98537 /* BuildABudget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BuildABudget.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC457A331F8813E400C98537 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CC457A351F8813E400C98537 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		CC457A381F8813E400C98537 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CC457A3B1F8813E400C98537 /* BuildABudget.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BuildABudget.xcdatamodel; sourceTree = "<group>"; };
 		CC457A3D1F8813E400C98537 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CC457A401F8813E400C98537 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CC457A421F8813E400C98537 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CC53D9A71F882504008977D6 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		CC53D9A91F882521008977D6 /* CreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,8 +59,9 @@
 			isa = PBXGroup;
 			children = (
 				CC457A331F8813E400C98537 /* AppDelegate.swift */,
-				CC457A351F8813E400C98537 /* ViewController.swift */,
 				CC457A371F8813E400C98537 /* Main.storyboard */,
+				CC53D9A91F882521008977D6 /* CreateAccountViewController.swift */,
+				CC53D9A71F882504008977D6 /* LoginViewController.swift */,
 				CC457A3D1F8813E400C98537 /* Assets.xcassets */,
 				CC457A3F1F8813E400C98537 /* LaunchScreen.storyboard */,
 				CC457A421F8813E400C98537 /* Info.plist */,
@@ -139,7 +142,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC457A361F8813E400C98537 /* ViewController.swift in Sources */,
+				CC53D9AA1F882521008977D6 /* CreateAccountViewController.swift in Sources */,
+				CC53D9A81F882504008977D6 /* LoginViewController.swift in Sources */,
 				CC457A3C1F8813E400C98537 /* BuildABudget.xcdatamodeld in Sources */,
 				CC457A341F8813E400C98537 /* AppDelegate.swift in Sources */,
 			);
@@ -303,6 +307,7 @@
 				CC457A471F8813E400C98537 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
