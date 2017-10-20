@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B81632DC1F998F5900A04E43 /* Budget.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B81632DB1F998F5900A04E43 /* Budget.storyboard */; };
+		B81632DE1F99945F00A04E43 /* Checklist.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B81632DD1F99945F00A04E43 /* Checklist.storyboard */; };
+		B81632E01F99950B00A04E43 /* Overview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B81632DF1F99950B00A04E43 /* Overview.storyboard */; };
+		B81632E21F99952A00A04E43 /* Transactions.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B81632E11F99952A00A04E43 /* Transactions.storyboard */; };
+		B81632E41F99960300A04E43 /* Goals.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B81632E31F99960300A04E43 /* Goals.storyboard */; };
 		CC457A341F8813E400C98537 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC457A331F8813E400C98537 /* AppDelegate.swift */; };
 		CC457A391F8813E400C98537 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC457A371F8813E400C98537 /* Main.storyboard */; };
 		CC457A3C1F8813E400C98537 /* BuildABudget.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CC457A3A1F8813E400C98537 /* BuildABudget.xcdatamodeld */; };
@@ -17,6 +22,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B81632DB1F998F5900A04E43 /* Budget.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Budget.storyboard; sourceTree = "<group>"; };
+		B81632DD1F99945F00A04E43 /* Checklist.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Checklist.storyboard; sourceTree = "<group>"; };
+		B81632DF1F99950B00A04E43 /* Overview.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Overview.storyboard; sourceTree = "<group>"; };
+		B81632E11F99952A00A04E43 /* Transactions.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Transactions.storyboard; sourceTree = "<group>"; };
+		B81632E31F99960300A04E43 /* Goals.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Goals.storyboard; sourceTree = "<group>"; };
 		CC457A301F8813E400C98537 /* BuildABudget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BuildABudget.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC457A331F8813E400C98537 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CC457A381F8813E400C98537 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -58,10 +68,15 @@
 		CC457A321F8813E400C98537 /* BuildABudget */ = {
 			isa = PBXGroup;
 			children = (
-				CC457A331F8813E400C98537 /* AppDelegate.swift */,
 				CC457A371F8813E400C98537 /* Main.storyboard */,
+				CC457A331F8813E400C98537 /* AppDelegate.swift */,
 				CC53D9A91F882521008977D6 /* CreateAccountViewController.swift */,
 				CC53D9A71F882504008977D6 /* LoginViewController.swift */,
+				B81632DB1F998F5900A04E43 /* Budget.storyboard */,
+				B81632DF1F99950B00A04E43 /* Overview.storyboard */,
+				B81632E11F99952A00A04E43 /* Transactions.storyboard */,
+				B81632DD1F99945F00A04E43 /* Checklist.storyboard */,
+				B81632E31F99960300A04E43 /* Goals.storyboard */,
 				CC457A3D1F8813E400C98537 /* Assets.xcassets */,
 				CC457A3F1F8813E400C98537 /* LaunchScreen.storyboard */,
 				CC457A421F8813E400C98537 /* Info.plist */,
@@ -130,8 +145,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC457A411F8813E400C98537 /* LaunchScreen.storyboard in Resources */,
+				B81632DE1F99945F00A04E43 /* Checklist.storyboard in Resources */,
 				CC457A3E1F8813E400C98537 /* Assets.xcassets in Resources */,
+				B81632E21F99952A00A04E43 /* Transactions.storyboard in Resources */,
 				CC457A391F8813E400C98537 /* Main.storyboard in Resources */,
+				B81632E41F99960300A04E43 /* Goals.storyboard in Resources */,
+				B81632DC1F998F5900A04E43 /* Budget.storyboard in Resources */,
+				B81632E01F99950B00A04E43 /* Overview.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

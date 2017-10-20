@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="kN8-4g-Nve">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="kN8-4g-Nve">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -52,6 +52,9 @@
                                 <state key="normal" title="Login">
                                     <color key="titleColor" red="0.93436285620000004" green="0.93436285620000004" blue="0.93436285620000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <segue destination="ZiG-Xm-vUw" kind="show" id="3hu-b4-Ufd"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="or" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ubq-H6-Vjk">
                                 <rect key="frame" x="174" y="323" width="27" height="21"/>
@@ -163,7 +166,28 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vdT-BA-PC1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="868" y="741.67916041979015"/>
+            <point key="canvasLocation" x="972" y="857"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="rDH-Xj-5PI">
+            <objects>
+                <tabBarController id="ZiG-Xm-vUw" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="vUf-js-Ql6">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="lGa-vu-QrP" kind="show" id="VGq-Y4-VoI"/>
+                        <segue destination="jqm-Mj-2zY" kind="show" id="9jD-ZQ-TKE"/>
+                        <segue destination="C65-mp-hOl" kind="show" id="9Ai-xv-lfI"/>
+                        <segue destination="A15-xu-3T3" kind="show" id="zVx-6t-QRn"/>
+                        <segue destination="xZL-qA-1UI" kind="show" id="H7u-of-U0l"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="E4f-2F-s0b" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2041" y="36"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="jP3-tE-ImV">
@@ -171,7 +195,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="kN8-4g-Nve" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="2Iz-3J-35z">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -182,6 +206,46 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AUW-Hm-v2z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="32.799999999999997" y="38.23088455772114"/>
+        </scene>
+        <!--Budget Ref-->
+        <scene sceneID="iY1-Xh-0jo">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="Budget.storyboard" id="lGa-vu-QrP" userLabel="Budget Ref" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dtc-yx-KeW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1554" y="535"/>
+        </scene>
+        <!--Checklist Ref-->
+        <scene sceneID="K0R-kM-tTF">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="Checklist.storyboard" id="jqm-Mj-2zY" userLabel="Checklist Ref" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7ef-NE-33d" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2574" y="535"/>
+        </scene>
+        <!--Transactions Ref-->
+        <scene sceneID="j88-3h-fO8">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="Transactions.storyboard" id="A15-xu-3T3" userLabel="Transactions Ref" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YlO-b6-Ssb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2307" y="535"/>
+        </scene>
+        <!--Goals Ref-->
+        <scene sceneID="Oqa-3x-kuo">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="Goals.storyboard" id="C65-mp-hOl" userLabel="Goals Ref" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wpl-LR-Wb3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1794" y="535"/>
+        </scene>
+        <!--Overview Ref-->
+        <scene sceneID="uGk-Wn-XOg">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="Overview.storyboard" id="xZL-qA-1UI" userLabel="Overview Ref" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="j7j-HN-Jzb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2040" y="535"/>
         </scene>
     </scenes>
     <resources>
