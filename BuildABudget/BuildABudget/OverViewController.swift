@@ -14,6 +14,7 @@ class OverViewController: UIViewController {
         super.viewDidLoad()
         print("in overview")
         // Do any additional setup after loading the view.
+        self.navigationItem.setHidesBackButton(true, animated:true);
     }
 
     override func didReceiveMemoryWarning() {

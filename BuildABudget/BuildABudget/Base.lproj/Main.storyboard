@@ -254,7 +254,7 @@
         <!--Tab Bar View Controller-->
         <scene sceneID="1MH-6P-Lcy">
             <objects>
-                <tabBarController id="sW7-da-Vsd" customClass="TabBarViewController" customModule="BuildABudget" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarVC" id="sW7-da-Vsd" customClass="TabBarViewController" customModule="BuildABudget" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="4rY-vV-QU0" userLabel="Budget">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>

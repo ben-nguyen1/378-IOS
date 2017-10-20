@@ -31,6 +31,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         pass.text = nil
         pass.placeholder = "Password"
         pass.delegate = self;
+        pass.isSecureTextEntry = true
     }
     
     override func didReceiveMemoryWarning() {
@@ -40,8 +41,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func loginBtn(_ sender: Any) {
         if Account.userName() == email.text! && Account.pass() == pass.text! {
-            performSegue(withIdentifier: "loginToTab", sender: self)
             print("Login sucessful")
+            let tabBarController = self.storyboard?.instantiateViewController(withIdentifier: "TabBarVC") as! TabBarViewController
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.window?.rootViewController = tabBarController
         } else {
             self.alertErrorController = UIAlertController(title: "Alert", message: "Email or Password does not match", preferredStyle: UIAlertControllerStyle.alert)
             
@@ -55,13 +58,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "loginToTab"{
-            var vc = segue.destination as! TabBarViewController
-            vc.selectedIndex = 2
-            //Data has to be a variable name in your RandomViewController
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "loginToTab"{
+//            var vc = segue.destination as! TabBarViewController
+//            vc.selectedIndex = 2
+//            //Data has to be a variable name in your RandomViewController
+//        }
+//    }
     
     @IBAction func goCreateBtn(_ sender: Any) {
     }
