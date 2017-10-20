@@ -52,6 +52,9 @@
                                 <state key="normal" title="Login">
                                     <color key="titleColor" red="0.93436285620000004" green="0.93436285620000004" blue="0.93436285620000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <segue destination="sW7-da-Vsd" kind="show" id="SEk-r5-L1Y"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="or" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ubq-H6-Vjk">
                                 <rect key="frame" x="174" y="323" width="27" height="21"/>
@@ -191,7 +194,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dtc-yx-KeW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1607" y="534"/>
+            <point key="canvasLocation" x="1649" y="533"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="1MH-6P-Lcy">
@@ -213,7 +216,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qMa-US-pDx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2083" y="33"/>
+            <point key="canvasLocation" x="2082" y="38"/>
         </scene>
         <!--Checklist Ref-->
         <scene sceneID="K0R-kM-tTF">
@@ -223,7 +226,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7ef-NE-33d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2647" y="533"/>
+            <point key="canvasLocation" x="2577" y="533"/>
         </scene>
         <!--Transactions Ref-->
         <scene sceneID="j88-3h-fO8">
@@ -233,7 +236,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YlO-b6-Ssb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2381" y="533"/>
+            <point key="canvasLocation" x="2331" y="533"/>
         </scene>
         <!--Goals Ref-->
         <scene sceneID="Oqa-3x-kuo">
@@ -243,7 +246,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wpl-LR-Wb3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1800" y="533"/>
+            <point key="canvasLocation" x="1854" y="533"/>
         </scene>
         <!--Overview Ref-->
         <scene sceneID="uGk-Wn-XOg">
