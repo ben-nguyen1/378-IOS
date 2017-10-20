@@ -12,6 +12,10 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var login: UIButton!
     @IBOutlet weak var register: UIButton!
+    
+    @IBOutlet weak var email: UITextField!
+    @IBOutlet weak var pass: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -25,6 +29,10 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func loginBtn(_ sender: Any) {
+    }
     
+    @IBAction func goCreateBtn(_ sender: Any) {
+    }
 }
 
