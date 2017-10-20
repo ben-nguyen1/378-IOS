@@ -11,19 +11,84 @@ import UIKit
 class CreateAccountViewController: UIViewController {
 
     @IBOutlet weak var create: UIButton!
+    
+    @IBOutlet weak var firstName: UITextField!
+    @IBOutlet weak var lastName: UITextField!
+    @IBOutlet weak var email: UITextField!
+    @IBOutlet weak var pass: UITextField!
+    
+    var alertErrorController:UIAlertController? = nil
+    var accountSuccessController:UIAlertController? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         create.layer.cornerRadius = 5
+        
+        // add placeholder text for all text fields
+        firstName.text = nil
+        firstName.placeholder = "First Name"
+        
+        lastName.text = nil
+        lastName.placeholder = "Last Name"
+        
+        email.text = nil
+        email.placeholder = "Email Address"
+        
+        pass.text = nil
+        pass.placeholder = "Password"
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    @IBAction func createBtn(_ sender: Any) {
+        if UserDefaults.standard.object(forKey: "userName") != nil && Account.userName() == email.text!{
+            self.alertErrorController = UIAlertController(title: "Alert", message: "An account on this device already exist.", preferredStyle: UIAlertControllerStyle.alert)
+            
+            let OKAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) {
+                (action:UIAlertAction) in
+            }
+            self.alertErrorController!.addAction(OKAction)
+            
+            self.present(self.alertErrorController!, animated: true, completion:nil)
+        } else {
+            print("New Account")
+            if (firstName.text!.isEmpty || lastName.text!.isEmpty || email.text!.isEmpty || pass.text!.isEmpty) {
+                self.alertErrorController = UIAlertController(title: "Alert", message: "All fields must be entered", preferredStyle: UIAlertControllerStyle.alert)
+                
+                let OKAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) {
+                    (action:UIAlertAction) in
+                }
+                self.alertErrorController!.addAction(OKAction)
+                
+                self.present(self.alertErrorController!, animated: true, completion:nil)
+            }
+            
+            // add info to UserDefaults
+            Account.setFirstName(firstName.text!)
+            Account.setLasttName(lastName.text!)
+            Account.setUserName(email.text!)
+            Account.setPass(pass.text!)
+            
+            self.accountSuccessController = UIAlertController(title: "Alert", message: "Your account has been made!", preferredStyle: UIAlertControllerStyle.alert)
+            
+            let OKAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) {
+                (action:UIAlertAction) in
     
-
+                // after creating an account, go back to login screen
+                // TODO:
+                // in the future, this will be the tutorial screen
+                let secondViewController = self.storyboard?.instantiateViewController(withIdentifier: "loginViewController") as! LoginViewController
+                self.navigationController?.pushViewController(secondViewController, animated: true)
+            }
+            self.accountSuccessController!.addAction(OKAction)
+            self.present(self.accountSuccessController!, animated: true, completion:nil)
+        }
+    }
+    
     /*
     // MARK: - Navigation
 

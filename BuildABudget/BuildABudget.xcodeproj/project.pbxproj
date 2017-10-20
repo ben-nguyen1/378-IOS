@@ -19,6 +19,7 @@
 		CC457A411F8813E400C98537 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC457A3F1F8813E400C98537 /* LaunchScreen.storyboard */; };
 		CC53D9A81F882504008977D6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC53D9A71F882504008977D6 /* LoginViewController.swift */; };
 		CC53D9AA1F882521008977D6 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC53D9A91F882521008977D6 /* CreateAccountViewController.swift */; };
+		CC93DC431F99D16300070CF7 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93DC421F99D16300070CF7 /* Account.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		CC457A421F8813E400C98537 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CC53D9A71F882504008977D6 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		CC53D9A91F882521008977D6 /* CreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
+		CC93DC421F99D16300070CF7 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 				CC457A371F8813E400C98537 /* Main.storyboard */,
 				CC457A331F8813E400C98537 /* AppDelegate.swift */,
 				CC53D9A91F882521008977D6 /* CreateAccountViewController.swift */,
+				CC93DC421F99D16300070CF7 /* Account.swift */,
 				CC53D9A71F882504008977D6 /* LoginViewController.swift */,
 				B81632DB1F998F5900A04E43 /* Budget.storyboard */,
 				B81632DF1F99950B00A04E43 /* Overview.storyboard */,
@@ -162,6 +165,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC93DC431F99D16300070CF7 /* Account.swift in Sources */,
 				CC53D9AA1F882521008977D6 /* CreateAccountViewController.swift in Sources */,
 				CC53D9A81F882504008977D6 /* LoginViewController.swift in Sources */,
 				CC457A3C1F8813E400C98537 /* BuildABudget.xcdatamodeld in Sources */,
