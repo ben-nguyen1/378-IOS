@@ -81,6 +81,7 @@
 				CC93DC421F99D16300070CF7 /* Account.swift */,
 				B81632DB1F998F5900A04E43 /* Budget.storyboard */,
 				B81632DF1F99950B00A04E43 /* Overview.storyboard */,
+				CC93DC4A1F99DE6C00070CF7 /* OverViewController.swift */,
 				B81632E11F99952A00A04E43 /* Transactions.storyboard */,
 				B81632DD1F99945F00A04E43 /* Checklist.storyboard */,
 				B81632E31F99960300A04E43 /* Goals.storyboard */,
@@ -89,7 +90,6 @@
 				CC457A421F8813E400C98537 /* Info.plist */,
 				CC457A3A1F8813E400C98537 /* BuildABudget.xcdatamodeld */,
 				CC93DC461F99DAF100070CF7 /* TabBarViewController.swift */,
-				CC93DC4A1F99DE6C00070CF7 /* OverViewController.swift */,
 			);
 			path = BuildABudget;
 			sourceTree = "<group>";
