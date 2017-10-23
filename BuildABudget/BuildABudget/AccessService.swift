@@ -81,75 +81,7 @@ class AccessService {
     // To keep it that way, don't allow any code outside this class to instantiate an object of this type.
     private init() {}
     
-    //Transaction methods:
-    func getBalance( id: String) -> Double {
-        return transactions.
-    }
-    
-    
-    
-    
-    func count() -> Int {
-        return people.count
-    }
-    
-    func getPerson(index:Int) -> Person {
-        if index < people.count {
-            let p = people[index]
-            let n = p.value(forKey: "name") as! String
-            let a = p.value(forKey: "age") as! Int
-            return Person(name: n, age: a)
-        } else {
-            return Person(name: "<bad>", age: 0)
-        }
-    }
-    
-    func fetchPeople() {
-        
-        let managedContext = persistentContainer.viewContext
-        
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName:"Person")
-        
-        var fetchedResults:[NSManagedObject]? = nil
-        
-        do {
-            try fetchedResults = managedContext.fetch(fetchRequest) as? [NSManagedObject]
-        } catch {
-            // what to do if an error occurs?
-            let nserror = error as NSError
-            NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
-            abort()
-        }
-        
-        guard let results = fetchedResults else { return }
-        
-        people = results
-    }
-    
-    func savePerson(name: String, age: String) {
-        
-        let managedContext = persistentContainer.viewContext
-        
-        // Create the entity we want to save
-        let entity = NSEntityDescription.entity(forEntityName: "Person", in: managedContext)
-        
-        let person = NSManagedObject(entity: entity!, insertInto:managedContext)
-        
-        // Set the attribute values
-        person.setValue(name, forKey: "name")
-        person.setValue(Int(age), forKey: "age")
-        
-        // Commit the changes.
-        do {
-            try managedContext.save()
-            people.append(person)
-        } catch {
-            // what to do if an error occurs?
-            let nserror = error as NSError
-            NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
-            abort()
-        }
-    }
+
     
 }
 

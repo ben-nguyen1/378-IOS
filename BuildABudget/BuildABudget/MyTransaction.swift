@@ -7,7 +7,7 @@
 //
 import Foundation
 
-class Transaction {
+class MyTransaction {
     
     fileprivate var _id: String
     fileprivate var _description: String
@@ -61,7 +61,7 @@ class Transaction {
          datePaidOff:Date,
          balance:Double,
          totalDue:Double) {
-        self._id = "\(description)-\(_initialInputDate)"
+        
         self._description = description
         
         //let currentDateTime = Date()
@@ -71,5 +71,6 @@ class Transaction {
         
         self._balance = balance
         self._totalDue = totalDue
+        self._id = "\(description)-\(_initialInputDate)"
     }
 }
