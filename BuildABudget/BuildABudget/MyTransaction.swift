@@ -57,20 +57,38 @@ class MyTransaction {
     
     
     init(description:String,
+         initialInputDate:Date,
          dueDate:Date,
          datePaidOff:Date,
          balance:Double,
          totalDue:Double) {
         
         self._description = description
-        
-        //let currentDateTime = Date()
-        self._initialInputDate = Date()
+        self._initialInputDate = initialInputDate //this should be auto set by the transactionViewController as = Date() to capture the current date and time.
         self._dueDate = dueDate
         self._datePaidOff = datePaidOff
-        
         self._balance = balance
         self._totalDue = totalDue
         self._id = "\(description)-\(_initialInputDate)"
     }
+    
+    /*
+    init(){
+        self._description = "error"
+        self._initialInputDate = Date()
+        self._dueDate = Date()
+        self._datePaidOff = Date()
+        self._balance = 0.0
+        self._totalDue = 0.0
+        self._id = "error"
+    }
+ */
 }
+
+
+
+
+
+
+
+

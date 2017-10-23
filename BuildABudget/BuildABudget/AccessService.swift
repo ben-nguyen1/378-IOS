@@ -81,7 +81,104 @@ class AccessService {
     // To keep it that way, don't allow any code outside this class to instantiate an object of this type.
     private init() {}
     
-
+    
+    //Transaction Methods:
+    func retreiveAllTransactions() {
+        
+        let managedContext = persistentContainer.viewContext
+        var fetchedResults:[NSManagedObject]? = nil
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName:"Transaction")
+        
+        do {
+            try fetchedResults = managedContext.fetch(fetchRequest) as? [NSManagedObject]
+        } catch {
+            let nserror = error as NSError
+            NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
+            abort()
+        }
+        
+        guard let results = fetchedResults else { return }
+        transactions = results
+    }
+    
+    func saveTransaction(input: MyTransaction) {
+        
+        let managedContext = persistentContainer.viewContext
+        // Create the entity we want to save
+        let entity = NSEntityDescription.entity(forEntityName: "Transaction", in: managedContext)
+        let record = NSManagedObject(entity: entity!, insertInto:managedContext)
+        
+        // Set the attribute values
+        record.setValue(input.balance, forKey: "currentAmount")
+        record.setValue(input.datePaidOff, forKey: "datePaidOff")
+        record.setValue(input.dueDate, forKey: "dueDate")
+        record.setValue(input.initialInputDate, forKey: "occuranceDate")
+        record.setValue(input.totalDue, forKey: "totalAmount")
+        record.setValue(input.desciption, forKey: "transactionDescription")
+        //record.setValue(input.id, forKey: "uniqueID")
+        
+        // Commit the changes.
+        do {
+            try managedContext.save()
+            transactions.append(record)
+        } catch {
+            let nserror = error as NSError
+            NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
+            abort()
+        }
+    }
+    
+    func totalTransactions() -> Int {
+        return transactions.count
+    }
+    
+    func getTransaction(index:Int) -> MyTransaction {
+        if index < transactions.count {
+            let record = transactions[index]
+            let rDescription =      record.value(forKey: "transactionDescription") as! String
+            let rInitialInputDate = record.value(forKey: "occuranceDate") as! Date
+            let rDueDate =          record.value(forKey: "dueDate") as! Date
+            let rDatePaidOff =      record.value(forKey: "datePaidOff") as! Date
+            let rBalance =          record.value(forKey: "currentAmount") as! Double
+            let rTotalDue =         record.value(forKey: "totalAmount") as! Double
+            //let rId = record.value(forKey: "uniqueID") as! String
+            
+            
+            
+            
+            
+            return MyTransaction(description: rDescription,
+                                 initialInputDate: rInitialInputDate,
+                                 dueDate: rDueDate,
+                                 datePaidOff: rDatePaidOff,
+                                 balance: rBalance,
+                                 totalDue: rTotalDue)
+        } else {
+            return MyTransaction(description: "error",
+                                 initialInputDate: Date(),
+                                 dueDate: Date(),
+                                 datePaidOff: Date(),
+                                 balance: 0.0,
+                                 totalDue: 0.0)
+        }
+    }
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
