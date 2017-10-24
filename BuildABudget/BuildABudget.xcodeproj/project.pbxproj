@@ -15,6 +15,7 @@
 		B818DC501F9D5BCB0084C503 /* AccessService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B818DC4F1F9D5BCB0084C503 /* AccessService.swift */; };
 		B818DC521F9D6B5B0084C503 /* MyTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B818DC511F9D6B5B0084C503 /* MyTransaction.swift */; };
 		B83B50531F9ECE8A0065ED04 /* MyGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83B50521F9ECE8A0065ED04 /* MyGoal.swift */; };
+		B83B50551F9EDB790065ED04 /* MyBudget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83B50541F9EDB790065ED04 /* MyBudget.swift */; };
 		CC457A341F8813E400C98537 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC457A331F8813E400C98537 /* AppDelegate.swift */; };
 		CC457A391F8813E400C98537 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC457A371F8813E400C98537 /* Main.storyboard */; };
 		CC457A3C1F8813E400C98537 /* BuildABudget.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CC457A3A1F8813E400C98537 /* BuildABudget.xcdatamodeld */; };
@@ -36,6 +37,7 @@
 		B818DC4F1F9D5BCB0084C503 /* AccessService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessService.swift; sourceTree = "<group>"; };
 		B818DC511F9D6B5B0084C503 /* MyTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTransaction.swift; sourceTree = "<group>"; };
 		B83B50521F9ECE8A0065ED04 /* MyGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyGoal.swift; sourceTree = "<group>"; };
+		B83B50541F9EDB790065ED04 /* MyBudget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBudget.swift; sourceTree = "<group>"; };
 		CC457A301F8813E400C98537 /* BuildABudget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BuildABudget.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC457A331F8813E400C98537 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CC457A381F8813E400C98537 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 				B818DC4F1F9D5BCB0084C503 /* AccessService.swift */,
 				B818DC511F9D6B5B0084C503 /* MyTransaction.swift */,
 				B83B50521F9ECE8A0065ED04 /* MyGoal.swift */,
+				B83B50541F9EDB790065ED04 /* MyBudget.swift */,
 				CC93DC461F99DAF100070CF7 /* TabBarViewController.swift */,
 			);
 			path = BuildABudget;
@@ -181,6 +184,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC93DC431F99D16300070CF7 /* Account.swift in Sources */,
+				B83B50551F9EDB790065ED04 /* MyBudget.swift in Sources */,
 				B818DC501F9D5BCB0084C503 /* AccessService.swift in Sources */,
 				CC53D9AA1F882521008977D6 /* CreateAccountViewController.swift in Sources */,
 				CC53D9A81F882504008977D6 /* LoginViewController.swift in Sources */,
