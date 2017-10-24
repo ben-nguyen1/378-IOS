@@ -60,7 +60,7 @@ class MyDate {
         components.year = inputYear
         components.month = inputMinute
         components.year = inputHour
-            
+        
         return myCalendar.date(from: components)!
     }
     

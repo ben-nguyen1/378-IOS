@@ -2,9 +2,11 @@
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fmodern\fcharset0 CourierNewPSMT;\f2\fnil\fcharset0 Menlo-Regular;
 }
 {\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red0\green255\blue0;\red0\green0\blue0;
-\red255\green255\blue255;\red170\green13\blue145;\red92\green38\blue153;\red28\green0\blue207;}
+\red255\green255\blue0;\red255\green255\blue255;\red170\green13\blue145;\red92\green38\blue153;\red28\green0\blue207;
+\red0\green116\blue0;}
 {\*\expandedcolortbl;;\cssrgb\c0\c0\c0;\csgenericrgb\c0\c100000\c0;\csgenericrgb\c0\c0\c0;
-\csgray\c100000;\csgenericrgb\c66500\c5200\c56900;\csgenericrgb\c35900\c14900\c60100;\csgenericrgb\c11000\c0\c81000;}
+\csgenericrgb\c100000\c100000\c0;\csgray\c100000;\csgenericrgb\c66500\c5200\c56900;\csgenericrgb\c35900\c14900\c60100;\csgenericrgb\c11000\c0\c81000;
+\csgenericrgb\c0\c45600\c0;}
 {\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid1\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid1}}
 {\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}}
 \margl1440\margr1440\vieww14200\viewh16500\viewkind0
@@ -37,28 +39,39 @@ Chris:\
 \cb3 -tab bar controller\
 \cb1 -Budget screen (Monthly income/expenses)\
 \cb3 -Settings Icon\
-\cb1 -coreData -> Income/Expenses entity\
+\cf4 \cb5 -coreData -> Income/Expenses entity\
 
-\fs32 \
+\fs32 \cf2 \cb1 \
 \
 \pard\tx543\pardeftab543\pardirnatural\partightenfactor0
 
-\f2\fs22 \cf4 \cb5 \kerning1\expnd0\expndtw0    \cf6 fileprivate\cf4  \cf6 var\cf4  _description: \cf7 String
+\f2\fs22 \cf4 \cb6 \kerning1\expnd0\expndtw0 My goal:\
+\
+ \cf7 fileprivate\cf4  \cf7 var\cf4  _description: \cf8 String
 \f0\fs24 \cf0 \
 
-\f2\fs22 \cf4     \cf6 fileprivate\cf4  \cf6 var\cf4  _initialInputDate: \cf7 Date
+\f2\fs22 \cf4     
 \f0\fs24 \cf0 \
 
-\f2\fs22 \cf4     \cf6 fileprivate\cf4  \cf6 var\cf4  _dueDate: \cf7 Date
+\f2\fs22 \cf4     \cf7 fileprivate\cf4  \cf7 var\cf4  _startDate: \cf8 Date
 \f0\fs24 \cf0 \
 
-\f2\fs22 \cf4     \cf6 fileprivate\cf4  \cf6 var\cf4  _datePaidOff: \cf7 Date
+\f2\fs22 \cf4     \cf7 fileprivate\cf4  \cf7 var\cf4  _endDate: \cf8 Date
 \f0\fs24 \cf0 \
 
-\f2\fs22 \cf4     \cf6 fileprivate\cf4  \cf6 var\cf4  _totalDue: \cf7 Double\cf4  = \cf8 \cb5 0.0
-\f0\fs24 \cf0 \cb5 \
+\f2\fs22 \cf4     
+\f0\fs24 \cf0 \
 
-\f2\fs22 \cf4     \cf6 fileprivate\cf4  \cf6 var\cf4  _isReoccuring: \cf7 Bool
+\f2\fs22 \cf4     \cf7 fileprivate\cf4  \cf7 var\cf4  _monthlyContribution: \cf8 Double\cf4  = \cf9 \cb6 0.0\cf4 \cb6  \cf10 //monthyl expense that is setup by user and displayed on ChecklistViewController and BudgetViewController as expense
+\f0\fs24 \cf0 \
+
+\f2\fs22 \cf4     \cf7 fileprivate\cf4  \cf7 var\cf4  _totalContribution: \cf8 Double\cf4  = \cf9 \cb6 0.0\cf4 \cb6  \cf10 //running total of all transactions paid toward this goal
+\f0\fs24 \cf0 \
+
+\f2\fs22 \cf4     
+\f0\fs24 \cf0 \
+
+\f2\fs22 \cf4     \cf7 fileprivate\cf4  \cf7 var\cf4  _contributionList:
 \f1\fs32 \cf2 \cb1 \expnd0\expndtw0\kerning0
 \
 \pard\tx720\pardeftab720\partightenfactor0

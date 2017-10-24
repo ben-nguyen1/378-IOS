@@ -153,12 +153,6 @@ class AccessService {
         
     }
     
-    
-    
-    
-    
-    
-    
     //========================================================================================================================================
 
     
@@ -236,7 +230,83 @@ class AccessService {
     }
     //========================================================================================================================================
 
-}
+    //Transaction Methods:
+    func retreiveAllBudgets() {
+        
+        let managedContext = persistentContainer.viewContext
+        var fetchedResults:[NSManagedObject]? = nil
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName:"Transaction")
+        
+        do {
+            try fetchedResults = managedContext.fetch(fetchRequest) as? [NSManagedObject]
+        } catch {
+            let nserror = error as NSError
+            NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
+            abort()
+        }
+        
+        guard let results = fetchedResults else { return }
+        transactions = results
+    }
+    
+    func saveBudget(input: budgets) {
+        
+        let managedContext = persistentContainer.viewContext
+        // Create the entity we want to save
+        let entity = NSEntityDescription.entity(forEntityName: "Transaction", in: managedContext)
+        let record = NSManagedObject(entity: entity!, insertInto:managedContext)
+        
+        // Set the attribute values
+        record.setValue(input.datePaidOff, forKey: "datePaidOff")
+        record.setValue(input.dueDate, forKey: "dueDate")
+        record.setValue(input.initialInputDate, forKey: "occuranceDate")
+        record.setValue(input.totalDue, forKey: "totalAmount")
+        record.setValue(input.desciption, forKey: "transactionDescription")
+        
+        // Commit the changes.
+        do {
+            try managedContext.save()
+            transactions.append(record)
+        } catch {
+            let nserror = error as NSError
+            NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
+            abort()
+        }
+    }
+    
+    func totalBudgets() -> Int {
+        return budgets.count
+    }
+    
+    func getBudget(index:Int) -> MyBudget {
+        
+        if index < transactions.count {
+            let record = transactions[index]
+            let rDescription =      record.value(forKey: "transactionDescription") as! String
+            let rInitialInputDate = record.value(forKey: "occuranceDate") as! Date
+            let rDueDate =          record.value(forKey: "dueDate") as! Date
+            let rDatePaidOff =      record.value(forKey: "datePaidOff") as! Date
+            let rTotalDue =         record.value(forKey: "totalAmount") as! Double
+            let rIsReoccuring =     record.value(forKey: "isReoccuring") as! Bool
+            
+            
+            return MyBudget(description: rDescription,
+                                 initialInputDate: rInitialInputDate,
+                                 dueDate: rDueDate,
+                                 datePaidOff: rDatePaidOff,
+                                 totalDue: rTotalDue,
+                                 isReoccuring:rIsReoccuring)
+            
+        } else {
+            return MyBudget()
+        }
+        
+    }
+    
+    
+    
+    
+}//end of class
 
 
 
