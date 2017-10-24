@@ -9,7 +9,6 @@ import Foundation
 
 class MyTransaction {
     
-    fileprivate var _id: String
     fileprivate var _description: String
     
     fileprivate var _initialInputDate: Date
@@ -19,11 +18,6 @@ class MyTransaction {
     fileprivate var _balance: Double = 0.0
     fileprivate var _totalDue: Double = 0.0
     
-    
-    var id:String {
-        get{ return _id}
-        set(inputId){ _id = inputId}
-    }
     
     var desciption:String {
         get{ return _description}
@@ -69,7 +63,6 @@ class MyTransaction {
         self._datePaidOff = datePaidOff
         self._balance = balance
         self._totalDue = totalDue
-        self._id = "\(description)-\(_initialInputDate)"
     }
     
     
@@ -80,7 +73,6 @@ class MyTransaction {
         self._datePaidOff = Date()
         self._balance = 0.0
         self._totalDue = 0.0
-        self._id = "error"
     }
  
 }
