@@ -108,13 +108,11 @@ class AccessService {
         let record = NSManagedObject(entity: entity!, insertInto:managedContext)
         
         // Set the attribute values
-        record.setValue(input.balance, forKey: "currentAmount")
         record.setValue(input.datePaidOff, forKey: "datePaidOff")
         record.setValue(input.dueDate, forKey: "dueDate")
         record.setValue(input.initialInputDate, forKey: "occuranceDate")
         record.setValue(input.totalDue, forKey: "totalAmount")
         record.setValue(input.desciption, forKey: "transactionDescription")
-        //record.setValue(input.id, forKey: "uniqueID")
         
         // Commit the changes.
         do {
@@ -142,15 +140,12 @@ class AccessService {
             let rDatePaidOff =      record.value(forKey: "datePaidOff") as! Date
             let rBalance =          record.value(forKey: "currentAmount") as! Double
             let rTotalDue =         record.value(forKey: "totalAmount") as! Double
-            //let rId = record.value(forKey: "uniqueID") as! String
-            
+            let rIsReoccuring =     record.value(forKey: "isReoccuring") as! Bool
             
             return MyTransaction(description: rDescription,
-                                 initialInputDate: rInitialInputDate,
                                  dueDate: rDueDate,
-                                 datePaidOff: rDatePaidOff,
-                                 balance: rBalance,
-                                 totalDue: rTotalDue)
+                                 totalDue: rTotalDue,
+                                 isReoccuring: rIsReoccuring)
             
         } else {
             return MyTransaction()
@@ -194,13 +189,11 @@ class AccessService {
         let record = NSManagedObject(entity: entity!, insertInto:managedContext)
         
         // Set the attribute values
-        record.setValue(input.balance, forKey: "currentAmount")
         record.setValue(input.datePaidOff, forKey: "datePaidOff")
         record.setValue(input.dueDate, forKey: "dueDate")
         record.setValue(input.initialInputDate, forKey: "occuranceDate")
         record.setValue(input.totalDue, forKey: "totalAmount")
         record.setValue(input.desciption, forKey: "transactionDescription")
-        //record.setValue(input.id, forKey: "uniqueID")
         
         // Commit the changes.
         do {
@@ -225,17 +218,16 @@ class AccessService {
             let rInitialInputDate = record.value(forKey: "occuranceDate") as! Date
             let rDueDate =          record.value(forKey: "dueDate") as! Date
             let rDatePaidOff =      record.value(forKey: "datePaidOff") as! Date
-            let rBalance =          record.value(forKey: "currentAmount") as! Double
             let rTotalDue =         record.value(forKey: "totalAmount") as! Double
-            //let rId = record.value(forKey: "uniqueID") as! String
+            let rIsReoccuring =     record.value(forKey: "isReoccuring") as! Bool
             
             
             return MyTransaction(description: rDescription,
                                  initialInputDate: rInitialInputDate,
                                  dueDate: rDueDate,
                                  datePaidOff: rDatePaidOff,
-                                 balance: rBalance,
-                                 totalDue: rTotalDue)
+                                 totalDue: rTotalDue,
+                                 isReoccuring:rIsReoccuring)
         
         } else {
              return MyTransaction()

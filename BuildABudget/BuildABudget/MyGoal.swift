@@ -54,16 +54,6 @@ class MyGoal {
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     //initializers
     init(description:String,
          startDate:Date,

@@ -10,13 +10,13 @@ import Foundation
 class MyTransaction {
     
     fileprivate var _description: String
-    
     fileprivate var _initialInputDate: Date
     fileprivate var _dueDate: Date
     fileprivate var _datePaidOff: Date
-    
-    fileprivate var _balance: Double = 0.0
     fileprivate var _totalDue: Double = 0.0
+    fileprivate var _isReoccuring: Bool
+    
+    var date = MyDate() //instance of MyDate class to get access to its methods
     
     
     var desciption:String {
@@ -39,40 +39,68 @@ class MyTransaction {
         set(inputDatePaidOff){ _datePaidOff = inputDatePaidOff}
     }
     
-    var balance:Double {
-        get{ return _balance}
-        set(inputBalance){ _balance = inputBalance}
-    }
-    
     var totalDue:Double {
         get{ return _totalDue}
         set(inputTotalDue){ _totalDue = inputTotalDue}
     }
     
+    var isReoccuring:Bool {
+        get{ return _isReoccuring}
+        set(inputIsReoccuring){ _isReoccuring = inputIsReoccuring}
+    }
     
-    init(description:String,
-         initialInputDate:Date,
-         dueDate:Date,
-         datePaidOff:Date,
-         balance:Double,
-         totalDue:Double) {
+    //functions below
+    func isPastDue() -> Bool {
+        
+        if _datePaidOff > _initialInputDate{
+            return true
+        } else{
+            return false
+        }
+        
+    }
+
+    
+    //for when this transaction is returned from CoreData
+    init(description: String,
+         initialInputDate: Date,
+         dueDate: Date,
+         datePaidOff: Date,
+         totalDue: Double,
+         isReoccuring: Bool) {
         
         self._description = description
-        self._initialInputDate = initialInputDate //this should be auto set by the transactionViewController as = Date() to capture the current date and time.
+        self._initialInputDate = initialInputDate
         self._dueDate = dueDate
         self._datePaidOff = datePaidOff
-        self._balance = balance
         self._totalDue = totalDue
+        self._isReoccuring = isReoccuring
     }
     
     
+    //for brand new transactions
+    init(description:String,
+         dueDate:Date,
+         totalDue:Double,
+         isReoccuring:Bool) {
+        
+        self._description = description
+        self._initialInputDate = Date()
+        self._dueDate = dueDate
+        self._datePaidOff = date.setToYesterday( today: Date() )//setting this Date to yesterday's date indicates that the bill has not been paid off.
+        self._totalDue = totalDue
+        self._isReoccuring = isReoccuring
+    }
+    
+    
+    //incase the access object hits and error and needs to return something so the app does not crash
     init(){
         self._description = "error"
         self._initialInputDate = Date()
         self._dueDate = Date()
         self._datePaidOff = Date()
-        self._balance = 0.0
         self._totalDue = 0.0
+        self._isReoccuring = false
     }
  
 }

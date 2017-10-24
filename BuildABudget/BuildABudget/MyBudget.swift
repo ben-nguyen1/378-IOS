@@ -43,10 +43,33 @@ class MyBudget {
         set(inputDate){ _endDate = endDate}
     }
     
+    /*
+    var allExpenses: [MyTransaction]{
+        get{ return _endDate}
+        set(inputDate){ _endDate = endDate}
+    }
+    */
     
     
     
     //initializers
+    //only for when the access object successfully returns a MyBudget object
+    init(description:String,
+         startDate:Date,
+         endDate:Date,
+         expenseSources:[MyTransaction],
+         incomeSources:[MyTransaction]
+        ) {
+        
+        self._description = description
+        self._startDate = startDate
+        self._endDate = endDate
+        self._expenseSources = expenseSources
+        self._incomeSources = incomeSources
+    }
+    
+    
+    //only for when a brand new MyBudget object is created
     init(description:String,
          startDate:Date,
          endDate:Date
@@ -59,7 +82,7 @@ class MyBudget {
         self._incomeSources = []
     }
     
-    
+    //when the access object has to return an error
     init(){
         self._description = "error"
         self._startDate = Date()
