@@ -14,6 +14,7 @@
 		B81632E41F99960300A04E43 /* Goals.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B81632E31F99960300A04E43 /* Goals.storyboard */; };
 		B818DC501F9D5BCB0084C503 /* AccessService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B818DC4F1F9D5BCB0084C503 /* AccessService.swift */; };
 		B818DC521F9D6B5B0084C503 /* MyTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B818DC511F9D6B5B0084C503 /* MyTransaction.swift */; };
+		B83B50531F9ECE8A0065ED04 /* MyGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83B50521F9ECE8A0065ED04 /* MyGoal.swift */; };
 		CC457A341F8813E400C98537 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC457A331F8813E400C98537 /* AppDelegate.swift */; };
 		CC457A391F8813E400C98537 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC457A371F8813E400C98537 /* Main.storyboard */; };
 		CC457A3C1F8813E400C98537 /* BuildABudget.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CC457A3A1F8813E400C98537 /* BuildABudget.xcdatamodeld */; };
@@ -34,6 +35,7 @@
 		B81632E31F99960300A04E43 /* Goals.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Goals.storyboard; sourceTree = "<group>"; };
 		B818DC4F1F9D5BCB0084C503 /* AccessService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessService.swift; sourceTree = "<group>"; };
 		B818DC511F9D6B5B0084C503 /* MyTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTransaction.swift; sourceTree = "<group>"; };
+		B83B50521F9ECE8A0065ED04 /* MyGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyGoal.swift; sourceTree = "<group>"; };
 		CC457A301F8813E400C98537 /* BuildABudget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BuildABudget.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC457A331F8813E400C98537 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CC457A381F8813E400C98537 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 				CC457A3A1F8813E400C98537 /* BuildABudget.xcdatamodeld */,
 				B818DC4F1F9D5BCB0084C503 /* AccessService.swift */,
 				B818DC511F9D6B5B0084C503 /* MyTransaction.swift */,
+				B83B50521F9ECE8A0065ED04 /* MyGoal.swift */,
 				CC93DC461F99DAF100070CF7 /* TabBarViewController.swift */,
 			);
 			path = BuildABudget;
@@ -185,6 +188,7 @@
 				CC93DC4B1F99DE6C00070CF7 /* OverViewController.swift in Sources */,
 				CC93DC471F99DAF100070CF7 /* TabBarViewController.swift in Sources */,
 				CC457A341F8813E400C98537 /* AppDelegate.swift in Sources */,
+				B83B50531F9ECE8A0065ED04 /* MyGoal.swift in Sources */,
 				B818DC521F9D6B5B0084C503 /* MyTransaction.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

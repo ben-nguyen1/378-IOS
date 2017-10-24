@@ -72,7 +72,7 @@ class MyTransaction {
         self._id = "\(description)-\(_initialInputDate)"
     }
     
-    /*
+    
     init(){
         self._description = "error"
         self._initialInputDate = Date()
@@ -82,7 +82,7 @@ class MyTransaction {
         self._totalDue = 0.0
         self._id = "error"
     }
- */
+ 
 }
 
 
