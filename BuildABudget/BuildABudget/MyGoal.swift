@@ -62,7 +62,8 @@ class MyGoal {
          startDate:Date,
          endDate:Date,
          monthlyContribution:Double,
-         totalContribution:Double) {
+         totalContribution:Double,
+         contributionList: [MyTransaction]) {
         
         self._description = description
         self._startDate = startDate

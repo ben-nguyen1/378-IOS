@@ -145,7 +145,8 @@ class AccessService {
                           startDate: rStartDate,
                           endDate: rEndDate,
                           monthlyContribution: rMonthlyContributionAmount,
-                          totalContribution: rMonthlyContributionAmount
+                          totalContribution: rMonthlyContributionAmount,
+                          contributionList: rContributionList
                          )
             
         } else {
