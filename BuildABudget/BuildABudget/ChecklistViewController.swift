@@ -10,7 +10,8 @@ import UIKit
 
 class ChecklistViewController: UIViewController, UITableViewDataSource {
     @IBOutlet weak var unpaidTableView: UITableView!
-    
+    @IBOutlet weak var paidTableView: UITableView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         unpaidTableView.dataSource = self
@@ -37,13 +38,17 @@ class ChecklistViewController: UIViewController, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if (true) { //TODO: check cell type
+        if (tableView == unpaidTableView) { //TODO: replace dummy values in each if statement
             let cell = tableView.dequeueReusableCell(withIdentifier: "unpaidCell")!
             cell.textLabel!.text = "BONELESS PIZZA"
             cell.detailTextLabel!.text = "$45"
             return cell
         } else {
-            //TODO: handle unpaid custom cell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "paidCell") as! ChecklistPaidTableViewCell
+            cell.amountLabel.text = "$2017"
+            cell.dateLabel!.text = "10/10"
+            cell.expenseLabel.text = "Candles"
+            return cell
         }
     }
 

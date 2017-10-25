@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -29,7 +30,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="343" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="&lt;expense&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="u7c-Pd-ncl">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="&lt;expense&gt;" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="u7c-Pd-ncl">
                                                     <rect key="frame" x="15" y="12" width="85.5" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -66,13 +67,46 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="paidCell" id="KZn-oz-eEu">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="paidCell" id="KZn-oz-eEu" customClass="ChecklistPaidTableViewCell" customModule="BuildABudget" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="343" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="KZn-oz-eEu" id="l9y-AO-q0K">
                                             <rect key="frame" x="0.0" y="0.0" width="343" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;date&gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nct-HP-twp">
+                                                    <rect key="frame" x="143.5" y="11" width="55.5" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;amount&gt;" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JqQ-jt-6PF">
+                                                    <rect key="frame" x="249.5" y="11" width="79.5" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;expense&gt;" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1V6-We-D6z">
+                                                    <rect key="frame" x="14" y="11" width="85.5" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Nct-HP-twp" firstAttribute="centerX" secondItem="l9y-AO-q0K" secondAttribute="centerX" id="6Ee-Zd-CbO"/>
+                                                <constraint firstItem="JqQ-jt-6PF" firstAttribute="centerY" secondItem="l9y-AO-q0K" secondAttribute="centerY" id="CFY-14-rqf"/>
+                                                <constraint firstItem="Nct-HP-twp" firstAttribute="centerY" secondItem="l9y-AO-q0K" secondAttribute="centerY" id="Qr5-We-Ek6"/>
+                                                <constraint firstItem="1V6-We-D6z" firstAttribute="centerY" secondItem="l9y-AO-q0K" secondAttribute="centerY" id="XDp-iY-w6A"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="JqQ-jt-6PF" secondAttribute="trailing" constant="6" id="jXq-cN-qZf"/>
+                                                <constraint firstItem="1V6-We-D6z" firstAttribute="leading" secondItem="l9y-AO-q0K" secondAttribute="leadingMargin" constant="6" id="vRL-lb-ujl"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="amountLabel" destination="JqQ-jt-6PF" id="mEt-0j-08b"/>
+                                            <outlet property="dateLabel" destination="Nct-HP-twp" id="htH-eQ-Kxy"/>
+                                            <outlet property="expenseLabel" destination="1V6-We-D6z" id="sz6-d7-d7V"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -89,6 +123,7 @@
                         <viewLayoutGuide key="safeArea" id="h5K-xr-0ll"/>
                     </view>
                     <connections>
+                        <outlet property="paidTableView" destination="fqq-Xi-PyE" id="oZB-Db-CrU"/>
                         <outlet property="unpaidTableView" destination="Leg-bB-aby" id="FCB-vI-8aM"/>
                     </connections>
                 </viewController>

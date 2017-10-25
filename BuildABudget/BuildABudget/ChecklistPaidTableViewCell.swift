@@ -9,7 +9,10 @@
 import UIKit
 
 class ChecklistPaidTableViewCell: UITableViewCell {
-
+    @IBOutlet weak var amountLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var expenseLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
