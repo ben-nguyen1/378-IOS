@@ -28,6 +28,7 @@
 		CC93DC431F99D16300070CF7 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93DC421F99D16300070CF7 /* Account.swift */; };
 		CC93DC471F99DAF100070CF7 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93DC461F99DAF100070CF7 /* TabBarViewController.swift */; };
 		CC93DC4B1F99DE6C00070CF7 /* OverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93DC4A1F99DE6C00070CF7 /* OverViewController.swift */; };
+		E97D493B1FA11FE80019A4DF /* ChecklistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97D493A1FA11FE80019A4DF /* ChecklistViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		CC93DC421F99D16300070CF7 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		CC93DC461F99DAF100070CF7 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		CC93DC4A1F99DE6C00070CF7 /* OverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverViewController.swift; sourceTree = "<group>"; };
+		E97D493A1FA11FE80019A4DF /* ChecklistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 				CC93DC4A1F99DE6C00070CF7 /* OverViewController.swift */,
 				B81632E11F99952A00A04E43 /* Transactions.storyboard */,
 				B81632DD1F99945F00A04E43 /* Checklist.storyboard */,
+				E97D493A1FA11FE80019A4DF /* ChecklistViewController.swift */,
 				B81632E31F99960300A04E43 /* Goals.storyboard */,
 				CC457A3D1F8813E400C98537 /* Assets.xcassets */,
 				CC457A3F1F8813E400C98537 /* LaunchScreen.storyboard */,
@@ -190,6 +193,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC93DC431F99D16300070CF7 /* Account.swift in Sources */,
+				E97D493B1FA11FE80019A4DF /* ChecklistViewController.swift in Sources */,
 				B83B50551F9EDB790065ED04 /* MyBudget.swift in Sources */,
 				B818DC501F9D5BCB0084C503 /* AccessService.swift in Sources */,
 				CC53D9AA1F882521008977D6 /* CreateAccountViewController.swift in Sources */,
