@@ -50,7 +50,10 @@ class MyGoal {
     
     
     //contributionList methods
-    
+    var allContributions: [MyTransaction]{
+        get{ return _contributionList}
+        set(inputContributions){ _contributionList = inputContributions }
+    }
     
     
     

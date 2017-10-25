@@ -100,19 +100,19 @@ class AccessService {
         goals = results
     }
     
-    func saveGoal(input: MyTransaction) {
+    func saveGoal(input: MyGoal) {
         
         let managedContext = persistentContainer.viewContext
         // Create the entity we want to save
-        let entity = NSEntityDescription.entity(forEntityName: "Transaction", in: managedContext)
+        let entity = NSEntityDescription.entity(forEntityName: "Goals", in: managedContext)
         let record = NSManagedObject(entity: entity!, insertInto:managedContext)
         
         // Set the attribute values
-        record.setValue(input.datePaidOff, forKey: "datePaidOff")
-        record.setValue(input.dueDate, forKey: "dueDate")
-        record.setValue(input.initialInputDate, forKey: "occuranceDate")
-        record.setValue(input.totalDue, forKey: "totalAmount")
-        record.setValue(input.desciption, forKey: "transactionDescription")
+        record.setValue(input.desciption, forKey: "goalDescription")
+        record.setValue(input.startDate, forKey: "startDate")
+        record.setValue(input.endDate, forKey: "endDate")
+        record.setValue(input.monthlyContribution, forKey: "monthlyContributionAmount")
+        record.setValue(input.allContributions, forKey: "contributionList")
         
         // Commit the changes.
         do {
@@ -127,28 +127,29 @@ class AccessService {
     
     
     func totalGoals() -> Int {
-        return transactions.count
+        return goals.count
     }
     
-    func getGoal(index:Int) -> MyTransaction {
+    func getGoal(index:Int) -> MyGoal {
         
         if index < transactions.count {
-            let record = transactions[index]
-            let rDescription =      record.value(forKey: "transactionDescription") as! String
-            let rInitialInputDate = record.value(forKey: "occuranceDate") as! Date
-            let rDueDate =          record.value(forKey: "dueDate") as! Date
-            let rDatePaidOff =      record.value(forKey: "datePaidOff") as! Date
-            let rBalance =          record.value(forKey: "currentAmount") as! Double
-            let rTotalDue =         record.value(forKey: "totalAmount") as! Double
-            let rIsReoccuring =     record.value(forKey: "isReoccuring") as! Bool
+            let record = goals[index]
+            let rDescription               = record.value(forKey: "goalDescription") as! String
+            let rStartDate                 = record.value(forKey: "startDate") as! Date
+            let rEndDate                   = record.value(forKey: "endDate") as! Date
+            let rMonthlyContributionAmount = record.value(forKey: "monthlyContributionAmount") as! Double
+            let rContributionList          = record.value(forKey: "contributionList") as! [MyTransaction]
+
             
-            return MyTransaction(description: rDescription,
-                                 dueDate: rDueDate,
-                                 totalDue: rTotalDue,
-                                 isReoccuring: rIsReoccuring)
+            return MyGoal(description: rDescription,
+                          startDate: rStartDate,
+                          endDate: rEndDate,
+                          monthlyContribution: rMonthlyContributionAmount,
+                          totalContribution: rMonthlyContributionAmount
+                         )
             
         } else {
-            return MyTransaction()
+            return MyGoal()
         }
         
     }
@@ -230,12 +231,12 @@ class AccessService {
     }
     //========================================================================================================================================
 
-    //Transaction Methods:
+    //Budget Methods:
     func retreiveAllBudgets() {
         
         let managedContext = persistentContainer.viewContext
         var fetchedResults:[NSManagedObject]? = nil
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName:"Transaction")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName:"Budget")
         
         do {
             try fetchedResults = managedContext.fetch(fetchRequest) as? [NSManagedObject]
@@ -246,27 +247,27 @@ class AccessService {
         }
         
         guard let results = fetchedResults else { return }
-        transactions = results
+        budgets = results
     }
     
-    func saveBudget(input: budgets) {
+    func saveBudget(input: MyBudget) {
         
         let managedContext = persistentContainer.viewContext
         // Create the entity we want to save
-        let entity = NSEntityDescription.entity(forEntityName: "Transaction", in: managedContext)
+        let entity = NSEntityDescription.entity(forEntityName: "Budget", in: managedContext)
         let record = NSManagedObject(entity: entity!, insertInto:managedContext)
         
         // Set the attribute values
-        record.setValue(input.datePaidOff, forKey: "datePaidOff")
-        record.setValue(input.dueDate, forKey: "dueDate")
-        record.setValue(input.initialInputDate, forKey: "occuranceDate")
-        record.setValue(input.totalDue, forKey: "totalAmount")
-        record.setValue(input.desciption, forKey: "transactionDescription")
+        record.setValue(input.desciption, forKey: "budgetDescription")
+        record.setValue(input.startDate, forKey: "startDate")
+        record.setValue(input.endDate, forKey: "endDate")
+        record.setValue(input.allExpenses, forKey: "expenseSources")
+        record.setValue(input.allIncome, forKey: "incomeSources")
         
         // Commit the changes.
         do {
             try managedContext.save()
-            transactions.append(record)
+            budgets.append(record)
         } catch {
             let nserror = error as NSError
             NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
@@ -280,22 +281,20 @@ class AccessService {
     
     func getBudget(index:Int) -> MyBudget {
         
-        if index < transactions.count {
+        if index < budgets.count {
             let record = transactions[index]
-            let rDescription =      record.value(forKey: "transactionDescription") as! String
-            let rInitialInputDate = record.value(forKey: "occuranceDate") as! Date
-            let rDueDate =          record.value(forKey: "dueDate") as! Date
-            let rDatePaidOff =      record.value(forKey: "datePaidOff") as! Date
-            let rTotalDue =         record.value(forKey: "totalAmount") as! Double
-            let rIsReoccuring =     record.value(forKey: "isReoccuring") as! Bool
+            let rDescription =      record.value(forKey: "budgetDescription") as! String
+            let rStartDate = record.value(forKey: "startDate") as! Date
+            let rEndDate =          record.value(forKey: "endDate") as! Date
+            let rExpenseSources =      record.value(forKey: "expenseSources") as! [MyTransaction]
+            let rIncomeSources =         record.value(forKey: "incomeSources") as! [MyTransaction]
             
             
             return MyBudget(description: rDescription,
-                                 initialInputDate: rInitialInputDate,
-                                 dueDate: rDueDate,
-                                 datePaidOff: rDatePaidOff,
-                                 totalDue: rTotalDue,
-                                 isReoccuring:rIsReoccuring)
+                            startDate: rStartDate,
+                            endDate: rEndDate,
+                            expenseSources: rExpenseSources,
+                            incomeSources: rIncomeSources)
             
         } else {
             return MyBudget()

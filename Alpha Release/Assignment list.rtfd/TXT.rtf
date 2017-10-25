@@ -1,0 +1,138 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fmodern\fcharset0 CourierNewPSMT;\f2\fnil\fcharset0 Menlo-Regular;
+}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red0\green255\blue0;\red0\green0\blue0;
+\red255\green255\blue0;\red255\green255\blue255;\red170\green13\blue145;\red92\green38\blue153;\red0\green116\blue0;
+\red63\green110\blue116;\red28\green0\blue207;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;\csgenericrgb\c0\c100000\c0;\csgenericrgb\c0\c0\c0;
+\csgenericrgb\c100000\c100000\c0;\csgray\c100000;\csgenericrgb\c66500\c5200\c56900;\csgenericrgb\c35900\c14900\c60100;\csgenericrgb\c0\c45600\c0;
+\csgenericrgb\c24700\c43100\c45600;\csgenericrgb\c11000\c0\c81000;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid1\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid1}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}}
+\margl1440\margr1440\vieww14200\viewh16500\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0  
+\f1\fs28 Required per AppIdea Paper:
+\fs24 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls1\ilvl0
+\fs22 \cf2 {\listtext	\'95	}\expnd0\expndtw0\kerning0
+Alpha Release\uc0\u8232 o Login Screen \u8232 o Monthly income and expenses \u8232 o Payment checklist \u8232 \
+\pard\tx720\pardeftab720\partightenfactor0
+\cf2 \
+Ben:\
+-login/create account screens\
+-template for the tutorial screens\
+-User Defaults (account credentials)\
+\
+\
+\
+Nicholas:\
+-Checklist screen (payment checklist)\
+\
+\
+\
+Chris:\
+\cb3 -tab bar controller\
+\cb1 -Budget screen (Monthly income/expenses)\
+\cb3 -Settings Icon\
+\cf4 \cb5 -coreData -> Income/Expenses entity\
+
+\fs32 \cf2 \cb1 \
+\
+MyBudget:\
+\
+\pard\tx543\pardeftab543\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf4 \cb6 \kerning1\expnd0\expndtw0    \cf7 fileprivate\cf4  \cf7 var\cf4  _description: \cf8 String
+\f0\fs24 \cf0 \
+
+\f2\fs22 \cf4     
+\f0\fs24 \cf0 \
+
+\f2\fs22 \cf4     \cf7 fileprivate\cf4  \cf7 var\cf4  _startDate: \cf8 Date
+\f0\fs24 \cf0 \
+
+\f2\fs22 \cf4     \cf7 fileprivate\cf4  \cf7 var\cf4  _endDate: \cf8 Date\cf9 //may need to be revised to match to end of month instead of keeping as a static date
+\f0\fs24 \cf0 \
+
+\f2\fs22 \cf4     
+\f0\fs24 \cf0 \
+
+\f2\fs22 \cf4     \cf7 fileprivate\cf4  \cf7 var\cf4  _expenseSources: [\cf10 MyTransaction\cf4 ] \cf9 //list all monthly bills
+\f0\fs24 \cf0 \
+
+\f2\fs22 \cf4     \cf7 fileprivate\cf4  \cf7 var\cf4  _incomeSources: [\cf10 MyTransaction\cf4 ] \cf9 //list all income streams
+\f1\fs32 \cf2 \cb1 \expnd0\expndtw0\kerning0
+\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \kerning1\expnd0\expndtw0 {{\NeXTGraphic Screen Shot 2017-10-24 at 18.18.04.png \width7920 \height3540
+}¬}\
+\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\
+MyGoal:\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 {{\NeXTGraphic Pasted Graphic.tiff \width840 \height420
+}¬}
+\f2\fs22 \cf4 \cb6  \cf7 fileprivate\cf4  \cf7 var\cf4  _description: \cf8 String
+\f0\fs24 \cf0 \
+\pard\tx543\pardeftab543\pardirnatural\partightenfactor0
+
+\f2\fs22 \cf4     
+\f0\fs24 \cf0 \
+
+\f2\fs22 \cf4     \cf7 fileprivate\cf4  \cf7 var\cf4  _startDate: \cf8 Date
+\f0\fs24 \cf0 \
+
+\f2\fs22 \cf4     \cf7 fileprivate\cf4  \cf7 var\cf4  _endDate: \cf8 Date
+\f0\fs24 \cf0 \
+
+\f2\fs22 \cf4     
+\f0\fs24 \cf0 \
+
+\f2\fs22 \cf4     \cf7 fileprivate\cf4  \cf7 var\cf4  _monthlyContribution: \cf8 Double\cf4  = \cf11 \cb6 0.0\cf4 \cb6  \cf9 //monthyl expense that is setup by user and displayed on ChecklistViewController and BudgetViewController as expense
+\f0\fs24 \cf0 \
+
+\f2\fs22 \cf4     \cf7 fileprivate\cf4  \cf7 var\cf4  _totalContribution: \cf8 Double\cf4  = \cf11 \cb6 0.0\cf4 \cb6  \cf9 //running total of all transactions paid toward this goal
+\f0\fs24 \cf0 \
+
+\f2\fs22 \cf4     
+\f0\fs24 \cf0 \
+
+\f2\fs22 \cf4     \cf7 fileprivate\cf4  \cf7 var\cf4  _contributionList:\
+\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \cb1 {{\NeXTGraphic Screen Shot 2017-10-24 at 18.56.13.png \width8380 \height4760
+}¬}\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 \
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+}

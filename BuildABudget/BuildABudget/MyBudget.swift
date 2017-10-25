@@ -43,12 +43,17 @@ class MyBudget {
         set(inputDate){ _endDate = endDate}
     }
     
-    /*
+    
     var allExpenses: [MyTransaction]{
-        get{ return _endDate}
-        set(inputDate){ _endDate = endDate}
+        get{ return _expenseSources}
+        set(inputExpense){ _expenseSources = inputExpense }
     }
-    */
+    
+    var allIncome: [MyTransaction]{
+        get{ return _incomeSources}
+        set(inputIncome){ _incomeSources = inputIncome }
+    }
+    
     
     
     
