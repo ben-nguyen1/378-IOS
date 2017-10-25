@@ -190,6 +190,8 @@ class AccessService {
         record.setValue(input.initialInputDate, forKey: "occuranceDate")
         record.setValue(input.totalDue, forKey: "totalAmount")
         record.setValue(input.desciption, forKey: "transactionDescription")
+        record.setValue(input.isIncome, forKey: "isIncome")
+
         
         // Commit the changes.
         do {
@@ -216,14 +218,16 @@ class AccessService {
             let rDatePaidOff =      record.value(forKey: "datePaidOff") as! Date
             let rTotalDue =         record.value(forKey: "totalAmount") as! Double
             let rIsReoccuring =     record.value(forKey: "isReoccuring") as! Bool
-            
+            let rIsIncome =     record.value(forKey: "isIncome") as! Bool
+
             
             return MyTransaction(description: rDescription,
                                  initialInputDate: rInitialInputDate,
                                  dueDate: rDueDate,
                                  datePaidOff: rDatePaidOff,
                                  totalDue: rTotalDue,
-                                 isReoccuring:rIsReoccuring)
+                                 isReoccuring:rIsReoccuring,
+                                 isIncome: rIsIncome)
         
         } else {
              return MyTransaction()

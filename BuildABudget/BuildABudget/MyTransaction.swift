@@ -15,6 +15,7 @@ class MyTransaction {
     fileprivate var _datePaidOff: Date
     fileprivate var _totalDue: Double = 0.0
     fileprivate var _isReoccuring: Bool
+    fileprivate var _isIncome: Bool
     
     var date = MyDate() //instance of MyDate class to get access to its methods
     
@@ -49,6 +50,11 @@ class MyTransaction {
         set(inputIsReoccuring){ _isReoccuring = inputIsReoccuring}
     }
     
+    var isIncome:Bool {
+        get{ return _isIncome}
+        set(inputIsIncome){ _isIncome = inputIsIncome}
+    }
+    
     //functions below
     func isPastDue() -> Bool {
         
@@ -62,12 +68,13 @@ class MyTransaction {
 
     
     //for when this transaction is returned from CoreData
-    init(description: String,
-         initialInputDate: Date,
-         dueDate: Date,
-         datePaidOff: Date,
-         totalDue: Double,
-         isReoccuring: Bool) {
+    init(description:       String,
+         initialInputDate:  Date,
+         dueDate:           Date,
+         datePaidOff:       Date,
+         totalDue:          Double,
+         isReoccuring:      Bool,
+         isIncome:          Bool) {
         
         self._description = description
         self._initialInputDate = initialInputDate
@@ -75,14 +82,16 @@ class MyTransaction {
         self._datePaidOff = datePaidOff
         self._totalDue = totalDue
         self._isReoccuring = isReoccuring
+        self._isIncome = isIncome
     }
     
     
     //for brand new transactions
-    init(description:String,
-         dueDate:Date,
-         totalDue:Double,
-         isReoccuring:Bool) {
+    init(description:       String,
+         dueDate:           Date,
+         totalDue:          Double,
+         isReoccuring:      Bool,
+         isIncome:          Bool) {
         
         self._description = description
         self._initialInputDate = Date()
@@ -90,6 +99,7 @@ class MyTransaction {
         self._datePaidOff = date.setToYesterday( today: Date() )//setting this Date to yesterday's date indicates that the bill has not been paid off.
         self._totalDue = totalDue
         self._isReoccuring = isReoccuring
+        self._isIncome = isIncome
     }
     
     
@@ -101,6 +111,7 @@ class MyTransaction {
         self._datePaidOff = Date()
         self._totalDue = 0.0
         self._isReoccuring = false
+        self._isIncome = false
     }
  
 }
