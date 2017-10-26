@@ -10,6 +10,7 @@ import UIKit
 
 class BudgetLineCell: UITableViewCell {
     
+    var inViewTable: Int = 0
     @IBOutlet weak var itemName: UILabel!
     
     @IBOutlet weak var dueDate: UILabel!
