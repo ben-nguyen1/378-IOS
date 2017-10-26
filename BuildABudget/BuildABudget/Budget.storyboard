@@ -72,7 +72,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BudgetLineCell" id="gDc-BE-3qO" userLabel="BugetLineCell" customClass="BudgetAddCell" customModule="BuildABudget" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BudgetLineCell" id="gDc-BE-3qO" userLabel="BugetLineCell" customClass="BudgetLineCell" customModule="BuildABudget" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="343" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gDc-BE-3qO" id="pEM-cL-ytx" customClass="BudgetLineCell" customModule="BuildABudget" customModuleProvider="target">
@@ -102,6 +102,11 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="amount" destination="PYG-mw-djx" id="iy6-HB-26O"/>
+                                            <outlet property="dueDate" destination="wxZ-NM-X6y" id="cvR-Nd-KUv"/>
+                                            <outlet property="itemName" destination="yol-bb-h6i" id="HRe-8I-4z8"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BudgetAddCell" id="0xz-Ku-rxx" userLabel="BudgetAddCell" customClass="BudgetAddCell" customModule="BuildABudget" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="72" width="343" height="44"/>

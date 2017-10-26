@@ -13,32 +13,26 @@ class BudgetLineCell: UITableViewCell {
     
     
     
-    
-    
-    
-    /*
-    @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var itemName: UILabel!
     
     @IBOutlet weak var dueDate: UILabel!
     
     @IBOutlet weak var amount: UILabel!
     
+   
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
- */
-    /*
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
- */
     
-    func config(itemName: String, itemDate: String, itemAmount: String) {
-        /*
-        name.text = itemName
-        dueDate.text = itemDate
-        amount.text = itemAmount
- */
+    func config(inputName: String, inputDate: String, inputAmount: String) {
+        itemName.text = inputName
+        dueDate.text = inputDate
+        amount.text = inputAmount
     }
     
 }
