@@ -64,7 +64,18 @@ class MyDate {
         return myCalendar.date(from: components)!
     }
     
+    func convertStringToDate(inputString: String) -> Date {
+        let newFormat = DateFormatter()
+        newFormat.dateFormat = "MM/dd/yyyy"
+        let newDate = newFormat.date(from: inputString)
+        return newDate!
+    }
     
+    func convertDateToString(inputDate: Date) -> String {
+        let newFormat = DateFormatter()
+        newFormat.dateFormat = "MM/dd/yyyy"
+        return newFormat.string(from: inputDate)  // "01/27/10"
+    }
     
     
     //Default initializer
