@@ -46,6 +46,66 @@ class BudgetViewController: UIViewController {
      */
     
     
+    
+    
+    //return number of rows for a specific tableView
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+        if tableView.tag == 111{//incomeTable
+            return incomeList.count + 1
+        }
+        else if tableView.tag == 222{//expenseTable
+            return expenseList.count + 1
+        }
+        else {
+            return 0 //catches tableview tags that are not incomeTable or expenseTable tags
+        }
+    }
+    
+    //pupulate each table with TableViewCells
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        
+        //decide which table -> use table.tag
+        
+            //decide which indec -> if not last index
+        
+                //normal BudgetLineCell
+        
+            //else -> BudgetAddCell
+        
+        
+        if tableView.tag == 111{//incomeTable
+            
+            if (indexPath.row < (incomeList.count - 1)){//adding a BudgetLineCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "BudgetLineCell", for: indexPath) as! BudgetLineCell
+                //set up the cell
+                cell.config(inputName: incomeList[indexPath.item].desciption, inputDate: incomeList[indexPath.item].dueDate.description, inputAmount: incomeList[indexPath.item].totalDue.description) //may need to chnage how to parameters dueDate and amount are converted to string.
+                return cell
+            }
+            else {//adding a BudgetAddCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "BudgetAddCell", for: indexPath) as! BudgetAddCell
+                return cell
+            }
+        }
+        else {//expenseTable
+            
+            if (indexPath.row < (expenseList.count - 1)){//adding a BudgetLineCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "BudgetLineCell", for: indexPath) as! BudgetLineCell
+                //set up the cell
+                cell.config(inputName: expenseList[indexPath.item].desciption, inputDate: expenseList[indexPath.item].dueDate.description, inputAmount: expenseList[indexPath.item].totalDue.description) //may need to chnage how to parameters dueDate and amount are converted to string.
+                return cell
+            }
+            else {//adding a BudgetAddCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "BudgetAddCell", for: indexPath) as! BudgetAddCell
+                return cell
+            }
+        }
+        
+    }
+    
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
