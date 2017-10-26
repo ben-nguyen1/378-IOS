@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BudgetViewController: UIViewController, UITableViewDataSource {
+class BudgetViewController: UIViewController, UITableViewDataSource, ShowAlertProtocol {
 
     @IBOutlet weak var incomeTable: UITableView! //has attribute .tag = 111
     @IBOutlet weak var expenseTable: UITableView! //has attribute .tag = 222
@@ -21,10 +21,18 @@ class BudgetViewController: UIViewController, UITableViewDataSource {
     fileprivate var expenseList: [MyTransaction] = []
     fileprivate var thisBudget: MyBudget? = nil
     
+    //UIAlert field vars
+    var descriptionTextField: UITextField? = nil
+    var dueDateTextField: UITextField? = nil
+    var totalDueTextField: UITextField? = nil //Double? = nil
+    
+    //var with ability to interface with the coreData storage methods
+    var BudgetAccess = AccessService.access
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        thisBudget = AccessService.access.getBudget(index: 0) //for right now it is hard coded to only get the first budget, we might allow users to save multiple budgets later on.
+        thisBudget = BudgetAccess.getBudget(index: 0) //for right now it is hard coded to only get the first budget, we might allow users to save multiple budgets later on.
         incomeList = (thisBudget?.allIncome)!
         expenseList = (thisBudget?.allExpenses)!
     }
@@ -44,7 +52,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource {
         }
     }
     
-    //pupulate each table with TableViewCells
+    //populate each table with TableViewCells
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         
@@ -55,10 +63,12 @@ class BudgetViewController: UIViewController, UITableViewDataSource {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "BudgetLineCell", for: indexPath) as! BudgetLineCell
                 //set up the cell
                 cell.config(inputName: incomeList[indexPath.item].desciption, inputDate: incomeList[indexPath.item].dueDate.description, inputAmount: incomeList[indexPath.item].totalDue.description) //may need to chnage how to parameters dueDate and amount are converted to string.
+                cell.inViewTable = 111
                 return cell
             }
             else {//adding a BudgetAddCell, since this must be the last index
                 let cell = tableView.dequeueReusableCell(withIdentifier: "BudgetAddCell", for: indexPath) as! BudgetAddCell
+                cell.inViewTable = 111
                 return cell
             }
         }
@@ -68,10 +78,12 @@ class BudgetViewController: UIViewController, UITableViewDataSource {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "BudgetLineCell", for: indexPath) as! BudgetLineCell
                 //set up the cell
                 cell.config(inputName: expenseList[indexPath.item].desciption, inputDate: expenseList[indexPath.item].dueDate.description, inputAmount: expenseList[indexPath.item].totalDue.description) //may need to chnage how to parameters dueDate and amount are converted to string.
+                cell.inViewTable = 222
                 return cell
             }
             else {//adding a BudgetAddCell, since this must be the last index
                 let cell = tableView.dequeueReusableCell(withIdentifier: "BudgetAddCell", for: indexPath) as! BudgetAddCell
+                cell.inViewTable = 222
                 return cell
             }
         }
@@ -91,7 +103,84 @@ class BudgetViewController: UIViewController, UITableViewDataSource {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
+    
+    func launchAlertWindow(tableValueInput: Int){
+        
+        //vars
+        var alertWindowTitle:   String = ""
+        var description:        String = ""
+        var initialInputDate:   Date = Date()
+        var dueDate:            Date? = nil
+        //var datePaidOff:       Date, //do not fill out this field here -> this is for checklist view controller to edit
+        var totalDue:           Double = 0.0
+        var isReoccuring:       Bool = true //by default since this MyTransaction object is generated in the Budget View Controller isReoccuring must be yes.
+        var isIncome:           Bool = false //only changed if add button from incomeTable is pressed
+        
+        //we need a MyDate object to convert the string input for dueDate to an actual Date objectc
+        var thisDate = MyDate()
+        
+        if tableValueInput == 111 {// 111 means we are in the incomeTable
+            alertWindowTitle = "New Monthly Income"
+            isIncome = true
+        }
+        else {// this means that our inViewTable tag is 222 and we are in the expenseTable
+            alertWindowTitle = "New Monthly Expense"
+        }
+        
+        let alert = UIAlertController(title: alertWindowTitle, message: "Fill out all fields", preferredStyle: .alert)
+        
+        let saveAction = UIAlertAction(title: "Save", style: .default) { (action: UIAlertAction!) -> Void in
+            /*
+            guard let descriptionTextField = self.descriptionTextField?.text else { return }
+            description = descriptionTextField
+            guard let dueDateTextField = self.dueDateTextField?.text else { return }
+            dueDate = thisDate.makeDate(inputDay: Int:(), inputMonth: <#T##Int#>, inputYear: <#T##Int#>, inputMinute: <#T##Int#>, inputHour: <#T##Int#>)
+            guard let totalDueTextField = self.totalDueTextField?.text else { return }
+            
+            //PersistenceService.shared.savePerson(name: nameTextField, age: ageTextField)
+            var newTransaction =
+            BudgetAccess.
+            //self.tableView.reloadData()  // causes the table data source protocol methods to execute
+ */
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (action: UIAlertAction!) -> Void in
+        }
+        
+        alert.addTextField { (textField) -> Void in
+            textField.placeholder = "Item Description"
+            self.descriptionTextField = textField
+        }
+        alert.addTextField { (textField) -> Void in
+            textField.placeholder = "Amount ex: 32.49"
+            textField.keyboardType = .numberPad
+            self.dueDateTextField = textField
+        }
+        alert.addTextField { (textField) -> Void in
+            textField.placeholder = "Due Date ex: 1/9/2017"
+            textField.keyboardType = .numberPad
+            self.totalDueTextField = textField
+        }
+        
+        alert.addAction(saveAction)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
+        
+    }
+    
+    func AlertSaveAction(){
+        
+    }
+    
 
+}//end of BudgetViewController class
+
+
+protocol ShowAlertProtocol{
+    
+    func launchAlertWindow(tableValueInput: Int)
 }
 
 
