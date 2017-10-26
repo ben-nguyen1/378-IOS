@@ -13,7 +13,7 @@
         <!--Budget-->
         <scene sceneID="5Ia-vt-qXd">
             <objects>
-                <viewController title="Budget" id="LKW-qJ-jmF" customClass="BudgetViewController" customModule="BuildABudget" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="budgetVC" title="Budget" id="LKW-qJ-jmF" customClass="BudgetViewController" customModule="BuildABudget" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Nci-0B-OXQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -201,7 +201,7 @@
                         <color key="backgroundColor" red="0.74080312250000002" green="0.89666754010000005" blue="0.99832695719999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="z1N-Gl-m9J"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Budget" image="Budget - pie chart 2" id="SP3-KQ-doA"/>
+                    <tabBarItem key="tabBarItem" title="Budget" image="Budget - pie chart 2" id="1z2-H3-9g2"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="differenceLabel" destination="Ff0-cI-Xfz" id="saG-4s-Hlw"/>

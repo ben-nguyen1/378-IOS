@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Over View Controller-->
+        <!--Overview-->
         <scene sceneID="ibi-wl-UZy">
             <objects>
                 <viewController storyboardIdentifier="overviewVC" id="kn8-v0-DFO" customClass="OverViewController" customModule="BuildABudget" customModuleProvider="target" sceneMemberID="viewController">
@@ -29,11 +29,16 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="l2S-g2-6Lc"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Overview" image="Overview - graphs" id="Rgj-hZ-Fpw"/>
                     <navigationItem key="navigationItem" id="C1D-5T-QUg"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XXd-F2-ntN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="496.80000000000001" y="105.69715142428787"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Overview - graphs" width="30" height="30"/>
+    </resources>
 </document>
