@@ -8,7 +8,12 @@
 
 import UIKit
 
-class TransactionCell: UITableViewCell {
+class BudgetLineCell: UITableViewCell {
+    
+    
+    
+    
+    
     
     
     /*
