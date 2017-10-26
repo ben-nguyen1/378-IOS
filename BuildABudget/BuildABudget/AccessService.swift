@@ -286,7 +286,7 @@ class AccessService {
     
     func getBudget(index:Int) -> MyBudget {
         
-        if index < budgets.count {
+        if index < budgets.count { //need to change this conditional from index < budgets.count to ???
             let record = transactions[index]
             let rDescription =      record.value(forKey: "budgetDescription") as! String
             let rStartDate = record.value(forKey: "startDate") as! Date

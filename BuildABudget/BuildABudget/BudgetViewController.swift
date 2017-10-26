@@ -8,11 +8,10 @@
 
 import UIKit
 
-class BudgetViewController: UIViewController {
+class BudgetViewController: UIViewController, UITableViewDataSource {
 
-    @IBOutlet weak var incomeTable: UITableView!
-    @IBOutlet weak var expenseTable: UITableView!
-    
+    @IBOutlet weak var incomeTable: UITableView! //has attribute .tag = 111
+    @IBOutlet weak var expenseTable: UITableView! //has attribute .tag = 222
     
     @IBOutlet weak var incomeLabel: UILabel!
     @IBOutlet weak var expenseLabel: UILabel!
@@ -25,27 +24,10 @@ class BudgetViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         thisBudget = AccessService.access.getBudget(index: 0) //for right now it is hard coded to only get the first budget, we might allow users to save multiple budgets later on.
         incomeList = (thisBudget?.allIncome)!
         expenseList = (thisBudget?.allExpenses)!
     }
-    
-    /*
-     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-     //let cell = tableView.dequeueReusableCell(withIdentifier: "cellid", for: indexPath)
-     
-     // Configure the cell...
-     //let person = PersistenceService.shared.getPerson(index: indexPath.row)
-     
-     //cell.textLabel?.text = person.name
-     //cell.detailTextLabel?.text = String(person.age)
-     
-     return cell
-     }
-     */
-    
-    
     
     
     //return number of rows for a specific tableView
@@ -64,15 +46,7 @@ class BudgetViewController: UIViewController {
     
     //pupulate each table with TableViewCells
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        
-        //decide which table -> use table.tag
-        
-            //decide which indec -> if not last index
-        
-                //normal BudgetLineCell
-        
-            //else -> BudgetAddCell
+
         
         
         if tableView.tag == 111{//incomeTable
@@ -83,7 +57,7 @@ class BudgetViewController: UIViewController {
                 cell.config(inputName: incomeList[indexPath.item].desciption, inputDate: incomeList[indexPath.item].dueDate.description, inputAmount: incomeList[indexPath.item].totalDue.description) //may need to chnage how to parameters dueDate and amount are converted to string.
                 return cell
             }
-            else {//adding a BudgetAddCell
+            else {//adding a BudgetAddCell, since this must be the last index
                 let cell = tableView.dequeueReusableCell(withIdentifier: "BudgetAddCell", for: indexPath) as! BudgetAddCell
                 return cell
             }
@@ -96,7 +70,7 @@ class BudgetViewController: UIViewController {
                 cell.config(inputName: expenseList[indexPath.item].desciption, inputDate: expenseList[indexPath.item].dueDate.description, inputAmount: expenseList[indexPath.item].totalDue.description) //may need to chnage how to parameters dueDate and amount are converted to string.
                 return cell
             }
-            else {//adding a BudgetAddCell
+            else {//adding a BudgetAddCell, since this must be the last index
                 let cell = tableView.dequeueReusableCell(withIdentifier: "BudgetAddCell", for: indexPath) as! BudgetAddCell
                 return cell
             }
@@ -105,13 +79,13 @@ class BudgetViewController: UIViewController {
     }
     
     
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
+
     
     override func viewDidLoad() {
-        super.viewDidLoad()// Do any additional setup after loading the view, typically from a nib.
+        super.viewDidLoad()
+        incomeTable.dataSource = self
+        expenseTable.dataSource = self
+        navigationItem.title = "Budget"
     }
     
     override func didReceiveMemoryWarning() {
