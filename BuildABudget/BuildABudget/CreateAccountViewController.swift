@@ -42,6 +42,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         pass.text = nil
         pass.placeholder = "Password"
         pass.delegate = self
+        pass.isSecureTextEntry = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,7 +50,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     @IBAction func createBtn(_ sender: Any) {
-        if UserDefaults.standard.object(forKey: "userName") != nil && Account.userName() == email.text!{
+        if UserDefaults.standard.object(forKey: "userName") != nil {
             self.alertErrorController = UIAlertController(title: "Alert", message: "An account on this device already exist.", preferredStyle: UIAlertControllerStyle.alert)
             
             let OKAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) {
