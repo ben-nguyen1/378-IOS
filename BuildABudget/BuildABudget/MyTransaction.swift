@@ -66,6 +66,24 @@ class MyTransaction {
         
     }
 
+    //creates a new MyTransaction Object
+    class func create(iDes:String,
+                iIniDate:Date,
+                iDueDate:Date,
+                iDatePaidOff:Date,
+                iTotalDue:Double,
+                iIsReoccuring:Bool,
+                iIsIncome:Bool) -> MyTransaction{
+        
+        return MyTransaction(description: iDes,
+                             initialInputDate:  iIniDate,
+                             dueDate:           iDueDate,
+                             datePaidOff:       iDatePaidOff,
+                             totalDue:          iTotalDue,
+                             isReoccuring:      iIsReoccuring,
+                             isIncome:          iIsIncome)
+    }
+    
     
     //for when this transaction is returned from CoreData
     init(description:       String,
