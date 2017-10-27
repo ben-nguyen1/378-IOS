@@ -285,9 +285,11 @@ class AccessService {
     }
     
     func getBudget(index:Int) -> MyBudget {//we should only call on getBudget(0) because for the Alpha Release we will only use one possible Budget
-        
+        if (budgets == nil) {
+            print("budgets is null")
+        }
      
-        if index < budgets.count {
+        if (budgets != nil) && index < budgets.count {
             let record = budgets[index]
             let rDescription =      record.value(forKey: "budgetDescription") as! String
             let rStartDate = record.value(forKey: "startDate") as! Date

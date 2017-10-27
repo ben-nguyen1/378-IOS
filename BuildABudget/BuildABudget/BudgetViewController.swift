@@ -98,6 +98,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, ShowAlertPr
         incomeTable.dataSource = self
         expenseTable.dataSource = self
         navigationItem.title = "Budget"
+        print("IN BUDGET")
     }
     
     override func didReceiveMemoryWarning() {
