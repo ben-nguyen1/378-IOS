@@ -5,7 +5,7 @@
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -20,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Leg-bB-aby">
-                                <rect key="frame" x="16" y="58" width="343" height="72"/>
+                                <rect key="frame" x="16" y="58" width="343" height="180"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="unpaidCell" textLabel="u7c-Pd-ncl" detailTextLabel="pEK-9b-edA" style="IBUITableViewCellStyleValue1" id="4Jc-Vm-2md">
@@ -50,21 +50,22 @@
                                 </prototypes>
                                 <sections/>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unpaid" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Ip-Od-vaC">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Unpaid" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Ip-Od-vaC">
                                 <rect key="frame" x="16" y="20" width="78" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Paid" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4eb-ny-vIV">
-                                <rect key="frame" x="16" y="193" width="46.5" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fqq-Xi-PyE">
-                                <rect key="frame" x="16" y="222" width="343" height="72"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Paid" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4eb-ny-vIV">
+                                <rect key="frame" x="16" y="246" width="46.5" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fqq-Xi-PyE">
+                                <rect key="frame" x="16" y="275" width="343" height="180"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="paidCell" id="KZn-oz-eEu" customClass="ChecklistPaidTableViewCell" customModule="BuildABudget" customModuleProvider="target">
@@ -75,7 +76,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;date&gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nct-HP-twp">
-                                                    <rect key="frame" x="143.5" y="11" width="55.5" height="21"/>
+                                                    <rect key="frame" x="144" y="11" width="55.5" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -110,17 +111,50 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="TODO: make unpaid cell custom to allow for remove/paid swipes" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sgq-8B-Vyc">
+                                <rect key="frame" x="161" y="12" width="179" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QEa-ZB-OIQ">
+                                <rect key="frame" x="166" y="96" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uJF-3i-irA">
+                                <rect key="frame" x="313" y="20" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="+">
+                                    <color key="titleColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.74117647058823533" green="0.89803921568627454" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="4eb-ny-vIV" firstAttribute="leading" secondItem="h5K-xr-0ll" secondAttribute="leading" constant="16" id="GbE-o9-K83"/>
-                            <constraint firstItem="Leg-bB-aby" firstAttribute="top" secondItem="1Ip-Od-vaC" secondAttribute="bottom" constant="8" id="Okr-ZA-Hxs"/>
-                            <constraint firstItem="1Ip-Od-vaC" firstAttribute="leading" secondItem="h5K-xr-0ll" secondAttribute="leading" constant="16" id="YUz-eW-hWo"/>
-                            <constraint firstItem="4eb-ny-vIV" firstAttribute="top" secondItem="Leg-bB-aby" secondAttribute="bottom" constant="64" id="dnd-yR-6qs"/>
-                            <constraint firstItem="1Ip-Od-vaC" firstAttribute="top" secondItem="h5K-xr-0ll" secondAttribute="top" id="dy8-T0-BdX"/>
-                            <constraint firstItem="Leg-bB-aby" firstAttribute="centerX" secondItem="DDs-OC-Vvl" secondAttribute="centerX" id="xeV-HX-hfv"/>
+                            <constraint firstItem="Leg-bB-aby" firstAttribute="leading" secondItem="h5K-xr-0ll" secondAttribute="leading" constant="16" id="Htk-Nu-iTt"/>
+                            <constraint firstItem="h5K-xr-0ll" firstAttribute="trailing" secondItem="Leg-bB-aby" secondAttribute="trailing" constant="16" id="O25-BP-rOo"/>
+                            <constraint firstItem="fqq-Xi-PyE" firstAttribute="leading" secondItem="h5K-xr-0ll" secondAttribute="leading" constant="16" id="PTf-XN-e31"/>
+                            <constraint firstItem="h5K-xr-0ll" firstAttribute="trailing" secondItem="fqq-Xi-PyE" secondAttribute="trailing" constant="16" id="u8O-jK-WMt"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="h5K-xr-0ll"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="sgq-8B-Vyc"/>
+                                <exclude reference="QEa-ZB-OIQ"/>
+                                <exclude reference="uJF-3i-irA"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular">
+                            <mask key="subviews">
+                                <include reference="sgq-8B-Vyc"/>
+                                <exclude reference="QEa-ZB-OIQ"/>
+                                <exclude reference="uJF-3i-irA"/>
+                            </mask>
+                        </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="Checklist" image="Checklist - checks beside list" id="Pq3-fP-dB3"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>

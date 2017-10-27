@@ -86,7 +86,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, AddBudgetLi
                 return cell
             }
             else {//adding a BudgetAddCell, since this must be the last index
-                let cell = tableView.dequeueReusableCell(withIdentifier: "BudgetAddExpenseCell", for: indexPath) as! BudgetAddExpenseCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "BudgetAddExpenseCell", for: indexPath) as! BudgetAddCell
                 cell.inViewTable = 222
                 return cell
             }

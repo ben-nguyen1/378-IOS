@@ -11,14 +11,36 @@ import UIKit
 class ChecklistViewController: UIViewController, UITableViewDataSource {
     @IBOutlet weak var unpaidTableView: UITableView!
     @IBOutlet weak var paidTableView: UITableView!
+    
+    // Var with ability to interface with the coreData storage methods
+    var ChecklistAccess = AccessService.access
+    var unpaidItems: [MyTransaction] = []
+    var paidItems: [MyTransaction] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         unpaidTableView.dataSource = self
+        paidTableView.dataSource = self
         
-        // Do any additional setup after loading the view.
+        
+        ChecklistAccess.retreiveAllTransactions()
+        let i = 0
+        while (i < ChecklistAccess.totalTransactions()) {
+            let currTransaction = ChecklistAccess.getTransaction(index: i)
+            if (currTransaction.isReoccuring) {
+                if (currTransaction.isPastDue()) {
+                    paidItems.append(currTransaction)
+                } else {
+                    paidItems.append(currTransaction)
+                }
+            }
+        }
     }
-
+    
+    override func updateViewConstraints() {
+        super.updateViewConstraints()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -31,25 +53,27 @@ class ChecklistViewController: UIViewController, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (tableView == unpaidTableView) {
-            return 1 //TODO: return number of unpaid cells
-        } else {
-            return 1 //TODO: return number of paid cells
+            return unpaidItems.count
+        } else if (tableView == paidTableView) {
+            return paidItems.count
         }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if (tableView == unpaidTableView) { //TODO: replace dummy values in each if statement
-            let cell = tableView.dequeueReusableCell(withIdentifier: "unpaidCell")!
-            cell.textLabel!.text = "BONELESS PIZZA"
-            cell.detailTextLabel!.text = "$45"
-            return cell
-        } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "paidCell") as! ChecklistPaidTableViewCell
-            cell.amountLabel.text = "$2017"
-            cell.dateLabel!.text = "10/10"
-            cell.expenseLabel.text = "Candles"
-            return cell
+        var cell: UITableViewCell?
+        if (tableView == self.unpaidTableView) { //TODO: replace dummy values with actual array values.
+            cell = tableView.dequeueReusableCell(withIdentifier: "unpaidCell")!
+            cell!.textLabel!.text = "BONELESS PIZZA"
+            cell!.detailTextLabel!.text = "$45"
+        } else if (tableView == self.paidTableView) {
+            let newCell = tableView.dequeueReusableCell(withIdentifier: "paidCell") as! ChecklistPaidTableViewCell
+            newCell.amountLabel.text = "$2017"
+            newCell.dateLabel!.text = "10/10"
+            newCell.expenseLabel.text = "Candles"
+            return newCell
         }
+        return cell!
     }
 
     /*
