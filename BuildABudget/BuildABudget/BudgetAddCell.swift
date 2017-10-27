@@ -10,7 +10,7 @@ import UIKit
 class BudgetAddCell: UITableViewCell {
     
     var inViewTable: Int = 0
-    let BudgetAddCellAccess = AccessService.access
+    //let BudgetAddCellAccess = AccessService.access
     
     //UIAlert field vars
     //var descriptionTextField: UITextField? = nil
@@ -20,14 +20,20 @@ class BudgetAddCell: UITableViewCell {
     //Delegate that enables us to launch AlertWindows
     var delegate: ShowAlertProtocol?
     
+  
+    @IBAction func addIncomeButton(_ sender: Any) {
+        self.delegate?.launchAlertWindow(tableValueInput: inViewTable)
+    }
+    
+    /*
     @IBAction func addButton(_ sender: Any) {
 
         self.delegate?.launchAlertWindow(tableValueInput: inViewTable)
     }
-        
+    */
 
 
-/*
+
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -35,6 +41,6 @@ class BudgetAddCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
- */
+
 }
 

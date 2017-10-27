@@ -82,7 +82,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, ShowAlertPr
                 return cell
             }
             else {//adding a BudgetAddCell, since this must be the last index
-                let cell = tableView.dequeueReusableCell(withIdentifier: "BudgetAddCell", for: indexPath) as! BudgetAddCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "BudgetAddExpenseCell", for: indexPath) as! BudgetAddExpenseCell
                 cell.inViewTable = 222
                 return cell
             }
@@ -144,6 +144,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, ShowAlertPr
             BudgetAccess.
             //self.tableView.reloadData()  // causes the table data source protocol methods to execute
  */
+            print("MADE IT HERE")
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (action: UIAlertAction!) -> Void in
