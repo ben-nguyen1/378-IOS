@@ -12,9 +12,12 @@ import Foundation
 class MyDate {
     
     //static let time = MyDate()//might need to remove this since it may not be needed
-    
+    static let dateConverter = MyDate()
     //calendar var
     let myCalendar = Calendar.current //this sets all our date, timezone, time, ect settings to the user's current phone settings.
+    
+    //date format var
+    let myFormatter = DateFormatter()
     
     func day( inputDate: Date) -> Int?{
         
@@ -43,15 +46,15 @@ class MyDate {
     }
     
     
-
+    
     //used to set the MyTransaction.datePaidOff attribute to yesterday -> this signifies that the amount has not yet been paid.
     func setToYesterday( today:Date ) -> Date{
         
         let yesterday = myCalendar.date(byAdding: .day, value: -1, to: today)!
         return yesterday
     }
-
-
+    
+    
     func makeDate(inputDay: Int, inputMonth: Int, inputYear: Int, inputMinute: Int, inputHour: Int) -> Date{
         
         var components = DateComponents()
@@ -64,25 +67,27 @@ class MyDate {
         return myCalendar.date(from: components)!
     }
     
-    func convertStringToDate(inputString: String) -> Date {
-        let newFormat = DateFormatter()
-        newFormat.dateFormat = "MM/dd/yyyy"
-        let newDate = newFormat.date(from: inputString)
-        return newDate!
+    func stringToDate(inputString: String) -> Date {//this method will return a Date object from any string that has the correct format else it returns yesterday's date as a sign of error
+        
+        myFormatter.dateFormat = "MM/dd/yyyy"
+        if let testDate = myFormatter.date(from: inputString) {
+            return testDate
+        }
+        else {
+            return MyDate.dateConverter.setToYesterday(today: Date())
+        }
+        
     }
     
-    func convertDateToString(inputDate: Date) -> String {
-        let newFormat = DateFormatter()
-        newFormat.dateFormat = "MM/dd/yyyy"
-        return newFormat.string(from: inputDate)  // "01/27/10"
+    func dateToString(inputDate: Date) -> String {
+        myFormatter.dateFormat = "MM/dd/yyyy"
+        return myFormatter.string(from: inputDate)
     }
     
     
     //Default initializer
-    init() {
-        
-    }
-
+    init() { }
+    
 }
 
 
