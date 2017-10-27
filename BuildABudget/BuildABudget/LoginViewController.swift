@@ -40,7 +40,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func loginBtn(_ sender: Any) {
-        if Account.userName() == email.text! && Account.pass() == pass.text! {
+        if UserDefaults.standard.object(forKey: "userName") != nil && UserDefaults.standard.object(forKey: "pass") != nil && Account.userName() == email.text! && Account.pass() == pass.text! {
             print("Login sucessful")
             let tabBarController = self.storyboard?.instantiateViewController(withIdentifier: "TabBarVC") as! TabBarViewController
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
