@@ -96,8 +96,100 @@ class BudgetViewController: UIViewController, UITableViewDataSource, AddBudgetLi
     
     
     func launchAlertWindow(tableValueInput: Int) {
-        print("MADE PROTOCOL WORK!!")
-        print("tableValue = \(tableValueInput)")
+        //print("MADE PROTOCOL WORK!!")
+        //print("tableValue = \(tableValueInput)")
+        
+        //vars
+        
+        var alertWindowTitle:   String = ""
+        var description:        String = ""
+        var initialInputDate:   Date = Date()
+        var dueDate:            Date? = nil
+        var totalDue:           Double = 0.0
+        var isReoccuring:       Bool = true //by default since this MyTransaction object is generated in the Budget View Controller isReoccuring must be yes.
+        
+        var isIncome:           Bool = false //only changed if add button from incomeTable is pressed
+        var todaysDate = MyDate()
+
+        if tableValueInput == 111 {// 111 means we are in the incomeTable
+            alertWindowTitle = "New Monthly Income"
+            isIncome = true
+        }
+        else {// this means that our inViewTable tag is 222 and we are in the expenseTable
+            alertWindowTitle = "New Monthly Expense"
+        }
+        
+        //set the AlertWindow's title and instruction message to user
+        let newBudgetLineInputWindow = UIAlertController(title: alertWindowTitle, message: "Fill out all fields", preferredStyle: .alert)
+        
+        
+        
+        let saveAction = UIAlertAction(title: "Save", style: .default) { (action: UIAlertAction!) -> Void in
+            
+            /*
+             
+             guard let descriptionTextField = self.descriptionTextField?.text else { return }
+             
+             description = descriptionTextField
+             
+             guard let dueDateTextField = self.dueDateTextField?.text else { return }
+             
+             dueDate = thisDate.makeDate(inputDay: Int:(), inputMonth: <#T##Int#>, inputYear: <#T##Int#>, inputMinute: <#T##Int#>, inputHour: <#T##Int#>)
+             
+             guard let totalDueTextField = self.totalDueTextField?.text else { return }
+             
+             
+             
+             //PersistenceService.shared.savePerson(name: nameTextField, age: ageTextField)
+             
+             var newTransaction =
+             
+             BudgetAccess.
+             
+             //self.tableView.reloadData()  // causes the table data source protocol methods to execute
+             
+             */
+            
+            print("MADE IT HERE")
+            
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default) {
+            (action: UIAlertAction!) -> Void in
+        }
+        
+        
+        
+        newBudgetLineInputWindow.addTextField { (textField) -> Void in
+            textField.placeholder = "Item Description"
+            self.descriptionTextField = textField
+        }
+        
+        newBudgetLineInputWindow.addTextField { (textField) -> Void in
+            textField.placeholder = "Amount ex: 32.49"
+            textField.keyboardType = .numberPad
+            self.dueDateTextField = textField
+            
+        }
+        
+        newBudgetLineInputWindow.addTextField { (textField) -> Void in
+            textField.placeholder = "Due Date ex: 1/9/2017"
+            textField.keyboardType = .numberPad
+            self.totalDueTextField = textField
+            
+        }
+        
+        
+        //add the buttons to the Alert window
+        newBudgetLineInputWindow.addAction(saveAction)
+        newBudgetLineInputWindow.addAction(cancelAction)
+        
+        //display the alert window on the screen
+        present(newBudgetLineInputWindow, animated: true, completion: nil)
+
+
+        
+        
     }
 
     
