@@ -284,10 +284,11 @@ class AccessService {
         return budgets.count
     }
     
-    func getBudget(index:Int) -> MyBudget {
+    func getBudget(index:Int) -> MyBudget {//we should only call on getBudget(0) because for the Alpha Release we will only use one possible Budget
         
-        if index < budgets.count { //need to change this conditional from index < budgets.count to ???
-            let record = transactions[index]
+     
+        if index < budgets.count {
+            let record = budgets[index]
             let rDescription =      record.value(forKey: "budgetDescription") as! String
             let rStartDate = record.value(forKey: "startDate") as! Date
             let rEndDate =          record.value(forKey: "endDate") as! Date
@@ -302,11 +303,13 @@ class AccessService {
                             incomeSources: rIncomeSources)
             
         } else {
-            return MyBudget()
+            return MyBudget()//returns a blank budget when we first open the BudgetViewController
         }
+ 
         
     }
-    
+
+ 
     
     
     
