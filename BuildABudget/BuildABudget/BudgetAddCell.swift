@@ -7,32 +7,23 @@
 //
 import UIKit
 
+protocol AddBudgetLineProtocol{
+    
+    func launchAlertWindow(tableValueInput: Int)//tableValueInput: Int
+}
+
 class BudgetAddCell: UITableViewCell {
     
     var inViewTable: Int = 0
-    //let BudgetAddCellAccess = AccessService.access
-    
-    //UIAlert field vars
-    //var descriptionTextField: UITextField? = nil
-    //var dueDateTextField: UITextField? = nil
-    //var totalDueTextField: UITextField? = nil //Double? = nil
-    
-    //Delegate that enables us to launch AlertWindows
-    var delegate: ShowAlertProtocol?
+    var addBudgetLineDelegate: AddBudgetLineProtocol!
     
   
     @IBAction func addIncomeButton(_ sender: Any) {
-        self.delegate?.launchAlertWindow(tableValueInput: inViewTable)
+        print("add income")
+        addBudgetLineDelegate.launchAlertWindow(tableValueInput: inViewTable)//tableValueInput: inViewTable
+        print("never got here")
     }
     
-    /*
-    @IBAction func addButton(_ sender: Any) {
-
-        self.delegate?.launchAlertWindow(tableValueInput: inViewTable)
-    }
-    */
-
-
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -43,4 +34,12 @@ class BudgetAddCell: UITableViewCell {
     }
 
 }
+
+
+
+
+
+
+
+
 
