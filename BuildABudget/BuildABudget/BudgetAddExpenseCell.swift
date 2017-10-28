@@ -12,20 +12,21 @@ class BudgetAddExpenseCell: UITableViewCell {
     
     var inViewTable: Int = 0
     var delegate: AddBudgetLineProtocol?
-
+    
     
     @IBAction func addExpense(_ sender: Any) {
         print("addExpense")
         self.delegate?.launchAlertWindow(tableValueInput: inViewTable)//tableValueInput: inViewTable
     }
     
-   
-     override func awakeFromNib() {
+    
+    override func awakeFromNib() {
         super.awakeFromNib()
-     }
-     
-     override func setSelected(_ selected: Bool, animated: Bool) {
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-     }
+    }
     
 }
+
