@@ -24,7 +24,7 @@ class ChecklistViewController: UIViewController, UITableViewDataSource {
         
         
         ChecklistAccess.retreiveAllTransactions()
-        let i = 0
+        var i = 0
         while (i < ChecklistAccess.totalTransactions()) {
             let currTransaction = ChecklistAccess.getTransaction(index: i)
             if (currTransaction.isReoccuring) {
