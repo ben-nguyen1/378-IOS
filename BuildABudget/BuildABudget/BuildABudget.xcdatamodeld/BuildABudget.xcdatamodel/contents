@@ -18,7 +18,6 @@
         <attribute name="totalContributed" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <entity name="Transaction" representedClassName="Transaction" syncable="YES" codeGenerationType="class">
-        <attribute name="currentAmount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="datePaidOff" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="dueDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="isIncome" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
@@ -26,11 +25,10 @@
         <attribute name="occuranceDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="totalAmount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="transactionDescription" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="uniqueID" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
         <element name="Budget" positionX="0" positionY="108" width="128" height="120"/>
         <element name="Goal" positionX="-36" positionY="9" width="128" height="165"/>
-        <element name="Transaction" positionX="27" positionY="144" width="128" height="180"/>
+        <element name="Transaction" positionX="27" positionY="144" width="128" height="150"/>
     </elements>
 </model>

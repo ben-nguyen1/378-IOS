@@ -86,7 +86,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, AddBudgetLi
                 return cell
             }
             else {//adding a BudgetAddCell, since this must be the last index
-                let cell = tableView.dequeueReusableCell(withIdentifier: "BudgetAddExpenseCell", for: indexPath) as! BudgetAddCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "BudgetAddExpenseCell", for: indexPath) as! BudgetAddExpenseCell
                 cell.inViewTable = 222
                 return cell
             }
@@ -96,21 +96,13 @@ class BudgetViewController: UIViewController, UITableViewDataSource, AddBudgetLi
     
     
     func launchAlertWindow(tableValueInput: Int) {
-        //print("MADE PROTOCOL WORK!!")
-        //print("tableValue = \(tableValueInput)")
-        
-        //vars
         
         var alertWindowTitle:   String = ""
         var description:        String = ""
-        var initialInputDate:   Date = Date()
         var dueDate:            Date? = nil
         var totalDue:           Double = 0.0
-        var isReoccuring:       Bool = true //by default since this MyTransaction object is generated in the Budget View Controller isReoccuring must be yes.
-        
         var isIncome:           Bool = false //only changed if add button from incomeTable is pressed
-        var todaysDate = MyDate()
-
+        
         if tableValueInput == 111 {// 111 means we are in the incomeTable
             alertWindowTitle = "New Monthly Income"
             isIncome = true
@@ -126,32 +118,40 @@ class BudgetViewController: UIViewController, UITableViewDataSource, AddBudgetLi
         
         let saveAction = UIAlertAction(title: "Save", style: .default) { (action: UIAlertAction!) -> Void in
             
-            /*
-             
-             guard let descriptionTextField = self.descriptionTextField?.text else { return }
-             
-             description = descriptionTextField
-             
-             guard let dueDateTextField = self.dueDateTextField?.text else { return }
-             
-             dueDate = thisDate.makeDate(inputDay: Int:(), inputMonth: <#T##Int#>, inputYear: <#T##Int#>, inputMinute: <#T##Int#>, inputHour: <#T##Int#>)
-             
-             guard let totalDueTextField = self.totalDueTextField?.text else { return }
-             
-             
-             
-             //PersistenceService.shared.savePerson(name: nameTextField, age: ageTextField)
-             
-             var newTransaction =
-             
-             BudgetAccess.
-             
-             //self.tableView.reloadData()  // causes the table data source protocol methods to execute
-             
-             */
+            //grab all the data from the alert window's text fields
+            guard let descriptionTextField = self.descriptionTextField?.text else { return }
+            guard let totalDueTextField = self.totalDueTextField?.text else { return }
+            guard let dueDateTextField = self.dueDateTextField?.text else { return }
             
-            print("MADE IT HERE")
             
+            //set the data that we grabbed into local variables
+            description = descriptionTextField
+            dueDate = MyDate.dateConverter.stringToDate(inputString: dueDateTextField)
+            totalDue = (totalDueTextField as NSString).doubleValue
+            
+            //check that Alert window is getting the correct input
+            //print("\ndescriptionTextField = \(description)")
+            //print("dueDateTextField = \(dueDate)")
+            //print("totalDueTextField = \(totalDue)\n")
+            //var testDateToString = MyDate.dateConverter.dateToString(inputDate: dueDate!)
+           // print(">>>dateToString = \(testDateToString)\n")
+            
+            //Build the MyTransaction Object
+            let newBudgetItem = MyTransaction.create( iDes: description,
+                                                      iIniDate: Date(),
+                                                      iDueDate: dueDate!,
+                                                      iDatePaidOff: MyDate.dateConverter.setToYesterday(today: Date()),
+                                                      iTotalDue: totalDue,
+                                                      iIsReoccuring: true,
+                                                      iIsIncome: isIncome)
+            
+            //save the MyTransaction Object to CoreData
+            AccessService.access.saveTransaction(input: newBudgetItem)
+          
+            //reload the table so that it displays the newly added Transaction.
+            //self.tableView.treloadData()  // causes the table data source protocol methods to execute
+            
+            print("\n\nFinished Saving a new BudgetLineItem")
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .default) {
@@ -159,7 +159,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, AddBudgetLi
         }
         
         
-        
+        //do not change the order of these three .addTextFields
         newBudgetLineInputWindow.addTextField { (textField) -> Void in
             textField.placeholder = "Item Description"
             self.descriptionTextField = textField
@@ -167,16 +167,12 @@ class BudgetViewController: UIViewController, UITableViewDataSource, AddBudgetLi
         
         newBudgetLineInputWindow.addTextField { (textField) -> Void in
             textField.placeholder = "Amount ex: 32.49"
-            textField.keyboardType = .numberPad
-            self.dueDateTextField = textField
-            
+            self.totalDueTextField = textField
         }
         
         newBudgetLineInputWindow.addTextField { (textField) -> Void in
-            textField.placeholder = "Due Date ex: 1/9/2017"
-            textField.keyboardType = .numberPad
-            self.totalDueTextField = textField
-            
+            textField.placeholder = "Due Date ex: 01/09/2017"
+            self.dueDateTextField = textField
         }
         
         
@@ -186,10 +182,6 @@ class BudgetViewController: UIViewController, UITableViewDataSource, AddBudgetLi
         
         //display the alert window on the screen
         present(newBudgetLineInputWindow, animated: true, completion: nil)
-
-
-        
-        
     }
 
     

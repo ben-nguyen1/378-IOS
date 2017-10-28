@@ -15,9 +15,7 @@ class AccessService {
     
     //class vars
     private var transactions: [NSManagedObject]!
-    
     private var goals: [NSManagedObject]!
-    
     private var budgets: [NSManagedObject]!
     
     
@@ -191,12 +189,26 @@ class AccessService {
         record.setValue(input.totalDue, forKey: "totalAmount")
         record.setValue(input.desciption, forKey: "transactionDescription")
         record.setValue(input.isIncome, forKey: "isIncome")
+        record.setValue(input.isReoccuring, forKey: "isReoccuring")
+
+        //test values received by printing them out
+        print("============================================")
+        print("Description = \(input.desciption)")
+        print("InitialDate = \(input.initialInputDate)")
+        print("DueDate = \(input.dueDate)")
+        print("DatePaidOff = \(input.datePaidOff)")
+        print("TotalDue = \(input.totalDue)")
+        print("IsReoccuring = \(input.isReoccuring)")
+        print("IsIncome = \(input.isIncome)")
+        
+        print("\n\(record)")
+        print("============================================")
 
         
         // Commit the changes.
         do {
-            try managedContext.save()
-            transactions.append(record)
+            try managedContext.save() //save to CoreDate
+            transactions.append(record) //append the transactions array with this new NSManagedObject
         } catch {
             let nserror = error as NSError
             NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
