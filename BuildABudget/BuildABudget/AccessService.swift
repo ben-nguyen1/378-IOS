@@ -14,9 +14,9 @@ class AccessService {
     static let access = AccessService()
     
     //class vars
-    private var transactions: [NSManagedObject]!
-    private var goals: [NSManagedObject]!
-    private var budgets: [NSManagedObject]!
+    private var transactions: [NSManagedObject]! = []
+    private var goals: [NSManagedObject]! = []
+    private var budgets: [NSManagedObject]! = []
     
     
     
@@ -160,8 +160,8 @@ class AccessService {
     func retreiveAllTransactions() {
         
         let managedContext = persistentContainer.viewContext
-        var fetchedResults:[NSManagedObject]? = nil
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName:"Transaction")
+        var fetchedResults:[NSManagedObject]? = nil
         
         do {
             try fetchedResults = managedContext.fetch(fetchRequest) as? [NSManagedObject]
@@ -183,6 +183,7 @@ class AccessService {
         let record = NSManagedObject(entity: entity!, insertInto:managedContext)
         
         // Set the attribute values
+        /*
         record.setValue(input.datePaidOff, forKey: "datePaidOff")
         record.setValue(input.dueDate, forKey: "dueDate")
         record.setValue(input.initialInputDate, forKey: "occuranceDate")
@@ -202,12 +203,15 @@ class AccessService {
         print("IsIncome = \(input.isIncome)")
         
         print("\n\(record)")
+        let thisCount = totalTransactions()
+        print("\n>>> number of transactions = \(thisCount)")
         print("============================================")
-
+        */
         
         // Commit the changes.
         do {
             try managedContext.save() //save to CoreDate
+
             transactions.append(record) //append the transactions array with this new NSManagedObject
         } catch {
             let nserror = error as NSError
@@ -224,23 +228,21 @@ class AccessService {
         
         if index < transactions.count {
             let record = transactions[index]
-            let rDescription =      record.value(forKey: "transactionDescription") as! String
-            let rInitialInputDate = record.value(forKey: "occuranceDate") as! Date
-            let rDueDate =          record.value(forKey: "dueDate") as! Date
-            let rDatePaidOff =      record.value(forKey: "datePaidOff") as! Date
-            let rTotalDue =         record.value(forKey: "totalAmount") as! Double
-            let rIsReoccuring =     record.value(forKey: "isReoccuring") as! Bool
-            let rIsIncome =     record.value(forKey: "isIncome") as! Bool
+            let rDescription =      record.value(forKey: "transactionDescription") as! String//
+            let rInitialInputDate = record.value(forKey: "occuranceDate") as! Date//
+            let rDueDate =          record.value(forKey: "dueDate") as! Date//
+            let rDatePaidOff =      record.value(forKey: "datePaidOff") as! Date//
+            let rTotalDue =         record.value(forKey: "totalAmount") as! Double//
+            let rIsReoccuring =     record.value(forKey: "isReoccuring") as! Bool//
+            let rIsIncome =         record.value(forKey: "isIncome") as! Bool//
 
-            
-            return MyTransaction(description: rDescription,
-                                 initialInputDate: rInitialInputDate,
-                                 dueDate: rDueDate,
-                                 datePaidOff: rDatePaidOff,
-                                 totalDue: rTotalDue,
-                                 isReoccuring:rIsReoccuring,
-                                 isIncome: rIsIncome)
-        
+            return MyTransaction(description:       rDescription,
+                                 initialInputDate:  rInitialInputDate,
+                                 dueDate:           rDueDate,
+                                 datePaidOff:       rDatePaidOff,
+                                 totalDue:          rTotalDue,
+                                 isReoccuring:      rIsReoccuring,
+                                 isIncome:          rIsIncome)
         } else {
              return MyTransaction()
         }
