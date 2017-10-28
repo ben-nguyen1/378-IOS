@@ -34,6 +34,7 @@ class ChecklistViewController: UIViewController, UITableViewDataSource {
                     paidItems.append(currTransaction)
                 }
             }
+            i += 1
         }
     }
     
