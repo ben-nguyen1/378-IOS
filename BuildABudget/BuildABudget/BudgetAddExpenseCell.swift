@@ -11,13 +11,23 @@ import UIKit
 class BudgetAddExpenseCell: UITableViewCell {
     
     var inViewTable: Int = 0
-    var delegate: AddBudgetLineProtocol?
+    //var delegate: AddBudgetLineProtocol?
+    var addBudgetLineDelegate: AddBudgetLineProtocol!
+    
     
     
     @IBAction func addExpense(_ sender: Any) {
         print("addExpense")
-        self.delegate?.launchAlertWindow(tableValueInput: inViewTable)//tableValueInput: inViewTable
     }
+    
+    /*
+    @IBAction func addExpense(_ sender: Any) {
+        print("addExpense")
+        //self.delegate?.launchAlertWindow(tableValueInput: inViewTable)//tableValueInput: inViewTable
+        addBudgetLineDelegate.launchAlertWindow(tableValueInput: inViewTable)//tableValueInput: inViewTable
+
+    }
+ */
     
     
     override func awakeFromNib() {

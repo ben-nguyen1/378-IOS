@@ -12,7 +12,7 @@ protocol AddBudgetLineProtocol{
     func launchAlertWindow(tableValueInput: Int)//tableValueInput: Int
 }
 
-class BudgetAddCell: UITableViewCell {
+class BudgetAddIncomeCell: UITableViewCell {
     
     var inViewTable: Int = 0
     var addBudgetLineDelegate: AddBudgetLineProtocol!
@@ -21,7 +21,6 @@ class BudgetAddCell: UITableViewCell {
     @IBAction func addIncomeButton(_ sender: Any) {
         print("add income")
         addBudgetLineDelegate.launchAlertWindow(tableValueInput: inViewTable)//tableValueInput: inViewTable
-        print("never got here")
     }
     
 
