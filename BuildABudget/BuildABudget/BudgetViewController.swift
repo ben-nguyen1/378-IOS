@@ -10,7 +10,7 @@ import UIKit
 
 
 
-class BudgetViewController: UIViewController, UITableViewDataSource, AddBudgetLineProtocol {
+class BudgetViewController: UIViewController, UITableViewDataSource, BudgetAddIncomeProtocol, BudgetAddExpenseProtocol {
    
     @IBOutlet weak var incomeTable: UITableView! //has attribute .tag = 111
     @IBOutlet weak var expenseTable: UITableView! //has attribute .tag = 222
@@ -69,10 +69,10 @@ class BudgetViewController: UIViewController, UITableViewDataSource, AddBudgetLi
                 cell.inViewTable = 111
                 return cell
             }
-            else {//adding a BudgetAddCell, since this must be the last index
-                let cell = tableView.dequeueReusableCell(withIdentifier: "BudgetAddCell", for: indexPath) as! BudgetAddIncomeCell
+            else {//adding a BudgetAddIncomeCell, since this must be the last index
+                let cell = tableView.dequeueReusableCell(withIdentifier: "BudgetAddIncomeCell", for: indexPath) as! BudgetAddIncomeCell
                 cell.inViewTable = 111
-                cell.addBudgetLineDelegate = self
+                cell.incomeDelegate = self
                 return cell
             }
         }
@@ -85,9 +85,10 @@ class BudgetViewController: UIViewController, UITableViewDataSource, AddBudgetLi
                 cell.inViewTable = 222
                 return cell
             }
-            else {//adding a BudgetAddCell, since this must be the last index
+            else {//adding a BudgetAddExpenseCell, since this must be the last index
                 let cell = tableView.dequeueReusableCell(withIdentifier: "BudgetAddExpenseCell", for: indexPath) as! BudgetAddExpenseCell
                 cell.inViewTable = 222
+                cell.expenseDelegate = self
                 return cell
             }
         }
@@ -134,7 +135,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, AddBudgetLi
             //print("dueDateTextField = \(dueDate)")
             //print("totalDueTextField = \(totalDue)\n")
             //var testDateToString = MyDate.dateConverter.dateToString(inputDate: dueDate!)
-           // print(">>>dateToString = \(testDateToString)\n")
+            //print(">>>dateToString = \(testDateToString)\n")
             
             //Build the MyTransaction Object
             let newBudgetItem = MyTransaction.create( iDes: description,

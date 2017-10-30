@@ -19,9 +19,6 @@ class AccessService {
     private var budgets: [NSManagedObject]! = []
     
     
-    
-    
-    
     //CoreData stuff
     private var context: NSManagedObjectContext {
         return persistentContainer.viewContext
@@ -183,7 +180,7 @@ class AccessService {
         let record = NSManagedObject(entity: entity!, insertInto:managedContext)
         
         // Set the attribute values
-        /*
+        
         record.setValue(input.datePaidOff, forKey: "datePaidOff")
         record.setValue(input.dueDate, forKey: "dueDate")
         record.setValue(input.initialInputDate, forKey: "occuranceDate")
@@ -194,6 +191,8 @@ class AccessService {
 
         //test values received by printing them out
         print("============================================")
+        print("\n>>> number of transactions before = \(totalTransactions())\n")
+        
         print("Description = \(input.desciption)")
         print("InitialDate = \(input.initialInputDate)")
         print("DueDate = \(input.dueDate)")
@@ -203,16 +202,16 @@ class AccessService {
         print("IsIncome = \(input.isIncome)")
         
         print("\n\(record)")
-        let thisCount = totalTransactions()
-        print("\n>>> number of transactions = \(thisCount)")
+        
         print("============================================")
-        */
+ 
         
         // Commit the changes.
         do {
             try managedContext.save() //save to CoreDate
 
             transactions.append(record) //append the transactions array with this new NSManagedObject
+            print("\n>>> number of transactions before = \(totalTransactions())\n")
         } catch {
             let nserror = error as NSError
             NSLog("Unresolved error \(nserror), \(nserror.userInfo)")

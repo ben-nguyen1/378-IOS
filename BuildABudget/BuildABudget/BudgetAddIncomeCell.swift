@@ -7,20 +7,20 @@
 //
 import UIKit
 
-protocol AddBudgetLineProtocol{
+protocol BudgetAddIncomeProtocol{
     
     func launchAlertWindow(tableValueInput: Int)//tableValueInput: Int
 }
 
 class BudgetAddIncomeCell: UITableViewCell {
     
-    var inViewTable: Int = 0
-    var addBudgetLineDelegate: AddBudgetLineProtocol!
+    var inViewTable: Int = 0 //default value is 0 -> this gets reset in BudgetViewController func tableView 
+    var incomeDelegate: BudgetAddIncomeProtocol!
     
   
     @IBAction func addIncomeButton(_ sender: Any) {
         print("add income")
-        addBudgetLineDelegate.launchAlertWindow(tableValueInput: inViewTable)//tableValueInput: inViewTable
+        incomeDelegate.launchAlertWindow(tableValueInput: inViewTable)//tableValueInput: inViewTable
     }
     
 

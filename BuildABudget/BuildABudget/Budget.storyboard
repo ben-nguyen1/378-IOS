@@ -108,7 +108,7 @@
                                             <outlet property="itemName" destination="yol-bb-h6i" id="HRe-8I-4z8"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BudgetAddCell" id="0xz-Ku-rxx" userLabel="BudgetAddCell" customClass="BudgetAddIncomeCell" customModule="BuildABudget" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BudgetAddIncomeCell" id="0xz-Ku-rxx" userLabel="BudgetAddCell" customClass="BudgetAddIncomeCell" customModule="BuildABudget" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="72" width="343" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0xz-Ku-rxx" id="vIk-bC-psk">

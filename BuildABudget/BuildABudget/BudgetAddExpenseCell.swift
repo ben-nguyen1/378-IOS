@@ -8,26 +8,23 @@
 
 import UIKit
 
+protocol BudgetAddExpenseProtocol{
+    
+    func launchAlertWindow(tableValueInput: Int)//tableValueInput: Int
+}
+
 class BudgetAddExpenseCell: UITableViewCell {
     
-    var inViewTable: Int = 0
+    var inViewTable: Int = 0 //default value is 0 -> this gets reset in BudgetViewController func tableView 
     //var delegate: AddBudgetLineProtocol?
-    var addBudgetLineDelegate: AddBudgetLineProtocol!
+    var expenseDelegate: BudgetAddExpenseProtocol!
     
     
     
     @IBAction func addExpense(_ sender: Any) {
         print("addExpense")
+        expenseDelegate.launchAlertWindow(tableValueInput: inViewTable)
     }
-    
-    /*
-    @IBAction func addExpense(_ sender: Any) {
-        print("addExpense")
-        //self.delegate?.launchAlertWindow(tableValueInput: inViewTable)//tableValueInput: inViewTable
-        addBudgetLineDelegate.launchAlertWindow(tableValueInput: inViewTable)//tableValueInput: inViewTable
-
-    }
- */
     
     
     override func awakeFromNib() {
