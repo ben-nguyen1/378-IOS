@@ -95,7 +95,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, BudgetAddIn
         
     }
     
-    
+    //UIAlert window that allows user to input the Description, Amount, and Due Date of their new expense or income
     func launchAlertWindow(tableValueInput: Int) {
         
         var alertWindowTitle:   String = ""
@@ -104,6 +104,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, BudgetAddIn
         var totalDue:           Double = 0.0
         var isIncome:           Bool = false //only changed if add button from incomeTable is pressed
         
+        //set title of window accordingly
         if tableValueInput == 111 {// 111 means we are in the incomeTable
             alertWindowTitle = "New Monthly Income"
             isIncome = true
@@ -115,12 +116,36 @@ class BudgetViewController: UIViewController, UITableViewDataSource, BudgetAddIn
         //set the AlertWindow's title and instruction message to user
         let newBudgetLineInputWindow = UIAlertController(title: alertWindowTitle, message: "Fill out all fields", preferredStyle: .alert)
         
+        //do not change the order of these three .addTextFields
+        newBudgetLineInputWindow.addTextField { (textField) -> Void in
+            textField.placeholder = "Item Description"
+            self.descriptionTextField = textField
+            //self.descriptionTextField?.layer.borderColor = (UIColor.red).cgColor <--- these two lines are how we let user know they goofed.
+            //self.descriptionTextField?.layer.borderWidth = 1.0
+        }
         
+        newBudgetLineInputWindow.addTextField { (textField) -> Void in
+            textField.placeholder = "Amount ex: 32.49"
+            self.totalDueTextField = textField
+            //self.totalDueTextField?.backgroundColor = UIColor.blue <----- experimented with background colors (future use)
+        }
+        
+        newBudgetLineInputWindow.addTextField { (textField) -> Void in
+            textField.placeholder = "Due Date ex: 01/09/2017"
+            self.dueDateTextField = textField
+        }
         
         let saveAction = UIAlertAction(title: "Save", style: .default) { (action: UIAlertAction!) -> Void in
             
+            
+            
+            //while <--- we will implement a while loop here to catch bad input
+            
+            
             //grab all the data from the alert window's text fields
-            guard let descriptionTextField = self.descriptionTextField?.text else { return }
+            guard let descriptionTextField = self.descriptionTextField?.text, self.isValidDescription(input: (self.descriptionTextField?.text)!) else {
+                print("<<<<<< HERE >>>>>")
+                return }
             guard let totalDueTextField = self.totalDueTextField?.text else { return }
             guard let dueDateTextField = self.dueDateTextField?.text else { return }
             
@@ -160,23 +185,6 @@ class BudgetViewController: UIViewController, UITableViewDataSource, BudgetAddIn
         }
         
         
-        //do not change the order of these three .addTextFields
-        newBudgetLineInputWindow.addTextField { (textField) -> Void in
-            textField.placeholder = "Item Description"
-            self.descriptionTextField = textField
-        }
-        
-        newBudgetLineInputWindow.addTextField { (textField) -> Void in
-            textField.placeholder = "Amount ex: 32.49"
-            self.totalDueTextField = textField
-        }
-        
-        newBudgetLineInputWindow.addTextField { (textField) -> Void in
-            textField.placeholder = "Due Date ex: 01/09/2017"
-            self.dueDateTextField = textField
-        }
-        
-        
         //add the buttons to the Alert window
         newBudgetLineInputWindow.addAction(saveAction)
         newBudgetLineInputWindow.addAction(cancelAction)
@@ -185,6 +193,19 @@ class BudgetViewController: UIViewController, UITableViewDataSource, BudgetAddIn
         present(newBudgetLineInputWindow, animated: true, completion: nil)
     }
 
+    
+    //UIAlert window input validation methods
+    func isValidDescription( input:String) -> Bool{
+        if  !input.isEmpty {//basically any charactes will do as long as something is input
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
