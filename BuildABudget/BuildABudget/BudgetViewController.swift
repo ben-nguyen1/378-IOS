@@ -43,7 +43,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         thisBudget = BudgetAccess.getBudget(index: 0) //for right now it is hard coded to only get the first budget, we might allow users to save multiple budgets later on.
         //incomeList = (thisBudget?.allIncome)!
         //expenseList = (thisBudget?.allExpenses)!
-        update()
+        self.update()
     }
     
     
@@ -52,11 +52,11 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
 
         if tableView.tag == 111{//incomeTable
             print("incomeList = \(incomeList.count)")
-            return incomeList.count + 1
+            return incomeList.count //+ 1
         }
         else if tableView.tag == 222{//expenseTable
             print("expenseList = \(expenseList.count)")
-            return expenseList.count + 1
+            return expenseList.count //+ 1
         }
         else {
             return 0 //catches tableview tags that are not incomeTable or expenseTable tags
@@ -188,7 +188,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
           
             //reload the table so that it displays the newly added Transaction.
             //self.tableView.treloadData()  // causes the table data source protocol methods to execute
-            
+            self.update()
             print("\n\nFinished Saving a new BudgetLineItem")
         }
         
@@ -230,6 +230,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         expenseTable.delegate = self
         
         navigationItem.title = "Budget"
+        //self.update() <-----this probably does not go here
         print("IN BUDGET")
     }
     
@@ -261,7 +262,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             else {
                 expenseList.append(temp)
                 expenseTotal += temp.totalDue
-                print("incomeTotal = \(incomeTotal)")
+                print("expenseTotal = \(expenseTotal)")
             }
         }
         
@@ -273,6 +274,9 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         self.expenseLabel.text = String(expenseTotal)
         self.differenceLabel.text = String(differenceAmount)
         
+        //reload the UITables to display the new transaction data
+        self.incomeTable.reloadData()
+        self.expenseTable.reloadData()
     }
     
     
