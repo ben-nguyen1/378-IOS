@@ -11,6 +11,7 @@ import UIKit
 class ChecklistUnpaidTableViewCell: UITableViewCell {
     @IBOutlet weak var expenseLabel: UILabel!
     @IBOutlet weak var amountLabel: UILabel!
+    @IBOutlet weak var dueDateLabel: UILabel!
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

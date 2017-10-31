@@ -109,17 +109,29 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
         if (tableView == self.unpaidTableView) {
             let cell = tableView.dequeueReusableCell(withIdentifier: "unpaidCell")! as! ChecklistUnpaidTableViewCell
             let currItem = unpaidItems[indexPath.row]
-
-            cell.expenseLabel!.text = currItem.desciption
-            cell.amountLabel!.text = "\(currItem.totalDue)"
+            
+            if (currItem.desciption.count < 8) {
+                cell.expenseLabel!.text = currItem.desciption
+            } else {
+                let index = currItem.desciption.index(currItem.desciption.startIndex, offsetBy: 5)
+                cell.expenseLabel!.text = currItem.desciption.substring(to: index) + "..."
+            }
+            cell.amountLabel!.text = "$\(currItem.totalDue)"
+            cell.dueDateLabel.text = dateConverter.dateToString(inputDate: currItem.dueDate)
             return cell
         } else {
             let newCell = tableView.dequeueReusableCell(withIdentifier: "paidCell") as! ChecklistPaidTableViewCell
             let currItem = paidItems[indexPath.row]
 
-            newCell.amountLabel.text = "\(currItem.totalDue)"
+            newCell.amountLabel.text = "$\(currItem.totalDue)"
             newCell.dateLabel!.text = dateConverter.dateToString(inputDate: currItem.datePaidOff)
-            newCell.expenseLabel.text = currItem.desciption
+            
+            if (currItem.desciption.count < 8) {
+                newCell.expenseLabel!.text = currItem.desciption
+            } else {
+                let index = currItem.desciption.index(currItem.desciption.startIndex, offsetBy: 5)
+                newCell.expenseLabel!.text = currItem.desciption.substring(to: index) + "..."
+            }
             return newCell
         }
     }
@@ -136,13 +148,13 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
         }
         
         alertController.addTextField { (textField) -> Void in
-            dueDateTextField = textField
-            dueDateTextField!.placeholder = "Checklist Item Due Date (mm/dd/yyyy)"
+            costTextField = textField
+            costTextField!.placeholder = "Checklist Item Cost"
         }
         
         alertController.addTextField { (textField) -> Void in
-            costTextField = textField
-            costTextField!.placeholder = "Checklist Item Cost"
+            dueDateTextField = textField
+            dueDateTextField!.placeholder = "Checklist Item Due Date (mm/dd/yyyy)"
         }
         
         let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { (action) -> Void in
@@ -150,8 +162,8 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
             let transactionDate = self.dateConverter.stringToDate(inputString: dueDateTextField!.text!)
             let cost = Double(costTextField!.text!)
             
-            if (transactionDate < Date() || cost == nil) { // Handle error cases.
-                let errorAlertController: UIAlertController = UIAlertController(title: "Invalid entry", message: "Please ensure that the date is entered in MM/DD/YYYY format and only digits are used in entering the cost of the item.", preferredStyle: UIAlertControllerStyle.alert)
+            if (cost == nil) {
+                let errorAlertController: UIAlertController = UIAlertController(title: "Invalid entry", message: "Please enter a valid cost", preferredStyle: UIAlertControllerStyle.alert)
                 
                 let errorOk = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default) { (action) -> Void in
                     print("Ok Pressed; checklist error")
@@ -159,6 +171,36 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
                 
                 errorAlertController.addAction(errorOk)
 
+                self.present(errorAlertController, animated: true, completion: nil)
+            } else if (cost! < 0.0) {
+                let errorAlertController: UIAlertController = UIAlertController(title: "Invalid entry", message: "Please enter a positive cost", preferredStyle: UIAlertControllerStyle.alert)
+                
+                let errorOk = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default) { (action) -> Void in
+                    print("Ok Pressed; checklist error")
+                }
+                
+                errorAlertController.addAction(errorOk)
+                
+                self.present(errorAlertController, animated: true, completion: nil)
+            } else if (transactionDate < self.dateConverter.setToYesterday(today: Date())) {
+                let errorAlertController: UIAlertController = UIAlertController(title: "Invalid entry", message: "Please enter a date that is not in the past", preferredStyle: UIAlertControllerStyle.alert)
+                
+                let errorOk = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default) { (action) -> Void in
+                    print("Ok Pressed; checklist error")
+                }
+                
+                errorAlertController.addAction(errorOk)
+                
+                self.present(errorAlertController, animated: true, completion: nil)
+            } else if (transactionDate < Date()) {
+                let errorAlertController: UIAlertController = UIAlertController(title: "Invalid entry", message: "Please enter a valid date", preferredStyle: UIAlertControllerStyle.alert)
+                
+                let errorOk = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default) { (action) -> Void in
+                    print("Ok Pressed; checklist error")
+                }
+                
+                errorAlertController.addAction(errorOk)
+                
                 self.present(errorAlertController, animated: true, completion: nil)
             } else {
                 print("here")
