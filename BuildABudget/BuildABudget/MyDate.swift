@@ -84,6 +84,12 @@ class MyDate {
         return myFormatter.string(from: inputDate)
     }
     
+    func shortDateToString(inputDate: Date) -> String {
+        myFormatter.dateFormat = "MM/dd"
+        return myFormatter.string(from: inputDate)
+    }
+    
+    
     
     //Default initializer
     init() { }
