@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A69674CB1FA440270075EB04 /* ChecklistUnpaidTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69674CA1FA440270075EB04 /* ChecklistUnpaidTableViewCell.swift */; };
 		B81632DC1F998F5900A04E43 /* Budget.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B81632DB1F998F5900A04E43 /* Budget.storyboard */; };
 		B81632DE1F99945F00A04E43 /* Checklist.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B81632DD1F99945F00A04E43 /* Checklist.storyboard */; };
 		B81632E01F99950B00A04E43 /* Overview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B81632DF1F99950B00A04E43 /* Overview.storyboard */; };
@@ -36,6 +37,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A69674CA1FA440270075EB04 /* ChecklistUnpaidTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistUnpaidTableViewCell.swift; sourceTree = "<group>"; };
 		B81632DB1F998F5900A04E43 /* Budget.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Budget.storyboard; sourceTree = "<group>"; };
 		B81632DD1F99945F00A04E43 /* Checklist.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Checklist.storyboard; sourceTree = "<group>"; };
 		B81632DF1F99950B00A04E43 /* Overview.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Overview.storyboard; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				B81632E11F99952A00A04E43 /* Transactions.storyboard */,
 				B81632DD1F99945F00A04E43 /* Checklist.storyboard */,
 				E9EA8D3C1FA12B2F00107CB0 /* ChecklistPaidTableViewCell.swift */,
+				A69674CA1FA440270075EB04 /* ChecklistUnpaidTableViewCell.swift */,
 				E97D493A1FA11FE80019A4DF /* ChecklistViewController.swift */,
 				B81632E31F99960300A04E43 /* Goals.storyboard */,
 				CC457A3D1F8813E400C98537 /* Assets.xcassets */,
@@ -204,6 +207,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A69674CB1FA440270075EB04 /* ChecklistUnpaidTableViewCell.swift in Sources */,
 				CC93DC431F99D16300070CF7 /* Account.swift in Sources */,
 				CC5475DB1FA4305B00B46A9B /* BudgetAddExpenseCell.swift in Sources */,
 				E9EA8D3D1FA12B2F00107CB0 /* ChecklistPaidTableViewCell.swift in Sources */,
