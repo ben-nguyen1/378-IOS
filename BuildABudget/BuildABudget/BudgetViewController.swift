@@ -51,11 +51,11 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
 
         if tableView.tag == 111{//incomeTable
             print("incomeList = \(incomeList.count)")
-            return incomeList.count
+            return incomeList.count + 1
         }
         else if tableView.tag == 222{//expenseTable
             print("expenseList = \(expenseList.count)")
-            return expenseList.count
+            return expenseList.count + 1
         }
         else {
             return 0 //catches tableview tags that are not incomeTable or expenseTable tags
@@ -69,11 +69,10 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         if (tableView == self.incomeTable){//tableView.tag == 111    incomeTable
-            if (indexPath.row < (incomeList.count)){//adding a BudgetLineCell
+            if (indexPath.row < (incomeList.count) && indexPath.row != (incomeList.count - 1) ){//adding a BudgetLineCell
                 let cell = tableView.dequeueReusableCell(withIdentifier: "BudgetLineCell", for: indexPath) as! BudgetLineCell
                 //set up the cell
                 let shortDate = thisDate.shortDateToString(inputDate: (incomeList[indexPath.item].dueDate) )
-                //cell.config(inputName: incomeList[indexPath.item].desciption, inputDate: incomeList[indexPath.item].dueDate.description, inputAmount: incomeList[indexPath.item].totalDue.description) //may need to chnage how to parameters dueDate and amount are converted to string.
                 cell.config(inputName: incomeList[indexPath.item].desciption, inputDate: shortDate, inputAmount: incomeList[indexPath.item].totalDue.description) //may need to chnage how to parameters dueDate and amount are converted to string.
                 
                 
@@ -89,10 +88,11 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         }
         else {//expenseTable
             
-            if (indexPath.row < expenseList.count ){//adding a BudgetLineCell
+            if (indexPath.row < expenseList.count && indexPath.row != (expenseList.count - 1)){//adding a BudgetLineCell
                 let cell = tableView.dequeueReusableCell(withIdentifier: "BudgetLineCell", for: indexPath) as! BudgetLineCell
                 //set up the cell
-                cell.config(inputName: expenseList[indexPath.item].desciption, inputDate: expenseList[indexPath.item].dueDate.description, inputAmount: expenseList[indexPath.item].totalDue.description) //may need to chnage how to parameters dueDate and amount are converted to string.
+                let shortDate = thisDate.shortDateToString(inputDate: (incomeList[indexPath.item].dueDate) )
+                cell.config(inputName: expenseList[indexPath.item].desciption, inputDate: shortDate, inputAmount: expenseList[indexPath.item].totalDue.description) //may need to chnage how to parameters dueDate and amount are converted to string.
                 cell.inViewTable = 222
                 return cell
             }
