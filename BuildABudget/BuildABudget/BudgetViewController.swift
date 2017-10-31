@@ -11,7 +11,7 @@ import UIKit
 
 
 class BudgetViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, BudgetAddIncomeProtocol, BudgetAddExpenseProtocol {
-   
+    
     @IBOutlet weak var incomeTable: UITableView! //has attribute .tag = 111
     @IBOutlet weak var expenseTable: UITableView! //has attribute .tag = 222
     
@@ -49,7 +49,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     
     //return number of rows for a specific tableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
+        
         if tableView.tag == 111{//incomeTable
             print("incomeList = \(incomeList.count)")
             return incomeList.count //+ 1
@@ -68,7 +68,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     
     //populate each table with TableViewCells
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
+        
         if (tableView == self.incomeTable){//tableView.tag == 111    incomeTable
             if (indexPath.row < (incomeList.count) && indexPath.row != (incomeList.count - 1) ){//adding a BudgetLineCell
                 let cell = tableView.dequeueReusableCell(withIdentifier: "BudgetLineCell", for: indexPath) as! BudgetLineCell
@@ -185,7 +185,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             
             //save the MyTransaction Object to CoreData
             AccessService.access.saveTransaction(input: newBudgetItem)
-          
+            
             //reload the table so that it displays the newly added Transaction.
             //self.tableView.treloadData()  // causes the table data source protocol methods to execute
             self.update()
@@ -204,7 +204,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         //display the alert window on the screen
         present(newBudgetLineInputWindow, animated: true, completion: nil)
     }
-
+    
     
     //UIAlert window input validation methods
     func isValidDescription( input:String) -> Bool{
