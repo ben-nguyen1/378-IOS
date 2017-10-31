@@ -82,9 +82,12 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
 
     func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
         let paid = UITableViewRowAction(style: .normal, title: "Paid") { action, index in
+            let transactionToChange = self.unpaidItems[index.row]
+            self.ChecklistAccess.deleteTransaction(input: transactionToChange)
+            transactionToChange.datePaidOff = Date()
+            self.ChecklistAccess.saveTransaction(input: transactionToChange)
+            self.updateTables()
             print("paid button tapped \(index.row)")
-            
-            //TODO: implement paid
         }
         paid.backgroundColor = UIColor.green
         
@@ -147,9 +150,18 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
             let transactionDate = self.dateConverter.stringToDate(inputString: dueDateTextField!.text!)
             let cost = Double(costTextField!.text!)
             
-            if (transactionDate < Date() && cost != nil) {
-                //handle error
+            if (transactionDate < Date() || cost == nil) { // Handle error cases.
+                let errorAlertController: UIAlertController = UIAlertController(title: "Invalid entry", message: "Please ensure that the date is entered in MM/DD/YYYY format and only digits are used in entering the cost of the item.", preferredStyle: UIAlertControllerStyle.alert)
+                
+                let errorOk = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default) { (action) -> Void in
+                    print("Ok Pressed; checklist error")
+                }
+                
+                errorAlertController.addAction(errorOk)
+
+                self.present(errorAlertController, animated: true, completion: nil)
             } else {
+                print("here")
                 let newExpense = MyTransaction(description: descriptionTextField!.text!, dueDate: transactionDate, totalDue: cost!, isReoccuring: true, isIncome: false)
 
                 self.ChecklistAccess.saveTransaction(input: newExpense)
