@@ -25,6 +25,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     
     var incomeTotal:Double = 0.0
     var expenseTotal:Double = 0.0
+    var differenceAmount = 0.0
     
     //UIAlert field vars
     var descriptionTextField: UITextField? = nil
@@ -264,6 +265,13 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             }
         }
         
+        //calculate the budget deficit/surplus
+        differenceAmount = incomeTotal - expenseTotal
+        
+        //display the incomeTotal, expenseTotal, differenceAmount on view controller
+        self.incomeLabel.text = String(incomeTotal)
+        self.expenseLabel.text = String(expenseTotal)
+        self.differenceLabel.text = String(differenceAmount)
         
     }
     
