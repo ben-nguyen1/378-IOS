@@ -11,7 +11,7 @@ import UIKit
 
 
 class BudgetViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, BudgetAddIncomeProtocol, BudgetAddExpenseProtocol {
-   
+    
     @IBOutlet weak var incomeTable: UITableView! //has attribute .tag = 111
     @IBOutlet weak var expenseTable: UITableView! //has attribute .tag = 222
     
@@ -43,20 +43,20 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         thisBudget = BudgetAccess.getBudget(index: 0) //for right now it is hard coded to only get the first budget, we might allow users to save multiple budgets later on.
         //incomeList = (thisBudget?.allIncome)!
         //expenseList = (thisBudget?.allExpenses)!
-        update()
+        self.update()
     }
     
     
     //return number of rows for a specific tableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
+        
         if tableView.tag == 111{//incomeTable
             print("incomeList = \(incomeList.count)")
-            return incomeList.count + 1
+            return incomeList.count //+ 1
         }
         else if tableView.tag == 222{//expenseTable
             print("expenseList = \(expenseList.count)")
-            return expenseList.count + 1
+            return expenseList.count //+ 1
         }
         else {
             return 0 //catches tableview tags that are not incomeTable or expenseTable tags
@@ -68,7 +68,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     
     //populate each table with TableViewCells
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
+        
         if (tableView == self.incomeTable){//tableView.tag == 111    incomeTable
             if (indexPath.row < (incomeList.count) && indexPath.row != (incomeList.count - 1) ){//adding a BudgetLineCell
                 let cell = tableView.dequeueReusableCell(withIdentifier: "BudgetLineCell", for: indexPath) as! BudgetLineCell
@@ -185,10 +185,10 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             
             //save the MyTransaction Object to CoreData
             AccessService.access.saveTransaction(input: newBudgetItem)
-          
+            
             //reload the table so that it displays the newly added Transaction.
             //self.tableView.treloadData()  // causes the table data source protocol methods to execute
-            
+            self.update()
             print("\n\nFinished Saving a new BudgetLineItem")
         }
         
@@ -204,7 +204,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         //display the alert window on the screen
         present(newBudgetLineInputWindow, animated: true, completion: nil)
     }
-
+    
     
     //UIAlert window input validation methods
     func isValidDescription( input:String) -> Bool{
@@ -230,6 +230,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         expenseTable.delegate = self
         
         navigationItem.title = "Budget"
+        //self.update() <-----this probably does not go here
         print("IN BUDGET")
     }
     
@@ -261,7 +262,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             else {
                 expenseList.append(temp)
                 expenseTotal += temp.totalDue
-                print("incomeTotal = \(incomeTotal)")
+                print("expenseTotal = \(expenseTotal)")
             }
         }
         
@@ -273,6 +274,9 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         self.expenseLabel.text = String(expenseTotal)
         self.differenceLabel.text = String(differenceAmount)
         
+        //reload the UITables to display the new transaction data
+        self.incomeTable.reloadData()
+        self.expenseTable.reloadData()
     }
     
     
