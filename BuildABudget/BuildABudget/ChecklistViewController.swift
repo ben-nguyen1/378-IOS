@@ -83,15 +83,17 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
     func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
         let paid = UITableViewRowAction(style: .normal, title: "Paid") { action, index in
             print("paid button tapped \(index.row)")
+            
             //TODO: implement paid
         }
         paid.backgroundColor = UIColor.green
         
         let delete = UITableViewRowAction(style: .normal, title: "Delete") { action, index in
+            self.ChecklistAccess.deleteTransaction(input: self.unpaidItems[index.row])
+            self.updateTables()
             print("delete button tapped \(index.row)")
-            //TODO: implement delete
         }
-        paid.backgroundColor = UIColor.red
+        delete.backgroundColor = UIColor.red
         
         return [paid, delete]
     }

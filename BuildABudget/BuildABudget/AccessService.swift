@@ -187,8 +187,40 @@ class AccessService {
         //printAllTransactions() <--- diagnostic test to check that all transactions were readable
     }
     
-    
-    
+    func deleteTransaction(input: MyTransaction) {
+        let managedContext = persistentContainer.viewContext
+        let fetchRequest: NSFetchRequest<Transaction> = Transaction.fetchRequest()
+        
+        do {
+            let transactionArray = try managedContext.fetch(fetchRequest)
+            
+            for transaction in transactionArray as [NSManagedObject] {
+                // Delete if the object is a match
+                if (input.datePaidOff == transaction.value(forKey: "datePaidOff") as! Date &&
+                input.dueDate == transaction.value(forKey: "dueDate") as! Date &&
+                input.initialInputDate == transaction.value(forKey: "occuranceDate") as! Date &&
+                input.totalDue == transaction.value(forKey: "totalAmount") as! Double &&
+                input.desciption == transaction.value(forKey: "transactionDescription") as! String &&
+                input.isIncome == transaction.value(forKey: "isIncome") as! Bool &&
+                input.isReoccuring == transaction.value(forKey: "isReoccuring") as! Bool) {
+                    context.delete(transaction)
+                }
+            }
+            
+            do {
+                try context.save()
+            } catch {
+                let nserror = error as NSError
+                NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
+                abort()
+            }
+        } catch {
+            print("Error with request: \(error)")
+        }
+        
+        // Update transaction array
+        self.retreiveAllTransactions()
+    }
     
     func saveTransaction(input: MyTransaction) {
         
