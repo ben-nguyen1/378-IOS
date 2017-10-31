@@ -10,7 +10,7 @@ import UIKit
 
 
 
-class BudgetViewController: UIViewController, UITableViewDataSource, BudgetAddIncomeProtocol, BudgetAddExpenseProtocol {
+class BudgetViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, BudgetAddIncomeProtocol, BudgetAddExpenseProtocol {
    
     @IBOutlet weak var incomeTable: UITableView! //has attribute .tag = 111
     @IBOutlet weak var expenseTable: UITableView! //has attribute .tag = 222
@@ -23,6 +23,9 @@ class BudgetViewController: UIViewController, UITableViewDataSource, BudgetAddIn
     fileprivate var expenseList: [MyTransaction] = []
     fileprivate var thisBudget: MyBudget? = nil
     
+    var incomeTotal:Double = 0.0
+    var expenseTotal:Double = 0.0
+    
     //UIAlert field vars
     var descriptionTextField: UITextField? = nil
     var dueDateTextField: UITextField? = nil
@@ -30,14 +33,16 @@ class BudgetViewController: UIViewController, UITableViewDataSource, BudgetAddIn
     
     //var with ability to interface with the coreData storage methods
     var BudgetAccess = AccessService.access
+    let thisDate = MyDate.dateConverter
     
     //var delegate
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         thisBudget = BudgetAccess.getBudget(index: 0) //for right now it is hard coded to only get the first budget, we might allow users to save multiple budgets later on.
-        incomeList = (thisBudget?.allIncome)!
-        expenseList = (thisBudget?.allExpenses)!
+        //incomeList = (thisBudget?.allIncome)!
+        //expenseList = (thisBudget?.allExpenses)!
+        update()
     }
     
     
@@ -45,27 +50,33 @@ class BudgetViewController: UIViewController, UITableViewDataSource, BudgetAddIn
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         if tableView.tag == 111{//incomeTable
-            return incomeList.count + 1
+            print("incomeList = \(incomeList.count)")
+            return incomeList.count
         }
         else if tableView.tag == 222{//expenseTable
-            return expenseList.count + 1
+            print("expenseList = \(expenseList.count)")
+            return expenseList.count
         }
         else {
             return 0 //catches tableview tags that are not incomeTable or expenseTable tags
         }
     }
     
+    
+    
+    
     //populate each table with TableViewCells
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        
-        
-        if tableView.tag == 111{//incomeTable
-            
-            if (indexPath.row < (incomeList.count - 1)){//adding a BudgetLineCell
+        if (tableView == self.incomeTable){//tableView.tag == 111    incomeTable
+            if (indexPath.row < (incomeList.count)){//adding a BudgetLineCell
                 let cell = tableView.dequeueReusableCell(withIdentifier: "BudgetLineCell", for: indexPath) as! BudgetLineCell
                 //set up the cell
-                cell.config(inputName: incomeList[indexPath.item].desciption, inputDate: incomeList[indexPath.item].dueDate.description, inputAmount: incomeList[indexPath.item].totalDue.description) //may need to chnage how to parameters dueDate and amount are converted to string.
+                let shortDate = thisDate.shortDateToString(inputDate: (incomeList[indexPath.item].dueDate) )
+                //cell.config(inputName: incomeList[indexPath.item].desciption, inputDate: incomeList[indexPath.item].dueDate.description, inputAmount: incomeList[indexPath.item].totalDue.description) //may need to chnage how to parameters dueDate and amount are converted to string.
+                cell.config(inputName: incomeList[indexPath.item].desciption, inputDate: shortDate, inputAmount: incomeList[indexPath.item].totalDue.description) //may need to chnage how to parameters dueDate and amount are converted to string.
+                
+                
                 cell.inViewTable = 111
                 return cell
             }
@@ -78,7 +89,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, BudgetAddIn
         }
         else {//expenseTable
             
-            if (indexPath.row < (expenseList.count - 1)){//adding a BudgetLineCell
+            if (indexPath.row < expenseList.count ){//adding a BudgetLineCell
                 let cell = tableView.dequeueReusableCell(withIdentifier: "BudgetLineCell", for: indexPath) as! BudgetLineCell
                 //set up the cell
                 cell.config(inputName: expenseList[indexPath.item].desciption, inputDate: expenseList[indexPath.item].dueDate.description, inputAmount: expenseList[indexPath.item].totalDue.description) //may need to chnage how to parameters dueDate and amount are converted to string.
@@ -209,8 +220,14 @@ class BudgetViewController: UIViewController, UITableViewDataSource, BudgetAddIn
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //set each table's data source
         incomeTable.dataSource = self
         expenseTable.dataSource = self
+        
+        //set each table's delegate
+        incomeTable.delegate = self
+        expenseTable.delegate = self
+        
         navigationItem.title = "Budget"
         print("IN BUDGET")
     }
@@ -220,6 +237,35 @@ class BudgetViewController: UIViewController, UITableViewDataSource, BudgetAddIn
     }
     
     
+    //update incomeList, expenseList, incomeTotal, expenseTotal
+    func update(){
+        
+        BudgetAccess.retreiveAllTransactions()//cause all transactions to be reloaded by CoreDate interface
+        
+        //set all lists and counters to 0
+        incomeList = []
+        expenseList = []
+        incomeTotal = 0.0
+        expenseTotal = 0.0
+        
+        var i = 0
+        var limit = BudgetAccess.totalTransactions()
+        for i in 0..<limit {
+            let temp = BudgetAccess.getTransaction(index: i)
+            if temp.isIncome {
+                incomeList.append(temp)
+                incomeTotal += temp.totalDue
+                print("incomeTotal = \(incomeTotal)")
+            }
+            else {
+                expenseList.append(temp)
+                expenseTotal += temp.totalDue
+                print("incomeTotal = \(incomeTotal)")
+            }
+        }
+        
+        
+    }
     
     
     
