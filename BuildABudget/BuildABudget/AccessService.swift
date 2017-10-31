@@ -67,7 +67,7 @@ class AccessService {
             }
         }
     }
-  
+    
     
     // We want this class to be a Singleton.
     // To keep it that way, don't allow any code outside this class to instantiate an object of this type.
@@ -134,7 +134,7 @@ class AccessService {
             let rEndDate                   = record.value(forKey: "endDate") as! Date
             let rMonthlyContributionAmount = record.value(forKey: "monthlyContributionAmount") as! Double
             let rContributionList          = record.value(forKey: "contributionList") as! [MyTransaction]
-
+            
             
             return MyGoal(description: rDescription,
                           startDate: rStartDate,
@@ -142,7 +142,7 @@ class AccessService {
                           monthlyContribution: rMonthlyContributionAmount,
                           totalContribution: rMonthlyContributionAmount,
                           contributionList: rContributionList
-                         )
+            )
             
         } else {
             return MyGoal()
@@ -151,10 +151,23 @@ class AccessService {
     }
     
     //========================================================================================================================================
-
+    
+    func printAllTransactions() {
+        
+        var i = 0
+        var limit = totalTransactions()
+        
+        
+        for i in 0..<limit {
+            print("ITEM => \(getTransaction(index: i).desciption) , \(getTransaction(index: i).date) , \(getTransaction(index: i).isIncome ) , \(getTransaction(index: i).totalDue)")
+        }
+        
+    }
     
     //Transaction Methods:
     func retreiveAllTransactions() {
+        
+        print("\n>>> retrieiveAllTransactions count  before = \(totalTransactions())\n")
         
         let managedContext = persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName:"Transaction")
@@ -170,7 +183,12 @@ class AccessService {
         
         guard let results = fetchedResults else { return }
         transactions = results
+        print("\n>>> retrieiveAllTransactions count after = \(totalTransactions())\n")
+        //printAllTransactions() <--- diagnostic test to check that all transactions were readable
     }
+    
+    
+    
     
     func saveTransaction(input: MyTransaction) {
         
@@ -188,7 +206,7 @@ class AccessService {
         record.setValue(input.desciption, forKey: "transactionDescription")
         record.setValue(input.isIncome, forKey: "isIncome")
         record.setValue(input.isReoccuring, forKey: "isReoccuring")
-
+        
         //test values received by printing them out
         print("============================================")
         print("\n>>> number of transactions before = \(totalTransactions())\n")
@@ -204,12 +222,12 @@ class AccessService {
         print("\n\(record)")
         
         print("============================================")
- 
+        
         
         // Commit the changes.
         do {
             try managedContext.save() //save to CoreDate
-
+            
             transactions.append(record) //append the transactions array with this new NSManagedObject
             print("\n>>> number of transactions before = \(totalTransactions())\n")
         } catch {
@@ -219,9 +237,15 @@ class AccessService {
         }
     }
     
+    
+    
+    
     func totalTransactions() -> Int {
         return transactions.count
     }
+    
+    
+    
     
     func getTransaction(index:Int) -> MyTransaction {
         
@@ -234,7 +258,7 @@ class AccessService {
             let rTotalDue =         record.value(forKey: "totalAmount") as! Double//
             let rIsReoccuring =     record.value(forKey: "isReoccuring") as! Bool//
             let rIsIncome =         record.value(forKey: "isIncome") as! Bool//
-
+            
             return MyTransaction(description:       rDescription,
                                  initialInputDate:  rInitialInputDate,
                                  dueDate:           rDueDate,
@@ -243,12 +267,12 @@ class AccessService {
                                  isReoccuring:      rIsReoccuring,
                                  isIncome:          rIsIncome)
         } else {
-             return MyTransaction()
+            return MyTransaction()
         }
-    
+        
     }
     //========================================================================================================================================
-
+    
     //Budget Methods:
     func retreiveAllBudgets() {
         
@@ -301,7 +325,7 @@ class AccessService {
         if (budgets == nil) {
             print("budgets is null")
         }
-     
+        
         if (budgets != nil) && index < budgets.count {
             let record = budgets[index]
             let rDescription =      record.value(forKey: "budgetDescription") as! String
@@ -320,11 +344,11 @@ class AccessService {
         } else {
             return MyBudget()//returns a blank budget when we first open the BudgetViewController
         }
- 
+        
         
     }
-
- 
+    
+    
     
     
     
