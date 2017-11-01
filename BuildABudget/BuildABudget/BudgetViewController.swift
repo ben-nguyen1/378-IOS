@@ -12,6 +12,18 @@ import UIKit
 
 class BudgetViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, BudgetAddIncomeProtocol, BudgetAddExpenseProtocol {
     
+    @IBAction func addIncomeButton(_ sender: Any) {
+        addIncome()
+    }
+    
+    
+    @IBAction func addExpenseButton(_ sender: Any) {
+        addExpense()
+    }
+    
+    
+    
+    
     @IBOutlet weak var incomeTable: UITableView! //has attribute .tag = 111
     @IBOutlet weak var expenseTable: UITableView! //has attribute .tag = 222
     
@@ -69,8 +81,9 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     //populate each table with TableViewCells
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+
         if (tableView == self.incomeTable){//tableView.tag == 111    incomeTable
-            if (indexPath.row < (incomeList.count) && indexPath.row != (incomeList.count - 1) ){//adding a BudgetLineCell
+
                 let cell = tableView.dequeueReusableCell(withIdentifier: "BudgetLineCell", for: indexPath) as! BudgetLineCell
                 //set up the cell
                 let shortDate = thisDate.shortDateToString(inputDate: (incomeList[indexPath.item].dueDate) )
@@ -79,31 +92,23 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
                 
                 cell.inViewTable = 111
                 return cell
-            }
-            else {//adding a BudgetAddIncomeCell, since this must be the last index
-                let cell = tableView.dequeueReusableCell(withIdentifier: "BudgetAddIncomeCell", for: indexPath) as! BudgetAddIncomeCell
-                cell.inViewTable = 111
-                cell.incomeDelegate = self
-                return cell
-            }
+            
+
+
         }
         else {//expenseTable
             
-            if (indexPath.row < expenseList.count && indexPath.row != (expenseList.count - 1)){//adding a BudgetLineCell
-                let cell = tableView.dequeueReusableCell(withIdentifier: "BudgetLineCell", for: indexPath) as! BudgetLineCell
+
+                let cell = tableView.dequeueReusableCell(withIdentifier: "BudgetExpenseCell", for: indexPath) as! BudgetExpenseCell
                 //set up the cell
-                let shortDate = thisDate.shortDateToString(inputDate: (incomeList[indexPath.item].dueDate) )
+                let shortDate = thisDate.shortDateToString(inputDate: (expenseList[indexPath.item].dueDate) )
                 cell.config(inputName: expenseList[indexPath.item].desciption, inputDate: shortDate, inputAmount: expenseList[indexPath.item].totalDue.description) //may need to chnage how to parameters dueDate and amount are converted to string.
                 cell.inViewTable = 222
                 return cell
-            }
-            else {//adding a BudgetAddExpenseCell, since this must be the last index
-                let cell = tableView.dequeueReusableCell(withIdentifier: "BudgetAddExpenseCell", for: indexPath) as! BudgetAddExpenseCell
-                cell.inViewTable = 222
-                cell.expenseDelegate = self
-                return cell
-            }
+
+           
         }
+
         
     }
     
@@ -166,13 +171,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             description = descriptionTextField
             dueDate = MyDate.dateConverter.stringToDate(inputString: dueDateTextField)
             totalDue = (totalDueTextField as NSString).doubleValue
-            
-            //check that Alert window is getting the correct input
-            //print("\ndescriptionTextField = \(description)")
-            //print("dueDateTextField = \(dueDate)")
-            //print("totalDueTextField = \(totalDue)\n")
-            //var testDateToString = MyDate.dateConverter.dateToString(inputDate: dueDate!)
-            //print(">>>dateToString = \(testDateToString)\n")
+        
             
             //Build the MyTransaction Object
             let newBudgetItem = MyTransaction.create( iDes: description,
@@ -280,6 +279,213 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     
+    func addIncome() {
+        
+        var alertWindowTitle:   String = "Add Income"
+        var description:        String = ""
+        var dueDate:            Date? = nil
+        var totalDue:           Double = 0.0
+        var isIncome:           Bool = true //only changed if add button from incomeTable is pressed
+        
+        
+        //set the AlertWindow's title and instruction message to user
+        let newBudgetLineInputWindow = UIAlertController(title: alertWindowTitle, message: "Fill out all fields", preferredStyle: .alert)
+        
+        //do not change the order of these three .addTextFields
+        newBudgetLineInputWindow.addTextField { (textField) -> Void in
+            textField.placeholder = "Item Description"
+            self.descriptionTextField = textField
+            //self.descriptionTextField?.layer.borderColor = (UIColor.red).cgColor <--- these two lines are how we let user know they goofed.
+            //self.descriptionTextField?.layer.borderWidth = 1.0
+        }
+        
+        newBudgetLineInputWindow.addTextField { (textField) -> Void in
+            textField.placeholder = "Amount ex: 32.49"
+            self.totalDueTextField = textField
+            //self.totalDueTextField?.backgroundColor = UIColor.blue <----- experimented with background colors (future use)
+        }
+        
+        newBudgetLineInputWindow.addTextField { (textField) -> Void in
+            textField.placeholder = "Due Date ex: 01/09/2017"
+            self.dueDateTextField = textField
+        }
+        
+        let saveAction = UIAlertAction(title: "Save", style: .default) { (action: UIAlertAction!) -> Void in
+            
+            
+            
+            //while <--- we will implement a while loop here to catch bad input
+            
+            
+            //grab all the data from the alert window's text fields
+            guard let descriptionTextField = self.descriptionTextField?.text, self.isValidDescription(input: (self.descriptionTextField?.text)!) else {
+                return }
+            guard let totalDueTextField = self.totalDueTextField?.text else { return }
+            guard let dueDateTextField = self.dueDateTextField?.text else { return }
+            
+            
+            //set the data that we grabbed into local variables
+            description = descriptionTextField
+            dueDate = MyDate.dateConverter.stringToDate(inputString: dueDateTextField)
+            totalDue = (totalDueTextField as NSString).doubleValue
+            
+            //check that Alert window is getting the correct input
+            //print("\ndescriptionTextField = \(description)")
+            //print("dueDateTextField = \(dueDate)")
+            //print("totalDueTextField = \(totalDue)\n")
+            //var testDateToString = MyDate.dateConverter.dateToString(inputDate: dueDate!)
+            //print(">>>dateToString = \(testDateToString)\n")
+            
+            //Build the MyTransaction Object
+            let newBudgetItem = MyTransaction.create( iDes: description,
+                                                      iIniDate: Date(),
+                                                      iDueDate: dueDate!,
+                                                      iDatePaidOff: MyDate.dateConverter.setToYesterday(today: Date()),
+                                                      iTotalDue: totalDue,
+                                                      iIsReoccuring: true,
+                                                      iIsIncome: isIncome)
+            
+            //save the MyTransaction Object to CoreData
+            AccessService.access.saveTransaction(input: newBudgetItem)
+            
+            //reload the table so that it displays the newly added Transaction.
+            //self.tableView.treloadData()  // causes the table data source protocol methods to execute
+            self.update()
+            print("\n\nFinished Saving a new BudgetLineItem")
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default) {
+            (action: UIAlertAction!) -> Void in
+        }
+        
+        
+        //add the buttons to the Alert window
+        newBudgetLineInputWindow.addAction(saveAction)
+        newBudgetLineInputWindow.addAction(cancelAction)
+        
+        //display the alert window on the screen
+        present(newBudgetLineInputWindow, animated: true, completion: nil)
+    }
+    
+    
+    
+    func addExpense() {
+        
+        var alertWindowTitle:   String = "Add Income"
+        var description:        String = ""
+        var dueDate:            Date? = nil
+        var totalDue:           Double = 0.0
+        var isIncome:           Bool = false //only changed if add button from incomeTable is pressed
+        
+        //set the AlertWindow's title and instruction message to user
+        let newBudgetLineInputWindow = UIAlertController(title: alertWindowTitle, message: "Fill out all fields", preferredStyle: .alert)
+        
+        //do not change the order of these three .addTextFields
+        newBudgetLineInputWindow.addTextField { (textField) -> Void in
+            textField.placeholder = "Item Description"
+            self.descriptionTextField = textField
+            //self.descriptionTextField?.layer.borderColor = (UIColor.red).cgColor <--- these two lines are how we let user know they goofed.
+            //self.descriptionTextField?.layer.borderWidth = 1.0
+        }
+        
+        newBudgetLineInputWindow.addTextField { (textField) -> Void in
+            textField.placeholder = "Amount ex: 32.49"
+            self.totalDueTextField = textField
+            //self.totalDueTextField?.backgroundColor = UIColor.blue <----- experimented with background colors (future use)
+        }
+        
+        newBudgetLineInputWindow.addTextField { (textField) -> Void in
+            textField.placeholder = "Due Date ex: 01/09/2017"
+            self.dueDateTextField = textField
+        }
+        
+        let saveAction = UIAlertAction(title: "Save", style: .default) { (action: UIAlertAction!) -> Void in
+            
+            
+            
+            //grab all the data from the alert window's text fields
+            guard let descriptionTextField = self.descriptionTextField?.text, self.isValidDescription(input: (self.descriptionTextField?.text)!) else {
+                return }
+            guard let totalDueTextField = self.totalDueTextField?.text else { return }
+            guard let dueDateTextField = self.dueDateTextField?.text else { return }
+            
+            
+            //set the data that we grabbed into local variables
+            description = descriptionTextField
+            dueDate = MyDate.dateConverter.stringToDate(inputString: dueDateTextField)
+            totalDue = (totalDueTextField as NSString).doubleValue
+            
+            
+            //Build the MyTransaction Object
+            let newBudgetItem = MyTransaction.create( iDes: description,
+                                                      iIniDate: Date(),
+                                                      iDueDate: dueDate!,
+                                                      iDatePaidOff: MyDate.dateConverter.setToYesterday(today: Date()),
+                                                      iTotalDue: totalDue,
+                                                      iIsReoccuring: true,
+                                                      iIsIncome: isIncome)
+            
+            //save the MyTransaction Object to CoreData
+            AccessService.access.saveTransaction(input: newBudgetItem)
+            
+            self.update()
+            print("\n\nFinished Saving a new BudgetLineItem")
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default) {
+            (action: UIAlertAction!) -> Void in
+        }
+        
+        
+        //add the buttons to the Alert window
+        newBudgetLineInputWindow.addAction(saveAction)
+        newBudgetLineInputWindow.addAction(cancelAction)
+        
+        //display the alert window on the screen
+        present(newBudgetLineInputWindow, animated: true, completion: nil)
+    }
+    /*
+    //UIAlert window input validation methods
+    func isValidDescription( input:String) -> Bool{
+        if  !input.isEmpty {//basically any charactes will do as long as something is input
+            return true
+        }
+        else {
+            return false
+        }
+        
+    }
+    */
+    
+    //swipe to delete functionality
+    func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
+        
+        print("income count = \(self.incomeList.count)\texpense count = \(self.incomeList.count)")
+        if (tableView == self.incomeTable) {
+            
+            let removeIncome = UITableViewRowAction(style: .normal, title: "Delete") {action, index in
+                
+                let removedTransaction = self.incomeList[index.row]
+                
+                self.BudgetAccess.deleteTransaction(input: removedTransaction)
+                self.update()
+                print(">>>REMOVED INCOME TRANSACTION\(index.row)\tnew income count = \(self.incomeList.count)")
+            }
+            removeIncome.backgroundColor = UIColor.red
+            return [removeIncome]
+        }
+        else {
+            let removeExpense = UITableViewRowAction(style: .normal, title: "Delete") {
+                action, index in
+                self.BudgetAccess.deleteTransaction(input: self.expenseList[index.row])
+                self.update()
+                print(">>>REMOVED EXPENSE TRANSACTION\(index.row)\tnew income count = \(self.expenseList.count)")
+            }
+            removeExpense.backgroundColor = UIColor.red
+            return [removeExpense]
+        }
+    }
+
     
 }//end of BudgetViewController class
 
