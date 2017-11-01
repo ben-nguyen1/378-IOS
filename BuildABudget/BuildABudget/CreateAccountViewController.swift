@@ -70,27 +70,29 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
                 self.alertErrorController!.addAction(OKAction)
                 
                 self.present(self.alertErrorController!, animated: true, completion:nil)
+            } else {
+                // add info to UserDefaults
+                Account.setFirstName(firstName.text!)
+                Account.setLasttName(lastName.text!)
+                Account.setUserName(email.text!)
+                Account.setPass(pass.text!)
+                
+                self.accountSuccessController = UIAlertController(title: "Alert", message: "Your account has been made!", preferredStyle: UIAlertControllerStyle.alert)
+                
+                let OKAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) {
+                    (action:UIAlertAction) in
+                    
+                    // after creating an account, go back to login screen
+                    // TODO:
+                    // in the future, this will be the tutorial screen
+                    let secondViewController = self.storyboard?.instantiateViewController(withIdentifier: "loginViewController") as! LoginViewController
+                    self.navigationController?.pushViewController(secondViewController, animated: true)
+                }
+                self.accountSuccessController!.addAction(OKAction)
+                self.present(self.accountSuccessController!, animated: true, completion:nil)
             }
             
-            // add info to UserDefaults
-            Account.setFirstName(firstName.text!)
-            Account.setLasttName(lastName.text!)
-            Account.setUserName(email.text!)
-            Account.setPass(pass.text!)
-            
-            self.accountSuccessController = UIAlertController(title: "Alert", message: "Your account has been made!", preferredStyle: UIAlertControllerStyle.alert)
-            
-            let OKAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) {
-                (action:UIAlertAction) in
-    
-                // after creating an account, go back to login screen
-                // TODO:
-                // in the future, this will be the tutorial screen
-                let secondViewController = self.storyboard?.instantiateViewController(withIdentifier: "loginViewController") as! LoginViewController
-                self.navigationController?.pushViewController(secondViewController, animated: true)
-            }
-            self.accountSuccessController!.addAction(OKAction)
-            self.present(self.accountSuccessController!, animated: true, completion:nil)
+
         }
     }
     

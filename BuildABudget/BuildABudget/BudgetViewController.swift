@@ -10,7 +10,7 @@ import UIKit
 
 
 
-class BudgetViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, BudgetAddIncomeProtocol, BudgetAddExpenseProtocol {
+class BudgetViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, BudgetAddIncomeProtocol, BudgetAddExpenseProtocol {
     
     @IBAction func addIncomeButton(_ sender: Any) {
         addIncome()
@@ -53,8 +53,6 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         thisBudget = BudgetAccess.getBudget(index: 0) //for right now it is hard coded to only get the first budget, we might allow users to save multiple budgets later on.
-        //incomeList = (thisBudget?.allIncome)!
-        //expenseList = (thisBudget?.allExpenses)!
         self.update()
     }
     
@@ -484,6 +482,19 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             removeExpense.backgroundColor = UIColor.red
             return [removeExpense]
         }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        // 'First Responder' is the same as 'input focus'.
+        // We are removing input focus from the text field.
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    // Called when the user touches on the main view (outside the UITextField).
+    //
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
 
     

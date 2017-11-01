@@ -25,7 +25,6 @@
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Email" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ufs-zw-MTi">
                                 <rect key="frame" x="87.5" y="158" width="200" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="203" id="1Wf-4G-ebS"/>
                                     <constraint firstAttribute="height" constant="30" id="oDA-ps-JDw"/>
                                     <constraint firstAttribute="width" constant="200" id="qwk-9b-xOA"/>
                                 </constraints>
@@ -153,7 +152,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="First Name" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="11o-Uf-Gyj">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="First Name" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="11o-Uf-Gyj">
                                 <rect key="frame" x="50.5" y="170" width="274" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="274" id="EgZ-a9-96o"/>
@@ -163,7 +162,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Last Name" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="18T-Zi-2uw">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Last Name" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="18T-Zi-2uw">
                                 <rect key="frame" x="50.5" y="208" width="274" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="V7N-IV-QKm"/>
@@ -173,7 +172,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Email" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MQJ-YW-vbv">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Email" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MQJ-YW-vbv">
                                 <rect key="frame" x="50.5" y="246" width="274" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="274" id="bxk-tD-4VR"/>
@@ -183,7 +182,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Password" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sOw-Ba-0lF">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Password" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sOw-Ba-0lF">
                                 <rect key="frame" x="50.5" y="284" width="274" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="274" id="Bfn-1D-0et"/>
@@ -193,7 +192,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5xe-JS-M7A">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5xe-JS-M7A">
                                 <rect key="frame" x="140.5" y="336" width="94" height="38"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -209,7 +208,7 @@
                                     <action selector="createBtn:" destination="KUP-xm-pDP" eventType="touchUpInside" id="L4i-a8-G5m"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Create an Account" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JGi-yj-Qn7">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create an Account" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JGi-yj-Qn7">
                                 <rect key="frame" x="26.5" y="100" width="322" height="43"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="43" id="GuR-Cv-z8T"/>
@@ -223,6 +222,7 @@
                         <color key="backgroundColor" red="0.74194099410000003" green="0.89924364700000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="18T-Zi-2uw" firstAttribute="centerX" secondItem="DRU-Iw-qDZ" secondAttribute="centerX" id="31x-cA-rlI"/>
+                            <constraint firstItem="JGi-yj-Qn7" firstAttribute="top" secondItem="XBZ-kG-3Pe" secondAttribute="bottom" constant="36" id="4Yp-zP-PHH"/>
                             <constraint firstItem="JGi-yj-Qn7" firstAttribute="centerX" secondItem="DRU-Iw-qDZ" secondAttribute="centerX" id="6oE-Yn-U2b"/>
                             <constraint firstItem="5xe-JS-M7A" firstAttribute="top" secondItem="sOw-Ba-0lF" secondAttribute="bottom" constant="22" id="7Hl-sz-rpu"/>
                             <constraint firstItem="MQJ-YW-vbv" firstAttribute="centerX" secondItem="DRU-Iw-qDZ" secondAttribute="centerX" id="Ek5-XW-EeJ"/>
@@ -337,7 +337,6 @@
                     </tabBar>
                     <connections>
                         <segue destination="lGa-vu-QrP" kind="relationship" relationship="viewControllers" id="N63-Rd-F7b"/>
-                        <segue destination="xZL-qA-1UI" kind="relationship" relationship="viewControllers" id="P2S-UN-Fmz"/>
                         <segue destination="jqm-Mj-2zY" kind="relationship" relationship="viewControllers" id="ykR-Wi-BMi"/>
                     </connections>
                 </tabBarController>
@@ -355,21 +354,10 @@
             </objects>
             <point key="canvasLocation" x="2577" y="533"/>
         </scene>
-        <!--Overview Ref-->
-        <scene sceneID="uGk-Wn-XOg">
-            <objects>
-                <viewControllerPlaceholder storyboardIdentifier="Overview.storyboard" storyboardName="Overview" referencedIdentifier="overviewVC" id="xZL-qA-1UI" userLabel="Overview Ref" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Overview" image="Overview - graphs" id="E34-uK-jHM"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="j7j-HN-Jzb" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2082" y="534"/>
-        </scene>
     </scenes>
     <resources>
         <image name="Budget - pie chart 2" width="30" height="30"/>
         <image name="Checklist - checks beside list" width="26" height="26"/>
-        <image name="Overview - graphs" width="30" height="30"/>
         <image name="lock" width="50" height="50"/>
         <image name="logo2" width="1235" height="179"/>
         <image name="mail" width="50" height="50"/>
