@@ -5,14 +5,11 @@
 //  Created by chris on 10/31/17.
 //  Copyright © 2017 Ben Nguyen. All rights reserved.
 //
-
 import UIKit
 
 class BudgetExpenseCell: UITableViewCell {
-
     
     var inViewTable: Int = 0
-   
     
     @IBOutlet weak var itemName: UILabel!
     @IBOutlet weak var dueDate: UILabel!

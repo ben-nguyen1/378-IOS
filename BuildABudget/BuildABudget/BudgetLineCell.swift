@@ -14,10 +14,7 @@ class BudgetLineCell: UITableViewCell {
     @IBOutlet weak var itemName: UILabel!
     
     @IBOutlet weak var dueDate: UILabel!
-    
     @IBOutlet weak var amount: UILabel!
-    
-   
     
     override func awakeFromNib() {
         super.awakeFromNib()
