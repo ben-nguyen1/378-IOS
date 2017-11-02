@@ -5,7 +5,6 @@
 //  Created by Nicholas Cobb on 10/25/17.
 //  Copyright © 2017 Ben Nguyen. All rights reserved.
 //
-
 import UIKit
 
 class ChecklistViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
@@ -23,11 +22,8 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
         super.viewDidLoad()
         unpaidTableView.dataSource = self
         paidTableView.dataSource = self
-        
-        
         unpaidTableView.delegate = self
         paidTableView.delegate = self
-        
         updateCheckListItems()
     }
     
@@ -69,7 +65,6 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (tableView == unpaidTableView) {
@@ -220,14 +215,4 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
         present(alertController, animated: true, completion: nil)
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

@@ -18,7 +18,6 @@ class AccessService {
     private var goals: [NSManagedObject]! = []
     private var budgets: [NSManagedObject]! = []
     
-    
     //CoreData stuff
     private var context: NSManagedObjectContext {
         return persistentContainer.viewContext
@@ -51,8 +50,6 @@ class AccessService {
         return container
     }()
     
-    
-    
     //getter/setter methods for to interface with CoreData
     func saveContext () {
         let context = persistentContainer.viewContext
@@ -68,13 +65,9 @@ class AccessService {
         }
     }
     
-    
     // We want this class to be a Singleton.
     // To keep it that way, don't allow any code outside this class to instantiate an object of this type.
     private init() {}
-    
-    //========================================================================================================================================
-    
     
     //Goal Methods:
     func retreiveAllGoals() {
@@ -120,7 +113,6 @@ class AccessService {
         }
     }
     
-    
     func totalGoals() -> Int {
         return goals.count
     }
@@ -150,18 +142,14 @@ class AccessService {
         
     }
     
-    //========================================================================================================================================
-    
     func printAllTransactions() {
         
         var i = 0
         var limit = totalTransactions()
         
-        
         for i in 0..<limit {
             print("ITEM => \(getTransaction(index: i).desciption) , \(getTransaction(index: i).date) , \(getTransaction(index: i).isIncome ) , \(getTransaction(index: i).totalDue)")
         }
-        
     }
     
     //Transaction Methods:
@@ -255,7 +243,6 @@ class AccessService {
         
         print("============================================")
         
-        
         // Commit the changes.
         do {
             try managedContext.save() //save to CoreDate
@@ -269,15 +256,9 @@ class AccessService {
         }
     }
     
-    
-    
-    
     func totalTransactions() -> Int {
         return transactions.count
     }
-    
-    
-    
     
     func getTransaction(index:Int) -> MyTransaction {
         
@@ -303,7 +284,6 @@ class AccessService {
         }
         
     }
-    //========================================================================================================================================
     
     //Budget Methods:
     func retreiveAllBudgets() {
@@ -377,14 +357,9 @@ class AccessService {
             return MyBudget()//returns a blank budget when we first open the BudgetViewController
         }
         
-        
     }
     
-    
-    
-    
-    
-}//end of class
+}
 
 
 

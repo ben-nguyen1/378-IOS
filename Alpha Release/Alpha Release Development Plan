@@ -1,0 +1,44 @@
+Alpha Release Development Plan:
+
+
+Alpha Release (due 10/31)
+
+-Requirements:
+1. Login Screen 				– Allows users to login in and log out of the app
+2. Monthly income and expenses 	– Add sources of monthly income and expenses (salary,rent, WoW subscription, etc.) and then builds a budget
+3. Payment checklist 			– Checklist for bills payed (rent, cable, internet, etc.)
+
+
+——————————————————————————————————————————————————
+
+Turned in Stable Alpha Version ("Group3Alpha.zip") on 10/31/17
+
+——————————————————————————————————————————————————
+
+Implementation Contributions:
+
+    -Ben Nguyen 
+        - Login screen
+        - Create account screen
+        - Launch screen
+        - Bottom Tab Bar Controller Navigation
+        - Quality Assurance
+
+    -Chris Cale
+        - Budget Screen
+        - Tab Bar item icons
+        - Core Data retrieval/saving
+        - Date converter class
+
+    -Nicholas Cobb
+        - Checklist Screen
+        - Core Data deleting
+        - Constraints
+
+
+
+
+
+
+
+

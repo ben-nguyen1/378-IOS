@@ -19,6 +19,7 @@
 		B83B50551F9EDB790065ED04 /* MyBudget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83B50541F9EDB790065ED04 /* MyBudget.swift */; };
 		B849D1581FA03752002C7FED /* BudgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B849D1571FA03752002C7FED /* BudgetViewController.swift */; };
 		B849D15C1FA03FF8002C7FED /* BudgetLineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B849D15B1FA03FF8002C7FED /* BudgetLineCell.swift */; };
+		B86024F61FA934850024A7D1 /* BudgetExpenseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86024F51FA934850024A7D1 /* BudgetExpenseCell.swift */; };
 		B8D8A4471F9FD483003A0A78 /* MyDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D8A4461F9FD483003A0A78 /* MyDate.swift */; };
 		CC457A341F8813E400C98537 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC457A331F8813E400C98537 /* AppDelegate.swift */; };
 		CC457A391F8813E400C98537 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC457A371F8813E400C98537 /* Main.storyboard */; };
@@ -27,11 +28,9 @@
 		CC457A411F8813E400C98537 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC457A3F1F8813E400C98537 /* LaunchScreen.storyboard */; };
 		CC53D9A81F882504008977D6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC53D9A71F882504008977D6 /* LoginViewController.swift */; };
 		CC53D9AA1F882521008977D6 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC53D9A91F882521008977D6 /* CreateAccountViewController.swift */; };
-		CC5475DB1FA4305B00B46A9B /* BudgetAddExpenseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5475DA1FA4305B00B46A9B /* BudgetAddExpenseCell.swift */; };
 		CC93DC431F99D16300070CF7 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93DC421F99D16300070CF7 /* Account.swift */; };
 		CC93DC471F99DAF100070CF7 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93DC461F99DAF100070CF7 /* TabBarViewController.swift */; };
 		CC93DC4B1F99DE6C00070CF7 /* OverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93DC4A1F99DE6C00070CF7 /* OverViewController.swift */; };
-		CC9BC86B1FA796A700E168E0 /* BudgetAddIncomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9BC86A1FA796A700E168E0 /* BudgetAddIncomeCell.swift */; };
 		E97D493B1FA11FE80019A4DF /* ChecklistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97D493A1FA11FE80019A4DF /* ChecklistViewController.swift */; };
 		E9EA8D3D1FA12B2F00107CB0 /* ChecklistPaidTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EA8D3C1FA12B2F00107CB0 /* ChecklistPaidTableViewCell.swift */; };
 /* End PBXBuildFile section */
@@ -49,6 +48,7 @@
 		B83B50541F9EDB790065ED04 /* MyBudget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBudget.swift; sourceTree = "<group>"; };
 		B849D1571FA03752002C7FED /* BudgetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetViewController.swift; sourceTree = "<group>"; };
 		B849D15B1FA03FF8002C7FED /* BudgetLineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetLineCell.swift; sourceTree = "<group>"; };
+		B86024F51FA934850024A7D1 /* BudgetExpenseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetExpenseCell.swift; sourceTree = "<group>"; };
 		B8D8A4461F9FD483003A0A78 /* MyDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDate.swift; sourceTree = "<group>"; };
 		CC457A301F8813E400C98537 /* BuildABudget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BuildABudget.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC457A331F8813E400C98537 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -59,11 +59,9 @@
 		CC457A421F8813E400C98537 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CC53D9A71F882504008977D6 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		CC53D9A91F882521008977D6 /* CreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
-		CC5475DA1FA4305B00B46A9B /* BudgetAddExpenseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetAddExpenseCell.swift; sourceTree = "<group>"; };
 		CC93DC421F99D16300070CF7 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		CC93DC461F99DAF100070CF7 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		CC93DC4A1F99DE6C00070CF7 /* OverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverViewController.swift; sourceTree = "<group>"; };
-		CC9BC86A1FA796A700E168E0 /* BudgetAddIncomeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetAddIncomeCell.swift; sourceTree = "<group>"; };
 		E97D493A1FA11FE80019A4DF /* ChecklistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistViewController.swift; sourceTree = "<group>"; };
 		E9EA8D3C1FA12B2F00107CB0 /* ChecklistPaidTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistPaidTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -98,7 +96,6 @@
 		CC457A321F8813E400C98537 /* BuildABudget */ = {
 			isa = PBXGroup;
 			children = (
-				CC9BC86A1FA796A700E168E0 /* BudgetAddIncomeCell.swift */,
 				CC457A371F8813E400C98537 /* Main.storyboard */,
 				CC457A331F8813E400C98537 /* AppDelegate.swift */,
 				CC53D9A91F882521008977D6 /* CreateAccountViewController.swift */,
@@ -106,6 +103,7 @@
 				CC93DC421F99D16300070CF7 /* Account.swift */,
 				B81632DB1F998F5900A04E43 /* Budget.storyboard */,
 				B849D1571FA03752002C7FED /* BudgetViewController.swift */,
+				B86024F51FA934850024A7D1 /* BudgetExpenseCell.swift */,
 				B849D15B1FA03FF8002C7FED /* BudgetLineCell.swift */,
 				B81632DF1F99950B00A04E43 /* Overview.storyboard */,
 				CC93DC4A1F99DE6C00070CF7 /* OverViewController.swift */,
@@ -125,7 +123,6 @@
 				B83B50521F9ECE8A0065ED04 /* MyGoal.swift */,
 				B83B50541F9EDB790065ED04 /* MyBudget.swift */,
 				CC93DC461F99DAF100070CF7 /* TabBarViewController.swift */,
-				CC5475DA1FA4305B00B46A9B /* BudgetAddExpenseCell.swift */,
 			);
 			path = BuildABudget;
 			sourceTree = "<group>";
@@ -209,9 +206,9 @@
 			files = (
 				A69674CB1FA440270075EB04 /* ChecklistUnpaidTableViewCell.swift in Sources */,
 				CC93DC431F99D16300070CF7 /* Account.swift in Sources */,
-				CC5475DB1FA4305B00B46A9B /* BudgetAddExpenseCell.swift in Sources */,
 				E9EA8D3D1FA12B2F00107CB0 /* ChecklistPaidTableViewCell.swift in Sources */,
 				E97D493B1FA11FE80019A4DF /* ChecklistViewController.swift in Sources */,
+				B86024F61FA934850024A7D1 /* BudgetExpenseCell.swift in Sources */,
 				B83B50551F9EDB790065ED04 /* MyBudget.swift in Sources */,
 				B818DC501F9D5BCB0084C503 /* AccessService.swift in Sources */,
 				CC53D9AA1F882521008977D6 /* CreateAccountViewController.swift in Sources */,
@@ -221,7 +218,6 @@
 				B849D15C1FA03FF8002C7FED /* BudgetLineCell.swift in Sources */,
 				CC93DC4B1F99DE6C00070CF7 /* OverViewController.swift in Sources */,
 				B8D8A4471F9FD483003A0A78 /* MyDate.swift in Sources */,
-				CC9BC86B1FA796A700E168E0 /* BudgetAddIncomeCell.swift in Sources */,
 				CC93DC471F99DAF100070CF7 /* TabBarViewController.swift in Sources */,
 				CC457A341F8813E400C98537 /* AppDelegate.swift in Sources */,
 				B83B50531F9ECE8A0065ED04 /* MyGoal.swift in Sources */,

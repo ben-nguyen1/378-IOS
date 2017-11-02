@@ -19,7 +19,6 @@ class MyTransaction {
     
     var date = MyDate() //instance of MyDate class to get access to its methods
     
-    
     var desciption:String {
         get{ return _description}
         set(inputDescription){ _description = inputDescription}
@@ -84,7 +83,6 @@ class MyTransaction {
                              isIncome:          iIsIncome)
     }
     
-    
     //for when this transaction is returned from CoreData
     init(description:       String,
          initialInputDate:  Date,
@@ -103,7 +101,6 @@ class MyTransaction {
         self._isIncome = isIncome
     }
     
-    
     //for brand new transactions
     init(description:       String,
          dueDate:           Date,
@@ -119,7 +116,6 @@ class MyTransaction {
         self._isReoccuring = isReoccuring
         self._isIncome = isIncome
     }
-    
     
     //incase the access object hits and error and needs to return something so the app does not crash
     init(){

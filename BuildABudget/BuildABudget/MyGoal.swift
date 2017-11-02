@@ -20,8 +20,6 @@ class MyGoal {
     
     fileprivate var _contributionList: [MyTransaction] //list of all the transactions that that have gone toward paying for this goal
     
-    
-    
     //getters/setters
     var desciption:String {
         get{ return _description}
@@ -48,14 +46,11 @@ class MyGoal {
         set(inputAmount){ _totalContribution = totalContribution}
     }
     
-    
     //contributionList methods
     var allContributions: [MyTransaction]{
         get{ return _contributionList}
         set(inputContributions){ _contributionList = inputContributions }
     }
-    
-    
     
     //initializers
     init(description:String,
@@ -72,7 +67,6 @@ class MyGoal {
         self._totalContribution = totalContribution
         self._contributionList = []
     }
-    
     
     init(){
         self._description = "error"

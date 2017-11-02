@@ -5,7 +5,6 @@
 //  Created by Nicholas Cobb on 10/27/17.
 //  Copyright © 2017 Ben Nguyen. All rights reserved.
 //
-
 import UIKit
 
 class ChecklistUnpaidTableViewCell: UITableViewCell {
@@ -28,7 +27,6 @@ class ChecklistUnpaidTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
 

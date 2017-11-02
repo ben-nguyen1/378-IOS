@@ -45,15 +45,12 @@ class MyDate {
         return thisDay.minute!
     }
     
-    
-    
     //used to set the MyTransaction.datePaidOff attribute to yesterday -> this signifies that the amount has not yet been paid.
     func setToYesterday( today:Date ) -> Date{
         
         let yesterday = myCalendar.date(byAdding: .day, value: -1, to: today)!
         return yesterday
     }
-    
     
     func makeDate(inputDay: Int, inputMonth: Int, inputYear: Int, inputMinute: Int, inputHour: Int) -> Date{
         
@@ -88,8 +85,6 @@ class MyDate {
         myFormatter.dateFormat = "MM/dd"
         return myFormatter.string(from: inputDate)
     }
-    
-    
     
     //Default initializer
     init() { }

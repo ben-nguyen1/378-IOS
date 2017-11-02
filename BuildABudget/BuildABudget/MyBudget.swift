@@ -25,8 +25,6 @@ class MyBudget {
     fileprivate var _expenseSources: [MyTransaction] //list all monthly bills
     fileprivate var _incomeSources: [MyTransaction] //list all income streams
 
-    
-    
     //getters/setters
     var desciption:String {
         get{ return _description}
@@ -43,7 +41,6 @@ class MyBudget {
         set(inputDate){ _endDate = endDate}
     }
     
-    
     var allExpenses: [MyTransaction]{
         get{ return _expenseSources}
         set(inputExpense){ _expenseSources = inputExpense }
@@ -53,8 +50,6 @@ class MyBudget {
         get{ return _incomeSources}
         set(inputIncome){ _incomeSources = inputIncome }
     }
-    
-    
     
     
     //initializers
@@ -72,8 +67,6 @@ class MyBudget {
         self._expenseSources = expenseSources
         self._incomeSources = incomeSources
     }
-    
-    
     //only for when a brand new MyBudget object is created
     init(description:String,
          startDate:Date,

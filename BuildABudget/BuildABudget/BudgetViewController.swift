@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BudgetViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, BudgetAddIncomeProtocol, BudgetAddExpenseProtocol {
+class BudgetViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
     
     @IBAction func addIncomeButton(_ sender: Any) {
         addIncome()
