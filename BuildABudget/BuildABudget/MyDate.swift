@@ -86,6 +86,10 @@ class MyDate {
         return myFormatter.string(from: inputDate)
     }
     
+    func getTimeZone() -> TimeZone{
+        return myCalendar.timeZone
+    }
+    
     //Default initializer
     init() { }
     

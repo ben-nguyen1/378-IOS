@@ -42,7 +42,9 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     var BudgetAccess = AccessService.access
     let thisDate = MyDate.dateConverter
     
-    //var delegate
+    //var dueDatePicker
+    let dueDatePicker = UIDatePicker()
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -101,6 +103,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         var totalDue:           Double = 0.0
         var isIncome:           Bool = false //only changed if add button from incomeTable is pressed
         
+
         //set title of window accordingly
         if tableValueInput == 111 {// 111 means we are in the incomeTable
             alertWindowTitle = "New Monthly Income"
@@ -381,6 +384,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         newBudgetLineInputWindow.addAction(saveAction)
         newBudgetLineInputWindow.addAction(cancelAction)
         
+        showDatePickerKeyboard(textField: dueDateTextField!)
         //display the alert window on the screen
         present(newBudgetLineInputWindow, animated: true, completion: nil)
     }
@@ -413,6 +417,39 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             return [removeExpense]
         }
     }
+    
+    
+    func showDatePickerKeyboard(textField: UITextField){
+        /*
+        //initialize toolbar and size it to the screen
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        
+        //add done button for toolbar
+        let setDateButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: nil)
+        toolbar.setItems([setDateButton], animated: false)
+        
+        dueDateTextField?.inputAccessoryView = toolbar
+        dueDateTextField?.inputView = dueDatePicker
+        
+        dueDatePicker.datePickerMode = .date
+        */
+        if textField == dueDateTextField {
+            let myDatePicker = UIDatePicker()
+            myDatePicker.datePickerMode = .date
+            textField.inputView = myDatePicker
+            print("MADE IT HERE!!!!!!!!")
+            myDatePicker.addTarget(self, action: Selector("setSelectedDate"), for: .valueChanged)
+        }
+        
+        
+    }
+    
+    func setSelectedDate(sender: UIDatePicker) {
+        dueDateTextField?.text = thisDate.shortDateToString(inputDate: (sender.date) )
+    }
+    
+    
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // 'First Responder' is the same as 'input focus'.
