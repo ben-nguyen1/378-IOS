@@ -28,6 +28,9 @@
 		CC457A411F8813E400C98537 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC457A3F1F8813E400C98537 /* LaunchScreen.storyboard */; };
 		CC53D9A81F882504008977D6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC53D9A71F882504008977D6 /* LoginViewController.swift */; };
 		CC53D9AA1F882521008977D6 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC53D9A91F882521008977D6 /* CreateAccountViewController.swift */; };
+		CC6F13561FAD205B00401E8E /* Tutorial.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC6F13551FAD205B00401E8E /* Tutorial.storyboard */; };
+		CC6F13581FAD32B500401E8E /* TutorialPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6F13571FAD32B500401E8E /* TutorialPageViewController.swift */; };
+		CC6F135A1FAD331400401E8E /* TutorialImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6F13591FAD331400401E8E /* TutorialImageViewController.swift */; };
 		CC93DC431F99D16300070CF7 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93DC421F99D16300070CF7 /* Account.swift */; };
 		CC93DC471F99DAF100070CF7 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93DC461F99DAF100070CF7 /* TabBarViewController.swift */; };
 		CC93DC4B1F99DE6C00070CF7 /* OverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC93DC4A1F99DE6C00070CF7 /* OverViewController.swift */; };
@@ -59,6 +62,9 @@
 		CC457A421F8813E400C98537 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CC53D9A71F882504008977D6 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		CC53D9A91F882521008977D6 /* CreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
+		CC6F13551FAD205B00401E8E /* Tutorial.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Tutorial.storyboard; sourceTree = "<group>"; };
+		CC6F13571FAD32B500401E8E /* TutorialPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPageViewController.swift; sourceTree = "<group>"; };
+		CC6F13591FAD331400401E8E /* TutorialImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialImageViewController.swift; sourceTree = "<group>"; };
 		CC93DC421F99D16300070CF7 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		CC93DC461F99DAF100070CF7 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		CC93DC4A1F99DE6C00070CF7 /* OverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverViewController.swift; sourceTree = "<group>"; };
@@ -103,17 +109,20 @@
 				B81632DD1F99945F00A04E43 /* Checklist.storyboard */,
 				CC457A3F1F8813E400C98537 /* LaunchScreen.storyboard */,
 				B81632E31F99960300A04E43 /* Goals.storyboard */,
+				CC6F13551FAD205B00401E8E /* Tutorial.storyboard */,
 				CC53D9A91F882521008977D6 /* CreateAccountViewController.swift */,
 				CC53D9A71F882504008977D6 /* LoginViewController.swift */,
 				B849D1571FA03752002C7FED /* BudgetViewController.swift */,
-				B86024F51FA934850024A7D1 /* BudgetExpenseCell.swift */,
 				CC93DC4A1F99DE6C00070CF7 /* OverViewController.swift */,
 				E97D493A1FA11FE80019A4DF /* ChecklistViewController.swift */,
 				CC93DC461F99DAF100070CF7 /* TabBarViewController.swift */,
+				CC6F13571FAD32B500401E8E /* TutorialPageViewController.swift */,
+				CC6F13591FAD331400401E8E /* TutorialImageViewController.swift */,
 				CC93DC421F99D16300070CF7 /* Account.swift */,
 				B818DC4F1F9D5BCB0084C503 /* AccessService.swift */,
 				CC457A331F8813E400C98537 /* AppDelegate.swift */,
 				B849D15B1FA03FF8002C7FED /* BudgetLineCell.swift */,
+				B86024F51FA934850024A7D1 /* BudgetExpenseCell.swift */,
 				B818DC511F9D6B5B0084C503 /* MyTransaction.swift */,
 				B8D8A4461F9FD483003A0A78 /* MyDate.swift */,
 				B83B50521F9ECE8A0065ED04 /* MyGoal.swift */,
@@ -187,6 +196,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC457A411F8813E400C98537 /* LaunchScreen.storyboard in Resources */,
+				CC6F13561FAD205B00401E8E /* Tutorial.storyboard in Resources */,
 				B81632DE1F99945F00A04E43 /* Checklist.storyboard in Resources */,
 				CC457A3E1F8813E400C98537 /* Assets.xcassets in Resources */,
 				B81632E21F99952A00A04E43 /* Transactions.storyboard in Resources */,
@@ -212,11 +222,13 @@
 				B83B50551F9EDB790065ED04 /* MyBudget.swift in Sources */,
 				B818DC501F9D5BCB0084C503 /* AccessService.swift in Sources */,
 				CC53D9AA1F882521008977D6 /* CreateAccountViewController.swift in Sources */,
+				CC6F13581FAD32B500401E8E /* TutorialPageViewController.swift in Sources */,
 				CC53D9A81F882504008977D6 /* LoginViewController.swift in Sources */,
 				B849D1581FA03752002C7FED /* BudgetViewController.swift in Sources */,
 				CC457A3C1F8813E400C98537 /* BuildABudget.xcdatamodeld in Sources */,
 				B849D15C1FA03FF8002C7FED /* BudgetLineCell.swift in Sources */,
 				CC93DC4B1F99DE6C00070CF7 /* OverViewController.swift in Sources */,
+				CC6F135A1FAD331400401E8E /* TutorialImageViewController.swift in Sources */,
 				B8D8A4471F9FD483003A0A78 /* MyDate.swift in Sources */,
 				CC93DC471F99DAF100070CF7 /* TabBarViewController.swift in Sources */,
 				CC457A341F8813E400C98537 /* AppDelegate.swift in Sources */,

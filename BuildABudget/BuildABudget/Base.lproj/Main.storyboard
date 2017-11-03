@@ -309,11 +309,22 @@
                         <segue destination="YD8-v2-C3X" kind="relationship" relationship="viewControllers" id="icJ-kd-SHG"/>
                         <segue destination="jqm-Mj-2zY" kind="relationship" relationship="viewControllers" id="ykR-Wi-BMi"/>
                         <segue destination="vQb-cq-xCe" kind="relationship" relationship="viewControllers" id="2dv-yf-fqO"/>
+                        <segue destination="OzD-gI-ktl" kind="relationship" relationship="viewControllers" id="Z8S-O0-Ofd"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qMa-US-pDx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2082" y="38"/>
+        </scene>
+        <!--tutorialPageVC-->
+        <scene sceneID="OCR-u2-1wQ">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="Tutorial.storyboard" storyboardName="Tutorial" referencedIdentifier="tutorialPageVC" id="OzD-gI-ktl" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="WaU-bp-snP"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IS6-iZ-VX9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2758" y="476"/>
         </scene>
         <!--Checklist Ref-->
         <scene sceneID="K0R-kM-tTF">
