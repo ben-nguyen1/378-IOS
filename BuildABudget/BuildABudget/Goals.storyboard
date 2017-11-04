@@ -62,10 +62,10 @@
             </objects>
             <point key="canvasLocation" x="165.59999999999999" y="-133.5832083958021"/>
         </scene>
-        <!--Config Goals View Controller-->
+        <!--GoalsConfigViewController-->
         <scene sceneID="jMn-J7-Gmo">
             <objects>
-                <viewController id="bFe-4T-s2A" userLabel="Config Goals View Controller" sceneMemberID="viewController">
+                <viewController id="bFe-4T-s2A" userLabel="GoalsConfigViewController" customClass="GoalsConfigViewController" customModule="BuildABudget" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IBR-m4-UeD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -73,7 +73,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nX4-rT-f9f">
                                 <rect key="frame" x="131" y="617" width="112" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="DELETE">
                                     <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -123,20 +123,20 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XQ6-JZ-qO0">
                                 <rect key="frame" x="131" y="278" width="112" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="SAVE">
                                     <color key="titleColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="&lt;HAS&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RqV-fi-hei">
-                                <rect key="frame" x="187" y="403" width="56" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="&lt;DATE&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="moA-mP-eXj">
+                                <rect key="frame" x="296" y="342" width="63" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="&lt;DATE&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="moA-mP-eXj">
-                                <rect key="frame" x="296" y="342" width="63" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="&lt;HAS&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RqV-fi-hei">
+                                <rect key="frame" x="187" y="403" width="56" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -202,6 +202,18 @@
                         <color key="backgroundColor" red="0.74080312250000002" green="0.89666754010000005" blue="0.99832695719999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="uIi-yR-VDP"/>
                     </view>
+                    <connections>
+                        <outlet property="amountRemainingLabel" destination="7O8-Di-Pk8" id="bbV-bo-fS3"/>
+                        <outlet property="estimatedCompletionDateLabel" destination="moA-mP-eXj" id="kzw-vE-tcf"/>
+                        <outlet property="goalMonthlyContributionTextField" destination="qxE-Og-ddB" id="zUT-BF-iH0"/>
+                        <outlet property="goalNameTextField" destination="lQO-Pm-arN" id="B3L-8h-Udk"/>
+                        <outlet property="goalSaveButton" destination="XQ6-JZ-qO0" id="sYN-nL-yxV"/>
+                        <outlet property="goalTargetDateTextField" destination="8dz-rL-TvE" id="Ipn-Ez-KYH"/>
+                        <outlet property="goalsDeleteButton" destination="nX4-rT-f9f" id="X7B-Ze-lpd"/>
+                        <outlet property="goalsTargetAmountTextField" destination="ZhU-KA-2BY" id="UDZ-gR-xYY"/>
+                        <outlet property="progressHasLabel" destination="RqV-fi-hei" id="ULP-Gf-sF0"/>
+                        <outlet property="progressTargetLabel" destination="TRc-3A-r62" id="VDi-ww-Pa4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tl6-ac-sWq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
