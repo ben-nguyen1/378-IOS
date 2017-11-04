@@ -320,7 +320,7 @@
         <scene sceneID="OCR-u2-1wQ">
             <objects>
                 <viewControllerPlaceholder storyboardIdentifier="Tutorial.storyboard" storyboardName="Tutorial" referencedIdentifier="tutorialPageVC" id="OzD-gI-ktl" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="WaU-bp-snP"/>
+                    <tabBarItem key="tabBarItem" title="Item" image="tutorial-icon" id="WaU-bp-snP"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IS6-iZ-VX9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -345,5 +345,6 @@
         <image name="lock" width="50" height="50"/>
         <image name="logo2" width="1235" height="179"/>
         <image name="mail" width="50" height="50"/>
+        <image name="tutorial-icon" width="30" height="30"/>
     </resources>
 </document>
