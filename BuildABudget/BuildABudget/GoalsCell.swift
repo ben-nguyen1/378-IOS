@@ -12,6 +12,11 @@ class GoalsCell: UIViewController {
 
     var goalName:String = ""
     
+    
+    
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

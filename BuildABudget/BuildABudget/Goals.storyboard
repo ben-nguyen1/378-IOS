@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Goals-->
+        <!--GoalsViewController-->
         <scene sceneID="hNg-2a-OKf">
             <objects>
-                <viewController storyboardIdentifier="goalsVC" title="Goals" id="hiT-5U-P8X" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="goalsVC" title="Goals" id="hiT-5U-P8X" userLabel="GoalsViewController" customClass="GoalsViewController" customModule="BuildABudget" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BDF-4Y-1tZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

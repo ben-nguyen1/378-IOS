@@ -13,12 +13,18 @@ class MyGoal {
     fileprivate var _description: String
     
     fileprivate var _startDate: Date
-    fileprivate var _endDate: Date
+    fileprivate var _targetDate: Date
     
     fileprivate var _monthlyContribution: Double = 0.0 //monthyl expense that is setup by user and displayed on ChecklistViewController and BudgetViewController as expense
-    fileprivate var _totalContribution: Double = 0.0 //running total of all transactions paid toward this goal
+    fileprivate var _targetAmount: Double = 0.0 //running total of all transactions paid toward this goal
     
     fileprivate var _contributionList: [MyTransaction] //list of all the transactions that that have gone toward paying for this goal
+    
+    //estimatedCompletionDate -> will be a calculation
+    
+    //amountRemaining -> a calculation
+    
+    
     
     //getters/setters
     var desciption:String {
@@ -32,8 +38,8 @@ class MyGoal {
     }
     
     var endDate:Date {
-        get{ return _endDate}
-        set(inputDate){ _endDate = endDate}
+        get{ return _targetDate}
+        set(inputDate){ _targetDate = endDate}
     }
     
     var monthlyContribution:Double {
@@ -42,8 +48,8 @@ class MyGoal {
     }
     
     var totalContribution:Double {
-        get{ return _totalContribution}
-        set(inputAmount){ _totalContribution = totalContribution}
+        get{ return _targetAmount}
+        set(inputAmount){ _targetAmount = totalContribution}
     }
     
     //contributionList methods
@@ -62,18 +68,18 @@ class MyGoal {
         
         self._description = description
         self._startDate = startDate
-        self._endDate = endDate
+        self._targetDate = endDate
         self._monthlyContribution = monthlyContribution
-        self._totalContribution = totalContribution
+        self._targetAmount = totalContribution
         self._contributionList = []
     }
     
     init(){
         self._description = "error"
         self._startDate = Date()
-        self._endDate = Date()
+        self._targetDate = Date()
         self._monthlyContribution = 0.0
-        self._totalContribution = 0.0
+        self._targetAmount = 0.0
         self._contributionList = []
     }
     
