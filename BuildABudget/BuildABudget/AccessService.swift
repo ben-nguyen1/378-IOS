@@ -132,7 +132,7 @@ class AccessService {
                           startDate: rStartDate,
                           endDate: rEndDate,
                           monthlyContribution: rMonthlyContributionAmount,
-                          totalContribution: rMonthlyContributionAmount,
+                          targetAmount: rMonthlyContributionAmount,
                           contributionList: rContributionList
             )
             
