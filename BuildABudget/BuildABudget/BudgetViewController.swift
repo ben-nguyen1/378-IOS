@@ -420,33 +420,22 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     
     
     func showDatePickerKeyboard(textField: UITextField){
-        /*
-        //initialize toolbar and size it to the screen
-        let toolbar = UIToolbar()
-        toolbar.sizeToFit()
-        
-        //add done button for toolbar
-        let setDateButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: nil)
-        toolbar.setItems([setDateButton], animated: false)
-        
-        dueDateTextField?.inputAccessoryView = toolbar
-        dueDateTextField?.inputView = dueDatePicker
-        
-        dueDatePicker.datePickerMode = .date
-        */
+
         if textField == dueDateTextField {
             let myDatePicker = UIDatePicker()
             myDatePicker.datePickerMode = .date
             textField.inputView = myDatePicker
             print("MADE IT HERE!!!!!!!!")
-            myDatePicker.addTarget(self, action: Selector("setSelectedDate"), for: .valueChanged)
+            //myDatePicker.addTarget(self, action: Selector("setSelectedDate"), for: .valueChanged)
+            myDatePicker.addTarget(self, action: #selector(setSelectedDate(sender: )), for: .valueChanged)
         }
         
         
     }
     
     func setSelectedDate(sender: UIDatePicker) {
-        dueDateTextField?.text = thisDate.shortDateToString(inputDate: (sender.date) )
+        print("MADE IT TO setSelectedDate -> \(dueDateTextField?.text)")
+        dueDateTextField?.text = thisDate.dateToString(inputDate: (sender.date) )
     }
     
     
@@ -463,6 +452,17 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
+    
+    /*
+    //TextField Delegates
+    func showTextFieldDatePicker(textField: UITextField){
+        if textField == descriptionTextField {
+            let newDatePicker = UIDatePicker()
+            textField.inputView = newDatePicker
+        }
+    }
+ */
+    
     
 }//end of BudgetViewController class
 
