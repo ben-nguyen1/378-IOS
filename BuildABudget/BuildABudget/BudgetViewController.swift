@@ -339,6 +339,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         newBudgetLineInputWindow.addTextField { (textField) -> Void in
             textField.placeholder = "Amount ex: 32.49"
             self.totalDueTextField = textField
+            self.totalDueTextField?.keyboardType = UIKeyboardType.decimalPad
             //self.totalDueTextField?.backgroundColor = UIColor.blue <----- experimented with background colors (future use)
         }
         
@@ -419,23 +420,19 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     
-    func showDatePickerKeyboard(textField: UITextField){
-
-        if textField == dueDateTextField {
+    //Displays UIDatePicker upon text field selection.
+    func showDatePickerKeyboard(textField: UITextField) {
+        if textField == dueDateTextField {//set the text field that should display the UIDatePicker
             let myDatePicker = UIDatePicker()
             myDatePicker.datePickerMode = .date
             textField.inputView = myDatePicker
-            print("MADE IT HERE!!!!!!!!")
-            //myDatePicker.addTarget(self, action: Selector("setSelectedDate"), for: .valueChanged)
-            myDatePicker.addTarget(self, action: #selector(setSelectedDate(sender: )), for: .valueChanged)
+            myDatePicker.addTarget(self, action: #selector(setSelectedDate(sender: )), for: .valueChanged) //this sends the currently selected date at every instance that user pauses to the setSelectedDate(sender: UIDatePicker) method
         }
-        
-        
     }
     
+    //this func sets each input passed to it to a string and sets the dueDateTextField to the resulting string
     func setSelectedDate(sender: UIDatePicker) {
-        print("MADE IT TO setSelectedDate -> \(dueDateTextField?.text)")
-        dueDateTextField?.text = thisDate.dateToString(inputDate: (sender.date) )
+        dueDateTextField?.text = thisDate.dateToString(inputDate: (sender.date))
     }
     
     
@@ -452,16 +449,6 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
-    
-    /*
-    //TextField Delegates
-    func showTextFieldDatePicker(textField: UITextField){
-        if textField == descriptionTextField {
-            let newDatePicker = UIDatePicker()
-            textField.inputView = newDatePicker
-        }
-    }
- */
     
     
 }//end of BudgetViewController class
