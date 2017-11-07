@@ -8,24 +8,63 @@
 
 import UIKit
 
-class GoalsCell: UIViewController {
+class GoalsCell: UITableViewCell {
 
-    var goalName:String = ""
+    //class instanciations
+    
+    
+    // UI elements
+    @IBOutlet weak var goalName: UILabel!
+    @IBOutlet weak var estimatedCompletionDate: UILabel!
+    @IBOutlet weak var progressBar: UIProgressView!
+    @IBOutlet weak var goalConfigButton: UIButton!
+    
+    
+    var progress:Float = 0.0
     
     
     
     
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    override func awakeFromNib() {
+        super.awakeFromNib()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
     }
-
+    
+    func config(inputGoal:MyGoal) {
+        goalName.text = inputGoal.desciption
+        estimatedCompletionDate.text = inputGoal.tagetDateToString()
+        setupProgressBar( inputColor: UIColor.red, inputPercentProgress: progress)
+    }
+    
+    func setupProgressBar(inputColor:UIColor, inputPercentProgress:Float){
+        
+        //color =
+        progressBar.progressTintColor = UIColor.red //statically set to red <---this may chnage depending on group input
+        
+        //length =
+        progressBar.progress = inputPercentProgress
+        
+    }
+    
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -27,11 +27,13 @@ class MyGoal {
     fileprivate var amountRemaining: Double = 0.0
     
     //the percent of progress that this goal has based on the sum of all MyTransaction objects within the contributionList and the specified totalAmount
-    fileprivate var progress:Double = 0.0
+    fileprivate var progress:Float = 0.0
     
     //the sum of all MyTransaction object's totalDue amounts
     fileprivate var currentSavedAmount: Double = 0.0
     
+    //instanciate a MyDate object to be used within this class
+    let goalsDate = MyDate.dateConverter
     
     
     //getters/setters
@@ -45,9 +47,9 @@ class MyGoal {
         set(inputDate){ _startDate = startDate}
     }
     
-    var endDate:Date {
+    var targetDate:Date {
         get{ return _targetDate}
-        set(inputDate){ _targetDate = endDate}
+        set(inputDate){ _targetDate = targetDate}
     }
     
     var monthlyContribution:Double {
@@ -65,6 +67,23 @@ class MyGoal {
         get{ return _contributionList}
         set(inputContributions){ _contributionList = inputContributions }
     }
+    
+    //return the targetDate as a string
+    func tagetDateToString() -> String{
+        return goalsDate.shortDateToString(inputDate: _targetDate)
+    }
+    
+    //return the startDate as a string
+    func startDateToString() -> String{
+        return goalsDate.shortDateToString(inputDate: _startDate)
+    }
+    
+    func getProgress() -> Float{
+        return Float(currentSavedAmount/targetAmount)
+    }
+    
+    
+    
     
     //STILL NEED TO COMPLETE
     //func for calculating the estimated completion date
@@ -105,14 +124,14 @@ class MyGoal {
     //initializers
     init(description:String,
          startDate:Date,
-         endDate:Date,
+         targetDate:Date,
          monthlyContribution:Double,
          targetAmount:Double,
          contributionList: [MyTransaction]) {
         
         self._description = description
         self._startDate = startDate
-        self._targetDate = endDate
+        self._targetDate = targetDate
         self._monthlyContribution = monthlyContribution
         self._targetAmount = targetAmount
         self._contributionList = []
