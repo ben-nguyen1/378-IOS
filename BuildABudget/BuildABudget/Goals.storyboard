@@ -23,7 +23,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="oqY-LO-n2L" userLabel="GoalsCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GoalsCell" id="oqY-LO-n2L" userLabel="GoalsCell">
                                         <rect key="frame" x="0.0" y="28" width="343" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oqY-LO-n2L" id="xek-4X-eYP">
@@ -50,17 +50,32 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="hiT-5U-P8X" id="0IQ-wa-rsd"/>
+                                    <outlet property="delegate" destination="hiT-5U-P8X" id="v4N-7k-CdA"/>
+                                </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VeM-32-hp8">
+                                <rect key="frame" x="337" y="45" width="22" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <segue destination="bFe-4T-s2A" kind="show" id="Ryd-wc-AAL"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.74080312250000002" green="0.89666754010000005" blue="0.99832695719999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="QDK-FG-ro8"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Goals" image="Goals - action flag" id="kwk-7R-zit"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="addGoalButton" destination="VeM-32-hp8" id="Jk9-Bw-6TX"/>
+                        <outlet property="goalsTable" destination="tnF-CE-iSH" id="a1H-iz-LIQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YLq-aN-SLw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="165.59999999999999" y="-133.5832083958021"/>
+            <point key="canvasLocation" x="-364" y="-133"/>
         </scene>
         <!--GoalsConfigViewController-->
         <scene sceneID="jMn-J7-Gmo">
@@ -127,6 +142,9 @@
                                 <state key="normal" title="SAVE">
                                     <color key="titleColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <segue destination="hiT-5U-P8X" kind="show" id="eSS-bg-x4C"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="&lt;DATE&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="moA-mP-eXj">
                                 <rect key="frame" x="296" y="342" width="63" height="21"/>
@@ -224,4 +242,7 @@
         <image name="Goals - action flag" width="26" height="26"/>
         <image name="edit-arrow-icon" width="19" height="19"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="Ryd-wc-AAL"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -19,12 +19,6 @@ class GoalsCell: UITableViewCell {
     @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var goalConfigButton: UIButton!
     
-    
-    var progress:Float = 0.0
-    
-    
-    
-    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -54,7 +48,6 @@ class GoalsCell: UITableViewCell {
         }
         
     }
-    
     
 }
 
