@@ -37,16 +37,21 @@ class GoalsCell: UITableViewCell {
     func config(inputGoal:MyGoal) {
         goalName.text = inputGoal.desciption
         estimatedCompletionDate.text = inputGoal.tagetDateToString()
-        setupProgressBar( inputColor: UIColor.red, inputPercentProgress: progress)
+        progressBar.progressTintColor = setupProgressBar( inputPercentProgress: inputGoal.getProgress() )
     }
     
-    func setupProgressBar(inputColor:UIColor, inputPercentProgress:Float){
+    //sets the progress bar color based on the percent progress toward completion
+    func setupProgressBar(inputPercentProgress:Float) -> UIColor{
         
-        //color =
-        progressBar.progressTintColor = UIColor.red //statically set to red <---this may chnage depending on group input
-        
-        //length =
-        progressBar.progress = inputPercentProgress
+        if inputPercentProgress < 33.4 {
+            return UIColor.red
+        }
+        else if inputPercentProgress > 33.3 && inputPercentProgress < 66.4{
+            return UIColor.yellow
+        }
+        else {
+            return UIColor.green
+        }
         
     }
     
