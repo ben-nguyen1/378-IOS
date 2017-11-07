@@ -9,8 +9,6 @@
 import UIKit
 
 class GoalsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
-    
 
     @IBOutlet weak var goalsTable: UITableView!
     @IBOutlet weak var addGoalButton: UIButton!
@@ -30,7 +28,6 @@ class GoalsViewController: UIViewController, UITableViewDataSource, UITableViewD
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     //populate each table with TableViewCells
@@ -54,7 +51,7 @@ class GoalsViewController: UIViewController, UITableViewDataSource, UITableViewD
         //read all goals from the AccessService goals[NSManagedObject] array into this class' goalsList[MyGoal]
         var limit = GoalsAccess.totalGoals()
         for i in 0..<limit {
-            goalsList.append(GoalsAccess.getGoal(index: i))
+            goalsList.append( GoalsAccess.getGoal(index: i) )
         }
         
         self.goalsTable.reloadData()//force the goalsTable to reload the GoalsCells it displays

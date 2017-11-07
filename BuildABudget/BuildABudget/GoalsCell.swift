@@ -10,9 +10,6 @@ import UIKit
 
 class GoalsCell: UITableViewCell {
 
-    //class instanciations
-    
-    
     // UI elements
     @IBOutlet weak var goalName: UILabel!
     @IBOutlet weak var estimatedCompletionDate: UILabel!
