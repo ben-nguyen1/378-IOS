@@ -98,7 +98,7 @@ class AccessService {
         // Set the attribute values
         record.setValue(input.desciption, forKey: "goalDescription")
         record.setValue(input.startDate, forKey: "startDate")
-        record.setValue(input.endDate, forKey: "endDate")
+        record.setValue(input.targetDate, forKey: "targetDate")
         record.setValue(input.monthlyContribution, forKey: "monthlyContributionAmount")
         record.setValue(input.allContributions, forKey: "contributionList")
         
@@ -123,14 +123,14 @@ class AccessService {
             let record = goals[index]
             let rDescription               = record.value(forKey: "goalDescription") as! String
             let rStartDate                 = record.value(forKey: "startDate") as! Date
-            let rEndDate                   = record.value(forKey: "endDate") as! Date
+            let rTargetDate                   = record.value(forKey: "targetDate") as! Date
             let rMonthlyContributionAmount = record.value(forKey: "monthlyContributionAmount") as! Double
             let rContributionList          = record.value(forKey: "contributionList") as! [MyTransaction]
             
             
             return MyGoal(description: rDescription,
                           startDate: rStartDate,
-                          endDate: rEndDate,
+                          targetDate: rTargetDate,
                           monthlyContribution: rMonthlyContributionAmount,
                           targetAmount: rMonthlyContributionAmount,
                           contributionList: rContributionList
