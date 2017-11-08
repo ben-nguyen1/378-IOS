@@ -11,14 +11,14 @@ class MyGoal {
     
     //vars
     fileprivate var _description: String
-    
     fileprivate var _startDate: Date
     fileprivate var _targetDate: Date
-    
     fileprivate var _monthlyContribution: Double = 0.0 //monthyl expense that is setup by user and displayed on ChecklistViewController and BudgetViewController as expense
     fileprivate var _targetAmount: Double = 0.0 //running total of all transactions paid toward this goal
     
+    //contributionList should only be accessed by the Checklist and Transactions class -> when those classes mark a transaction as paid that is linked to this specific goal then each instance of the transaction will be stored in the contribution list
     fileprivate var _contributionList: [MyTransaction] //list of all the transactions that that have gone toward paying for this goal
+    
     
     //estimatedCompletionDate -> will be a calculation
     fileprivate var estimatedCompletionDate: Double = 0.0
@@ -34,6 +34,8 @@ class MyGoal {
     
     //instanciate a MyDate object to be used within this class
     let goalsDate = MyDate.dateConverter
+    
+    let goalsAccess = AccessService.access
     
     
     //getters/setters
@@ -116,9 +118,29 @@ class MyGoal {
         return inputCurrentSavedAmount / inputTargetAmount
     }
     
+    func saveMyGoal(inputGoal: MyGoal){
+        goalsAccess.saveGoal(input: inputGoal)
+    }
+    
+    func deleteMyGoal(inputGoal: MyGoal){
+        goalsAccess.deleteGoal(input: inputGoal)
+    }
     
     
-    
+    class func create ( iDescription:String,
+                        iStartDate:Date,
+                        iTargetDate:Date,
+                        iMonthlyContribution:Double,
+                        iTargetAmount:Double,
+                        iContributionList: [MyTransaction] ) -> MyGoal {
+     
+        return MyGoal ( description: iDescription,
+                        startDate: iStartDate,
+                        targetDate: iTargetDate,
+                        monthlyContribution: iMonthlyContribution,
+                        targetAmount: iTargetAmount,
+                        contributionList: iContributionList)
+    }
     
     
     //initializers
@@ -139,10 +161,10 @@ class MyGoal {
     
     init(){
         self._description = "error"
-        self._startDate = Date()
-        self._targetDate = Date()
-        self._monthlyContribution = 0.0
-        self._targetAmount = 0.0
+        self._startDate = goalsDate.setToYesterday(today: Date())
+        self._targetDate = goalsDate.setToYesterday(today: Date())
+        self._monthlyContribution = -1.0
+        self._targetAmount = -1.0
         self._contributionList = []
     }
     

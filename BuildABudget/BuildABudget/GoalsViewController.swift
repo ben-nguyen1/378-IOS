@@ -61,7 +61,7 @@ class GoalsViewController: UIViewController, UITableViewDataSource, UITableViewD
         let existingGoal = segue.destination as! GoalsConfigViewController
         if let indexPath = self.goalsTable.indexPathForSelectedRow{
             existingGoal.thisGoal = goalsList[indexPath.row]
-            //seg.bio = people[indexPath.row]
+            existingGoal.isNewGoal = false
         }
     }
     

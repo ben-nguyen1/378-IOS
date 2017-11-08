@@ -142,15 +142,40 @@ class AccessService {
         
     }
     
-    func printAllTransactions() {
+    func deleteGoal(input: MyGoal){
+        let managedContext = persistentContainer.viewContext
+        let fetchRequest: NSFetchRequest<Goal> = Goal.fetchRequest()
         
-        var i = 0
-        var limit = totalTransactions()
-        
-        for i in 0..<limit {
-            print("ITEM => \(getTransaction(index: i).desciption) , \(getTransaction(index: i).date) , \(getTransaction(index: i).isIncome ) , \(getTransaction(index: i).totalDue)")
+        do {
+            let goalArray = try managedContext.fetch(fetchRequest)
+            
+            for goal in goalArray as [NSManagedObject] {
+                // Delete if the object is a match
+                if (input.desciption == goal.value(forKey: "goalDescription") as! String &&
+                    input.startDate == goal.value(forKey: "startDate") as! Date &&
+                    input.targetDate == goal.value(forKey: "targetDate") as! Date &&
+                    input.monthlyContribution == goal.value(forKey: "monthlyContributionAmount") as! Double &&
+                    input.targetAmount == goal.value(forKey: "targetAmount") as! Double){
+                        context.delete(goal)
+                }
+            }
+            
+            do {
+                try context.save()
+            } catch {
+                let nserror = error as NSError
+                NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
+                abort()
+            }
+        } catch {
+            print("Error with request: \(error)")
         }
+        
+        // Update transaction array
+        self.retreiveAllGoals()
     }
+    
+    
     
     //Transaction Methods:
     func retreiveAllTransactions() {
@@ -283,6 +308,16 @@ class AccessService {
             return MyTransaction()
         }
         
+    }
+    
+    func printAllTransactions() {
+        
+        var i = 0
+        var limit = totalTransactions()
+        
+        for i in 0..<limit {
+            print("ITEM => \(getTransaction(index: i).desciption) , \(getTransaction(index: i).date) , \(getTransaction(index: i).isIncome ) , \(getTransaction(index: i).totalDue)")
+        }
     }
     
     //Budget Methods:
