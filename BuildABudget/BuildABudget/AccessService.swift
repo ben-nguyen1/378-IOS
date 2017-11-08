@@ -92,8 +92,8 @@ class AccessService {
         
         let managedContext = persistentContainer.viewContext
         // Create the entity we want to save
-        let entity = NSEntityDescription.entity(forEntityName: "Goals", in: managedContext)
-        let record = NSManagedObject(entity: entity!, insertInto:managedContext)
+        let entity = NSEntityDescription.entity(forEntityName: "Goal", in: managedContext)
+        let record = NSManagedObject(entity: entity!, insertInto: managedContext)
         
         // Set the attribute values
         record.setValue(input.desciption, forKey: "goalDescription")
