@@ -31,6 +31,7 @@
 		CC457A411F8813E400C98537 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC457A3F1F8813E400C98537 /* LaunchScreen.storyboard */; };
 		CC53D9A81F882504008977D6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC53D9A71F882504008977D6 /* LoginViewController.swift */; };
 		CC53D9AA1F882521008977D6 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC53D9A91F882521008977D6 /* CreateAccountViewController.swift */; };
+		CC5F83881FB3CA1B00C6720F /* KeyboardInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5F83871FB3CA1B00C6720F /* KeyboardInput.swift */; };
 		CC6F13561FAD205B00401E8E /* Tutorial.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC6F13551FAD205B00401E8E /* Tutorial.storyboard */; };
 		CC6F13581FAD32B500401E8E /* TutorialPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6F13571FAD32B500401E8E /* TutorialPageViewController.swift */; };
 		CC6F135A1FAD331400401E8E /* TutorialImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6F13591FAD331400401E8E /* TutorialImageViewController.swift */; };
@@ -68,6 +69,7 @@
 		CC457A421F8813E400C98537 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CC53D9A71F882504008977D6 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		CC53D9A91F882521008977D6 /* CreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
+		CC5F83871FB3CA1B00C6720F /* KeyboardInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardInput.swift; sourceTree = "<group>"; };
 		CC6F13551FAD205B00401E8E /* Tutorial.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Tutorial.storyboard; sourceTree = "<group>"; };
 		CC6F13571FAD32B500401E8E /* TutorialPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPageViewController.swift; sourceTree = "<group>"; };
 		CC6F13591FAD331400401E8E /* TutorialImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialImageViewController.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 		CC457A321F8813E400C98537 /* BuildABudget */ = {
 			isa = PBXGroup;
 			children = (
+				CC5F83871FB3CA1B00C6720F /* KeyboardInput.swift */,
 				CC457A371F8813E400C98537 /* Main.storyboard */,
 				CC457A3F1F8813E400C98537 /* LaunchScreen.storyboard */,
 				CC53D9A91F882521008977D6 /* CreateAccountViewController.swift */,
@@ -238,6 +241,7 @@
 				B849D15C1FA03FF8002C7FED /* BudgetLineCell.swift in Sources */,
 				CC93DC4B1F99DE6C00070CF7 /* OverViewController.swift in Sources */,
 				B882EAA11FB2511800865647 /* GoalsConfigViewController.swift in Sources */,
+				CC5F83881FB3CA1B00C6720F /* KeyboardInput.swift in Sources */,
 				B882EA9F1FB2511800865647 /* GoalsViewController.swift in Sources */,
 				CC6F135A1FAD331400401E8E /* TutorialImageViewController.swift in Sources */,
 				B882EAA01FB2511800865647 /* GoalsCell.swift in Sources */,
