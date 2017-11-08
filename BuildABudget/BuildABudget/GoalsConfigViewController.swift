@@ -10,18 +10,20 @@ import UIKit
 
 class GoalsConfigViewController: UIViewController {
 
+    var thisGoal:MyGoal? = nil //must be var because this could be overwritten by a cell seque.
+    let thisDate = MyDate.dateConverter
     
-    @IBOutlet weak var goalNameTextField: UITextField!
-    @IBOutlet weak var goalsTargetTextField: UITextField!
+    var name:String = ""
+    var targetAmount: Double = 0.0
+    var targetDate: Date? = nil
+    var monthlyContribution: Double = 0.0
+    //var contributionList: [MyTransaction] = []
     
-    @IBAction func targetDatePicket(_ sender: UIDatePicker) {
-    }
+    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var targetAmountTextField: UITextField!
+    @IBOutlet weak var targetDateTextField: UILabel!
+    @IBOutlet weak var monthlyContributionTextField: UITextField!
     
-    @IBOutlet weak var monthlyContributionAmountLabel: UILabel!
-    
-    
-    @IBAction func monthlyContributionSlider(_ sender: UISlider) {
-    }
     
     @IBOutlet weak var estimatedCompletionDateLabel: UILabel!
     @IBOutlet weak var progressPercentLabel: UILabel!
@@ -31,9 +33,12 @@ class GoalsConfigViewController: UIViewController {
     
     @IBAction func saveGoalButton(_ sender: Any) {
         
-        //if all fields are filled out && no errors -> save MyGoal
-        
-        //return to GoalsVC and trigger the reload of the goasTable
+        thisGoal?.desciption = nameTextField.text!
+        thisGoal?.startDate = Date()//this is the current date
+        thisGoal?.targetDate = thisDate.stringToDate(inputString: targetDateTextField.text!)
+        thisGoal?.monthlyContribution = Double(monthlyContributionTextField.text!)!
+        thisGoal?.targetAmount = Double(targetAmountTextField.text!)!
+         
     }
     
     @IBAction func deleteGoalButton(_ sender: Any) {
@@ -49,17 +54,17 @@ class GoalsConfigViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //self.goalMonthlyContributionTextField.keyboardType = UIKeyboardType.decimalPad
-        //self.goalTargetDateTextField.keyboardType = UIKeyboardType.decimalPad
-        //self.goalMonthlyContributionTextField.keyboardType = UIKeyboardType.decimalPad
-        //self.goalsTargetAmountTextField.keyboardType = UIKeyboardType.decimalPad
-        
         
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
+    
+
+    
+    
     
 }
 

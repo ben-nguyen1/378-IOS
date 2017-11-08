@@ -53,11 +53,17 @@ class GoalsViewController: UIViewController, UITableViewDataSource, UITableViewD
         for i in 0..<limit {
             goalsList.append( GoalsAccess.getGoal(index: i) )
         }
-        
         self.goalsTable.reloadData()//force the goalsTable to reload the GoalsCells it displays
+        print("finished UPDATE")
     }
     
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let existingGoal = segue.destination as! GoalsConfigViewController
+        if let indexPath = self.goalsTable.indexPathForSelectedRow{
+            existingGoal.thisGoal = goalsList[indexPath.row]
+            //seg.bio = people[indexPath.row]
+        }
+    }
     
     
     
