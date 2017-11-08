@@ -44,7 +44,7 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
         var i = 0
         while (i < ChecklistAccess.totalTransactions()) {
             let currTransaction = ChecklistAccess.getTransaction(index: i)
-            if (currTransaction.isReoccuring) {
+            if (currTransaction.isReoccuring && !currTransaction.isIncome) {
                 if (currTransaction.isPastDue()) {
                     paidItems.append(currTransaction)
                 } else {
@@ -156,8 +156,17 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
             print("Ok Pressed; checklist")
             let transactionDate = self.dateConverter.stringToDate(inputString: dueDateTextField!.text!)
             let cost = Double(costTextField!.text!)
-            
-            if (cost == nil) {
+
+            if (descriptionTextField!.text!.isEmpty) {
+                let errorAlertController: UIAlertController = UIAlertController(title: "Invalid entry", message: "Please enter a non-empty description.", preferredStyle: UIAlertControllerStyle.alert)
+                
+                let errorOk = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default) { (action) -> Void in
+                    print("Ok Pressed; checklist error")
+                }
+                
+                errorAlertController.addAction(errorOk)
+                self.present(errorAlertController, animated: true, completion: nil)
+            } else if (cost == nil) {
                 let errorAlertController: UIAlertController = UIAlertController(title: "Invalid entry", message: "Please enter a valid cost", preferredStyle: UIAlertControllerStyle.alert)
                 
                 let errorOk = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default) { (action) -> Void in
@@ -198,7 +207,6 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
                 
                 self.present(errorAlertController, animated: true, completion: nil)
             } else {
-                print("here")
                 let newExpense = MyTransaction(description: descriptionTextField!.text!, dueDate: transactionDate, totalDue: cost!, isReoccuring: true, isIncome: false)
 
                 self.ChecklistAccess.saveTransaction(input: newExpense)
