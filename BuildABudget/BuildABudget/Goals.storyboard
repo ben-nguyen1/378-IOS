@@ -23,11 +23,11 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GoalsCell" id="oqY-LO-n2L" userLabel="GoalsCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GoalsCell" id="oqY-LO-n2L" userLabel="GoalsCell" customClass="GoalsCell" customModule="BuildABudget" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="343" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oqY-LO-n2L" id="xek-4X-eYP">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="&lt;GOAL NAME&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ya0-Vk-Shk">
@@ -45,14 +45,31 @@
                                                         <segue destination="bFe-4T-s2A" kind="show" id="8mp-uo-SYw"/>
                                                     </connections>
                                                 </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="&lt;ECD&gt;" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mI0-ZD-GJV">
+                                                    <rect key="frame" x="184" y="12" width="136" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progressViewStyle="bar" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="so8-Zd-Cb7">
+                                                    <rect key="frame" x="15" y="22" width="187" height="2"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </progressView>
                                             </subviews>
                                             <color key="backgroundColor" red="0.89814513920000005" green="0.96435803170000001" blue="0.97829860449999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="estimatedCompletionDate" destination="mI0-ZD-GJV" id="SoG-pa-NTj"/>
+                                            <outlet property="goalConfigButton" destination="yWE-C8-TlB" id="iVJ-1w-oje"/>
+                                            <outlet property="goalName" destination="ya0-Vk-Shk" id="4kU-6i-rxy"/>
+                                            <outlet property="progressBar" destination="so8-Zd-Cb7" id="X0g-AB-HkR"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
-                                    <outlet property="dataSource" destination="hiT-5U-P8X" id="0IQ-wa-rsd"/>
-                                    <outlet property="delegate" destination="hiT-5U-P8X" id="v4N-7k-CdA"/>
+                                    <outlet property="dataSource" destination="hiT-5U-P8X" id="ltn-tE-dOr"/>
+                                    <outlet property="delegate" destination="hiT-5U-P8X" id="J7Z-0d-1sc"/>
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VeM-32-hp8">
@@ -75,7 +92,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YLq-aN-SLw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-364" y="-133"/>
+            <point key="canvasLocation" x="-364" y="-133.5832083958021"/>
         </scene>
         <!--GoalsConfigViewController-->
         <scene sceneID="jMn-J7-Gmo">
@@ -223,7 +240,7 @@
                         <outlet property="nameTextField" destination="lQO-Pm-arN" id="B3L-8h-Udk"/>
                         <outlet property="progressPercentLabel" destination="TRc-3A-r62" id="051-c9-uCx"/>
                         <outlet property="targetAmountTextField" destination="ZhU-KA-2BY" id="y2W-hY-ahR"/>
-                        <outlet property="targetDateTextField" destination="iII-E7-hcS" id="weP-tx-KQG"/>
+                        <outlet property="targetDateTextField" destination="6vO-Ly-H3A" id="5TT-bV-Yr5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tl6-ac-sWq" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -237,6 +254,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Ryd-wc-AAL"/>
-        <segue reference="eSS-bg-x4C"/>
+        <segue reference="rpk-dn-5WJ"/>
     </inferredMetricsTieBreakers>
 </document>

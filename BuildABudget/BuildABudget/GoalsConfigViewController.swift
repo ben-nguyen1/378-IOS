@@ -8,35 +8,30 @@
 
 import UIKit
 
+protocol ValidGoalDelegate {
+    
+    func isUniqueGoalName(inputNameString: String) -> Bool
+}
+
+protocol ValidDateDelegate {
+    
+    func isValidDate(inputDateString: String) -> Bool
+}
+
+
+
+
 class GoalsConfigViewController: UIViewController {
 
+    var validGoalDelegate: ValidGoalDelegate!
     var thisGoal:MyGoal? = nil //must be var because this could be overwritten by a cell seque.
-    let thisDate = MyDate.dateConverter
-    
+    let thisDate = MyDate.dateConverter //gives us access to the MyDate methods
     var isNewGoal = true //value is only changed when the GoalsCell segue sets this to false to indicate thisGoal is an existing MyGoal
-    
-    
-    /*
-    //if an existing MyGoal was passes into this ViewController these values will be overwritten to the existing values.
-    var name:String = ""
-    var targetAmount: Double = -1.0
-    var targetDate: Date? = nil
-    var monthlyContribution: Double = -1.0
-    var contributionList: [MyTransaction] = [] //this is expected to be empty for new transactions
-    
-    
-    //original values of MyGoal object passes in from GoalsCell
-    let originalName:String = ""
-    let originalTargetAmount: Double = 0.0
-    let originalTargetDate: Date? = nil
-    let originalMonthlyContribution: Double = 0.0
-    */
     
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var targetAmountTextField: UITextField!
-    @IBOutlet weak var targetDateTextField: UILabel!
+    @IBOutlet weak var targetDateTextField: UITextField!
     @IBOutlet weak var monthlyContributionTextField: UITextField!
-    
     
     @IBOutlet weak var estimatedCompletionDateLabel: UILabel!
     @IBOutlet weak var progressPercentLabel: UILabel!
@@ -44,32 +39,63 @@ class GoalsConfigViewController: UIViewController {
     @IBOutlet weak var amountRemainingLabel: UILabel!
     
     
+    
+    
+    
     @IBAction func saveGoalButton(_ sender: Any) {
         
         if isNewGoal == true && allFieldsFilledOut() {
+            
+            //grab all the data from the alert window's text fields -> we are bringing them in as string first and checking that the input is valid
+            guard let newNameString                 = self.nameTextField?.text                else {
+                print("GOALSCONFIGVC ERROR: newNameString = \(self.nameTextField?.text)")
+                return }
+            
+            guard let newMonthlyContributionString  = self.monthlyContributionTextField?.text else {
+                print("GOALSCONFIGVC ERROR: newMonthlyContributionString = \(self.monthlyContributionTextField?.text)")
+                return }
+            
+            guard let newTargetDateString           = self.targetDateTextField?.text          else {
+                print("GOALSCONFIGVC ERROR: newTargetDateString = \(self.targetDateTextField?.text)")
+                return }
+            guard let newTargetAmountString         = self.targetAmountTextField?.text        else {
+                print("GOALSCONFIGVC ERROR: newTargetAmountString = \(self.targetAmountTextField?.text)")
+                return }
+            
+            //thisDate.stringToDate(inputString: (self.targetDateTextField?.text)!)
+            
+            /*
             thisGoal?.desciption = nameTextField.text!
             thisGoal?.startDate = Date()//this is the current date
             thisGoal?.targetDate = thisDate.stringToDate(inputString: targetDateTextField.text!)
             thisGoal?.monthlyContribution = Double(monthlyContributionTextField.text!)!
             thisGoal?.targetAmount = Double(targetAmountTextField.text!)!
             thisGoal?.allContributions = []
+            */
             
-            thisGoal = MyGoal.create( iContributionList: [],
-                                      iDescription: nameTextField.text!,
-                                      iMonthlyContribution: Double(monthlyContributionTextField.text!)!,
-                                      iStartDate: Date(),
-                                      iTargetDate: thisDate.stringToDate(inputString: targetDateTextField.text!),
-                                      iTargetAmount: Double(targetAmountTextField.text!)! )
+            thisGoal = MyGoal.create( iContributionList:    [],
+                                      iDescription:         newNameString,
+                                      iMonthlyContribution: Double(newMonthlyContributionString)!,
+                                      iStartDate:           Date(),
+                                      iTargetDate:          thisDate.stringToDate(inputString: newTargetDateString),
+                                      iTargetAmount:        Double(newTargetAmountString)! )
             
             thisGoal?.saveMyGoal(inputGoal: thisGoal!)//pass this newly constructed MyGoal object to MyGoal class to be saved
+            
+            
+            
         }
         else if isNewGoal == false && allFieldsFilledOut() && existingMyGoalValuesChangedByUser() {
             //if isNewGoal == false -> this is the case of a existing MyGoal being resaved after one/many of its values were changed
-            thisGoal?.desciption = nameTextField.text!
+            /* OLD CODE THAT errored on .description
+            thisGoal?.desciption = (nameTextField?.text)!
             thisGoal?.startDate = Date()//this is the current date
             thisGoal?.targetDate = thisDate.stringToDate(inputString: targetDateTextField.text!)
             thisGoal?.monthlyContribution = Double(monthlyContributionTextField.text!)!
             thisGoal?.targetAmount = Double(targetAmountTextField.text!)!
+            */
+            
+            
         }
         else {
             print("ERROR: no goals Saved")//error
@@ -114,23 +140,59 @@ class GoalsConfigViewController: UIViewController {
         }
     }
     
+    //functions that check if user input is not an empty string and that it is a unique MyGoal description
+    func checkGoalName( inputName:String) -> Bool{
+        if  !inputName.isEmpty && validGoalDelegate.isUniqueGoalName( inputNameString: inputName) {
+            return true
+        }
+        else {
+            return false
+        }
+    }
     
     
+    
+    
+    
+    
+    //Displays UIDatePicker upon text field selection.
+    func showGoalsDatePickerKeyboard(textField: UITextField) {
+        if textField == targetDateTextField {//set the text field that should display the UIDatePicker
+            let myDatePicker = UIDatePicker()
+            myDatePicker.datePickerMode = .date
+            myDatePicker.minimumDate = Date()
+            textField.inputView = myDatePicker
+            myDatePicker.addTarget(self, action: #selector(setSelectedDate(sender: )), for: .valueChanged) //this sends the currently selected date at every instance that user pauses to the setSelectedDate(sender: UIDatePicker) method
+        }
+    }
+    
+    //this func sets each input passed to it to a string and sets the dueDateTextField to the resulting string
+    func setSelectedDate(sender: UIDatePicker) {
+        targetDateTextField?.text = thisDate.dateToString(inputDate: (sender.date))
+    }
+    
+    
+    
+    
+    
+    
+    
+    //Required ViewController functions below:
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //set keyboard types
+        //nameTextField -> will use the default keyboard (no need to set this)
+        self.targetAmountTextField.keyboardType = UIKeyboardType.decimalPad
+        self.monthlyContributionTextField.keyboardType = UIKeyboardType.decimalPad
+        showGoalsDatePickerKeyboard(textField: self.targetDateTextField)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    
-
-    
-    
-    
-}
+}//end of class
 
 
 

@@ -9,7 +9,8 @@
 import Foundation
 
 //this class is used to make interacting with Date objects easier
-class MyDate {
+class MyDate: ValidGoalDelegate {
+    
     
     //static let time = MyDate()//might need to remove this since it may not be needed
     static let dateConverter = MyDate()
@@ -64,6 +65,15 @@ class MyDate {
         return myCalendar.date(from: components)!
     }
     
+    func dateDifferenceInDays(inputStartDate:Date, inputEndDate:Date) -> Int {
+        let numDays = myCalendar.dateComponents([.day], from: inputStartDate, to: inputEndDate)
+        return numDays.day!
+    }
+    
+    func getDateXNumDaysFromNow(inputStartDate:Date, inputXNumDays: Int) -> Date {
+        return myCalendar.date(byAdding: .day, value: inputXNumDays, to: inputStartDate)!
+    }
+    
     func stringToDate(inputString: String) -> Date {//this method will return a Date object from any string that has the correct format else it returns yesterday's date as a sign of error
         
         myFormatter.dateFormat = "MM/dd/yyyy"
@@ -92,6 +102,11 @@ class MyDate {
     
     //Default initializer
     init() { }
+    
+    //Below: functions that conform to Protocols
+    func isUniqueGoalName(inputNameString: String) -> Bool {
+        return false //default value
+    }
     
 }
 

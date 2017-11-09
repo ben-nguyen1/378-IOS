@@ -21,13 +21,13 @@ class MyGoal {
     
     
     //estimatedCompletionDate -> will be a calculation
-    fileprivate var estimatedCompletionDate: Double = 0.0
+    fileprivate var estimatedCompletionDate: Date? = nil
     
     //amountRemaining -> a calculation
     fileprivate var amountRemaining: Double = 0.0
     
     //the percent of progress that this goal has based on the sum of all MyTransaction objects within the contributionList and the specified totalAmount
-    fileprivate var progress:Float = 0.0
+    fileprivate var progress:Double = 0.0
     
     //the sum of all MyTransaction object's totalDue amounts
     fileprivate var currentSavedAmount: Double = 0.0
@@ -80,43 +80,51 @@ class MyGoal {
         return goalsDate.shortDateToString(inputDate: _startDate)
     }
     
-    func getProgress() -> Float{
-        return Float(currentSavedAmount/targetAmount)
-    }
-    
     
     
     
     //STILL NEED TO COMPLETE
     //func for calculating the estimated completion date
-    func getEstimatedCompletionDate(inputStartDate: Date, inputTargetAmount: Double, inputContributionAmount: Double) -> Double {
-        // got nothing yet...come back later
+    func getEstimatedCompletionDate() -> Date {
         
-        //targetAmount / contributionAmount (per month) = numberOfWeeks
-        let originalNumberOfWeeks:Int = Int(round(inputTargetAmount/inputContributionAmount))
-        //Date calculation -> (StartDate + numberOfWeeks
-        
-        
-        
-        return 0.0//temp value
-    }
+        let numDaysSinceStartOfGoal = goalsDate.dateDifferenceInDays(inputStartDate: self.startDate, inputEndDate: self.targetDate)
+        var moneyRatio = 0.0
+        if self.getCurrentSavedAmount() == 0.0 {
+            moneyRatio = 1.0
+        }
+        else {
+            moneyRatio = self.getRemainingAmount() / self.getCurrentSavedAmount()
+        }
+        let estimatedDaysLeftDouble = (moneyRatio * Double(numDaysSinceStartOfGoal) ).rounded(.up)
+        print(">>> numDaysSinceStartOfGoal = \(numDaysSinceStartOfGoal)")
+        print(">>> moneyRatio = \(moneyRatio)")
+        print(">>> estimatedDaysLeftDouble = \(estimatedDaysLeftDouble)")
+        let estimatedDaysLeftInt = Int(exactly: estimatedDaysLeftDouble)
+        print("\n>>> estimatedDaysLeftInt = \(estimatedDaysLeftInt)")
+        return goalsDate.getDateXNumDaysFromNow(inputStartDate: Date(), inputXNumDays: estimatedDaysLeftInt!)
+     }
     
     //loop through all MyTransaction objects in contributionList and adds up the totalDue amounts.
-    func getCurrentSavedAmount( inputContributionList: [MyTransaction]) -> Double {
+    func getCurrentSavedAmount() -> Double {
         var total = 0.0
-        for index in inputContributionList {
+        for index in self._contributionList {
             total += total + index.totalDue
         }
         return total
     }
     
-    func getRemainingAmount( inputTargetAmount: Double, inputCurrentSavedAmount: Double) -> Double {
-        return inputTargetAmount - inputCurrentSavedAmount
+    func getRemainingAmount() -> Double {
+        return self.targetAmount - self.getCurrentSavedAmount()
     }
     
-    func calculateProgress(inputTargetAmount: Double, inputCurrentSavedAmount: Double) -> Double{
-        return inputCurrentSavedAmount / inputTargetAmount
+    func getProgress() -> Float{
+        return Float(self.getCurrentSavedAmount() / self.targetAmount)
     }
+    
+
+    
+    
+    
     
     func saveMyGoal(inputGoal: MyGoal){
         goalsAccess.saveGoal(input: inputGoal)
@@ -134,6 +142,7 @@ class MyGoal {
                         iTargetDate:            Date,
                         iTargetAmount:          Double ) -> MyGoal {
      
+        print("MADE IT TO MyGoal creat()")
         return MyGoal ( contributionList:       iContributionList,
                         description:            iDescription,
                         monthlyContribution:    iMonthlyContribution,

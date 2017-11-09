@@ -69,12 +69,13 @@ class AccessService {
     // To keep it that way, don't allow any code outside this class to instantiate an object of this type.
     private init() {}
     
+    //————————————————————————————————————————————————————————————————————————————————————————————————————
     //Goal Methods:
     func retreiveAllGoals() {
         
         let managedContext = persistentContainer.viewContext
-        var fetchedResults:[NSManagedObject]? = nil
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName:"Goal")
+        var fetchedResults:[NSManagedObject]? = nil
         
         do {
             try fetchedResults = managedContext.fetch(fetchRequest) as? [NSManagedObject]
@@ -86,6 +87,7 @@ class AccessService {
         
         guard let results = fetchedResults else { return }
         goals = results
+        print("\n>>> retrieiveAllGoals count after = \(totalGoals())\n")
     }
     
     func saveGoal(input: MyGoal) {
@@ -133,7 +135,7 @@ class AccessService {
     
     func getGoal(index:Int) -> MyGoal {
         
-        if index < transactions.count {
+        if index < goals.count {
             
             let record = goals[index]
             let rContributionList          = record.value(forKey: "contributionList") as! [MyTransaction]
@@ -188,8 +190,7 @@ class AccessService {
         self.retreiveAllGoals()
     }
     
-    
-    
+    //————————————————————————————————————————————————————————————————————————————————————————————————————
     //Transaction Methods:
     func retreiveAllTransactions() {
         
@@ -210,7 +211,6 @@ class AccessService {
         guard let results = fetchedResults else { return }
         transactions = results
         print("\n>>> retrieiveAllTransactions count after = \(totalTransactions())\n")
-        //printAllTransactions() <--- diagnostic test to check that all transactions were readable
     }
     
     func deleteTransaction(input: MyTransaction) {
@@ -333,6 +333,7 @@ class AccessService {
         }
     }
     
+    //————————————————————————————————————————————————————————————————————————————————————————————————————
     //Budget Methods:
     func retreiveAllBudgets() {
         
@@ -407,7 +408,7 @@ class AccessService {
         
     }
     
-}
+}//end of class
 
 
 
