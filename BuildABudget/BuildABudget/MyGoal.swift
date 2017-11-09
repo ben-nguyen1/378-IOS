@@ -127,29 +127,29 @@ class MyGoal {
     }
     
     
-    class func create ( iDescription:String,
-                        iStartDate:Date,
-                        iTargetDate:Date,
-                        iMonthlyContribution:Double,
-                        iTargetAmount:Double,
-                        iContributionList: [MyTransaction] ) -> MyGoal {
+    class func create ( iContributionList:      [MyTransaction],
+                        iDescription:           String,
+                        iMonthlyContribution:   Double,
+                        iStartDate:             Date,
+                        iTargetDate:            Date,
+                        iTargetAmount:          Double ) -> MyGoal {
      
-        return MyGoal ( description: iDescription,
-                        startDate: iStartDate,
-                        targetDate: iTargetDate,
-                        monthlyContribution: iMonthlyContribution,
-                        targetAmount: iTargetAmount,
-                        contributionList: iContributionList)
+        return MyGoal ( contributionList:       iContributionList,
+                        description:            iDescription,
+                        monthlyContribution:    iMonthlyContribution,
+                        startDate:              iStartDate,
+                        targetDate:             iTargetDate,
+                        targetAmount:           iTargetAmount )
     }
     
     
     //initializers
-    init(description:String,
-         startDate:Date,
-         targetDate:Date,
-         monthlyContribution:Double,
-         targetAmount:Double,
-         contributionList: [MyTransaction]) {
+    init( contributionList:     [MyTransaction],
+          description:          String,
+          monthlyContribution:  Double,
+          startDate:            Date,
+          targetDate:           Date,
+          targetAmount:         Double ) {
         
         self._description = description
         self._startDate = startDate

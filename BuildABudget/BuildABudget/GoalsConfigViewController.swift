@@ -54,12 +54,12 @@ class GoalsConfigViewController: UIViewController {
             thisGoal?.targetAmount = Double(targetAmountTextField.text!)!
             thisGoal?.allContributions = []
             
-            thisGoal = MyGoal.create(iDescription: nameTextField.text!,
-                                     iStartDate: Date(),
-                                     iTargetDate: thisDate.stringToDate(inputString: targetDateTextField.text!),
-                                     iMonthlyContribution: Double(monthlyContributionTextField.text!)!,
-                                     iTargetAmount: Double(targetAmountTextField.text!)!,
-                                     iContributionList: [])
+            thisGoal = MyGoal.create( iContributionList: [],
+                                      iDescription: nameTextField.text!,
+                                      iMonthlyContribution: Double(monthlyContributionTextField.text!)!,
+                                      iStartDate: Date(),
+                                      iTargetDate: thisDate.stringToDate(inputString: targetDateTextField.text!),
+                                      iTargetAmount: Double(targetAmountTextField.text!)! )
             
             thisGoal?.saveMyGoal(inputGoal: thisGoal!)//pass this newly constructed MyGoal object to MyGoal class to be saved
         }

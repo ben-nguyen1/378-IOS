@@ -90,22 +90,25 @@ class AccessService {
     
     func saveGoal(input: MyGoal) {
         
+        print("AccessService: Starting save process -> goals count = \(goals.count)")
         let managedContext = persistentContainer.viewContext
         // Create the entity we want to save
         let entity = NSEntityDescription.entity(forEntityName: "Goal", in: managedContext)
         let record = NSManagedObject(entity: entity!, insertInto: managedContext)
         
         // Set the attribute values
-        record.setValue(input.desciption, forKey: "goalDescription")
-        record.setValue(input.startDate, forKey: "startDate")
-        record.setValue(input.targetDate, forKey: "targetDate")
-        record.setValue(input.monthlyContribution, forKey: "monthlyContributionAmount")
-        record.setValue(input.allContributions, forKey: "contributionList")
+        record.setValue(input.allContributions,     forKey: "contributionList")
+        record.setValue(input.desciption,           forKey: "goalDescription")
+        record.setValue(input.monthlyContribution,  forKey: "monthlyContributionAmount")
+        record.setValue(input.startDate,            forKey: "startDate")
+        record.setValue(input.targetDate,           forKey: "targetDate")
+        record.setValue(input.targetAmount,         forKey: "targetAmount")
         
         // Commit the changes.
         do {
             try managedContext.save()
             transactions.append(record)
+            print("AccessService: Successful save -> goals count = \(goals.count)")
         } catch {
             let nserror = error as NSError
             NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
@@ -120,25 +123,24 @@ class AccessService {
     func getGoal(index:Int) -> MyGoal {
         
         if index < transactions.count {
+            
             let record = goals[index]
-            let rDescription               = record.value(forKey: "goalDescription") as! String
-            let rStartDate                 = record.value(forKey: "startDate") as! Date
-            let rTargetDate                   = record.value(forKey: "targetDate") as! Date
-            let rMonthlyContributionAmount = record.value(forKey: "monthlyContributionAmount") as! Double
             let rContributionList          = record.value(forKey: "contributionList") as! [MyTransaction]
+            let rDescription               = record.value(forKey: "goalDescription") as! String
+            let rMonthlyContributionAmount = record.value(forKey: "monthlyContributionAmount") as! Double
+            let rStartDate                 = record.value(forKey: "startDate") as! Date
+            let rTargetDate                = record.value(forKey: "targetDate") as! Date
+            let rTargetAmount              = record.value(forKey: "targetAmount") as! Double
             
-            
-            return MyGoal(description: rDescription,
-                          startDate: rStartDate,
-                          targetDate: rTargetDate,
-                          monthlyContribution: rMonthlyContributionAmount,
-                          targetAmount: rMonthlyContributionAmount,
-                          contributionList: rContributionList
-            )
-            
-        } else {
+            return MyGoal(  contributionList:    rContributionList,
+                            description:         rDescription,
+                            monthlyContribution: rMonthlyContributionAmount,
+                            startDate:           rStartDate,
+                            targetDate:          rTargetDate,
+                            targetAmount:        rMonthlyContributionAmount )
+         } else {
             return MyGoal()
-        }
+         }
         
     }
     
@@ -151,11 +153,11 @@ class AccessService {
             
             for goal in goalArray as [NSManagedObject] {
                 // Delete if the object is a match
-                if (input.desciption == goal.value(forKey: "goalDescription") as! String &&
-                    input.startDate == goal.value(forKey: "startDate") as! Date &&
-                    input.targetDate == goal.value(forKey: "targetDate") as! Date &&
-                    input.monthlyContribution == goal.value(forKey: "monthlyContributionAmount") as! Double &&
-                    input.targetAmount == goal.value(forKey: "targetAmount") as! Double){
+                if (input.desciption            == goal.value(forKey: "goalDescription") as! String &&
+                    input.startDate             == goal.value(forKey: "startDate") as! Date &&
+                    input.targetDate            == goal.value(forKey: "targetDate") as! Date &&
+                    input.monthlyContribution   == goal.value(forKey: "monthlyContributionAmount") as! Double &&
+                    input.targetAmount          == goal.value(forKey: "targetAmount") as! Double){
                         context.delete(goal)
                 }
             }
