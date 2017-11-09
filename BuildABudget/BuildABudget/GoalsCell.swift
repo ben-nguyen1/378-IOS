@@ -45,10 +45,23 @@ class GoalsCell: UITableViewCell {
         estimatedCompletionDate.text = inputEstimatedCompletionDateString
         
         //setup the progressBar
-        //progressBar = UIProgressView(progressViewStyle: UIProgressViewStyle.default)
-        progressBar.progressTintColor = UIColor.brown //setupProgressBar(inputPercentProgress: inputProgress)
-        progressBar.progress = inputProgress
+        progressBar.progressTintColor = setupProgressBar(inputPercentProgress: inputProgress)
+        progressBar.trackTintColor = UIColor.white
+        progressBar.setProgress(inputProgress, animated: true)
         
+        //testing
+        /*
+        if inputName == "test" {
+        progressBar.progressTintColor = UIColor.white //setupProgressBar(inputPercentProgress: 33.3) //inputProgress
+        progressBar.trackTintColor = setupProgressBar(inputPercentProgress: 90.0)//UIColor.white
+        progressBar.setProgress(33.3, animated: true)//inputProgress
+        }
+        else {
+            progressBar.progressTintColor = setupProgressBar(inputPercentProgress: 60.0) //inputProgress
+            progressBar.trackTintColor = UIColor.white //setupProgressBar(inputPercentProgress: inputProgress)//UIColor.white
+            progressBar.setProgress(10.0, animated: true)//inputProgress
+        }
+        */
     }
     
     
