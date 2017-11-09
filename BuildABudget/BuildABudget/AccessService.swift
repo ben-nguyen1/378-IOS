@@ -90,11 +90,21 @@ class AccessService {
     
     func saveGoal(input: MyGoal) {
         
-        print("AccessService: Starting save process -> goals count = \(goals.count)")
         let managedContext = persistentContainer.viewContext
         // Create the entity we want to save
         let entity = NSEntityDescription.entity(forEntityName: "Goal", in: managedContext)
         let record = NSManagedObject(entity: entity!, insertInto: managedContext)
+        
+        //test values received by printing them out
+        print("============================================")
+        print("AccessService: Starting save process -> goals count = \(goals.count)")
+        print("contributionList = \(input.allContributions.count)")
+        print("goalDescription = \(input.desciption)")
+        print("monthlyContributionAmount = \(input.monthlyContribution)")
+        print("startDate = \(input.startDate)")
+        print("targetDate = \(input.targetDate)")
+        print("targetAmount = \(input.targetAmount)")
+        print("============================================")
         
         // Set the attribute values
         record.setValue(input.allContributions,     forKey: "contributionList")
@@ -107,8 +117,9 @@ class AccessService {
         // Commit the changes.
         do {
             try managedContext.save()
-            transactions.append(record)
+            goals.append(record)
             print("AccessService: Successful save -> goals count = \(goals.count)")
+            print("\nCheck against this CoreDate Record:\n\(record)")
         } catch {
             let nserror = error as NSError
             NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
