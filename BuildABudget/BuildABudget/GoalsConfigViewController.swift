@@ -52,20 +52,10 @@ class GoalsConfigViewController: UIViewController {
         if isNewGoal == true && allFieldsFilledOut() {
             
             //grab all the data from the alert window's text fields -> we are bringing them in as string first and checking that the input is valid
-            guard let newNameString                 = self.nameTextField?.text                else {
-                print("GOALSCONFIGVC ERROR: newNameString = \(self.nameTextField?.text)")
-                return }
-            
-            guard let newMonthlyContributionString  = self.monthlyContributionTextField?.text else {
-                print("GOALSCONFIGVC ERROR: newMonthlyContributionString = \(self.monthlyContributionTextField?.text)")
-                return }
-            
-            guard let newTargetDateString           = self.targetDateTextField?.text          else {
-                print("GOALSCONFIGVC ERROR: newTargetDateString = \(self.targetDateTextField?.text)")
-                return }
-            guard let newTargetAmountString         = self.targetAmountTextField?.text        else {
-                print("GOALSCONFIGVC ERROR: newTargetAmountString = \(self.targetAmountTextField?.text)")
-                return }
+            guard let newNameString                 = self.nameTextField?.text                else { return }
+            guard let newMonthlyContributionString  = self.monthlyContributionTextField?.text else { return }
+            guard let newTargetDateString           = self.targetDateTextField?.text          else { return }
+            guard let newTargetAmountString         = self.targetAmountTextField?.text        else { return }
             
             //thisDate.stringToDate(inputString: (self.targetDateTextField?.text)!)
             
@@ -227,9 +217,10 @@ class GoalsConfigViewController: UIViewController {
         print("---> this goal == \(thisGoal)")
         if self.thisGoal != nil{
             self.nameTextField.text                 = self.thisGoal?.desciption
-            self.targetAmountTextField.text         = String(describing: self.thisGoal?.targetAmount) as String!
-            self.targetDateTextField.text           = String(describing: self.thisGoal?.targetDate) as String!
-            self.monthlyContributionTextField.text  = String(describing: self.thisGoal?.monthlyContribution) as String!
+            self.targetAmountTextField.text         = "\((self.thisGoal?.targetAmount)!)"//String(describing: self.thisGoal?.targetAmount)
+            let tempDateToString:String = thisDate.dateToString(inputDate: (self.thisGoal?.targetDate)!)
+            self.targetDateTextField.text           = tempDateToString
+            self.monthlyContributionTextField.text  = "\(((self.thisGoal?.monthlyContribution))!)"
             print("thisGoal = \(self.thisGoal) <- should not be nil")
         }
     }
