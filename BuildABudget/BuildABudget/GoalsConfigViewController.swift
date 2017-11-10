@@ -80,17 +80,19 @@ class GoalsConfigViewController: UIViewController {
             
             
         }
-        else if isNewGoal == false && allFieldsFilledOut() && existingMyGoalValuesChangedByUser() {
-            //if isNewGoal == false -> this is the case of a existing MyGoal being resaved after one/many of its values were changed
-            /* OLD CODE THAT errored on .description
-            thisGoal?.desciption = (nameTextField?.text)!
-            thisGoal?.startDate = Date()//this is the current date
-            thisGoal?.targetDate = thisDate.stringToDate(inputString: targetDateTextField.text!)
-            thisGoal?.monthlyContribution = Double(monthlyContributionTextField.text!)!
-            thisGoal?.targetAmount = Double(targetAmountTextField.text!)!
-            */
+        else if isNewGoal == false && allFieldsFilledOut() && existingMyGoalValuesChangedByUser() { //DEBUG NEEDED WITH THIS PART OF THE METHOD, IT IS NOT UPDATING OLD RECORDS
+
+            guard let newNameString                 = self.nameTextField?.text                else { return }
+            guard let newMonthlyContributionString  = self.monthlyContributionTextField?.text else { return }
+            guard let newTargetDateString           = self.targetDateTextField?.text          else { return }
+            guard let newTargetAmountString         = self.targetAmountTextField?.text        else { return }
             
+            thisGoal?.desciption            = newNameString
+            thisGoal?.monthlyContribution   = Double(newMonthlyContributionString)!
+            thisGoal?.targetDate            = thisDate.stringToDate(inputString: newTargetDateString)
+            thisGoal?.targetAmount          = Double(newTargetAmountString)!
             
+            thisGoal?.saveMyGoal(inputGoal: thisGoal!)
         }
         else {
             print("ERROR: no goals Saved")//error

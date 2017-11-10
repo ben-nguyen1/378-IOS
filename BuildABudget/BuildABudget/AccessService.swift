@@ -92,6 +92,8 @@ class AccessService {
     
     func saveGoal(input: MyGoal) {
         
+        //check if value already exists and if it does delete it
+        
         let managedContext = persistentContainer.viewContext
         // Create the entity we want to save
         let entity = NSEntityDescription.entity(forEntityName: "Goal", in: managedContext)
