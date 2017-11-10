@@ -56,6 +56,12 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
         print(i)
     }
     
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateTables()
+    }
+    
     func updateTables() {
         self.updateCheckListItems()
         self.paidTableView.reloadData()

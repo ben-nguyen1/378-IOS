@@ -186,6 +186,8 @@ class GoalsConfigViewController: UIViewController {
         self.targetAmountTextField.keyboardType = UIKeyboardType.decimalPad
         self.monthlyContributionTextField.keyboardType = UIKeyboardType.decimalPad
         showGoalsDatePickerKeyboard(textField: self.targetDateTextField)
+        
+        //
     }
 
     override func didReceiveMemoryWarning() {
