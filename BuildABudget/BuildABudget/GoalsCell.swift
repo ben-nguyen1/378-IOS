@@ -32,46 +32,49 @@ class GoalsCell: UITableViewCell {
 
     func config( inputName: String, inputProgress: Float, inputEstimatedCompletionDateString: String) {
         
+        /* //DIAGNOSTIC CODE
         print("\n----------------------------------------")
         print("INFO FROM GOALSCELL config():")
         print("inputName = \(inputName)")
         print("inputProgress = \(inputProgress)")
         print("inputEstimatedCompletionDateString = \(inputEstimatedCompletionDateString)")
         print("----------------------------------------\n")
-        
+        */
         
         goalName.text = inputName //Unexpectedly found nil while unwrapping an Optional Value
         
         estimatedCompletionDate.text = inputEstimatedCompletionDateString
         
         //setup the progressBar
-        progressBar.progressTintColor = setupProgressBar(inputPercentProgress: inputProgress)
-        progressBar.trackTintColor = UIColor.white
-        progressBar.setProgress(inputProgress, animated: true)
+        progressBar.progressTintColor = setupProgressBar(inputPercentProgress: (inputProgress * 0.1) * 0.1)
+        progressBar.trackTintColor = UIColor.orange
+        progressBar.setProgress( (inputProgress * 0.1) * 0.1, animated: true)
         
-        //testing
-        /*
+        
+        
+        /*//DIAGNOSTIC CODE
         if inputName == "test" {
-        progressBar.progressTintColor = UIColor.white //setupProgressBar(inputPercentProgress: 33.3) //inputProgress
-        progressBar.trackTintColor = setupProgressBar(inputPercentProgress: 90.0)//UIColor.white
+        progressBar.progressTintColor = UIColor.orange //setupProgressBar(inputPercentProgress: 33.3) //inputProgress
+        progressBar.trackTintColor = setupProgressBar(inputPercentProgress: 0.9)//UIColor.white
         progressBar.setProgress(33.3, animated: true)//inputProgress
         }
         else {
-            progressBar.progressTintColor = setupProgressBar(inputPercentProgress: 60.0) //inputProgress
-            progressBar.trackTintColor = UIColor.white //setupProgressBar(inputPercentProgress: inputProgress)//UIColor.white
+            progressBar.progressTintColor = setupProgressBar(inputPercentProgress: 0.4) //inputProgress
+            progressBar.trackTintColor = UIColor.orange //setupProgressBar(inputPercentProgress: inputProgress)//UIColor.white
             progressBar.setProgress(10.0, animated: true)//inputProgress
         }
         */
+        
     }
     
     
     //sets the progress bar color based on the percent progress toward completion
     func setupProgressBar(inputPercentProgress:Float) -> UIColor{
         
-        if inputPercentProgress < 33.4 {
+        if inputPercentProgress <= 0.3 {
             return UIColor.red
         }
-        else if inputPercentProgress > 33.3 && inputPercentProgress < 66.4{
+        else if inputPercentProgress > 0.3 && inputPercentProgress <= 0.6{
             return UIColor.yellow
         }
         else {

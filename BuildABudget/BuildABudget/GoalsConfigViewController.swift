@@ -8,9 +8,11 @@
 
 import UIKit
 
-protocol ValidGoalDelegate {
+protocol EditGoalDelegate {
     
-    func isUniqueGoalName(inputNameString: String) -> Bool
+    func isUniqueGoalName( inputNameString: String ) -> Bool
+    
+    //func deleteThisGoal( inputGoal: MyGoal ) -> Bool
 }
 
 protocol ValidDateDelegate {
@@ -21,9 +23,10 @@ protocol ValidDateDelegate {
 
 
 
+
 class GoalsConfigViewController: UIViewController {
 
-    var validGoalDelegate: ValidGoalDelegate!
+    var validGoalDelegate: EditGoalDelegate!
     var thisGoal:MyGoal? = nil //must be var because this could be overwritten by a cell seque.
     let thisDate = MyDate.dateConverter //gives us access to the MyDate methods
     var isNewGoal = true //value is only changed when the GoalsCell segue sets this to false to indicate thisGoal is an existing MyGoal
@@ -40,6 +43,8 @@ class GoalsConfigViewController: UIViewController {
     
     
     
+    
+    @IBAction func cancelButton(_ sender: Any) {}
     
     
     @IBAction func saveGoalButton(_ sender: Any) {
@@ -102,14 +107,7 @@ class GoalsConfigViewController: UIViewController {
         }
     }
     
-    @IBAction func deleteGoalButton(_ sender: Any) {
-        
-        //if this button is clicked show a pop UIAlert asking for confirmation to delete
-        
-        //if delete if confirmed -> remove this goal from coreData
-        
-        //return to GoalsVC and trigger the reload of the goalsTable.
-    }
+    
     
     func allFieldsFilledOut() -> Bool{
         
@@ -150,7 +148,16 @@ class GoalsConfigViewController: UIViewController {
         }
     }
     
-    
+    //checks if the goal does exist in the GoalsVC goalsList
+    func isExistingGoal() -> Bool {
+        
+        if validGoalDelegate.isUniqueGoalName( inputNameString: (self.thisGoal?.desciption)! ){
+            return true
+        }
+        else {
+            return false
+        }
+    }
     
     
     
@@ -171,8 +178,37 @@ class GoalsConfigViewController: UIViewController {
         targetDateTextField?.text = thisDate.dateToString(inputDate: (sender.date))
     }
     
+    /*
+    //Display UIAlert to confirm user want to delete this goal
+    func launchConfirmDeleteWindow() {
+        
+        print(">>>GOALSCONFIGVC: launched delete confirmation window")
+        //set the AlertWindow's title and instruction message to user
+        let newDeleteConfirmation = UIAlertController(title: "Delete Confirmation", message: "Are you sure?", preferredStyle: .alert)
     
+        let deleteAction = UIAlertAction(title: "Delete", style: .default) {
+            (action: UIAlertAction!) -> Void in
+            //call delete method -> this will delete the Goal and return to GoalsVC
+            print("------before delete action AccessService totalGoals() = \(AccessService.access.totalGoals())")
+            self.thisGoal?.deleteMyGoal(inputGoal: self.thisGoal!)
+            
+            print("!!!---DELETED thisGoal---!!!")
+            print("------After  delete action AccessService totalGoals() = \(AccessService.access.totalGoals())")
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default) {
+            (action: UIAlertAction!) -> Void in
+            //Dismisses UIAlertWindow -> no other action needs to be taken
+        }
+        
+        //add the buttons to the Alert window
+        newDeleteConfirmation.addAction(deleteAction)
+        newDeleteConfirmation.addAction(cancelAction)
     
+        //display the alert window on the screen
+        present(newDeleteConfirmation, animated: true, completion: nil)
+    }
+    */
     
     
     
@@ -180,7 +216,7 @@ class GoalsConfigViewController: UIViewController {
     //Required ViewController functions below:
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print("\n>>>REACHED GOALSCONFIGVC")
         //set keyboard types
         //nameTextField -> will use the default keyboard (no need to set this)
         self.targetAmountTextField.keyboardType = UIKeyboardType.decimalPad
@@ -188,6 +224,14 @@ class GoalsConfigViewController: UIViewController {
         showGoalsDatePickerKeyboard(textField: self.targetDateTextField)
         
         //
+        print("---> this goal == \(thisGoal)")
+        if self.thisGoal != nil{
+            self.nameTextField.text                 = self.thisGoal?.desciption
+            self.targetAmountTextField.text         = String(describing: self.thisGoal?.targetAmount) as String!
+            self.targetDateTextField.text           = String(describing: self.thisGoal?.targetDate) as String!
+            self.monthlyContributionTextField.text  = String(describing: self.thisGoal?.monthlyContribution) as String!
+            print("thisGoal = \(self.thisGoal) <- should not be nil")
+        }
     }
 
     override func didReceiveMemoryWarning() {

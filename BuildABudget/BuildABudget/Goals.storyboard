@@ -42,7 +42,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" image="edit-arrow-icon"/>
                                                     <connections>
-                                                        <segue destination="bFe-4T-s2A" kind="show" id="8mp-uo-SYw"/>
+                                                        <segue destination="bFe-4T-s2A" kind="show" id="f6n-hQ-kSs"/>
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="&lt;ECD&gt;" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mI0-ZD-GJV">
@@ -52,8 +52,8 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="so8-Zd-Cb7">
-                                                    <rect key="frame" x="15" y="21" width="187" height="3"/>
+                                                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progressViewStyle="bar" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="so8-Zd-Cb7">
+                                                    <rect key="frame" x="15" y="22.5" width="187" height="1.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </progressView>
                                             </subviews>
@@ -216,16 +216,16 @@
                                     <segue destination="hiT-5U-P8X" kind="show" id="eSS-bg-x4C"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nX4-rT-f9f">
-                                <rect key="frame" x="136" y="545" width="112" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W5Y-m3-fXg">
+                                <rect key="frame" x="131" y="585" width="112" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="DELETE">
-                                    <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="CANCEL">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="deleteGoalButton:" destination="bFe-4T-s2A" eventType="touchUpInside" id="1re-qn-4r7"/>
-                                    <segue destination="hiT-5U-P8X" kind="show" id="rpk-dn-5WJ"/>
+                                    <action selector="cancelButton:" destination="bFe-4T-s2A" eventType="touchUpInside" id="G6f-Nb-zeU"/>
+                                    <segue destination="hiT-5U-P8X" kind="show" id="5Hx-1J-HTL"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -368,6 +368,6 @@ AAAAAAAAAAAAGTc
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Ryd-wc-AAL"/>
-        <segue reference="eSS-bg-x4C"/>
+        <segue reference="5Hx-1J-HTL"/>
     </inferredMetricsTieBreakers>
 </document>

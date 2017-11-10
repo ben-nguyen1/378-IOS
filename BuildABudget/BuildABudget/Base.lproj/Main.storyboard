@@ -298,7 +298,6 @@
         <!--Tab Bar View Controller-->
         <scene sceneID="1MH-6P-Lcy">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qMa-US-pDx" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tabBarController storyboardIdentifier="TabBarVC" id="sW7-da-Vsd" customClass="TabBarViewController" customModule="BuildABudget" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="4rY-vV-QU0" userLabel="Budget">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
@@ -314,6 +313,7 @@
                         <segue destination="qu0-kk-yUw" kind="relationship" relationship="viewControllers" id="ggH-LI-aNL"/>
                     </connections>
                 </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qMa-US-pDx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2082" y="38"/>
         </scene>

@@ -96,11 +96,11 @@ class MyGoal {
             moneyRatio = self.getRemainingAmount() / self.getCurrentSavedAmount()
         }
         let estimatedDaysLeftDouble = (moneyRatio * Double(numDaysSinceStartOfGoal) ).rounded(.up)
-        print(">>> numDaysSinceStartOfGoal = \(numDaysSinceStartOfGoal)")
-        print(">>> moneyRatio = \(moneyRatio)")
-        print(">>> estimatedDaysLeftDouble = \(estimatedDaysLeftDouble)")
+        //print(">>> numDaysSinceStartOfGoal = \(numDaysSinceStartOfGoal)")
+        //print(">>> moneyRatio = \(moneyRatio)")
+        //print(">>> estimatedDaysLeftDouble = \(estimatedDaysLeftDouble)")
         let estimatedDaysLeftInt = Int(exactly: estimatedDaysLeftDouble)
-        print("\n>>> estimatedDaysLeftInt = \(estimatedDaysLeftInt)")
+        //print("\n>>> estimatedDaysLeftInt = \(estimatedDaysLeftInt)")
         return goalsDate.getDateXNumDaysFromNow(inputStartDate: Date(), inputXNumDays: estimatedDaysLeftInt!)
      }
     
@@ -131,6 +131,7 @@ class MyGoal {
     }
     
     func deleteMyGoal(inputGoal: MyGoal){
+        print(">>>REACHED MYGOAL deleteMyGoal()")
         goalsAccess.deleteGoal(input: inputGoal)
     }
     

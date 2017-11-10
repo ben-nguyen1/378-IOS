@@ -158,6 +158,7 @@ class AccessService {
     }
     
     func deleteGoal(input: MyGoal){
+        print(">>>REACHED AccessService deleteGoal()")
         let managedContext = persistentContainer.viewContext
         let fetchRequest: NSFetchRequest<Goal> = Goal.fetchRequest()
         
@@ -166,11 +167,11 @@ class AccessService {
             
             for goal in goalArray as [NSManagedObject] {
                 // Delete if the object is a match
-                if (input.desciption            == goal.value(forKey: "goalDescription") as! String &&
+                if (input.desciption            == goal.value(forKey: "goalDescription") as! String /*&&
                     input.startDate             == goal.value(forKey: "startDate") as! Date &&
                     input.targetDate            == goal.value(forKey: "targetDate") as! Date &&
                     input.monthlyContribution   == goal.value(forKey: "monthlyContributionAmount") as! Double &&
-                    input.targetAmount          == goal.value(forKey: "targetAmount") as! Double){
+                    input.targetAmount          == goal.value(forKey: "targetAmount") as! Double */){
                         context.delete(goal)
                 }
             }
