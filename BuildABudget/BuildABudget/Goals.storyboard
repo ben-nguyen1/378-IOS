@@ -19,14 +19,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tnF-CE-iSH" userLabel="Goals Table">
-                                <rect key="frame" x="10" y="59" width="355" height="549"/>
+                                <rect key="frame" x="10" y="97" width="355" height="509"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GoalsCell" rowHeight="75" id="oqY-LO-n2L" userLabel="GoalsCell" customClass="GoalsCell" customModule="BuildABudget" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="355" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oqY-LO-n2L" id="xek-4X-eYP">
-                                            <rect key="frame" x="0.0" y="0.0" width="355" height="75"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="355" height="74.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinY="YES" flexibleMaxY="YES"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;GOAL NAME&gt;" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ya0-Vk-Shk">
@@ -102,7 +102,7 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VeM-32-hp8">
-                                <rect key="frame" x="343" y="36" width="22" height="22"/>
+                                <rect key="frame" x="337" y="67" width="22" height="22"/>
                                 <connections>
                                     <segue destination="bFe-4T-s2A" kind="show" id="Ryd-wc-AAL"/>
                                 </connections>
@@ -110,13 +110,13 @@
                         </subviews>
                         <color key="backgroundColor" red="0.74080312250000002" green="0.89666754010000005" blue="0.99832695719999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="QDK-FG-ro8" firstAttribute="bottom" secondItem="tnF-CE-iSH" secondAttribute="bottom" constant="10" id="Hbi-Vz-L0r"/>
-                            <constraint firstItem="tnF-CE-iSH" firstAttribute="top" secondItem="VeM-32-hp8" secondAttribute="bottom" constant="1" id="HpD-uZ-eep"/>
+                            <constraint firstItem="QDK-FG-ro8" firstAttribute="bottom" secondItem="tnF-CE-iSH" secondAttribute="bottom" constant="12" id="Hbi-Vz-L0r"/>
+                            <constraint firstItem="tnF-CE-iSH" firstAttribute="top" secondItem="VeM-32-hp8" secondAttribute="bottom" constant="8" id="HpD-uZ-eep"/>
                             <constraint firstItem="tnF-CE-iSH" firstAttribute="leading" secondItem="QDK-FG-ro8" secondAttribute="leading" constant="10" id="K9Q-YH-OFM"/>
-                            <constraint firstItem="tnF-CE-iSH" firstAttribute="centerY" secondItem="BDF-4Y-1tZ" secondAttribute="centerY" id="UGT-I7-4wx"/>
+                            <constraint firstItem="tnF-CE-iSH" firstAttribute="centerY" secondItem="BDF-4Y-1tZ" secondAttribute="centerY" constant="18" id="UGT-I7-4wx"/>
                             <constraint firstItem="QDK-FG-ro8" firstAttribute="trailing" secondItem="tnF-CE-iSH" secondAttribute="trailing" constant="10" id="cq1-cn-ecJ"/>
-                            <constraint firstItem="tnF-CE-iSH" firstAttribute="top" secondItem="VeM-32-hp8" secondAttribute="bottom" constant="1" id="eB5-3w-H6B"/>
-                            <constraint firstItem="QDK-FG-ro8" firstAttribute="trailing" secondItem="VeM-32-hp8" secondAttribute="trailing" constant="10" id="lxD-et-VnG"/>
+                            <constraint firstItem="tnF-CE-iSH" firstAttribute="top" secondItem="VeM-32-hp8" secondAttribute="bottom" constant="8" id="eB5-3w-H6B"/>
+                            <constraint firstItem="QDK-FG-ro8" firstAttribute="trailing" secondItem="VeM-32-hp8" secondAttribute="trailing" constant="16" id="lxD-et-VnG"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="QDK-FG-ro8"/>
                     </view>

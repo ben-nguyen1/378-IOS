@@ -268,21 +268,21 @@
         <scene sceneID="iY1-Xh-0jo">
             <objects>
                 <viewControllerPlaceholder storyboardIdentifier="Budget.storyboard" storyboardName="Budget" referencedIdentifier="budgetVC" id="lGa-vu-QrP" userLabel="Budget Ref" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Budget" image="Budget - pie chart 2" id="PiV-Gc-ct2"/>
+                    <navigationItem key="navigationItem" id="wBw-xS-Pv5"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dtc-yx-KeW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1649" y="533"/>
+            <point key="canvasLocation" x="1644" y="1348"/>
         </scene>
         <!--Overview Ref-->
         <scene sceneID="DQr-i0-Xme">
             <objects>
                 <viewControllerPlaceholder storyboardIdentifier="Overview.storyboard" storyboardName="Overview" referencedIdentifier="overviewVC" id="YD8-v2-C3X" userLabel="Overview Ref" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Overview" image="Overview - graphs" id="hDY-rO-kea"/>
+                    <navigationItem key="navigationItem" id="M2t-Rf-MVs"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Ur-9N-45T" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1934" y="533"/>
+            <point key="canvasLocation" x="2261" y="1698"/>
         </scene>
         <!--Goals Ref-->
         <scene sceneID="yLR-YE-bwa">
@@ -293,7 +293,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tIi-Wd-1il" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2942" y="382"/>
+            <point key="canvasLocation" x="4104" y="-144"/>
         </scene>
         <!--Tab Bar View Controller-->
         <scene sceneID="1MH-6P-Lcy">
@@ -306,11 +306,11 @@
                         <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
-                        <segue destination="lGa-vu-QrP" kind="relationship" relationship="viewControllers" id="N63-Rd-F7b"/>
-                        <segue destination="YD8-v2-C3X" kind="relationship" relationship="viewControllers" id="icJ-kd-SHG"/>
-                        <segue destination="jqm-Mj-2zY" kind="relationship" relationship="viewControllers" id="ykR-Wi-BMi"/>
-                        <segue destination="OzD-gI-ktl" kind="relationship" relationship="viewControllers" id="Z8S-O0-Ofd"/>
+                        <segue destination="5bb-NY-UON" kind="relationship" relationship="viewControllers" id="N63-Rd-F7b"/>
+                        <segue destination="QZz-0A-scT" kind="relationship" relationship="viewControllers" id="ykR-Wi-BMi"/>
+                        <segue destination="74D-Jn-n36" kind="relationship" relationship="viewControllers" id="icJ-kd-SHG"/>
                         <segue destination="qu0-kk-yUw" kind="relationship" relationship="viewControllers" id="ggH-LI-aNL"/>
+                        <segue destination="I6y-O7-ghu" kind="relationship" relationship="viewControllers" id="Z8S-O0-Ofd"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qMa-US-pDx" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -320,7 +320,7 @@
         <!--Goals-->
         <scene sceneID="mQy-V7-EqM">
             <objects>
-                <navigationController navigationBarHidden="YES" id="qu0-kk-yUw" sceneMemberID="viewController">
+                <navigationController id="qu0-kk-yUw" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Goals" image="Goals - action flag" id="457-DO-07m"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="RAZ-gR-Xje">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -332,27 +332,103 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zAG-9Z-4gU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2786" y="21"/>
+            <point key="canvasLocation" x="3466" y="-143"/>
         </scene>
-        <!--tutorialPageVC-->
+        <!--Tutorial Ref-->
         <scene sceneID="OCR-u2-1wQ">
             <objects>
-                <viewControllerPlaceholder storyboardIdentifier="Tutorial.storyboard" storyboardName="Tutorial" referencedIdentifier="tutorialPageVC" id="OzD-gI-ktl" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" image="tutorial-icon" id="WaU-bp-snP"/>
+                <viewControllerPlaceholder storyboardIdentifier="Tutorial.storyboard" storyboardName="Tutorial" referencedIdentifier="tutorialPageVC" id="OzD-gI-ktl" userLabel="Tutorial Ref" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="gET-Vb-1N0"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IS6-iZ-VX9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2758" y="476"/>
+            <point key="canvasLocation" x="3941" y="542"/>
         </scene>
         <!--Checklist Ref-->
         <scene sceneID="K0R-kM-tTF">
             <objects>
                 <viewControllerPlaceholder storyboardIdentifier="Checklist.storyboard" storyboardName="Checklist" referencedIdentifier="checklistVC" id="jqm-Mj-2zY" userLabel="Checklist Ref" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Checklist" image="Checklist - checks beside list" id="GAj-Wy-YTx"/>
+                    <navigationItem key="navigationItem" id="45e-VO-BEm"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7ef-NE-33d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2577" y="533"/>
+            <point key="canvasLocation" x="2884" y="1438"/>
+        </scene>
+        <!--Budget-->
+        <scene sceneID="AJi-0f-k3A">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="5bb-NY-UON" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Budget" image="Budget - pie chart 2" id="PiV-Gc-ct2"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="wWs-jP-9GV">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="lGa-vu-QrP" kind="relationship" relationship="rootViewController" id="07r-mp-weD"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="J9t-rg-csS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1644" y="932"/>
+        </scene>
+        <!--Overview-->
+        <scene sceneID="Iuc-IT-b6d">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="74D-Jn-n36" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Overview" image="Overview - graphs" id="hDY-rO-kea"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Ja0-j0-uwl">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="YD8-v2-C3X" kind="relationship" relationship="rootViewController" id="e9g-IG-zME"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6mr-D1-Gta" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2262" y="1285"/>
+        </scene>
+        <!--Checklist-->
+        <scene sceneID="xOZ-sM-Cqx">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="QZz-0A-scT" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Checklist" image="Checklist - checks beside list" id="GAj-Wy-YTx"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="xCc-VF-Dry">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="jqm-Mj-2zY" kind="relationship" relationship="rootViewController" id="CUs-YK-dPf"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="otc-ab-vt4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2884" y="1011"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="WaN-tw-gMr">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="I6y-O7-ghu" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" image="tutorial-icon" id="WaU-bp-snP"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="jsj-co-b4l">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="OzD-gI-ktl" kind="relationship" relationship="rootViewController" id="Nzk-iN-Daw"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4rB-OK-xip" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3465" y="574"/>
         </scene>
     </scenes>
     <resources>
