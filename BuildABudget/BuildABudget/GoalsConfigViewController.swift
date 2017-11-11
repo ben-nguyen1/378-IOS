@@ -24,7 +24,7 @@ protocol ValidDateDelegate {
 
 
 
-class GoalsConfigViewController: UIViewController {
+class GoalsConfigViewController: UIViewController, UITextFieldDelegate {
 
     var validGoalDelegate: EditGoalDelegate!
     var thisGoal:MyGoal? = nil //must be var because this could be overwritten by a cell seque.
@@ -206,6 +206,12 @@ class GoalsConfigViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("\n>>>REACHED GOALSCONFIGVC")
+        
+        nameTextField.delegate = self;
+        targetAmountTextField.delegate = self;
+        targetDateTextField.delegate = self;
+        monthlyContributionTextField.delegate = self;
+        
         //set keyboard types
         //nameTextField -> will use the default keyboard (no need to set this)
         self.targetAmountTextField.keyboardType = UIKeyboardType.decimalPad
@@ -234,6 +240,27 @@ class GoalsConfigViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    // This method is called when the user touches the Return key on the
+    // keyboard. The 'textField' passed in is a pointer to the textField
+    // the cursor was in at the time they touched the Return key on the
+    // keyboard.
+    //
+    // From the Apple documentation: Asks the delegate if the text field
+    // should process the pressing of the return button.
+    //
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        // 'First Responder' is the same as 'input focus'.
+        // We are removing input focus from the text field.
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    // Called when the user touches on the main view (outside the UITextField).
+    //
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
     
 }//end of class
