@@ -207,6 +207,7 @@ class GoalsConfigViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         print("\n>>>REACHED GOALSCONFIGVC")
         
+        // set keyboard dismiss
         nameTextField.delegate = self;
         targetAmountTextField.delegate = self;
         targetDateTextField.delegate = self;

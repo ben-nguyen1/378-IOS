@@ -143,6 +143,7 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
         var dueDateTextField: UITextField? = nil
         var costTextField: UITextField? = nil
         
+        
         alertController.addTextField { (textField) -> Void in
             descriptionTextField = textField
             descriptionTextField!.placeholder = "Checklist Item Name"
@@ -151,6 +152,7 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
         alertController.addTextField { (textField) -> Void in
             costTextField = textField
             costTextField!.placeholder = "Checklist Item Cost"
+            costTextField?.keyboardType = UIKeyboardType.decimalPad
         }
         
         alertController.addTextField { (textField) -> Void in
