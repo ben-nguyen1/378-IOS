@@ -16,6 +16,11 @@ class GoalsCell: UITableViewCell {
     @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var goalConfigButton: UIButton!
     
+    
+    
+    @IBOutlet weak var percentLable: UILabel!
+    @IBOutlet weak var startDateLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -30,7 +35,7 @@ class GoalsCell: UITableViewCell {
     
     //cell.config(inputName: incomeList[indexPath.item].desciption, inputDate: shortDate, inputAmount: incomeList[indexPath.item].totalDue.description) //may need to chnage how to parameters dueDate and amount are converted to string.
 
-    func config( inputName: String, inputProgress: Float, inputEstimatedCompletionDateString: String) {
+    func config( inputName: String, inputProgress: Float, inputEstimatedCompletionDateString: String, inputStartDateString: String) {
         
         /* //DIAGNOSTIC CODE
         print("\n----------------------------------------")
@@ -42,8 +47,9 @@ class GoalsCell: UITableViewCell {
         */
         
         goalName.text = inputName //Unexpectedly found nil while unwrapping an Optional Value
-        
         estimatedCompletionDate.text = inputEstimatedCompletionDateString
+        percentLable.text = String(inputProgress)
+        startDateLabel.text = inputStartDateString
         
         //setup the progressBar
         progressBar.progressTintColor = setupProgressBar(inputPercentProgress: (inputProgress * 0.1) * 0.1)

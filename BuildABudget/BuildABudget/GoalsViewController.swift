@@ -55,11 +55,14 @@ class GoalsViewController: UIViewController, UITableViewDataSource, UITableViewD
         print("inputEstimatedCompletionDateString = \(goalDate.dateToString(inputDate: (goalsList[indexPath.item].getEstimatedCompletionDate() )))")
         print("----------------------------------------\n")
         */
+        let goalAtIndex = goalsList[indexPath.item]
         
         //config( inputName: String, inputProgress: Float, inputEstimatedCompletionDate: Date)
-        cell.config( inputName: goalsList[indexPath.item].desciption,
-                     inputProgress: goalsList[indexPath.item].getProgress(),
-                     inputEstimatedCompletionDateString: goalDate.dateToString(inputDate: (goalsList[indexPath.item].getEstimatedCompletionDate() )) )
+        cell.config( inputName:                          goalAtIndex.desciption,
+                     inputProgress:                      goalAtIndex.getProgress(),
+                     inputEstimatedCompletionDateString: goalDate.dateToString(inputDate: ( goalAtIndex.getEstimatedCompletionDate() )),
+                     inputStartDateString:               goalDate.dateToString(inputDate: ( goalAtIndex.startDate ) )
+        )
         return cell
     }
     

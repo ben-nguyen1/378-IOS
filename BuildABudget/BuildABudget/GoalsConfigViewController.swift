@@ -43,10 +43,7 @@ class GoalsConfigViewController: UIViewController {
     
     
     
-    
-    @IBAction func cancelButton(_ sender: Any) {}
-    
-    
+    @IBAction func cancelButton(_ sender: Any) {} //do nothing and return to GoalsVC screen
     @IBAction func saveGoalButton(_ sender: Any) {
         
         if isNewGoal == true && allFieldsFilledOut() {
@@ -218,11 +215,19 @@ class GoalsConfigViewController: UIViewController {
         //
         print("---> this goal == \(thisGoal)")
         if self.thisGoal != nil{
+            //setup all UITextfields
             self.nameTextField.text                 = self.thisGoal?.desciption
             self.targetAmountTextField.text         = "\((self.thisGoal?.targetAmount)!)"//String(describing: self.thisGoal?.targetAmount)
             let tempDateToString:String = thisDate.dateToString(inputDate: (self.thisGoal?.targetDate)!)
             self.targetDateTextField.text           = tempDateToString
             self.monthlyContributionTextField.text  = "\(((self.thisGoal?.monthlyContribution))!)"
+            
+            //setup all UILabels
+            self.estimatedCompletionDateLabel.text  = thisDate.dateToString(inputDate: (thisGoal?.getEstimatedCompletionDate())!)
+            self.progressPercentLabel.text          = String( describing: (thisGoal?.getProgress())! )
+            self.amountRemainingLabel.text          = String(describing: (thisGoal?.getRemainingAmount())! )
+            
+            
             print("thisGoal = \(self.thisGoal) <- should not be nil")
         }
     }
