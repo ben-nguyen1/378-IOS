@@ -411,11 +411,11 @@
             </objects>
             <point key="canvasLocation" x="2884" y="1011"/>
         </scene>
-        <!--Item-->
+        <!--Tutorial-->
         <scene sceneID="WaN-tw-gMr">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="I6y-O7-ghu" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" image="tutorial-icon" id="WaU-bp-snP"/>
+                    <tabBarItem key="tabBarItem" title="Tutorial" image="tutorial-icon" id="WaU-bp-snP"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="jsj-co-b4l">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
