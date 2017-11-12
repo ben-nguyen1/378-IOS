@@ -48,7 +48,7 @@ class GoalsCell: UITableViewCell {
         
         goalName.text = inputName //Unexpectedly found nil while unwrapping an Optional Value
         estimatedCompletionDate.text = inputEstimatedCompletionDateString
-        percentLable.text = String(inputProgress)
+        percentLable.text = String(inputProgress) + "%"
         startDateLabel.text = inputStartDateString
         
         //setup the progressBar

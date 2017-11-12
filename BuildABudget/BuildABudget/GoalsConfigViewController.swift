@@ -217,6 +217,8 @@ class GoalsConfigViewController: UIViewController, UITextFieldDelegate {
             self.progressPercentLabel.text          = String( describing: (thisGoal?.getProgress())! )
             self.amountRemainingLabel.text          = String(describing: (thisGoal?.getRemainingAmount())! )
             
+            self.progressPercentLabel.text = self.progressPercentLabel.text! + "%"
+            self.amountRemainingLabel.text = "$" + self.amountRemainingLabel.text!
             
             print("thisGoal = \(self.thisGoal) <- should not be nil")
         }
