@@ -26,7 +26,7 @@ class BudgetExpenseCell: UITableViewCell {
     func config(inputName: String, inputDate: String, inputAmount: String) {
         itemName.text = inputName
         dueDate.text = inputDate
-        amount.text = inputAmount
+        amount.text = "$\(inputAmount)"
     }
 
 }

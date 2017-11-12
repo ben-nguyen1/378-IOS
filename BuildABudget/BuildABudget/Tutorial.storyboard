@@ -13,7 +13,7 @@
         <!--Tutorial-->
         <scene sceneID="jeu-EI-9qO">
             <objects>
-                <pageViewController storyboardIdentifier="tutorialPageVC" autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="Ivu-uF-gQr" customClass="TutorialPageViewController" customModule="BuildABudget" customModuleProvider="target" sceneMemberID="viewController">
+                <pageViewController storyboardIdentifier="tutorialPageVC" autoresizesArchivedViewToFullSize="NO" title="Tutorial" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="Ivu-uF-gQr" customClass="TutorialPageViewController" customModule="BuildABudget" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Tutorial" image="tutorial-icon" id="LKD-OQ-8uc"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </pageViewController>

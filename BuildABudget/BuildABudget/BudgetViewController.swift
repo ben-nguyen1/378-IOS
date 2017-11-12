@@ -268,6 +268,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         newBudgetLineInputWindow.addTextField { (textField) -> Void in
             textField.placeholder = "Amount ex: 32.49"
             self.totalDueTextField = textField
+            self.totalDueTextField?.keyboardType = UIKeyboardType.decimalPad
             //self.totalDueTextField?.backgroundColor = UIColor.blue <----- experimented with background colors (future use)
         }
         
@@ -315,6 +316,8 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         
         //display the alert window on the screen
         present(newBudgetLineInputWindow, animated: true, completion: nil)
+        
+        showDatePickerKeyboard(textField: dueDateTextField!)
     }
     
     func addExpense() {
