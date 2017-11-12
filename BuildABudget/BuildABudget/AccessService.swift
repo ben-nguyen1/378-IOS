@@ -99,6 +99,7 @@ class AccessService {
         let entity = NSEntityDescription.entity(forEntityName: "Goal", in: managedContext)
         let record = NSManagedObject(entity: entity!, insertInto: managedContext)
         
+        /*
         //test values received by printing them out
         print("============================================")
         print("AccessService: Starting save process -> goals count = \(goals.count)")
@@ -109,6 +110,7 @@ class AccessService {
         print("targetDate = \(input.targetDate)")
         print("targetAmount = \(input.targetAmount)")
         print("============================================")
+        */
         
         // Set the attribute values
         record.setValue(input.allContributions,     forKey: "contributionList")
@@ -152,7 +154,7 @@ class AccessService {
                             monthlyContribution: rMonthlyContributionAmount,
                             startDate:           rStartDate,
                             targetDate:          rTargetDate,
-                            targetAmount:        rMonthlyContributionAmount )
+                            targetAmount:        rTargetAmount )
          } else {
             return MyGoal()
          }

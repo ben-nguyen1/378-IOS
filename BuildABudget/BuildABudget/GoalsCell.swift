@@ -56,7 +56,9 @@ class GoalsCell: UITableViewCell {
         progressBar.trackTintColor = UIColor.orange
         progressBar.setProgress( (inputProgress * 0.1) * 0.1, animated: true)
         
-        
+        //[self.myTableViewCell.contentView.layer setBorderColor:[UIColor redColor].CGColor];
+        self.contentView.layer
+        //[self.myTableViewCell.contentView.layer setBorderWidth:1.0f];
         
         /*//DIAGNOSTIC CODE
         if inputName == "test" {

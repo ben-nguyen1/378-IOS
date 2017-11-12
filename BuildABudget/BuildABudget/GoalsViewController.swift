@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GoalsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, EditGoalDelegate {
+class GoalsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, EditGoalDelegate, DeleteGoalDelegate {
 
     @IBOutlet weak var goalsTable: UITableView!
     @IBOutlet weak var addGoalButton: UIButton!
@@ -17,12 +17,13 @@ class GoalsViewController: UIViewController, UITableViewDataSource, UITableViewD
     var GoalsAccess = AccessService.access
     var goalsList: [MyGoal] = []
     let goalDate = MyDate()
-    
+    let reuseIdentifier = "GoalsCell"
     
     //UIViewController functions
     override func viewDidLoad() {
         print("\n>>>REACHED GOALSVC - viewDidLoad()")
         super.viewDidLoad()
+        self.goalsTable.rowHeight = 75
         update()
         goalsTable.dataSource = self
         goalsTable.delegate = self
@@ -31,6 +32,7 @@ class GoalsViewController: UIViewController, UITableViewDataSource, UITableViewD
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("\n>>>REACHED GOALSVC - viewWillAppear()")
+        self.goalsTable.rowHeight = 75
         update()
         goalsTable.dataSource = self
         goalsTable.delegate = self
@@ -67,7 +69,7 @@ class GoalsViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return goalsList.count
+        return self.goalsList.count
     }
     
     
@@ -91,8 +93,11 @@ class GoalsViewController: UIViewController, UITableViewDataSource, UITableViewD
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let existingGoal = segue.destination as! GoalsConfigViewController
         if let indexPath = self.goalsTable.indexPathForSelectedRow{
-            existingGoal.thisGoal = goalsList[indexPath.row]
+            existingGoal.thisGoal = self.goalsList[indexPath.row]
+            //existingGoal.existingGoalCopy = goalsList[indexPath.row]
             existingGoal.isNewGoal = false
+            existingGoal.deleteGoalDelegate? = self
+            existingGoal.validGoalDelegate? = self
         }
     }
     
@@ -100,12 +105,17 @@ class GoalsViewController: UIViewController, UITableViewDataSource, UITableViewD
     //swipe to delete functionality
     func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
         
-            let showRemoveGoalSlideOption = UITableViewRowAction(style: .normal, title: "Delete") {action, index in
-            let removedThisGoalWhenClicked = self.goalsList[index.row]
-            //call are you sure window
-            self.GoalsAccess.deleteGoal(input: removedThisGoalWhenClicked)
-            self.update()
-        }
+            let showRemoveGoalSlideOption = UITableViewRowAction(style: .normal, title: "Delete") {
+                action, index in
+                let removedThisGoalWhenClicked = self.goalsList[index.row]
+                //call are you sure window
+                //self.GoalsAccess.deleteGoal(input: removedThisGoalWhenClicked)
+                
+                //self.removeThisGoalFromGoalsList( goalToRemove: removedThisGoalWhenClicked)
+                self.deleteThisGoal( goalToDelete: removedThisGoalWhenClicked)
+                self.update()
+            }
+            showRemoveGoalSlideOption.backgroundColor = UIColor.red
         return [showRemoveGoalSlideOption]
         
     }
@@ -114,6 +124,8 @@ class GoalsViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     
     //Below: functions that conform to Protocols
+    
+    //checks if the input name is already used by another MyGoal in goalsList[]
     func isUniqueGoalName(inputNameString: String) -> Bool{
         
         var index = 0
@@ -126,9 +138,24 @@ class GoalsViewController: UIViewController, UITableViewDataSource, UITableViewD
         return true
     }
     
-    func deleteThisGoal(inputGoal: MyGoal) -> Bool {
-        
-        return false //still need to implement
+    func deleteThisGoal( goalToDelete: MyGoal) {
+        //now pass to AccessService class to delete the coreDate NSObject for inputGoal
+        print("!!!--- MADE IT TO GOALSVC deleteThisGoal func ---!!!")
+        //self.GoalsAccess.deleteGoal(input: goalToDelete)
+    }
+    
+    func removeThisGoalFromGoalsList( goalToRemove: MyGoal) {
+    
+        var index = 0
+        let limit = self.goalsList.count
+        for index in 0..<limit {
+            if goalToRemove.desciption == self.goalsList[index].desciption {
+                print(">>>GOALSVC: removed \(goalToRemove.desciption) from goalsList\ngoalsList count before = \(goalsList.count)")
+                self.goalsList.remove(at: index)
+                print("goalsList count after = \(goalsList.count)")
+            }
+        }
+        deleteThisGoal( goalToDelete: goalToRemove)
     }
     
     

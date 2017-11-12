@@ -70,6 +70,8 @@ class MyGoal {
         set(inputContributions){ _contributionList = inputContributions }
     }
     
+    
+    //ToString FUNCTIONS
     //return the targetDate as a string
     func tagetDateToString() -> String{
         return goalsDate.shortDateToString(inputDate: _targetDate)
@@ -79,6 +81,17 @@ class MyGoal {
     func startDateToString() -> String{
         return goalsDate.shortDateToString(inputDate: _startDate)
     }
+    
+    //return the monthly contribution as a String
+    func monthlyContributionToString() -> String{
+        return String(monthlyContribution)
+    }
+    
+    func targetAmountToString() -> String {
+        return String(targetAmount)
+    }
+    
+    
     
     
     
@@ -161,21 +174,21 @@ class MyGoal {
           targetDate:           Date,
           targetAmount:         Double ) {
         
-        self._description = description
-        self._startDate = startDate
-        self._targetDate = targetDate
+        self._description         = description
+        self._startDate           = startDate
+        self._targetDate          = targetDate
         self._monthlyContribution = monthlyContribution
-        self._targetAmount = targetAmount
-        self._contributionList = []
+        self._targetAmount        = targetAmount
+        self._contributionList    = []
     }
     
     init(){
-        self._description = "error"
-        self._startDate = goalsDate.setToYesterday(today: Date())
-        self._targetDate = goalsDate.setToYesterday(today: Date())
+        self._description         = "error"
+        self._startDate           = goalsDate.setToYesterday(today: Date())
+        self._targetDate          = goalsDate.setToYesterday(today: Date())
         self._monthlyContribution = -1.0
-        self._targetAmount = -1.0
-        self._contributionList = []
+        self._targetAmount        = -1.0
+        self._contributionList    = []
     }
     
 }

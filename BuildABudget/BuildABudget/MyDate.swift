@@ -9,7 +9,7 @@
 import Foundation
 
 //this class is used to make interacting with Date objects easier
-class MyDate: EditGoalDelegate {
+class MyDate/*: EditGoalDelegate*/ {
     
     
     //static let time = MyDate()//might need to remove this since it may not be needed
@@ -103,10 +103,12 @@ class MyDate: EditGoalDelegate {
     //Default initializer
     init() { }
     
+    /*
     //Below: functions that conform to Protocols
     func isUniqueGoalName(inputNameString: String) -> Bool {
         return false //default value
     }
+ */
     
 }
 
