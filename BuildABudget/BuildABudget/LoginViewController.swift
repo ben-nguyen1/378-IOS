@@ -58,14 +58,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "loginToTab"{
-//            var vc = segue.destination as! TabBarViewController
-//            vc.selectedIndex = 2
-//            //Data has to be a variable name in your RandomViewController
-//        }
-//    }
-    
     @IBAction func goCreateBtn(_ sender: Any) {
     }
     

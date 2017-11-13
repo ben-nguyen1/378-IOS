@@ -103,7 +103,7 @@ extension TutorialPageViewController: UIPageViewControllerDataSource {
         // swipe to the image to the right
         // if we are at the last image, go to the 1st image
         var nextIndex = viewControllerIndex + 1
-        if (viewControllerIndex == 6) {
+        if (viewControllerIndex == 5) {
             nextIndex = 0
         }
         

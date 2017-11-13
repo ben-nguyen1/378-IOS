@@ -85,8 +85,10 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
                     // after creating an account, go back to login screen
                     // TODO:
                     // in the future, this will be the tutorial screen
-                    let secondViewController = self.storyboard?.instantiateViewController(withIdentifier: "loginViewController") as! LoginViewController
-                    self.navigationController?.pushViewController(secondViewController, animated: true)
+                    let tabBarController = self.storyboard?.instantiateViewController(withIdentifier: "TabBarVC") as! TabBarViewController
+                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                    tabBarController.selectedIndex = 4
+                    appDelegate.window?.rootViewController = tabBarController
                 }
                 self.accountSuccessController!.addAction(OKAction)
                 self.present(self.accountSuccessController!, animated: true, completion:nil)
