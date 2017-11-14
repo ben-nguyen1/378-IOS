@@ -45,6 +45,8 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     //var dueDatePicker
     let dueDatePicker = UIDatePicker()
     
+    //customer color for positive money amount
+    let moneyPositiveColor = UIColor(red:0.32, green:0.64, blue:0.33, alpha:1.0)    //UIColor(hex: 0x51A453)
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -237,9 +239,17 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         differenceAmount = incomeTotal - expenseTotal
         
         //display the incomeTotal, expenseTotal, differenceAmount on view controller
-        self.incomeLabel.text = String(incomeTotal)
-        self.expenseLabel.text = String(expenseTotal)
-        self.differenceLabel.text = String(differenceAmount)
+        self.incomeLabel.text = String(format: "$   %.2F", incomeTotal)
+        self.expenseLabel.text = String(format: "$ -%.2F", expenseTotal)
+        self.differenceLabel.text = String(format: "$ %.2F", differenceAmount)
+        
+        //change differenceLabel text color if value is positive or negative
+        if differenceAmount >= 0.0 {
+            self.differenceLabel.textColor = moneyPositiveColor //= UIColor(red:0.32, green:0.64, blue:0.33, alpha:1.0)
+        }
+        else {
+            self.differenceLabel.textColor = UIColor.red
+        }
         
         //reload the UITables to display the new transaction data
         self.incomeTable.reloadData()
