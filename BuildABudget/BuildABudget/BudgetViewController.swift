@@ -241,14 +241,16 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         //display the incomeTotal, expenseTotal, differenceAmount on view controller
         self.incomeLabel.text = String(format: "$   %.2F", incomeTotal)
         self.expenseLabel.text = String(format: "$ -%.2F", expenseTotal)
-        self.differenceLabel.text = String(format: "$ %.2F", differenceAmount)
+        self.differenceLabel.text = String(format: "$   %.2F", differenceAmount)
         
         //change differenceLabel text color if value is positive or negative
         if differenceAmount >= 0.0 {
             self.differenceLabel.textColor = moneyPositiveColor //= UIColor(red:0.32, green:0.64, blue:0.33, alpha:1.0)
+            self.differenceLabel.text = String(format: "$   %.2F", differenceAmount)
         }
         else {
             self.differenceLabel.textColor = UIColor.red
+            self.differenceLabel.text = String(format: "$ %.2F", differenceAmount)
         }
         
         //reload the UITables to display the new transaction data
