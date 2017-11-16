@@ -5,10 +5,18 @@
 //  Created by chris on 10/24/17.
 //  Copyright © 2017 Chris Cale. All rights reserved.
 //
+protocol MoneyDelegate {
+    
+    func isValidAmount( inputMoneyString: String ) -> Bool
+}
+
 
 import UIKit
+import Foundation
 
-class BudgetViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
+class BudgetViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate{
+    
+    
     
     @IBAction func addIncomeButton(_ sender: Any) {
         addIncome()
@@ -45,8 +53,11 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     //var dueDatePicker
     let dueDatePicker = UIDatePicker()
     
-    //customer color for positive money amount
-    let moneyPositiveColor = UIColor(red:0.32, green:0.64, blue:0.33, alpha:1.0)    //UIColor(hex: 0x51A453)
+    //Set custom colors
+    let moneyPositiveColor = UIColor(red:0.32, green:0.64, blue:0.33, alpha:1.0)    //hex: 0x51A453
+    let textFieldErrorColor = UIColor(red:1.00, green:0.00, blue:0.00, alpha:1.0) //hex: FF0000
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -72,28 +83,27 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     
     //populate each table with TableViewCells
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
+        
         if (tableView == self.incomeTable){//tableView.tag == 111    incomeTable
-
-                let cell = tableView.dequeueReusableCell(withIdentifier: "BudgetLineCell", for: indexPath) as! BudgetLineCell
-                //set up the cell
-                let shortDate = thisDate.shortDateToString(inputDate: (incomeList[indexPath.item].dueDate) )
-                cell.config(inputName: incomeList[indexPath.item].desciption, inputDate: shortDate, inputAmount: incomeList[indexPath.item].totalDue.description) //may need to chnage how to parameters dueDate and amount are converted to string.
-                
-                
-                cell.inViewTable = 111
-                return cell
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "BudgetLineCell", for: indexPath) as! BudgetLineCell
+            //set up the cell
+            let shortDate = thisDate.shortDateToString(inputDate: (incomeList[indexPath.item].dueDate) )
+            cell.config(inputName: incomeList[indexPath.item].desciption, inputDate: shortDate, inputAmount: incomeList[indexPath.item].totalDue.description) //may need to chnage how to parameters dueDate and amount are converted to string.
+            
+            
+            cell.inViewTable = 111
+            return cell
         }
         else {//expenseTable
-
-                let cell = tableView.dequeueReusableCell(withIdentifier: "BudgetExpenseCell", for: indexPath) as! BudgetExpenseCell
-                //set up the cell
-                let shortDate = thisDate.shortDateToString(inputDate: (expenseList[indexPath.item].dueDate) )
-                cell.config(inputName: expenseList[indexPath.item].desciption, inputDate: shortDate, inputAmount: expenseList[indexPath.item].totalDue.description) //may need to chnage how to parameters dueDate and amount are converted to string.
-                cell.inViewTable = 222
-                return cell
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "BudgetExpenseCell", for: indexPath) as! BudgetExpenseCell
+            //set up the cell
+            let shortDate = thisDate.shortDateToString(inputDate: (expenseList[indexPath.item].dueDate) )
+            cell.config(inputName: expenseList[indexPath.item].desciption, inputDate: shortDate, inputAmount: expenseList[indexPath.item].totalDue.description) //may need to chnage how to parameters dueDate and amount are converted to string.
+            cell.inViewTable = 222
+            return cell
         }
-        
     }
     
     //UIAlert window that allows user to input the Description, Amount, and Due Date of their new expense or income
@@ -105,7 +115,6 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         var totalDue:           Double = 0.0
         var isIncome:           Bool = false //only changed if add button from incomeTable is pressed
         
-
         //set title of window accordingly
         if tableValueInput == 111 {// 111 means we are in the incomeTable
             alertWindowTitle = "New Monthly Income"
@@ -122,8 +131,11 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         newBudgetLineInputWindow.addTextField { (textField) -> Void in
             textField.placeholder = "Item Description"
             self.descriptionTextField = textField
-            //self.descriptionTextField?.layer.borderColor = (UIColor.red).cgColor <--- these two lines are how we let user know they goofed.
-            //self.descriptionTextField?.layer.borderWidth = 1.0
+            
+            /*
+             textField.layer.borderWidth = 1
+             textField.layer.borderColor = UIColor.whiteColor().CGColor
+             */
         }
         
         newBudgetLineInputWindow.addTextField { (textField) -> Void in
@@ -138,7 +150,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         }
         
         let saveAction = UIAlertAction(title: "Save", style: .default) { (action: UIAlertAction!) -> Void in
-
+            
             //grab all the data from the alert window's text fields
             guard let descriptionTextField = self.descriptionTextField?.text, self.isValidDescription(input: (self.descriptionTextField?.text)!) else {
                 print("<<<<<< HERE >>>>>")
@@ -150,7 +162,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             description = descriptionTextField
             dueDate = MyDate.dateConverter.stringToDate(inputString: dueDateTextField)
             totalDue = (totalDueTextField as NSString).doubleValue
-        
+            
             //Build the MyTransaction Object
             let newBudgetItem = MyTransaction.create( iDes: description,
                                                       iIniDate: Date(),
@@ -200,7 +212,6 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         expenseTable.delegate = self
         
         navigationItem.title = "Budget"
-        //self.update() <-----this probably does not go here
         print("IN BUDGET")
     }
     
@@ -275,6 +286,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             self.descriptionTextField = textField
             //self.descriptionTextField?.layer.borderColor = (UIColor.red).cgColor <--- these two lines are how we let user know they goofed.
             //self.descriptionTextField?.layer.borderWidth = 1.0
+            //self.descriptionTextField?.layer.borderWidth =
         }
         
         newBudgetLineInputWindow.addTextField { (textField) -> Void in
@@ -290,7 +302,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         }
         
         let saveAction = UIAlertAction(title: "Save", style: .default) { (action: UIAlertAction!) -> Void in
-           
+            
             //grab all the data from the alert window's text fields
             guard let descriptionTextField = self.descriptionTextField?.text, self.isValidDescription(input: (self.descriptionTextField?.text)!) else {
                 return }
@@ -301,7 +313,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             description = descriptionTextField
             dueDate = MyDate.dateConverter.stringToDate(inputString: dueDateTextField)
             totalDue = (totalDueTextField as NSString).doubleValue
-
+            
             //Build the MyTransaction Object
             let newBudgetItem = MyTransaction.create( iDes: description,
                                                       iIniDate: Date(),
@@ -332,6 +344,11 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         showDatePickerKeyboard(textField: dueDateTextField!)
     }
     
+    
+    
+    
+    
+    
     func addExpense() {
         
         var alertWindowTitle:   String = "Add Income"
@@ -347,15 +364,12 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         newBudgetLineInputWindow.addTextField { (textField) -> Void in
             textField.placeholder = "Item Description"
             self.descriptionTextField = textField
-            //self.descriptionTextField?.layer.borderColor = (UIColor.red).cgColor <--- these two lines are how we let user know they goofed.
-            //self.descriptionTextField?.layer.borderWidth = 1.0
         }
         
         newBudgetLineInputWindow.addTextField { (textField) -> Void in
             textField.placeholder = "Amount ex: 32.49"
             self.totalDueTextField = textField
             self.totalDueTextField?.keyboardType = UIKeyboardType.decimalPad
-            //self.totalDueTextField?.backgroundColor = UIColor.blue <----- experimented with background colors (future use)
         }
         
         newBudgetLineInputWindow.addTextField { (textField) -> Void in
@@ -363,13 +377,33 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             self.dueDateTextField = textField
         }
         
+        
+        
+        
+        
         let saveAction = UIAlertAction(title: "Save", style: .default) { (action: UIAlertAction!) -> Void in
             
             //grab all the data from the alert window's text fields
             guard let descriptionTextField = self.descriptionTextField?.text, self.isValidDescription(input: (self.descriptionTextField?.text)!) else {
-                return }
-            guard let totalDueTextField = self.totalDueTextField?.text else { return }
-            guard let dueDateTextField = self.dueDateTextField?.text else { return }
+                
+                self.descriptionTextField?.layer.borderColor = self.textFieldErrorColor.cgColor
+                self.descriptionTextField?.layer.borderWidth = 1.0
+                return
+            }
+            
+            guard let totalDueTextField = self.totalDueTextField?.text, self.isValidAmount(inputMoneyString: (self.totalDueTextField?.text)! ) else {
+                
+                self.descriptionTextField?.layer.borderColor = self.textFieldErrorColor.cgColor
+                self.descriptionTextField?.layer.borderWidth = 1.0
+                return
+            }
+            
+            guard let dueDateTextField = self.dueDateTextField?.text else {
+                
+                self.descriptionTextField?.layer.borderColor = self.textFieldErrorColor.cgColor
+                self.descriptionTextField?.layer.borderWidth = 1.0
+                return
+            }
             
             //set the data that we grabbed into local variables
             description = descriptionTextField
@@ -377,13 +411,13 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             totalDue = (totalDueTextField as NSString).doubleValue
             
             //Build the MyTransaction Object
-            let newBudgetItem = MyTransaction.create( iDes: description,
-                                                      iIniDate: Date(),
-                                                      iDueDate: dueDate!,
-                                                      iDatePaidOff: MyDate.dateConverter.setToYesterday(today: Date()),
-                                                      iTotalDue: totalDue,
-                                                      iIsReoccuring: true,
-                                                      iIsIncome: isIncome)
+            let newBudgetItem = MyTransaction.create( iDes:             description,
+                                                      iIniDate:         Date(),
+                                                      iDueDate:         dueDate!,
+                                                      iDatePaidOff:     MyDate.dateConverter.setToYesterday(today: Date()),
+                                                      iTotalDue:        totalDue,
+                                                      iIsReoccuring:    true,
+                                                      iIsIncome:        isIncome)
             
             //save the MyTransaction Object to CoreData
             AccessService.access.saveTransaction(input: newBudgetItem)
@@ -404,7 +438,12 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         //display the alert window on the screen
         present(newBudgetLineInputWindow, animated: true, completion: nil)
     }
-
+    
+    
+    
+    
+    
+    
     //swipe to delete functionality
     func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
         
@@ -450,6 +489,45 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         dueDateTextField?.text = thisDate.dateToString(inputDate: (sender.date))
     }
     
+    //check if input amount is valid
+    /*
+     func amountIsValid( inputAmount: String) -> Bool {
+     
+     let dollarAmountRegex : String = "(\d{1,9})\.(\d{1,2})"
+     return self.rangeOfStringrangeOfString(dollarAmountRegex, options: .RegularExpressionSearch) != nil
+     }
+     //([0-9]\d{0,9})\.([0-9]\d{0,2})
+     return false
+     }
+     */
+    
+    //check if input amount is valid
+    func isValidAmount(inputMoney: Double) -> Bool {
+        
+        //conditions on money:
+        //
+        //1. the amount input by the user must be: 0.00 <= x <= 1,000,000,000.00 <- this range is set to adhere to our 13 char cell text space limit for money amounts
+        //
+        //2. the amount can only have digits 0-9 and can only have up to 1 "."
+        //
+        //regex = (\d{1,9})(\.{0,1})(\d{0,2})
+        
+        return true
+    }
+    
+    //check if input amount is valid
+    func isValidAmount(inputMoneyString: String) -> Bool {
+        
+        //conditions on money:
+        //
+        //1. the amount input by the user must be: 0.00 <= x <= 1,000,000,000.00 <- this range is set to adhere to our 13 char cell text space limit for money amounts
+        //
+        //2. the amount can only have digits 0-9 and can only have up to 1 "."
+        //
+        //regex = (\d{1,9})(\.{0,1})(\d{0,2})
+        
+        return true
+    }
     
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
