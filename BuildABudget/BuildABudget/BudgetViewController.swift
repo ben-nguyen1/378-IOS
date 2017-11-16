@@ -533,12 +533,23 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         //2. the amount can only have digits 0-9 and can only have up to 1 "."
         //
         //regex = (\d{1,9})(\.{0,1})(\d{0,2})
-        let regexPattern = "\\d{1,9}\\.{0,1}\\d{0,2}"
+        let regexPatternGood = "\\d{1,9}\\.{0,1}\\d{0,2}"
         
-        print("input amount = \(inputMoneyString) --- regex = \(regexPattern)")
+        let regexPatternbad = "\\d{0,9}\\.{2}\\d{0,2}"
+        
+        print("input amount = \(inputMoneyString) --- regex = \(regexPatternGood)")
         //this .range() method takes a regex pattern and returns the first instance of a matching string.
         //As long as the .range() function does not return nil (no match) then any match will return true.
-        return inputMoneyString!.range(of: regexPattern, options: .regularExpression, range: nil, locale: nil) != nil
+        let regexCheck1 = inputMoneyString!.range(of: regexPatternGood, options: .regularExpression, range: nil, locale: nil) != nil
+        
+        print("input amount = \(inputMoneyString) --- regex = \(regexPatternbad)")
+        let regexCheck2 = inputMoneyString!.range(of: regexPatternbad, options: .regularExpression, range: nil, locale: nil) != nil
+        
+        if regexCheck1 && !regexCheck2 {
+            return true
+        }
+        
+        return false
     }
     
     
