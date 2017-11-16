@@ -5,7 +5,7 @@
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -39,12 +39,12 @@
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="OJO-eR-01C">
                                 <rect key="frame" x="16" y="176.5" width="343" height="176"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.73674798011779785" green="0.89895081520080566" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="176" id="x74-Cj-g1b"/>
                                 </constraints>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="overviewGoalCell" id="GSl-sY-5jh">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="overviewGoalCell" id="GSl-sY-5jh" customClass="OverviewGoalsTableViewCell" customModule="BuildABudget" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="343" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GSl-sY-5jh" id="owS-Q4-uiX">
@@ -86,6 +86,12 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.74117647058823533" green="0.89803921568627454" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <outlet property="dueDateLabel" destination="5aN-de-jkx" id="d8o-Dq-cZy"/>
+                                            <outlet property="goalNameLabel" destination="qNU-9J-wTM" id="6Wd-8H-df7"/>
+                                            <outlet property="progressBar" destination="hNo-Me-IjQ" id="nq6-iH-zw9"/>
+                                            <outlet property="progressLabel" destination="AlB-PW-rRu" id="uGW-oU-7gH"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -97,7 +103,7 @@
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="c0h-89-Uer">
                                 <rect key="frame" x="16" y="429.5" width="343" height="172.5"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.73674798011779785" green="0.89895081520080566" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="overviewReminderCell" textLabel="gtN-w6-VDw" detailTextLabel="7ob-pn-WGJ" style="IBUITableViewCellStyleValue1" id="Re9-o1-FSz">
                                         <rect key="frame" x="0.0" y="28" width="343" height="44"/>
@@ -152,6 +158,11 @@
                     <tabBarItem key="tabBarItem" title="Overview" image="Overview - graphs" id="Rgj-hZ-Fpw"/>
                     <navigationItem key="navigationItem" id="C1D-5T-QUg"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="budgetHeader" destination="b0H-BU-3yp" id="j3v-th-Gua"/>
+                        <outlet property="goalsTableView" destination="OJO-eR-01C" id="EYW-oK-Y4a"/>
+                        <outlet property="reminderTableView" destination="c0h-89-Uer" id="QWI-4S-7ia"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XXd-F2-ntN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
