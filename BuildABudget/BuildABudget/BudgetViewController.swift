@@ -23,7 +23,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     @IBAction func addExpenseButton(_ sender: Any) {
-        addExpense()
+        addExpense( errorField: "none", errorMessage: "Fill out all fields")
     }
     
     @IBOutlet weak var incomeTable: UITableView! //has attribute .tag = 111
@@ -349,7 +349,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     
     
     
-    func addExpense() {
+    func addExpense( errorField: String, errorMessage: String) {
         
         var alertWindowTitle:   String = "Add Income"
         var description:        String = ""
@@ -358,7 +358,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         var isIncome:           Bool = false //only changed if add button from incomeTable is pressed
         
         //set the AlertWindow's title and instruction message to user
-        let newBudgetLineInputWindow = UIAlertController(title: alertWindowTitle, message: "Fill out all fields", preferredStyle: .alert)
+        let newBudgetLineInputWindow = UIAlertController(title: alertWindowTitle, message: errorMessage, preferredStyle: .alert)
         
         //do not change the order of these three .addTextFields
         newBudgetLineInputWindow.addTextField { (textField) -> Void in
@@ -377,6 +377,31 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             self.dueDateTextField = textField
         }
         
+        //handle previously passed errors
+        if errorField != "none" {
+            
+            if errorField == "descriptionTextField" {
+                self.descriptionTextField?.layer.borderColor = self.textFieldErrorColor.cgColor
+                self.descriptionTextField?.layer.borderWidth = 1.0
+                newBudgetLineInputWindow.message = errorMessage
+            }
+            else if errorField == "totalDueTextField" {
+                self.descriptionTextField?.layer.borderColor = self.textFieldErrorColor.cgColor
+                self.descriptionTextField?.layer.borderWidth = 1.0
+                newBudgetLineInputWindow.message = errorMessage
+            }
+            else if errorField == "dueDateTextField" {
+                self.descriptionTextField?.layer.borderColor = self.textFieldErrorColor.cgColor
+                self.descriptionTextField?.layer.borderWidth = 1.0
+                newBudgetLineInputWindow.message = errorMessage
+            }
+            else {
+                print("We should not have reached this point -> exiting UIAlertController now")
+                return
+            }
+            
+            
+        }
         
         
         
@@ -384,24 +409,27 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         let saveAction = UIAlertAction(title: "Save", style: .default) { (action: UIAlertAction!) -> Void in
             
             //grab all the data from the alert window's text fields
-            guard let descriptionTextField = self.descriptionTextField?.text, self.isValidDescription(input: (self.descriptionTextField?.text)!) else {
+            
+            guard let descriptionTextField = self.descriptionTextField?.text , self.isValidDescription(input: (self.descriptionTextField?.text)!) else {
                 
-                self.descriptionTextField?.layer.borderColor = self.textFieldErrorColor.cgColor
-                self.descriptionTextField?.layer.borderWidth = 1.0
+                self.addExpense( errorField: "descriptionTextField", errorMessage: "Description can not be blank")
+                print("bad input description")
                 return
             }
+ 
+
             
-            guard let totalDueTextField = self.totalDueTextField?.text, self.isValidAmount(inputMoneyString: (self.totalDueTextField?.text)! ) else {
+            guard let totalDueTextField = self.totalDueTextField?.text , self.isValidAmount(inputMoneyString: (self.totalDueTextField?.text)! ) else {
                 
-                self.descriptionTextField?.layer.borderColor = self.textFieldErrorColor.cgColor
-                self.descriptionTextField?.layer.borderWidth = 1.0
+                self.addExpense( errorField: "totalDueTextField", errorMessage: "Amount must be between 0.00 and 100000000.00")
+                print("bad input amount")
                 return
             }
             
             guard let dueDateTextField = self.dueDateTextField?.text else {
                 
-                self.descriptionTextField?.layer.borderColor = self.textFieldErrorColor.cgColor
-                self.descriptionTextField?.layer.borderWidth = 1.0
+                self.addExpense( errorField: "dueDateTextField", errorMessage: "Please enter a date in MM/DD/YYYY format")
+                print("bad input due date")
                 return
             }
             
@@ -488,22 +516,16 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     func setSelectedDate(sender: UIDatePicker) {
         dueDateTextField?.text = thisDate.dateToString(inputDate: (sender.date))
     }
+
     
-    //check if input amount is valid
-    /*
-     func amountIsValid( inputAmount: String) -> Bool {
-     
-     let dollarAmountRegex : String = "(\d{1,9})\.(\d{1,2})"
-     return self.rangeOfStringrangeOfString(dollarAmountRegex, options: .RegularExpressionSearch) != nil
-     }
-     //([0-9]\d{0,9})\.([0-9]\d{0,2})
-     return false
-     }
-     */
-    
-    //check if input amount is valid
-    func isValidAmount(inputMoney: Double) -> Bool {
+    //check if input money value is a valid number
+    func isValidAmount(inputMoneyString: String?) -> Bool {
         
+        print("checking with regex")
+        //confirm that the input value is not an empty string.
+        guard inputMoneyString! != "" &&  inputMoneyString != nil else {
+            return false
+        }
         //conditions on money:
         //
         //1. the amount input by the user must be: 0.00 <= x <= 1,000,000,000.00 <- this range is set to adhere to our 13 char cell text space limit for money amounts
@@ -511,22 +533,12 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         //2. the amount can only have digits 0-9 and can only have up to 1 "."
         //
         //regex = (\d{1,9})(\.{0,1})(\d{0,2})
+        let regexPattern = "\\d{1,9}\\.{0,1}\\d{0,2}"
         
-        return true
-    }
-    
-    //check if input amount is valid
-    func isValidAmount(inputMoneyString: String) -> Bool {
-        
-        //conditions on money:
-        //
-        //1. the amount input by the user must be: 0.00 <= x <= 1,000,000,000.00 <- this range is set to adhere to our 13 char cell text space limit for money amounts
-        //
-        //2. the amount can only have digits 0-9 and can only have up to 1 "."
-        //
-        //regex = (\d{1,9})(\.{0,1})(\d{0,2})
-        
-        return true
+        print("input amount = \(inputMoneyString) --- regex = \(regexPattern)")
+        //this .range() method takes a regex pattern and returns the first instance of a matching string.
+        //As long as the .range() function does not return nil (no match) then any match will return true.
+        return inputMoneyString!.range(of: regexPattern, options: .regularExpression, range: nil, locale: nil) != nil
     }
     
     
