@@ -18,6 +18,8 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
     var unpaidItems: [MyTransaction] = []
     var paidItems: [MyTransaction] = []
 
+    var dueDateTextField: UITextField? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         unpaidTableView.dataSource = self
@@ -140,7 +142,7 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
         let alertController: UIAlertController = UIAlertController(title: "Add Checklist Expense", message: "Enter the details for the new checklist expense.", preferredStyle: UIAlertControllerStyle.alert)
 
         var descriptionTextField: UITextField? = nil
-        var dueDateTextField: UITextField? = nil
+        //var dueDateTextField: UITextField? = nil <----- moved declaration to class scope to make it accessible for keyboard class methods
         var costTextField: UITextField? = nil
         
         
@@ -156,13 +158,13 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
         }
         
         alertController.addTextField { (textField) -> Void in
-            dueDateTextField = textField
-            dueDateTextField!.placeholder = "Checklist Item Due Date (mm/dd/yyyy)"
+            self.dueDateTextField = textField
+            self.dueDateTextField!.placeholder = "Checklist Item Due Date (mm/dd/yyyy)"
         }
         
         let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { (action) -> Void in
             print("Ok Pressed; checklist")
-            let transactionDate = self.dateConverter.stringToDate(inputString: dueDateTextField!.text!)
+            let transactionDate = self.dateConverter.stringToDate(inputString: self.dueDateTextField!.text!)
             let cost = Double(costTextField!.text!)
 
             if (descriptionTextField!.text!.isEmpty) {
@@ -228,7 +230,24 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
         alertController.addAction(ok)
         alertController.addAction(cancel)
 
+        showChecklistDatePickerKeyboard(textField: dueDateTextField!)
         present(alertController, animated: true, completion: nil)
+    }
+    
+    //Displays UIDatePicker upon targetDateTextField selection.
+    func showChecklistDatePickerKeyboard(textField: UITextField) {
+        if textField == dueDateTextField {//set the text field that should display the UIDatePicker
+            let myDatePicker = UIDatePicker()
+            myDatePicker.datePickerMode = .date
+            myDatePicker.minimumDate    = Date()
+            textField.inputView         = myDatePicker
+            myDatePicker.addTarget(self, action: #selector(setSelectedDate(sender: )), for: .valueChanged) //this sends the currently selected date at every instance that user pauses to the setSelectedDate(sender: UIDatePicker) method
+        }
+    }
+    
+    //this func sets each input passed to it to a string and sets the dueDateTextField to the resulting string
+    func setSelectedDate(sender: UIDatePicker) {
+        dueDateTextField?.text = dateConverter.dateToString(inputDate: (sender.date))
     }
     
 }
