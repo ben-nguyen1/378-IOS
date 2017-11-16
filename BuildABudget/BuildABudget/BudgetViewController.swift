@@ -426,7 +426,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
                 return
             }
             
-            guard let dueDateTextField = self.dueDateTextField?.text else {
+            guard let dueDateTextField = self.dueDateTextField?.text, self.thisDate.stringToDate(inputString: (self.dueDateTextField?.text)!) > Date() else {
                 
                 self.addExpense( errorField: "dueDateTextField", errorMessage: "Please enter a date in MM/DD/YYYY format")
                 print("bad input due date")
