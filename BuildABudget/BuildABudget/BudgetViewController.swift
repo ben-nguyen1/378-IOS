@@ -19,11 +19,11 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     
     
     @IBAction func addIncomeButton(_ sender: Any) {
-        addIncome()
+        self.addIncome( errorField: "none", errorMessage: "Fill out all fields", previousTextFieldInput: [])
     }
     
     @IBAction func addExpenseButton(_ sender: Any) {
-        addExpense( errorField: "none", errorMessage: "Fill out all fields")
+        addExpense( errorField: "none", errorMessage: "Fill out all fields", previousTextFieldInput: [])
     }
     
     @IBOutlet weak var incomeTable: UITableView! //has attribute .tag = 111
@@ -132,10 +132,6 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             textField.placeholder = "Item Description"
             self.descriptionTextField = textField
             
-            /*
-             textField.layer.borderWidth = 1
-             textField.layer.borderColor = UIColor.whiteColor().CGColor
-             */
         }
         
         newBudgetLineInputWindow.addTextField { (textField) -> Void in
@@ -269,93 +265,16 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         self.expenseTable.reloadData()
     }
     
-    func addIncome() {
+    
+    
+    
+    func addIncome( errorField: String, errorMessage: String, previousTextFieldInput: [String] ) {
         
-        var alertWindowTitle:   String = "Add Income"
+        let alertWindowTitle:   String = "Add Income"
         var description:        String = ""
         var dueDate:            Date? = nil
         var totalDue:           Double = 0.0
-        var isIncome:           Bool = true //only changed if add button from incomeTable is pressed
-        
-        //set the AlertWindow's title and instruction message to user
-        let newBudgetLineInputWindow = UIAlertController(title: alertWindowTitle, message: "Fill out all fields", preferredStyle: .alert)
-        
-        //do not change the order of these three .addTextFields
-        newBudgetLineInputWindow.addTextField { (textField) -> Void in
-            textField.placeholder = "Item Description"
-            self.descriptionTextField = textField
-            //self.descriptionTextField?.layer.borderColor = (UIColor.red).cgColor <--- these two lines are how we let user know they goofed.
-            //self.descriptionTextField?.layer.borderWidth = 1.0
-            //self.descriptionTextField?.layer.borderWidth =
-        }
-        
-        newBudgetLineInputWindow.addTextField { (textField) -> Void in
-            textField.placeholder = "Amount ex: 32.49"
-            self.totalDueTextField = textField
-            self.totalDueTextField?.keyboardType = UIKeyboardType.decimalPad
-            //self.totalDueTextField?.backgroundColor = UIColor.blue <----- experimented with background colors (future use)
-        }
-        
-        newBudgetLineInputWindow.addTextField { (textField) -> Void in
-            textField.placeholder = "Due Date ex: 01/09/2017"
-            self.dueDateTextField = textField
-        }
-        
-        let saveAction = UIAlertAction(title: "Save", style: .default) { (action: UIAlertAction!) -> Void in
-            
-            //grab all the data from the alert window's text fields
-            guard let descriptionTextField = self.descriptionTextField?.text, self.isValidDescription(input: (self.descriptionTextField?.text)!) else {
-                return }
-            guard let totalDueTextField = self.totalDueTextField?.text else { return }
-            guard let dueDateTextField = self.dueDateTextField?.text else { return }
-            
-            //set the data that we grabbed into local variables
-            description = descriptionTextField
-            dueDate = MyDate.dateConverter.stringToDate(inputString: dueDateTextField)
-            totalDue = (totalDueTextField as NSString).doubleValue
-            
-            //Build the MyTransaction Object
-            let newBudgetItem = MyTransaction.create( iDes: description,
-                                                      iIniDate: Date(),
-                                                      iDueDate: dueDate!,
-                                                      iDatePaidOff: MyDate.dateConverter.setToYesterday(today: Date()),
-                                                      iTotalDue: totalDue,
-                                                      iIsReoccuring: true,
-                                                      iIsIncome: isIncome)
-            
-            //save the MyTransaction Object to CoreData
-            AccessService.access.saveTransaction(input: newBudgetItem)
-            
-            self.update()
-            print("\n\nFinished Saving a new BudgetLineItem")
-        }
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .default) {
-            (action: UIAlertAction!) -> Void in
-        }
-        
-        //add the buttons to the Alert window
-        newBudgetLineInputWindow.addAction(saveAction)
-        newBudgetLineInputWindow.addAction(cancelAction)
-        
-        //display the alert window on the screen
-        present(newBudgetLineInputWindow, animated: true, completion: nil)
-        
-        showDatePickerKeyboard(textField: dueDateTextField!)
-    }
-    
-    
-    
-    
-    
-    
-    func addExpense( errorField: String, errorMessage: String) {
-        
-        var alertWindowTitle:   String = "Add Income"
-        var description:        String = ""
-        var dueDate:            Date? = nil
-        var totalDue:           Double = 0.0
-        var isIncome:           Bool = false //only changed if add button from incomeTable is pressed
+        let isIncome:           Bool = true
         
         //set the AlertWindow's title and instruction message to user
         let newBudgetLineInputWindow = UIAlertController(title: alertWindowTitle, message: errorMessage, preferredStyle: .alert)
@@ -381,54 +300,73 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         if errorField != "none" {
             
             if errorField == "descriptionTextField" {
+                
+                //set red boarder around error text field and show instructions at the top of the UIAlert window
                 self.descriptionTextField?.layer.borderColor = self.textFieldErrorColor.cgColor
                 self.descriptionTextField?.layer.borderWidth = 1.0
                 newBudgetLineInputWindow.message = errorMessage
+                
+                //fill in the other two text fields with the previous input values
+                self.totalDueTextField?.text = previousTextFieldInput[1]
+                self.dueDateTextField?.text = previousTextFieldInput[2]
+                
             }
             else if errorField == "totalDueTextField" {
-                self.descriptionTextField?.layer.borderColor = self.textFieldErrorColor.cgColor
-                self.descriptionTextField?.layer.borderWidth = 1.0
+                
+                //set red boarder around error text field and show instructions at the top of the UIAlert window
+                self.totalDueTextField?.layer.borderColor = self.textFieldErrorColor.cgColor
+                self.totalDueTextField?.layer.borderWidth = 1.0
                 newBudgetLineInputWindow.message = errorMessage
+                
+                //fill in the other two text fields with the previous input values
+                self.descriptionTextField?.text = previousTextFieldInput[0]
+                self.dueDateTextField?.text = previousTextFieldInput[2]
             }
             else if errorField == "dueDateTextField" {
-                self.descriptionTextField?.layer.borderColor = self.textFieldErrorColor.cgColor
-                self.descriptionTextField?.layer.borderWidth = 1.0
+                
+                //set red boarder around error text field and show instructions at the top of the UIAlert window
+                self.dueDateTextField?.layer.borderColor = self.textFieldErrorColor.cgColor
+                self.dueDateTextField?.layer.borderWidth = 1.0
                 newBudgetLineInputWindow.message = errorMessage
+                
+                //fill in the other two text fields with the previous input values
+                self.descriptionTextField?.text = previousTextFieldInput[0]
+                self.totalDueTextField?.text = previousTextFieldInput[1]
             }
             else {
                 print("We should not have reached this point -> exiting UIAlertController now")
                 return
             }
-            
-            
         }
-        
-        
-        
-        
+
         let saveAction = UIAlertAction(title: "Save", style: .default) { (action: UIAlertAction!) -> Void in
             
             //grab all the data from the alert window's text fields
+            var rawTextFieldInput: [String] = []
+            rawTextFieldInput.append( (self.descriptionTextField?.text)! )
+            rawTextFieldInput.append( (self.totalDueTextField?.text)! )
+            rawTextFieldInput.append( (self.dueDateTextField?.text)! )
+            
             
             guard let descriptionTextField = self.descriptionTextField?.text , self.isValidDescription(input: (self.descriptionTextField?.text)!) else {
                 
-                self.addExpense( errorField: "descriptionTextField", errorMessage: "Description can not be blank")
+                self.addIncome( errorField: "descriptionTextField", errorMessage: "Description cannot be blank", previousTextFieldInput: rawTextFieldInput)
                 print("bad input description")
                 return
             }
- 
-
+            
+            
             
             guard let totalDueTextField = self.totalDueTextField?.text , self.isValidAmount(inputMoneyString: (self.totalDueTextField?.text)! ) else {
                 
-                self.addExpense( errorField: "totalDueTextField", errorMessage: "Amount must be between 0.00 and 100000000.00")
+                self.addIncome( errorField: "totalDueTextField", errorMessage: "Amount must be between 0.00 and 100000000.00", previousTextFieldInput: rawTextFieldInput)
                 print("bad input amount")
                 return
             }
             
             guard let dueDateTextField = self.dueDateTextField?.text, self.thisDate.stringToDate(inputString: (self.dueDateTextField?.text)!) > Date() else {
                 
-                self.addExpense( errorField: "dueDateTextField", errorMessage: "Please enter a date in MM/DD/YYYY format")
+                self.addIncome( errorField: "dueDateTextField", errorMessage: "Please enter a date in MM/DD/YYYY format", previousTextFieldInput: rawTextFieldInput)
                 print("bad input due date")
                 return
             }
@@ -451,7 +389,149 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             AccessService.access.saveTransaction(input: newBudgetItem)
             
             self.update()
-            print("\n\nFinished Saving a new BudgetLineItem")
+            print("\nFinished Saving a new BudgetLineItem")
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default) {
+            (action: UIAlertAction!) -> Void in
+        }
+        
+        //add the buttons to the Alert window
+        newBudgetLineInputWindow.addAction(saveAction)
+        newBudgetLineInputWindow.addAction(cancelAction)
+        
+        showDatePickerKeyboard(textField: dueDateTextField!)
+        //display the alert window on the screen
+        present(newBudgetLineInputWindow, animated: true, completion: nil)
+    }
+    
+    
+    
+    
+    
+    
+    func addExpense( errorField: String, errorMessage: String, previousTextFieldInput: [String]) {
+        
+        let alertWindowTitle:   String = "Add Income"
+        var description:        String = ""
+        var dueDate:            Date? = nil
+        var totalDue:           Double = 0.0
+        let isIncome:           Bool = false
+        
+        //set the AlertWindow's title and instruction message to user
+        let newBudgetLineInputWindow = UIAlertController(title: alertWindowTitle, message: errorMessage, preferredStyle: .alert)
+        
+        //do not change the order of these three .addTextFields
+        newBudgetLineInputWindow.addTextField { (textField) -> Void in
+            textField.placeholder = "Item Description"
+            self.descriptionTextField = textField
+        }
+        
+        newBudgetLineInputWindow.addTextField { (textField) -> Void in
+            textField.placeholder = "Amount ex: 32.49"
+            self.totalDueTextField = textField
+            self.totalDueTextField?.keyboardType = UIKeyboardType.decimalPad
+        }
+        
+        newBudgetLineInputWindow.addTextField { (textField) -> Void in
+            textField.placeholder = "Due Date ex: 01/09/2017"
+            self.dueDateTextField = textField
+        }
+        
+        //handle previously passed errors
+        if errorField != "none" {
+            
+            if errorField == "descriptionTextField" {
+                
+                //set red boarder around error text field and show instructions at the top of the UIAlert window
+                self.descriptionTextField?.layer.borderColor = self.textFieldErrorColor.cgColor
+                self.descriptionTextField?.layer.borderWidth = 1.0
+                newBudgetLineInputWindow.message = errorMessage
+                
+                //fill in the other two text fields with the previous input values
+                self.totalDueTextField?.text = previousTextFieldInput[1]
+                self.dueDateTextField?.text = previousTextFieldInput[2]
+
+            }
+            else if errorField == "totalDueTextField" {
+                
+                //set red boarder around error text field and show instructions at the top of the UIAlert window
+                self.totalDueTextField?.layer.borderColor = self.textFieldErrorColor.cgColor
+                self.totalDueTextField?.layer.borderWidth = 1.0
+                newBudgetLineInputWindow.message = errorMessage
+                
+                //fill in the other two text fields with the previous input values
+                self.descriptionTextField?.text = previousTextFieldInput[0]
+                self.dueDateTextField?.text = previousTextFieldInput[2]
+            }
+            else if errorField == "dueDateTextField" {
+                
+                //set red boarder around error text field and show instructions at the top of the UIAlert window
+                self.dueDateTextField?.layer.borderColor = self.textFieldErrorColor.cgColor
+                self.dueDateTextField?.layer.borderWidth = 1.0
+                newBudgetLineInputWindow.message = errorMessage
+                
+                //fill in the other two text fields with the previous input values
+                self.descriptionTextField?.text = previousTextFieldInput[0]
+                self.totalDueTextField?.text = previousTextFieldInput[1]
+            }
+            else {
+                print("We should not have reached this point -> exiting UIAlertController now")
+                return
+            }
+        }
+        
+        let saveAction = UIAlertAction(title: "Save", style: .default) { (action: UIAlertAction!) -> Void in
+            
+            //grab all the data from the alert window's text fields
+            var rawTextFieldInput: [String] = []
+            rawTextFieldInput.append( (self.descriptionTextField?.text)! )
+            rawTextFieldInput.append( (self.totalDueTextField?.text)! )
+            rawTextFieldInput.append( (self.dueDateTextField?.text)! )
+
+            
+            guard let descriptionTextField = self.descriptionTextField?.text , self.isValidDescription(input: (self.descriptionTextField?.text)!) else {
+                
+                self.addExpense( errorField: "descriptionTextField", errorMessage: "Description cannot be blank", previousTextFieldInput: rawTextFieldInput)
+                print("bad input description")
+                return
+            }
+ 
+
+            
+            guard let totalDueTextField = self.totalDueTextField?.text , self.isValidAmount(inputMoneyString: (self.totalDueTextField?.text)! ) else {
+                
+                self.addExpense( errorField: "totalDueTextField", errorMessage: "Amount must be between 0.00 and 100000000.00", previousTextFieldInput: rawTextFieldInput)
+                print("bad input amount")
+                return
+            }
+            
+            guard let dueDateTextField = self.dueDateTextField?.text, self.thisDate.stringToDate(inputString: (self.dueDateTextField?.text)!) > Date() else {
+                
+                self.addExpense( errorField: "dueDateTextField", errorMessage: "Please enter a date in MM/DD/YYYY format", previousTextFieldInput: rawTextFieldInput)
+                print("bad input due date")
+                return
+            }
+            
+            //set the data that we grabbed into local variables
+            description = descriptionTextField
+            dueDate = MyDate.dateConverter.stringToDate(inputString: dueDateTextField)
+            totalDue = (totalDueTextField as NSString).doubleValue
+            
+            //Build the MyTransaction Object
+            let newBudgetItem = MyTransaction.create( iDes:             description,
+                                                      iIniDate:         Date(),
+                                                      iDueDate:         dueDate!,
+                                                      iDatePaidOff:     MyDate.dateConverter.setToYesterday(today: Date()),
+                                                      iTotalDue:        totalDue,
+                                                      iIsReoccuring:    true,
+                                                      iIsIncome:        isIncome)
+            
+            //save the MyTransaction Object to CoreData
+            AccessService.access.saveTransaction(input: newBudgetItem)
+            
+            self.update()
+            print("\nFinished Saving a new BudgetLineItem")
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .default) {
@@ -547,6 +627,13 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         
         if regexCheck1 && !regexCheck2 {
             return true
+        }
+        
+        let testIfAmountIsNotTooBigOrTooSmall = Double(inputMoneyString!) as! Double
+        print("Test amount = \(testIfAmountIsNotTooBigOrTooSmall)")
+        if testIfAmountIsNotTooBigOrTooSmall < 1000000000.00 && testIfAmountIsNotTooBigOrTooSmall > 0.00 {
+            print("Error: input amount = \(inputMoneyString) --- amount is bigger than 1000000000.00")
+            return false
         }
         
         return false
