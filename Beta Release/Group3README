@@ -1,0 +1,28 @@
+Implementation Contributions:
+
+    Ben Nguyen 30%
+        - Login screen
+        - Create account screen
+        - Launch screen
+        - Bottom Tab Bar Controller Navigation
+        - Quality Assurance
+
+    Chris Cale 40%
+        - Budget Screen
+        - Tab Bar item icons
+        - Core Data retrieval/saving
+        - Date converter class
+
+    Nicholas Cobb 30%
+        - Checklist Screen
+        - Core Data deleting
+        - Constraints
+
+Grading Level:
+    - Same grade for all members.
+
+Differences:
+    - None.
+
+Special Instructions:
+    - None.

@@ -1,35 +1,23 @@
-{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
-{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
-\margl1440\margr1440\vieww10800\viewh8400\viewkind0
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+Implementation Contributions:
 
-\f0\fs24 \cf0 Implementation Contributions:\
-\
-    Ben Nguyen 30%\
-        - Login screen\
-        - Create account screen\
-        - Launch screen\
-        - Bottom Tab Bar Controller Navigation\
-        - Quality Assurance\
-\
-    Chris Cale 40%\
-        - Budget Screen\
-        - Tab Bar item icons\
-        - Core Data retrieval/saving\
-        - Date converter class\
-\
-    Nicholas Cobb 30%\
-        - Checklist Screen\
-        - Core Data deleting\
-        - Constraints\
-\
-Grading Level:\
-    - Same grade for all members.\
-\
-Differences:\
-    - None.\
-\
-Special Instructions:\
-    - None.}
+    Ben Nguyen 33.33%
+        - Tutorial Screen
+        - Navigation Bar
+        - Keyboard dismissal
+
+    Chris Cale 33.33%
+        - Goals Screen
+        - Date picker
+
+    Nicholas Cobb 33.33%
+        - Overview
+        - Constraints
+
+Grading Level:
+    - Same grade for all members.
+
+Differences:
+    - In the app idea, we had reports, but we replaced the reports feature with the tutorial feature because the reports feature will be included in the export features in the final phase.
+
+Special Instructions:
+    - None.
