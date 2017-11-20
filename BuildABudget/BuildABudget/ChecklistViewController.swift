@@ -4,7 +4,9 @@
 //
 //  Created by Nicholas Cobb on 10/25/17.
 //  Copyright © 2017 Ben Nguyen. All rights reserved.
-//
+//]
+
+
 import UIKit
 
 class ChecklistViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
@@ -18,7 +20,18 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
     var unpaidItems: [MyTransaction] = []
     var paidItems: [MyTransaction] = []
 
+    //UIAlert field vars
+    var descriptionTextField: UITextField? = nil
+    var costTextField: UITextField? = nil
     var dueDateTextField: UITextField? = nil
+    
+    //Delegate to access isValidAmount function from BudgetViewController
+    var delegate: MoneyDelegate?
+    var moneyValidator = BudgetViewController.bc
+    
+    //Set custom colors
+    let moneyPositiveColor = UIColor(red:0.32, green:0.64, blue:0.33, alpha:1.0)    //hex: 0x51A453
+    let textFieldErrorColor = UIColor(red:1.00, green:0.00, blue:0.00, alpha:1.0) //hex: FF0000
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -138,101 +151,170 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
             return newCell
         }
     }
+    
+    
+    
     @IBAction func addExpense(_ sender: Any) {
-        let alertController: UIAlertController = UIAlertController(title: "Add Checklist Expense", message: "Enter the details for the new checklist expense.", preferredStyle: UIAlertControllerStyle.alert)
-
-        var descriptionTextField: UITextField? = nil
-        //var dueDateTextField: UITextField? = nil <----- moved declaration to class scope to make it accessible for keyboard class methods
-        var costTextField: UITextField? = nil
         
-        
-        alertController.addTextField { (textField) -> Void in
-            descriptionTextField = textField
-            descriptionTextField!.placeholder = "Checklist Item Name"
-        }
-        
-        alertController.addTextField { (textField) -> Void in
-            costTextField = textField
-            costTextField!.placeholder = "Checklist Item Cost"
-            costTextField?.keyboardType = UIKeyboardType.decimalPad
-        }
-        
-        alertController.addTextField { (textField) -> Void in
-            self.dueDateTextField = textField
-            self.dueDateTextField!.placeholder = "Checklist Item Due Date (mm/dd/yyyy)"
-        }
-        
-        let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { (action) -> Void in
-            print("Ok Pressed; checklist")
-            let transactionDate = self.dateConverter.stringToDate(inputString: self.dueDateTextField!.text!)
-            let cost = Double(costTextField!.text!)
-
-            if (descriptionTextField!.text!.isEmpty) {
-                let errorAlertController: UIAlertController = UIAlertController(title: "Invalid entry", message: "Please enter a non-empty description.", preferredStyle: UIAlertControllerStyle.alert)
-                
-                let errorOk = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default) { (action) -> Void in
-                    print("Ok Pressed; checklist error")
-                }
-                
-                errorAlertController.addAction(errorOk)
-                self.present(errorAlertController, animated: true, completion: nil)
-            } else if (cost == nil) {
-                let errorAlertController: UIAlertController = UIAlertController(title: "Invalid entry", message: "Please enter a valid cost", preferredStyle: UIAlertControllerStyle.alert)
-                
-                let errorOk = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default) { (action) -> Void in
-                    print("Ok Pressed; checklist error")
-                }
-                
-                errorAlertController.addAction(errorOk)
-
-                self.present(errorAlertController, animated: true, completion: nil)
-            } else if (cost! < 0.0) {
-                let errorAlertController: UIAlertController = UIAlertController(title: "Invalid entry", message: "Please enter a positive cost", preferredStyle: UIAlertControllerStyle.alert)
-                
-                let errorOk = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default) { (action) -> Void in
-                    print("Ok Pressed; checklist error")
-                }
-                
-                errorAlertController.addAction(errorOk)
-                
-                self.present(errorAlertController, animated: true, completion: nil)
-            } else if (transactionDate < self.dateConverter.setToYesterday(today: Date())) {
-                let errorAlertController: UIAlertController = UIAlertController(title: "Invalid entry", message: "Please enter a date that is not in the past", preferredStyle: UIAlertControllerStyle.alert)
-                
-                let errorOk = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default) { (action) -> Void in
-                    print("Ok Pressed; checklist error")
-                }
-                
-                errorAlertController.addAction(errorOk)
-                
-                self.present(errorAlertController, animated: true, completion: nil)
-            } else if (transactionDate < Date()) {
-                let errorAlertController: UIAlertController = UIAlertController(title: "Invalid entry", message: "Please enter a valid date", preferredStyle: UIAlertControllerStyle.alert)
-                
-                let errorOk = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default) { (action) -> Void in
-                    print("Ok Pressed; checklist error")
-                }
-                
-                errorAlertController.addAction(errorOk)
-                
-                self.present(errorAlertController, animated: true, completion: nil)
-            } else {
-                let newExpense = MyTransaction(description: descriptionTextField!.text!, dueDate: transactionDate, totalDue: cost!, isReoccuring: true, isIncome: false)
-
-                self.ChecklistAccess.saveTransaction(input: newExpense)
-                self.updateTables()
-            }
-        })
-        let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (action) -> Void in
-            print("Cancel Pressed; checklist")
-        }
-        
-        alertController.addAction(ok)
-        alertController.addAction(cancel)
-
-        showChecklistDatePickerKeyboard(textField: dueDateTextField!)
-        present(alertController, animated: true, completion: nil)
+        addExpense( errorField: "none", errorMessage: "Enter the details for the new checklist expense.", previousTextFieldInput: [])
     }
+    
+    
+    func addExpense( errorField: String, errorMessage: String, previousTextFieldInput: [String]) {
+        
+        let alertWindowTitle:   String = "Add Income"
+        var description:        String = ""
+        var transactionDate:    Date? = nil
+        var cost:               Double = 0.0
+        
+        //set the AlertWindow's title and instruction message to user
+        let CheckListAddExpenseWindow = UIAlertController(title: alertWindowTitle, message: errorMessage, preferredStyle: .alert)
+        
+        //do not change the order of these three .addTextFields
+        CheckListAddExpenseWindow.addTextField { (textField) -> Void in
+            textField.placeholder = "Item Description"
+            self.descriptionTextField = textField
+        }
+        
+        CheckListAddExpenseWindow.addTextField { (textField) -> Void in
+            textField.placeholder = "Amount ex: 32.49"
+            self.costTextField = textField
+            self.costTextField?.keyboardType = UIKeyboardType.decimalPad
+        }
+        
+        CheckListAddExpenseWindow.addTextField { (textField) -> Void in
+            textField.placeholder = "Due Date ex: 01/09/2017"
+            self.dueDateTextField = textField
+        }
+        
+        //handle previously passed errors
+        if errorField != "none" {
+            
+            if errorField == "descriptionTextField" {
+                
+                //set red boarder around error text field and show instructions at the top of the UIAlert window
+                self.descriptionTextField?.layer.borderColor = self.textFieldErrorColor.cgColor
+                self.descriptionTextField?.layer.borderWidth = 1.0
+                CheckListAddExpenseWindow.message = errorMessage
+                
+                //fill in the other two text fields with the previous input values
+                self.costTextField?.text = previousTextFieldInput[1]
+                self.dueDateTextField?.text = previousTextFieldInput[2]
+                
+            }
+            else if errorField == "costTextField" {
+                
+                //set red boarder around error text field and show instructions at the top of the UIAlert window
+                self.costTextField?.layer.borderColor = self.textFieldErrorColor.cgColor
+                self.costTextField?.layer.borderWidth = 1.0
+                CheckListAddExpenseWindow.message = errorMessage
+                
+                //fill in the other two text fields with the previous input values
+                self.descriptionTextField?.text = previousTextFieldInput[0]
+                self.dueDateTextField?.text = previousTextFieldInput[2]
+            }
+            else if errorField == "dueDateTextField" {
+                
+                //set red boarder around error text field and show instructions at the top of the UIAlert window
+                self.dueDateTextField?.layer.borderColor = self.textFieldErrorColor.cgColor
+                self.dueDateTextField?.layer.borderWidth = 1.0
+                CheckListAddExpenseWindow.message = errorMessage
+                
+                //fill in the other two text fields with the previous input values
+                self.descriptionTextField?.text = previousTextFieldInput[0]
+                self.costTextField?.text = previousTextFieldInput[1]
+            }
+            else {
+                print("We should not have reached this point -> exiting UIAlertController now")
+                return
+            }
+        }
+        
+        let saveAction = UIAlertAction(title: "Save", style: .default) { (action: UIAlertAction!) -> Void in
+            
+            //grab all the data from the alert window's text fields
+            var rawTextFieldInput: [String] = []
+            rawTextFieldInput.append( (self.descriptionTextField?.text)! )
+            rawTextFieldInput.append( (self.costTextField?.text)! )
+            rawTextFieldInput.append( (self.dueDateTextField?.text)! )
+            
+            
+            guard let descriptionTextField = self.descriptionTextField?.text , self.isValidCheckListDescription(input: (self.descriptionTextField?.text)!) else {
+                
+                self.addExpense( errorField: "descriptionTextField", errorMessage: "Description cannot be blank", previousTextFieldInput: rawTextFieldInput)
+                print("bad input description")
+                return
+            }
+            
+            guard let costTextField = self.costTextField?.text , self.moneyValidator.isValidAmount(inputMoneyString: (self.costTextField?.text)! )  else {
+                
+                self.addExpense( errorField: "costTextField", errorMessage: "Amount must be between 0.00 and 100000000.00", previousTextFieldInput: rawTextFieldInput)
+                print("bad input amount")
+                return
+            }
+            
+            let yesterday:Date = self.dateConverter.setToYesterday(today: Date())
+            let inputDate:Date = self.dateConverter.stringToDate(inputString: (self.dueDateTextField?.text)!)
+            let isValidDateFormat:Bool = self.dateConverter.isValidMMDDYYYYFormat(inputDateString: (self.dueDateTextField?.text)!)
+            
+            guard let dueDateTextField = self.dueDateTextField?.text,  !(self.dueDateTextField?.text?.isEmpty)!, inputDate > yesterday, isValidDateFormat else {
+                
+                if (self.dueDateTextField?.text?.isEmpty)! {
+                    self.addExpense( errorField: "dueDateTextField", errorMessage: "Date cannot be blank", previousTextFieldInput: rawTextFieldInput)
+                    print("bad input due date")
+                    return
+                }
+                
+                if !(inputDate > yesterday) {
+                    self.addExpense( errorField: "dueDateTextField", errorMessage: "Date cannot be in the past", previousTextFieldInput: rawTextFieldInput)
+                    print("bad input due date")
+                    return
+                }
+                
+                self.addExpense( errorField: "dueDateTextField", errorMessage: "Please enter a date in MM/DD/YYYY format", previousTextFieldInput: rawTextFieldInput)
+                print("bad input due date")
+                return
+            }
+            
+            //set the data that we grabbed into local variables
+            description = descriptionTextField
+            transactionDate = self.dateConverter.stringToDate(inputString: dueDateTextField)
+            cost = (costTextField as NSString).doubleValue
+            
+            //Build the MyTransaction Object
+            let newExpense = MyTransaction(description: description, dueDate: transactionDate!, totalDue: cost, isReoccuring: true, isIncome: false)
+            
+            self.ChecklistAccess.saveTransaction(input: newExpense)
+            self.updateTables()
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default) {
+            (action: UIAlertAction!) -> Void in
+        }
+        
+        //add the buttons to the Alert window
+        CheckListAddExpenseWindow.addAction(saveAction)
+        CheckListAddExpenseWindow.addAction(cancelAction)
+        
+        showChecklistDatePickerKeyboard(textField: dueDateTextField!)
+        //display the alert window on the screen
+        present(CheckListAddExpenseWindow, animated: true, completion: nil)
+    }
+    
+    
+    
+
+    
+    //UIAlert window input validation methods
+    func isValidCheckListDescription( input:String) -> Bool{
+        if  !input.isEmpty {//basically any charactes will do as long as something is input
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    
     
     //Displays UIDatePicker upon targetDateTextField selection.
     func showChecklistDatePickerKeyboard(textField: UITextField) {
@@ -249,5 +331,4 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
     func setSelectedDate(sender: UIDatePicker) {
         dueDateTextField?.text = dateConverter.dateToString(inputDate: (sender.date))
     }
-    
 }

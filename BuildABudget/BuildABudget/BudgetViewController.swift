@@ -7,16 +7,14 @@
 //
 protocol MoneyDelegate {
     
-    func isValidAmount( inputMoneyString: String ) -> Bool
+    func isValidAmount( inputMoneyString: String? ) -> Bool
 }
 
 
 import UIKit
 import Foundation
 
-class BudgetViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate{
-    
-    
+class BudgetViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, MoneyDelegate {
     
     @IBAction func addIncomeButton(_ sender: Any) {
         self.addIncome( errorField: "none", errorMessage: "Fill out all fields", previousTextFieldInput: [])
@@ -49,6 +47,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     //var with ability to interface with the coreData storage methods
     var BudgetAccess = AccessService.access
     let thisDate = MyDate.dateConverter
+    static let bc = BudgetViewController()
     
     //var dueDatePicker
     let dueDatePicker = UIDatePicker()
@@ -338,7 +337,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
                 return
             }
         }
-
+        
         let saveAction = UIAlertAction(title: "Save", style: .default) { (action: UIAlertAction!) -> Void in
             
             //grab all the data from the alert window's text fields
@@ -364,7 +363,25 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
                 return
             }
             
-            guard let dueDateTextField = self.dueDateTextField?.text, self.thisDate.stringToDate(inputString: (self.dueDateTextField?.text)!) > Date() else {
+            let yesterday:Date = self.thisDate.setToYesterday(today: Date())
+            print("!!!--- yesterday = \(self.thisDate.setToYesterday(today: yesterday))")
+            let inputDate:Date = self.thisDate.stringToDate(inputString: (self.dueDateTextField?.text)!)
+            print("!!!--- inputDate = \(self.thisDate.stringToDate(inputString: (self.dueDateTextField?.text)!)))")
+            let isValidDateFormat:Bool = self.thisDate.isValidMMDDYYYYFormat(inputDateString: (self.dueDateTextField?.text)!)
+            
+            guard let dueDateTextField = self.dueDateTextField?.text,  !(self.dueDateTextField?.text?.isEmpty)!, inputDate > yesterday, isValidDateFormat else {
+                
+                if (self.dueDateTextField?.text?.isEmpty)! {
+                    self.addIncome( errorField: "dueDateTextField", errorMessage: "Date cannot be blank", previousTextFieldInput: rawTextFieldInput)
+                    print("bad input due date")
+                    return
+                }
+                
+                if !(inputDate > yesterday) {
+                    self.addIncome( errorField: "dueDateTextField", errorMessage: "Date cannot be in the past", previousTextFieldInput: rawTextFieldInput)
+                    print("bad input due date")
+                    return
+                }
                 
                 self.addIncome( errorField: "dueDateTextField", errorMessage: "Please enter a date in MM/DD/YYYY format", previousTextFieldInput: rawTextFieldInput)
                 print("bad input due date")
@@ -451,7 +468,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
                 //fill in the other two text fields with the previous input values
                 self.totalDueTextField?.text = previousTextFieldInput[1]
                 self.dueDateTextField?.text = previousTextFieldInput[2]
-
+                
             }
             else if errorField == "totalDueTextField" {
                 
@@ -488,7 +505,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             rawTextFieldInput.append( (self.descriptionTextField?.text)! )
             rawTextFieldInput.append( (self.totalDueTextField?.text)! )
             rawTextFieldInput.append( (self.dueDateTextField?.text)! )
-
+            
             
             guard let descriptionTextField = self.descriptionTextField?.text , self.isValidDescription(input: (self.descriptionTextField?.text)!) else {
                 
@@ -496,8 +513,8 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
                 print("bad input description")
                 return
             }
- 
-
+            
+            
             
             guard let totalDueTextField = self.totalDueTextField?.text , self.isValidAmount(inputMoneyString: (self.totalDueTextField?.text)! ) else {
                 
@@ -506,7 +523,25 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
                 return
             }
             
-            guard let dueDateTextField = self.dueDateTextField?.text, self.thisDate.stringToDate(inputString: (self.dueDateTextField?.text)!) > Date() else {
+            let yesterday:Date = self.thisDate.setToYesterday(today: Date())
+            print("!!!--- yesterday = \(self.thisDate.setToYesterday(today: yesterday))")
+            let inputDate:Date = self.thisDate.stringToDate(inputString: (self.dueDateTextField?.text)!)
+            print("!!!--- inputDate = \(self.thisDate.stringToDate(inputString: (self.dueDateTextField?.text)!)))")
+            let isValidDateFormat:Bool = self.thisDate.isValidMMDDYYYYFormat(inputDateString: (self.dueDateTextField?.text)!)
+            
+            guard let dueDateTextField = self.dueDateTextField?.text,  !(self.dueDateTextField?.text?.isEmpty)!, inputDate > yesterday, isValidDateFormat else {
+                
+                if (self.dueDateTextField?.text?.isEmpty)! {
+                    self.addExpense( errorField: "dueDateTextField", errorMessage: "Date cannot be blank", previousTextFieldInput: rawTextFieldInput)
+                    print("bad input due date")
+                    return
+                }
+                
+                if !(inputDate > yesterday) {
+                    self.addExpense( errorField: "dueDateTextField", errorMessage: "Date cannot be in the past", previousTextFieldInput: rawTextFieldInput)
+                    print("bad input due date")
+                    return
+                }
                 
                 self.addExpense( errorField: "dueDateTextField", errorMessage: "Please enter a date in MM/DD/YYYY format", previousTextFieldInput: rawTextFieldInput)
                 print("bad input due date")
@@ -587,6 +622,10 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         if textField == dueDateTextField {//set the text field that should display the UIDatePicker
             let myDatePicker = UIDatePicker()
             myDatePicker.datePickerMode = .date
+            //set Date picker bounds
+            myDatePicker.minimumDate = Date()
+            
+            
             textField.inputView = myDatePicker
             myDatePicker.addTarget(self, action: #selector(setSelectedDate(sender: )), for: .valueChanged) //this sends the currently selected date at every instance that user pauses to the setSelectedDate(sender: UIDatePicker) method
         }
@@ -596,10 +635,10 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     func setSelectedDate(sender: UIDatePicker) {
         dueDateTextField?.text = thisDate.dateToString(inputDate: (sender.date))
     }
-
+    
     
     //check if input money value is a valid number
-    func isValidAmount(inputMoneyString: String?) -> Bool {
+    func isValidAmount( inputMoneyString: String? ) -> Bool {
         
         print("checking with regex")
         //confirm that the input value is not an empty string.
@@ -615,25 +654,58 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         //regex = (\d{1,9})(\.{0,1})(\d{0,2})
         let regexPatternGood = "\\d{1,9}\\.{0,1}\\d{0,2}"
         
-        let regexPatternbad = "\\d{0,9}\\.{2}\\d{0,2}"
+        //let regexPatternbad = "\\d{0,9}\\.{2}\\d{0,2}"
         
-        print("input amount = \(inputMoneyString) --- regex = \(regexPatternGood)")
         //this .range() method takes a regex pattern and returns the first instance of a matching string.
         //As long as the .range() function does not return nil (no match) then any match will return true.
-        let regexCheck1 = inputMoneyString!.range(of: regexPatternGood, options: .regularExpression, range: nil, locale: nil) != nil
+        let regexCheck1:Bool = inputMoneyString!.range(of: regexPatternGood, options: .regularExpression, range: nil, locale: nil) != nil
+        print("input amount = \(inputMoneyString) --- regex = \(regexCheck1)")
+
+        //let regexCheck2:Bool = inputMoneyString!.range(of: regexPatternbad, options: .regularExpression, range: nil, locale: nil) != nil
+        //print("input amount = \(inputMoneyString) --- regex = \(regexCheck2)")
+        var count = 0
+        var regexCheck2 = true
         
-        print("input amount = \(inputMoneyString) --- regex = \(regexPatternbad)")
-        let regexCheck2 = inputMoneyString!.range(of: regexPatternbad, options: .regularExpression, range: nil, locale: nil) != nil
-        
-        if regexCheck1 && !regexCheck2 {
-            return true
+        for i in inputMoneyString! {
+            if i == "." {
+                count = count + 1
+                print("count of . = \(count)")
+            }
         }
         
-        let testIfAmountIsNotTooBigOrTooSmall = Double(inputMoneyString!) as! Double
-        print("Test amount = \(testIfAmountIsNotTooBigOrTooSmall)")
-        if testIfAmountIsNotTooBigOrTooSmall < 1000000000.00 && testIfAmountIsNotTooBigOrTooSmall > 0.00 {
-            print("Error: input amount = \(inputMoneyString) --- amount is bigger than 1000000000.00")
-            return false
+        if count > 1 {
+            regexCheck2 = false
+        }
+        
+        if regexCheck1 && regexCheck2 {
+            
+            let testIfAmountIsNotTooBigOrTooSmall = Double(inputMoneyString!) as? Double
+            print("Test amount = \(testIfAmountIsNotTooBigOrTooSmall)")
+            
+            
+            if testIfAmountIsNotTooBigOrTooSmall! < 1000000000.00 {
+                print ("-----> input amount is not too big")
+            } else {
+                print("Error: input amount is too big")
+                return false
+            }
+            
+            if testIfAmountIsNotTooBigOrTooSmall! > 0.00 {
+                print ("-----> input amount is not too small")
+            } else {
+                print("Error: input amount is too small")
+                return false
+            }
+            
+            /*
+             //do not uncomment this block -> it fails to catch the errors - will debug it later
+            if testIfAmountIsNotTooBigOrTooSmall! < 1000000000.00 && testIfAmountIsNotTooBigOrTooSmall! > 0.00 {
+                print("Error: input amount = \(inputMoneyString) --- amount is bigger than 1000000000.00")
+                return false
+            }
+            */
+            
+            return true
         }
         
         return false

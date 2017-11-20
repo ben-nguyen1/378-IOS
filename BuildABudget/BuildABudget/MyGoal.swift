@@ -34,7 +34,6 @@ class MyGoal {
     
     //instanciate a MyDate object to be used within this class
     let goalsDate = MyDate.dateConverter
-    
     let goalsAccess = AccessService.access
     
     

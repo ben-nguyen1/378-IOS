@@ -81,6 +81,8 @@ class MyDate/*: EditGoalDelegate*/ {
             return testDate
         }
         else {
+            
+            print("bad date format encountered: \(inputString) --> setting date to yesterday")
             return MyDate.dateConverter.setToYesterday(today: Date())
         }
         
@@ -100,6 +102,26 @@ class MyDate/*: EditGoalDelegate*/ {
         return myCalendar.timeZone
     }
     
+    
+    func isValidMMDDYYYYFormat(inputDateString: String?) -> Bool {
+        
+        let currentDate = Date()
+        //let yesterday = self.setToYesterday(today: Date())
+        let inputDate = self.stringToDate(inputString: inputDateString!)
+        
+        //checkes if the stringToDate function set inputDate to yesterday's date because the string was
+        //not a valid Date format or if the inputDateString was a valid string but was set to a date in
+        //the past
+        if currentDate > inputDate {
+            print("current Date -> output: \(currentDate)")
+            print("current Date -> output: \(inputDate)")
+            return false
+        }
+        
+        return true
+    }
+ 
+
     //Default initializer
     init() { }
     
