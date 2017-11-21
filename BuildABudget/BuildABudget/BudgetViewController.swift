@@ -654,8 +654,6 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         //regex = (\d{1,9})(\.{0,1})(\d{0,2})
         let regexPatternGood = "\\d{1,9}\\.{0,1}\\d{0,2}"
         
-        //let regexPatternbad = "\\d{0,9}\\.{2}\\d{0,2}"
-        
         //this .range() method takes a regex pattern and returns the first instance of a matching string.
         //As long as the .range() function does not return nil (no match) then any match will return true.
         let regexCheck1:Bool = inputMoneyString!.range(of: regexPatternGood, options: .regularExpression, range: nil, locale: nil) != nil
@@ -663,19 +661,45 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
 
         //let regexCheck2:Bool = inputMoneyString!.range(of: regexPatternbad, options: .regularExpression, range: nil, locale: nil) != nil
         //print("input amount = \(inputMoneyString) --- regex = \(regexCheck2)")
-        var count = 0
-        var regexCheck2 = true
+
         
-        for i in inputMoneyString! {
-            if i == "." {
-                count = count + 1
-                print("count of . = \(count)")
+        //char sets to test against
+        let nonDigitChars = CharacterSet.letters
+        let digitChars = CharacterSet.decimalDigits
+        let decimalChar = "."
+        
+        //counters
+        var numDecimalPoints = 0
+        var numNonDigitChars = 0
+        var numDigitsChars = 0
+        let totalCharInString = inputMoneyString?.count
+        
+        
+        var regexCheck2 = true
+
+        
+        for indexChar in (inputMoneyString?.unicodeScalars)! {
+            
+            
+            if indexChar == "." {
+                numDecimalPoints += 1
+            } else if digitChars.contains(indexChar) {
+                numDigitsChars += 1
+            } else {
+                return false //this is when we find any char that is not a digit or decimal point
             }
         }
         
-        if count > 1 {
+        
+        //if number of "." chars in string is more than 1 this string is not valid
+        //
+        //if number of digit chars in string is more than 11 this string is not valid
+        //
+        //if total number of chars in string is more than 12 this string is not valid
+        if numDecimalPoints > 1 || numDigitsChars > 11 || totalCharInString! > 12 {
             regexCheck2 = false
         }
+        
         
         if regexCheck1 && regexCheck2 {
             
@@ -698,7 +722,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             }
             
             /*
-             //do not uncomment this block -> it fails to catch the errors - will debug it later
+             //do not uncomment this block -> it fails to catch the errors - will debug it later for neater code
             if testIfAmountIsNotTooBigOrTooSmall! < 1000000000.00 && testIfAmountIsNotTooBigOrTooSmall! > 0.00 {
                 print("Error: input amount = \(inputMoneyString) --- amount is bigger than 1000000000.00")
                 return false

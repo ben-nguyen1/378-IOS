@@ -141,7 +141,7 @@ class GoalsViewController: UIViewController, UITableViewDataSource, UITableViewD
     func deleteThisGoal( goalToDelete: MyGoal) {
         //now pass to AccessService class to delete the coreDate NSObject for inputGoal
         print("!!!--- MADE IT TO GOALSVC deleteThisGoal func ---!!!")
-        //self.GoalsAccess.deleteGoal(input: goalToDelete)
+        self.GoalsAccess.deleteGoal(input: goalToDelete)
     }
     
     func removeThisGoalFromGoalsList( goalToRemove: MyGoal) {
