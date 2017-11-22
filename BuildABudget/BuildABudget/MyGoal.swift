@@ -15,10 +15,7 @@ class MyGoal {
     fileprivate var _targetDate: Date
     fileprivate var _monthlyContribution: Double = 0.0 //monthyl expense that is setup by user and displayed on ChecklistViewController and BudgetViewController as expense
     fileprivate var _targetAmount: Double = 0.0 //running total of all transactions paid toward this goal
-    
-    //contributionList should only be accessed by the Checklist and Transactions class -> when those classes mark a transaction as paid that is linked to this specific goal then each instance of the transaction will be stored in the contribution list
-    fileprivate var _contributionList: [MyTransaction] //list of all the transactions that that have gone toward paying for this goal
-    
+    fileprivate var _contributionList: Double
     
     //estimatedCompletionDate -> will be a calculation
     fileprivate var estimatedCompletionDate: Date? = nil
@@ -35,7 +32,6 @@ class MyGoal {
     //instanciate a MyDate object to be used within this class
     let goalsDate = MyDate.dateConverter
     let goalsAccess = AccessService.access
-    
     
     //getters/setters
     var desciption:String {
@@ -64,11 +60,10 @@ class MyGoal {
     }
     
     //contributionList methods
-    var allContributions: [MyTransaction]{
+    var allContributions: Double{
         get{ return _contributionList}
         set(inputContributions){ _contributionList = inputContributions }
     }
-    
     
     //ToString FUNCTIONS
     //return the targetDate as a string
@@ -90,12 +85,6 @@ class MyGoal {
         return String(targetAmount)
     }
     
-    
-    
-    
-    
-    
-    //STILL NEED TO COMPLETE
     //func for calculating the estimated completion date
     func getEstimatedCompletionDate() -> Date {
         
@@ -108,35 +97,30 @@ class MyGoal {
             moneyRatio = self.getRemainingAmount() / self.getCurrentSavedAmount()
         }
         let estimatedDaysLeftDouble = (moneyRatio * Double(numDaysSinceStartOfGoal) ).rounded(.up)
-        //print(">>> numDaysSinceStartOfGoal = \(numDaysSinceStartOfGoal)")
-        //print(">>> moneyRatio = \(moneyRatio)")
-        //print(">>> estimatedDaysLeftDouble = \(estimatedDaysLeftDouble)")
         let estimatedDaysLeftInt = Int(exactly: estimatedDaysLeftDouble)
-        //print("\n>>> estimatedDaysLeftInt = \(estimatedDaysLeftInt)")
         return goalsDate.getDateXNumDaysFromNow(inputStartDate: Date(), inputXNumDays: estimatedDaysLeftInt!)
      }
     
     //loop through all MyTransaction objects in contributionList and adds up the totalDue amounts.
     func getCurrentSavedAmount() -> Double {
-        var total = 0.0
-        for index in self._contributionList {
-            total += total + index.totalDue
-        }
-        return total
+        print(">>>MyGoal: contributionList = \(_contributionList)")
+        return _contributionList
     }
     
     func getRemainingAmount() -> Double {
-        return self.targetAmount - self.getCurrentSavedAmount()
+        print(">>>MyGoal: Made it to getRemainingAmount()")
+        print("Goal name = \(self.targetAmount) - \(self._contributionList)")
+        return self.targetAmount - self._contributionList
+    }
+    
+    func getProgressString() -> String{
+        let tempDouble:Double =  (self.getCurrentSavedAmount() / self.targetAmount)
+        return String(format: "%.2F", tempDouble )
     }
     
     func getProgress() -> Float{
         return Float(self.getCurrentSavedAmount() / self.targetAmount)
     }
-    
-
-    
-    
-    
     
     func saveMyGoal(inputGoal: MyGoal){
         goalsAccess.saveGoal(input: inputGoal)
@@ -148,7 +132,7 @@ class MyGoal {
     }
     
     
-    class func create ( iContributionList:      [MyTransaction],
+    class func create ( iContributionList:      Double,
                         iDescription:           String,
                         iMonthlyContribution:   Double,
                         iStartDate:             Date,
@@ -164,9 +148,8 @@ class MyGoal {
                         targetAmount:           iTargetAmount )
     }
     
-    
     //initializers
-    init( contributionList:     [MyTransaction],
+    init( contributionList:     Double,
           description:          String,
           monthlyContribution:  Double,
           startDate:            Date,
@@ -178,7 +161,7 @@ class MyGoal {
         self._targetDate          = targetDate
         self._monthlyContribution = monthlyContribution
         self._targetAmount        = targetAmount
-        self._contributionList    = []
+        self._contributionList    = contributionList
     }
     
     init(){
@@ -187,7 +170,7 @@ class MyGoal {
         self._targetDate          = goalsDate.setToYesterday(today: Date())
         self._monthlyContribution = -1.0
         self._targetAmount        = -1.0
-        self._contributionList    = []
+        self._contributionList    = 0.0
     }
     
 }

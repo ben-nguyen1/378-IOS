@@ -5,8 +5,6 @@
 //  Created by Nicholas Cobb on 10/25/17.
 //  Copyright © 2017 Ben Nguyen. All rights reserved.
 //]
-
-
 import UIKit
 
 class ChecklistViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
@@ -14,7 +12,8 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
     @IBOutlet weak var paidTableView: UITableView!
     
     // Var with ability to interface with the coreData storage methods
-    var ChecklistAccess = AccessService.access
+    let ChecklistAccess = AccessService.access
+    let GoalsVC = GoalsViewController.gvc
     
     var dateConverter = MyDate()
     var unpaidItems: [MyTransaction] = []
@@ -71,7 +70,6 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
         print(i)
     }
     
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateTables()
@@ -99,6 +97,8 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
     func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
         let paid = UITableViewRowAction(style: .normal, title: "Paid") { action, index in
             let transactionToChange = self.unpaidItems[index.row]
+            self.applyPaymentToGoal(inputTransaction: transactionToChange)
+            print(">>>line 104")
             self.ChecklistAccess.deleteTransaction(input: transactionToChange)
             transactionToChange.datePaidOff = Date()
             self.ChecklistAccess.saveTransaction(input: transactionToChange)
@@ -115,6 +115,26 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
         delete.backgroundColor = UIColor.red
         
         return [paid, delete]
+    }
+    
+    func applyPaymentToGoal(inputTransaction: MyTransaction) {
+        print(">>>Made it to line 124")
+        let targetGoal = GoalsVC.getSpecificGoal(goalName: inputTransaction.linkedToGoal)
+        if targetGoal.desciption == "error"{
+            print("Could not find MyTransaction linked to \(inputTransaction.linkedToGoal)")
+            return
+        }
+        else {
+            //add the totalDue amount from the transaction to the goal's contributionList
+            print(">>>Applying payment to goal \(targetGoal.desciption) , original contributionList = \(targetGoal.allContributions)")
+            targetGoal.allContributions += inputTransaction.totalDue
+            print(">>>Payment to goal \(targetGoal.desciption) , new contributionList = \(targetGoal.allContributions)")
+            
+            //save this updated goal by deleting the old instance of the goal and then saving targetGoal
+            ChecklistAccess.deleteGoal(input: targetGoal)
+            ChecklistAccess.saveGoal(input: targetGoal)
+            print(">>>CHecklist: \(targetGoal)")
+        }
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -152,13 +172,10 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
         }
     }
     
-    
-    
     @IBAction func addExpense(_ sender: Any) {
         
         addExpense( errorField: "none", errorMessage: "Enter the details for the new checklist expense.", previousTextFieldInput: [])
     }
-    
     
     func addExpense( errorField: String, errorMessage: String, previousTextFieldInput: [String]) {
         
@@ -301,10 +318,6 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
         present(CheckListAddExpenseWindow, animated: true, completion: nil)
     }
     
-    
-    
-
-    
     //UIAlert window input validation methods
     func isValidCheckListDescription( input:String) -> Bool{
         if  !input.isEmpty {//basically any charactes will do as long as something is input
@@ -314,7 +327,6 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
             return false
         }
     }
-    
     
     //Displays UIDatePicker upon targetDateTextField selection.
     func showChecklistDatePickerKeyboard(textField: UITextField) {

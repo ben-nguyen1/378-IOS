@@ -70,7 +70,7 @@ class OverViewController: UIViewController, UITableViewDataSource, UITableViewDe
             
             cell.dueDateLabel.text = dateConverter.dateToString(inputDate: goal.targetDate)
             cell.goalNameLabel.text = goal.desciption
-            cell.progressLabel.text = "\(goal.getProgress())%"
+            cell.progressLabel.text = goal.getProgressString() + " %"
             cell.progressBar.setProgress(goal.getProgress() * 0.01, animated: false)
             
             return cell

@@ -22,7 +22,12 @@ Grading Level:
     - Same grade for all members.
 
 Differences:
-    - None.
+    - We implemented an extra Tutorials Screen instead of the Reports feature because will will implement Reports as part of the Final Release’s Test Transaction and Export features.
+    -We are using standard iOS progress bars for OS visual consistency.
+    -Per end user testing, we arranged the large dollar labels on the Budget Screen for readability and context.
+    -The Tutorials screen is located on the tab bar instead of the settings menu because we will not implement the settings menu until the Final Release.
+    -Per end user testing, the GoalsConfig Screen delete button was swapped with a Cancel button and the delete feature was moved to the Goals Screen for consistency across all screens.
+    -Implemented responsive and contextual error messages that point out to the user where and what the error is.
 
 Special Instructions:
     - None.

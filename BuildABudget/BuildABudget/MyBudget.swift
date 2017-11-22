@@ -51,7 +51,6 @@ class MyBudget {
         set(inputIncome){ _incomeSources = inputIncome }
     }
     
-    
     //initializers
     //only for when the access object successfully returns a MyBudget object
     init(description:String,
@@ -88,7 +87,6 @@ class MyBudget {
         self._expenseSources = []
         self._incomeSources = []
     }
-    
 }
 
 

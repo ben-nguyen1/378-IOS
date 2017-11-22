@@ -36,7 +36,6 @@ class TutorialPageViewController: UIPageViewController {
         return viewController!
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -67,16 +66,6 @@ class TutorialPageViewController: UIPageViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
 }
 
 extension TutorialPageViewController: UIPageViewControllerDataSource {
@@ -118,7 +107,6 @@ extension TutorialPageViewController: UIPageViewControllerDataSource {
     //
     // Both methods are called in response to a 'setViewControllers' call, but the presentation index
     // is updated automatically in the case of gesture-driven navigation.
-    
     // Return the number of items reflected in the page indicator.
     func presentationCount(for pageViewController: UIPageViewController) -> Int {
         return orderedViewControllers.count

@@ -25,16 +25,15 @@ class GoalsConfigViewController: UIViewController, UITextFieldDelegate {
     var validGoalDelegate: EditGoalDelegate!
     var deleteGoalDelegate: DeleteGoalDelegate!
     let thisDate = MyDate.dateConverter //gives us access to the MyDate methods
-    var thisGoal:MyGoal?            //= nil //must be var because this could be overwritten by a cell seque.
+    var thisGoal:MyGoal? //= nil //must be var because this could be overwritten by a cell seque.
     var isNewGoal = true //value is only changed when the GoalsCell segue sets this to false to indicate thisGoal is an existing MyGoal
     let bvc = BudgetViewController.bc
-    
+    static let gcvc = GoalsConfigViewController()
     @IBOutlet weak var errorMessageLabel: UILabel!
     @IBOutlet weak var nameTextField:                UITextField!
     @IBOutlet weak var targetAmountTextField:        UITextField!
     @IBOutlet weak var targetDateTextField:          UITextField!
     @IBOutlet weak var monthlyContributionTextField: UITextField!
-    
     @IBOutlet weak var estimatedCompletionDateLabel: UILabel!
     @IBOutlet weak var progressPercentLabel:         UILabel!
     @IBOutlet weak var goalProgressbar:              UIProgressView!
@@ -53,13 +52,11 @@ class GoalsConfigViewController: UIViewController, UITextFieldDelegate {
         guard let newTargetDateString           = self.targetDateTextField?.text          else { return }
         guard let newTargetAmountString         = self.targetAmountTextField?.text        else { return }
         
-        
         let noEmptyFields:     Bool = allFieldsFilledOut()
         let fieldsWereChanged: Bool = existingGoalValuesChangedByUser( inputNameString:                newNameString,
                                                                        inputTargetDateString:          newMonthlyContributionString,
                                                                        inputMonthlyContributionString: newTargetDateString,
                                                                        inputTargetAmountString:        newTargetAmountString )
-        
         //check name field
         if ((self.nameTextField?.text)?.isEmpty)! {
             self.nameTextField?.layer.borderColor = textFieldErrorColor.cgColor
@@ -70,7 +67,6 @@ class GoalsConfigViewController: UIViewController, UITextFieldDelegate {
             self.nameTextField?.layer.borderColor = UIColor.white.cgColor
         }
         
-        //self.isValidAmount(inputMoneyString: (self.totalDueTextField?.text)!
         //check TargetAmount Field
         if newTargetAmountString.isEmpty{
             self.targetAmountTextField?.layer.borderColor = textFieldErrorColor.cgColor
@@ -85,7 +81,6 @@ class GoalsConfigViewController: UIViewController, UITextFieldDelegate {
         } else {
             self.targetAmountTextField?.layer.borderColor = UIColor.white.cgColor
         }
-        
         
         //check TargetDate field
         let yesterday:Date = self.thisDate.setToYesterday(today: Date())
@@ -130,11 +125,9 @@ class GoalsConfigViewController: UIViewController, UITextFieldDelegate {
             self.monthlyContributionTextField?.layer.borderColor = UIColor.white.cgColor
         }
         
-        
-        
         if isNewGoal == true && noEmptyFields {
             
-            thisGoal = MyGoal.create( iContributionList:    [],
+            thisGoal = MyGoal.create( iContributionList:    0.0,
                                       iDescription:         newNameString,
                                       iMonthlyContribution: Double(newMonthlyContributionString)!,
                                       iStartDate:           Date(),
@@ -144,7 +137,7 @@ class GoalsConfigViewController: UIViewController, UITextFieldDelegate {
             thisGoal?.saveMyGoal(inputGoal: thisGoal!)//pass this newly constructed MyGoal object to MyGoal class to be saved
             
             //save the monthly contribution as an expense
-            saveNewMonthlyContributionAsBudgetExpense(gDes: newNameString, gTotalDue: newTargetAmountString)
+            saveNewMonthlyContributionAsBudgetExpense(gDes: newNameString, gTotalDue: newMonthlyContributionString, gGoalName: (thisGoal?.desciption)!)
             self.sequeBackToGoalsVC( conditional: true)
         }
             
@@ -162,7 +155,7 @@ class GoalsConfigViewController: UIViewController, UITextFieldDelegate {
             GoalsConfigAccess.deleteGoal(input: thisGoal!)
             
             //Now that the original thisGoal is not in CoreDate we can save an updated version of thisGoal
-            thisGoal = MyGoal.create( iContributionList:    [],
+            thisGoal = MyGoal.create( iContributionList:    0.0,
                                       iDescription:         newNameString,
                                       iMonthlyContribution: Double(newMonthlyContributionString)!,
                                       iStartDate:           Date(),
@@ -172,34 +165,37 @@ class GoalsConfigViewController: UIViewController, UITextFieldDelegate {
             thisGoal?.saveMyGoal(inputGoal: thisGoal!)//pass this newly constructed MyGoal object to MyGoal class to be saved
         
             //save the monthly contribution as an expense
-            saveNewMonthlyContributionAsBudgetExpense(gDes: newNameString, gTotalDue: newTargetAmountString)
+            saveNewMonthlyContributionAsBudgetExpense(gDes: newNameString, gTotalDue: newMonthlyContributionString, gGoalName: (thisGoal?.desciption)!)
             self.sequeBackToGoalsVC( conditional: true)
         } else {
             print("ERROR: no goals Saved")//error
         }
     }
     
-    
     func saveNewMonthlyContributionAsBudgetExpense(gDes:            String,
-                                                   gTotalDue:       String ) {
+                                                   gTotalDue:       String,
+                                                   gGoalName:       String) {
         
         //all error checking is assumed to be completed in saveButton action
+        let now = Date()
+        let goalMonth:Int = thisDate.month(inputDate: now)
+        let goalDay:Int = thisDate.day(inputDate: now)
+        let goalYear:Int = thisDate.year(inputDate: now)
+        let monthlyDueDate:Date = thisDate.makeDateSetToDay28(inputMonth: goalMonth, inputYear: goalYear)
         
         //Build the MyTransaction Object
-        let newBudgetExpense = MyTransaction.create( iDes:             gDes,
-                                                     iIniDate:         Date(),
-                                                     iDueDate:         Date(),
-                                                     iDatePaidOff:     MyDate.dateConverter.setToYesterday(today: Date()),
-                                                     iTotalDue:        (gTotalDue as NSString).doubleValue,
-                                                     iIsReoccuring:    true,
-                                                     iIsIncome:        false)
+        let newBudgetExpense = MyTransaction.createMonthlyGoalContribution( iDes: gDes,
+                                                                            iIniDate:         Date(),
+                                                                            iDueDate:         monthlyDueDate, //always set to 28th of every month -> design choice since there is always a 28th of the month
+                                                                            iDatePaidOff:     MyDate.dateConverter.setToYesterday(today: Date()),
+                                                                            iTotalDue:        (gTotalDue as NSString).doubleValue,
+                                                                            iIsReoccuring:    true,
+                                                                            iIsIncome:        false,
+                                                                            iLinkedToGoal:    gGoalName)
         
         //save the MyTransaction Object to CoreData
         AccessService.access.saveTransaction(input: newBudgetExpense)
     }
-    
-    
-    
     
     func allFieldsFilledOut() -> Bool{
         
@@ -261,10 +257,7 @@ class GoalsConfigViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    
-    
     //this func sets each input passed to it to a string and sets the dueDateTextField to the resulting string
-    
     func setSelectedDate(sender: UIDatePicker) {
         targetDateTextField?.text = thisDate.dateToString(inputDate: (sender.date))
     }
@@ -307,11 +300,19 @@ class GoalsConfigViewController: UIViewController, UITextFieldDelegate {
             
             //setup all UILabels
             self.estimatedCompletionDateLabel.text  = thisDate.dateToString(inputDate: (thisGoal?.getEstimatedCompletionDate())!)
-            self.progressPercentLabel.text          = String( describing: (thisGoal?.getProgress())! )
+            self.progressPercentLabel.text          = thisGoal?.getProgressString()
             self.amountRemainingLabel.text          = String(describing: (thisGoal?.getRemainingAmount())! )
             
             self.progressPercentLabel.text          = self.progressPercentLabel.text! + "%"
             self.amountRemainingLabel.text          = "$" + self.amountRemainingLabel.text!
+            self.goalProgressbar.setProgress((self.thisGoal?.getProgress())! , animated: false)
+        } else {
+            
+            self.estimatedCompletionDateLabel.text  = ""
+            self.progressPercentLabel.text          = ""
+            self.amountRemainingLabel.text          = ""
+            
+            self.goalProgressbar.setProgress( 0.0 , animated: false)
         }
     }
     

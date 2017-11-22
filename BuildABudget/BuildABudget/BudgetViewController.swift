@@ -10,7 +10,6 @@ protocol MoneyDelegate {
     func isValidAmount( inputMoneyString: String? ) -> Bool
 }
 
-
 import UIKit
 import Foundation
 
@@ -30,6 +29,9 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var incomeLabel: UILabel!
     @IBOutlet weak var expenseLabel: UILabel!
     @IBOutlet weak var differenceLabel: UILabel!
+    
+    @IBOutlet weak var extraIncomeLabel: UILabel!
+    @IBOutlet weak var extraExpenseLabel: UILabel!
     
     fileprivate var incomeList: [MyTransaction] = []
     fileprivate var expenseList: [MyTransaction] = []
@@ -55,8 +57,6 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     //Set custom colors
     let moneyPositiveColor = UIColor(red:0.32, green:0.64, blue:0.33, alpha:1.0)    //hex: 0x51A453
     let textFieldErrorColor = UIColor(red:1.00, green:0.00, blue:0.00, alpha:1.0) //hex: FF0000
-    
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -89,8 +89,6 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             //set up the cell
             let shortDate = thisDate.shortDateToString(inputDate: (incomeList[indexPath.item].dueDate) )
             cell.config(inputName: incomeList[indexPath.item].desciption, inputDate: shortDate, inputAmount: incomeList[indexPath.item].totalDue.description) //may need to chnage how to parameters dueDate and amount are converted to string.
-            
-            
             cell.inViewTable = 111
             return cell
         }
@@ -249,6 +247,9 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         self.expenseLabel.text = String(format: "$ -%.2F", expenseTotal)
         self.differenceLabel.text = String(format: "$   %.2F", differenceAmount)
         
+        self.extraIncomeLabel.text = String(format: "$ %.2F", incomeTotal)
+        self.extraExpenseLabel.text = String(format: "$ %.2F", expenseTotal)
+        
         //change differenceLabel text color if value is positive or negative
         if differenceAmount >= 0.0 {
             self.differenceLabel.textColor = moneyPositiveColor //= UIColor(red:0.32, green:0.64, blue:0.33, alpha:1.0)
@@ -263,9 +264,6 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         self.incomeTable.reloadData()
         self.expenseTable.reloadData()
     }
-    
-    
-    
     
     func addIncome( errorField: String, errorMessage: String, previousTextFieldInput: [String] ) {
         
@@ -346,15 +344,12 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             rawTextFieldInput.append( (self.totalDueTextField?.text)! )
             rawTextFieldInput.append( (self.dueDateTextField?.text)! )
             
-            
             guard let descriptionTextField = self.descriptionTextField?.text , self.isValidDescription(input: (self.descriptionTextField?.text)!) else {
                 
                 self.addIncome( errorField: "descriptionTextField", errorMessage: "Description cannot be blank", previousTextFieldInput: rawTextFieldInput)
                 print("bad input description")
                 return
             }
-            
-            
             
             guard let totalDueTextField = self.totalDueTextField?.text , self.isValidAmount(inputMoneyString: (self.totalDueTextField?.text)! ) else {
                 
@@ -421,11 +416,6 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         //display the alert window on the screen
         present(newBudgetLineInputWindow, animated: true, completion: nil)
     }
-    
-    
-    
-    
-    
     
     func addExpense( errorField: String, errorMessage: String, previousTextFieldInput: [String]) {
         
@@ -514,8 +504,6 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
                 return
             }
             
-            
-            
             guard let totalDueTextField = self.totalDueTextField?.text , self.isValidAmount(inputMoneyString: (self.totalDueTextField?.text)! ) else {
                 
                 self.addExpense( errorField: "totalDueTextField", errorMessage: "Amount must be between 0.00 and 100000000.00", previousTextFieldInput: rawTextFieldInput)
@@ -582,11 +570,6 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         present(newBudgetLineInputWindow, animated: true, completion: nil)
     }
     
-    
-    
-    
-    
-    
     //swipe to delete functionality
     func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
         
@@ -616,7 +599,6 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         }
     }
     
-    
     //Displays UIDatePicker upon text field selection.
     func showDatePickerKeyboard(textField: UITextField) {
         if textField == dueDateTextField {//set the text field that should display the UIDatePicker
@@ -636,7 +618,6 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         dueDateTextField?.text = thisDate.dateToString(inputDate: (sender.date))
     }
     
-    
     //check if input money value is a valid number
     func isValidAmount( inputMoneyString: String? ) -> Bool {
         
@@ -650,18 +631,12 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         //1. the amount input by the user must be: 0.00 <= x <= 1,000,000,000.00 <- this range is set to adhere to our 13 char cell text space limit for money amounts
         //
         //2. the amount can only have digits 0-9 and can only have up to 1 "."
-        //
-        //regex = (\d{1,9})(\.{0,1})(\d{0,2})
         let regexPatternGood = "\\d{1,9}\\.{0,1}\\d{0,2}"
         
         //this .range() method takes a regex pattern and returns the first instance of a matching string.
         //As long as the .range() function does not return nil (no match) then any match will return true.
         let regexCheck1:Bool = inputMoneyString!.range(of: regexPatternGood, options: .regularExpression, range: nil, locale: nil) != nil
         print("input amount = \(inputMoneyString) --- regex = \(regexCheck1)")
-
-        //let regexCheck2:Bool = inputMoneyString!.range(of: regexPatternbad, options: .regularExpression, range: nil, locale: nil) != nil
-        //print("input amount = \(inputMoneyString) --- regex = \(regexCheck2)")
-
         
         //char sets to test against
         let nonDigitChars = CharacterSet.letters
@@ -673,13 +648,8 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         var numNonDigitChars = 0
         var numDigitsChars = 0
         let totalCharInString = inputMoneyString?.count
-        
-        
         var regexCheck2 = true
-
-        
         for indexChar in (inputMoneyString?.unicodeScalars)! {
-            
             
             if indexChar == "." {
                 numDecimalPoints += 1
@@ -690,7 +660,6 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             }
         }
         
-        
         //if number of "." chars in string is more than 1 this string is not valid
         //
         //if number of digit chars in string is more than 11 this string is not valid
@@ -700,12 +669,10 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             regexCheck2 = false
         }
         
-        
         if regexCheck1 && regexCheck2 {
             
             let testIfAmountIsNotTooBigOrTooSmall = Double(inputMoneyString!) as? Double
             print("Test amount = \(testIfAmountIsNotTooBigOrTooSmall)")
-            
             
             if testIfAmountIsNotTooBigOrTooSmall! < 1000000000.00 {
                 print ("-----> input amount is not too big")
@@ -720,15 +687,6 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
                 print("Error: input amount is too small")
                 return false
             }
-            
-            /*
-             //do not uncomment this block -> it fails to catch the errors - will debug it later for neater code
-            if testIfAmountIsNotTooBigOrTooSmall! < 1000000000.00 && testIfAmountIsNotTooBigOrTooSmall! > 0.00 {
-                print("Error: input amount = \(inputMoneyString) --- amount is bigger than 1000000000.00")
-                return false
-            }
-            */
-            
             return true
         }
         
@@ -748,8 +706,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         self.view.endEditing(true)
     }
     
-    
-}//end of BudgetViewController class
+}
 
 
 

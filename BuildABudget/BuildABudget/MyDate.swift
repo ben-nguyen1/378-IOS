@@ -5,12 +5,9 @@
 //  Created by chris on 10/24/17.
 //  Copyright © 2017 Chris Cale. All rights reserved.
 //
-
 import Foundation
-
 //this class is used to make interacting with Date objects easier
-class MyDate/*: EditGoalDelegate*/ {
-    
+class MyDate {
     
     //static let time = MyDate()//might need to remove this since it may not be needed
     static let dateConverter = MyDate()
@@ -20,7 +17,7 @@ class MyDate/*: EditGoalDelegate*/ {
     //date format var
     let myFormatter = DateFormatter()
     
-    func day( inputDate: Date) -> Int?{
+    func day( inputDate: Date) -> Int{
         
         let thisDay = myCalendar.dateComponents([.day], from: inputDate)
         return thisDay.day!
@@ -36,12 +33,12 @@ class MyDate/*: EditGoalDelegate*/ {
         return thisDay.year!
     }
     
-    func hour( inputDate: Date) -> Int{
+    func hour( inputDate: Date) -> Int?{
         let thisDay = myCalendar.dateComponents([.hour], from: inputDate)
         return thisDay.day!
     }
     
-    func minute( inputDate: Date) -> Int{
+    func minute( inputDate: Date) -> Int?{
         let thisDay = myCalendar.dateComponents([.minute], from: inputDate)
         return thisDay.minute!
     }
@@ -59,8 +56,28 @@ class MyDate/*: EditGoalDelegate*/ {
         components.day = inputDay
         components.month = inputMonth
         components.year = inputYear
-        components.month = inputMinute
-        components.year = inputHour
+        components.minute = inputMinute
+        components.hour = inputHour
+        
+        return myCalendar.date(from: components)!
+    }
+    
+    func makeDateMMDDYYYY(inputDay: Int, inputMonth: Int, inputYear: Int) -> Date{
+        
+        var components = DateComponents()
+        components.day = inputDay
+        components.month = inputMonth
+        components.year = inputYear
+        
+        return myCalendar.date(from: components)!
+    }
+    
+    func makeDateSetToDay28(inputMonth: Int, inputYear: Int) -> Date{
+        
+        var components = DateComponents()
+        components.day = 28
+        components.month = inputMonth
+        components.year = inputYear
         
         return myCalendar.date(from: components)!
     }
@@ -102,7 +119,6 @@ class MyDate/*: EditGoalDelegate*/ {
         return myCalendar.timeZone
     }
     
-    
     func isValidMMDDYYYYFormat(inputDateString: String?) -> Bool {
         
         let currentDate = Date()
@@ -121,16 +137,8 @@ class MyDate/*: EditGoalDelegate*/ {
         return true
     }
  
-
     //Default initializer
     init() { }
-    
-    /*
-    //Below: functions that conform to Protocols
-    func isUniqueGoalName(inputNameString: String) -> Bool {
-        return false //default value
-    }
- */
     
 }
 

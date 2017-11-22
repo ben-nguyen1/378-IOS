@@ -24,26 +24,10 @@ class AccessService {
     }
     
     private lazy var persistentContainer: NSPersistentContainer = {
-        /*
-         The persistent container for the application. This implementation
-         creates and returns a container, having loaded the store for the
-         application to it. This property is optional since there are legitimate
-         error conditions that could cause the creation of the store to fail.
-         */
+ 
         let container = NSPersistentContainer(name: "BuildABudget")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                
-                /*
-                 Typical reasons for an error here include:
-                 * The parent directory does not exist, cannot be created, or disallows writing.
-                 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
-                 * The device is out of space.
-                 * The store could not be migrated to the current model version.
-                 Check the error message to determine what the actual problem was.
-                 */
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
@@ -69,7 +53,6 @@ class AccessService {
     // To keep it that way, don't allow any code outside this class to instantiate an object of this type.
     private init() {}
     
-    //————————————————————————————————————————————————————————————————————————————————————————————————————
     //Goal Methods:
     func retreiveAllGoals() {
         
@@ -99,19 +82,6 @@ class AccessService {
         let entity = NSEntityDescription.entity(forEntityName: "Goal", in: managedContext)
         let record = NSManagedObject(entity: entity!, insertInto: managedContext)
         
-        /*
-        //test values received by printing them out
-        print("============================================")
-        print("AccessService: Starting save process -> goals count = \(goals.count)")
-        print("contributionList = \(input.allContributions.count)")
-        print("goalDescription = \(input.desciption)")
-        print("monthlyContributionAmount = \(input.monthlyContribution)")
-        print("startDate = \(input.startDate)")
-        print("targetDate = \(input.targetDate)")
-        print("targetAmount = \(input.targetAmount)")
-        print("============================================")
-        */
-        
         // Set the attribute values
         record.setValue(input.allContributions,     forKey: "contributionList")
         record.setValue(input.desciption,           forKey: "goalDescription")
@@ -119,7 +89,6 @@ class AccessService {
         record.setValue(input.startDate,            forKey: "startDate")
         record.setValue(input.targetDate,           forKey: "targetDate")
         record.setValue(input.targetAmount,         forKey: "targetAmount")
-        
         // Commit the changes.
         do {
             try managedContext.save()
@@ -142,7 +111,7 @@ class AccessService {
         if index < goals.count {
             
             let record = goals[index]
-            let rContributionList          = record.value(forKey: "contributionList") as! [MyTransaction]
+            let rContributionList          = record.value(forKey: "contributionList") as! Double
             let rDescription               = record.value(forKey: "goalDescription") as! String
             let rMonthlyContributionAmount = record.value(forKey: "monthlyContributionAmount") as! Double
             let rStartDate                 = record.value(forKey: "startDate") as! Date
@@ -171,11 +140,7 @@ class AccessService {
             
             for goal in goalArray as [NSManagedObject] {
                 // Delete if the object is a match
-                if (input.desciption            == goal.value(forKey: "goalDescription") as! String /*&&
-                    input.startDate             == goal.value(forKey: "startDate") as! Date &&
-                    input.targetDate            == goal.value(forKey: "targetDate") as! Date &&
-                    input.monthlyContribution   == goal.value(forKey: "monthlyContributionAmount") as! Double &&
-                    input.targetAmount          == goal.value(forKey: "targetAmount") as! Double */){
+                if (input.desciption            == goal.value(forKey: "goalDescription") as! String ){
                         context.delete(goal)
                 }
             }
@@ -195,7 +160,6 @@ class AccessService {
         self.retreiveAllGoals()
     }
     
-    //————————————————————————————————————————————————————————————————————————————————————————————————————
     //Transaction Methods:
     func retreiveAllTransactions() {
         
@@ -233,7 +197,8 @@ class AccessService {
                 input.totalDue == transaction.value(forKey: "totalAmount") as! Double &&
                 input.desciption == transaction.value(forKey: "transactionDescription") as! String &&
                 input.isIncome == transaction.value(forKey: "isIncome") as! Bool &&
-                input.isReoccuring == transaction.value(forKey: "isReoccuring") as! Bool) {
+                input.isReoccuring == transaction.value(forKey: "isReoccuring") as! Bool) &&
+                input.linkedToGoal == transaction.value(forKey: "linkedToGoal") as! String {
                     context.delete(transaction)
                 }
             }
@@ -261,7 +226,6 @@ class AccessService {
         let record = NSManagedObject(entity: entity!, insertInto:managedContext)
         
         // Set the attribute values
-        
         record.setValue(input.datePaidOff, forKey: "datePaidOff")
         record.setValue(input.dueDate, forKey: "dueDate")
         record.setValue(input.initialInputDate, forKey: "occuranceDate")
@@ -269,6 +233,7 @@ class AccessService {
         record.setValue(input.desciption, forKey: "transactionDescription")
         record.setValue(input.isIncome, forKey: "isIncome")
         record.setValue(input.isReoccuring, forKey: "isReoccuring")
+        record.setValue(input.linkedToGoal, forKey: "linkedToGoal")
         
         //test values received by printing them out
         print("============================================")
@@ -281,9 +246,8 @@ class AccessService {
         print("TotalDue = \(input.totalDue)")
         print("IsReoccuring = \(input.isReoccuring)")
         print("IsIncome = \(input.isIncome)")
-        
+        print("IsLinkedToGoal = \(input.linkedToGoal)")
         print("\n\(record)")
-        
         print("============================================")
         
         // Commit the changes.
@@ -314,6 +278,7 @@ class AccessService {
             let rTotalDue =         record.value(forKey: "totalAmount") as! Double//
             let rIsReoccuring =     record.value(forKey: "isReoccuring") as! Bool//
             let rIsIncome =         record.value(forKey: "isIncome") as! Bool//
+            let rIsLinkedToGoal =   record.value(forKey: "linkedToGoal") as! String//
             
             return MyTransaction(description:       rDescription,
                                  initialInputDate:  rInitialInputDate,
@@ -321,7 +286,8 @@ class AccessService {
                                  datePaidOff:       rDatePaidOff,
                                  totalDue:          rTotalDue,
                                  isReoccuring:      rIsReoccuring,
-                                 isIncome:          rIsIncome)
+                                 isIncome:          rIsIncome,
+                                 isLinkedToGoal:    rIsLinkedToGoal)
         } else {
             return MyTransaction()
         }
@@ -338,7 +304,6 @@ class AccessService {
         }
     }
     
-    //————————————————————————————————————————————————————————————————————————————————————————————————————
     //Budget Methods:
     func retreiveAllBudgets() {
         

@@ -5,7 +5,6 @@
 //  Created by chris on 11/4/17.
 //  Copyright © 2017 Ben Nguyen. All rights reserved.
 //
-
 import UIKit
 
 class GoalsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, EditGoalDelegate, DeleteGoalDelegate {
@@ -18,6 +17,7 @@ class GoalsViewController: UIViewController, UITableViewDataSource, UITableViewD
     var goalsList: [MyGoal] = []
     let goalDate = MyDate()
     let reuseIdentifier = "GoalsCell"
+    static let gvc = GoalsViewController()
     
     //UIViewController functions
     override func viewDidLoad() {
@@ -46,22 +46,12 @@ class GoalsViewController: UIViewController, UITableViewDataSource, UITableViewD
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "GoalsCell", for: indexPath) as! GoalsCell
-        
-        /*//DIAGNOSTIC CODE
-        print("\n----------------------------------------")
-        print("goalsList count = \(goalsList.count) , AccessService goals count = \(GoalsAccess.totalGoals())\n")
-        print("INFO FROM GOALSVC before config():")
-        print("inputGoal index = \(goalsList[indexPath.item])")
-        print("inputName = \(goalsList[indexPath.item].desciption)")
-        print("inputProgress = \(goalsList[indexPath.item].getProgress())")
-        print("inputEstimatedCompletionDateString = \(goalDate.dateToString(inputDate: (goalsList[indexPath.item].getEstimatedCompletionDate() )))")
-        print("----------------------------------------\n")
-        */
         let goalAtIndex = goalsList[indexPath.item]
         
         //config( inputName: String, inputProgress: Float, inputEstimatedCompletionDate: Date)
         cell.config( inputName:                          goalAtIndex.desciption,
                      inputProgress:                      goalAtIndex.getProgress(),
+                     inputProgressString:                goalAtIndex.getProgressString(),
                      inputEstimatedCompletionDateString: goalDate.dateToString(inputDate: ( goalAtIndex.getEstimatedCompletionDate() )),
                      inputStartDateString:               goalDate.dateToString(inputDate: ( goalAtIndex.startDate ) )
         )
@@ -72,7 +62,6 @@ class GoalsViewController: UIViewController, UITableViewDataSource, UITableViewD
         return self.goalsList.count
     }
     
-    
     //get all goals and cause goalsTable to reload
     func update() {
     
@@ -80,7 +69,7 @@ class GoalsViewController: UIViewController, UITableViewDataSource, UITableViewD
         goalsList = [] //reset this array to the empty set
         
         //read all goals from the AccessService goals[NSManagedObject] array into this class' goalsList[MyGoal]
-        var limit = GoalsAccess.totalGoals()
+        let limit = GoalsAccess.totalGoals()
         for i in 0..<limit {
             let currentGoalRecord = GoalsAccess.getGoal(index: i)
             goalsList.append( currentGoalRecord )
@@ -88,6 +77,22 @@ class GoalsViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.goalsTable.reloadData()//force the goalsTable to reload the GoalsCells it displays
         print(">>>GOALSVC: finished updating the goalsList")
         print("goalsList count = \(goalsList.count) , AccessService goals count = \(GoalsAccess.totalGoals())\n")
+    }
+    
+    func getSpecificGoal( goalName: String ) -> MyGoal{
+        
+        GoalsAccess.retreiveAllGoals() //retrieve all MyGoal objects from coreData to AccessService class array
+        let limit = GoalsAccess.totalGoals()
+        
+        for i in 0..<limit {
+            let currentGoalRecord = GoalsAccess.getGoal(index: i)
+            if currentGoalRecord.desciption == goalName {
+                return currentGoalRecord
+            }
+        }
+        
+        //if there is nothing to return
+        return MyGoal() //this generic object has MyGoal.desciption set to "error" to indicate to calling method that there was no such goalName
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -100,7 +105,6 @@ class GoalsViewController: UIViewController, UITableViewDataSource, UITableViewD
             existingGoal.validGoalDelegate? = self
         }
     }
-    
     
     //swipe to delete functionality
     func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
@@ -119,11 +123,6 @@ class GoalsViewController: UIViewController, UITableViewDataSource, UITableViewD
         return [showRemoveGoalSlideOption]
         
     }
-    
-    
-    
-    
-    //Below: functions that conform to Protocols
     
     //checks if the input name is already used by another MyGoal in goalsList[]
     func isUniqueGoalName(inputNameString: String) -> Bool{
@@ -157,8 +156,6 @@ class GoalsViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         deleteThisGoal( goalToDelete: goalToRemove)
     }
-    
-    
     
 }//end of class
 

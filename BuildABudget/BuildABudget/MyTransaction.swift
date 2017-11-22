@@ -9,6 +9,7 @@ import Foundation
 
 class MyTransaction {
     
+    fileprivate var _linkedToGoal: String
     fileprivate var _description: String
     fileprivate var _initialInputDate: Date
     fileprivate var _dueDate: Date
@@ -18,6 +19,11 @@ class MyTransaction {
     fileprivate var _isIncome: Bool
     
     var date = MyDate() //instance of MyDate class to get access to its methods
+    
+    var linkedToGoal:String {
+        get{ return _linkedToGoal}
+        set(inputGoalName){ _linkedToGoal = inputGoalName}
+    }
     
     var desciption:String {
         get{ return _description}
@@ -83,6 +89,45 @@ class MyTransaction {
                              isIncome:          iIsIncome)
     }
     
+    class func createMonthlyGoalContribution(iDes:          String,
+                                             iIniDate:      Date,
+                                             iDueDate:      Date,
+                                             iDatePaidOff:  Date,
+                                             iTotalDue:     Double,
+                                             iIsReoccuring: Bool,
+                                             iIsIncome:     Bool,
+                                             iLinkedToGoal: String) -> MyTransaction{
+        
+        return MyTransaction(description:       iDes,
+                             initialInputDate:  iIniDate,
+                             dueDate:           iDueDate,
+                             datePaidOff:       iDatePaidOff,
+                             totalDue:          iTotalDue,
+                             isReoccuring:      iIsReoccuring,
+                             isIncome:          iIsIncome,
+                             isLinkedToGoal:    iLinkedToGoal)
+    }
+    
+    //for when this transaction is created by the GoalsConfigViewController or returned from CoreDate (updated version of below function)
+    init(description:       String,
+         initialInputDate:  Date,
+         dueDate:           Date,
+         datePaidOff:       Date,
+         totalDue:          Double,
+         isReoccuring:      Bool,
+         isIncome:          Bool,
+         isLinkedToGoal:    String ) {
+        
+        self._description = description
+        self._initialInputDate = initialInputDate
+        self._dueDate = dueDate
+        self._datePaidOff = datePaidOff
+        self._totalDue = totalDue
+        self._isReoccuring = isReoccuring
+        self._isIncome = isIncome
+        self._linkedToGoal = isLinkedToGoal
+    }
+    
     //for when this transaction is returned from CoreData
     init(description:       String,
          initialInputDate:  Date,
@@ -99,6 +144,8 @@ class MyTransaction {
         self._totalDue = totalDue
         self._isReoccuring = isReoccuring
         self._isIncome = isIncome
+        //
+        self._linkedToGoal = ""
     }
     
     //for brand new transactions
@@ -115,6 +162,8 @@ class MyTransaction {
         self._totalDue = totalDue
         self._isReoccuring = isReoccuring
         self._isIncome = isIncome
+        //
+        self._linkedToGoal = ""
     }
     
     //incase the access object hits and error and needs to return something so the app does not crash
@@ -126,6 +175,8 @@ class MyTransaction {
         self._totalDue = 0.0
         self._isReoccuring = false
         self._isIncome = false
+        //
+        self._linkedToGoal = ""
     }
  
 }
