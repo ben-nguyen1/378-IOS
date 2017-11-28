@@ -18,7 +18,8 @@ class MyTransaction {
     fileprivate var _isReoccuring: Bool
     fileprivate var _isIncome: Bool
     
-    var date = MyDate() //instance of MyDate class to get access to its methods
+    let date = MyDate() //instance of MyDate class to get access to its methods
+    let transactionAccess = AccessService.access //allows MyTransaction class to access the MyTransactions in CoreData
     
     var linkedToGoal:String {
         get{ return _linkedToGoal}
@@ -69,6 +70,21 @@ class MyTransaction {
             return false
         }
         
+    }
+    
+    //Returns a list of all MyTransactions objects in CoreDate
+    func getAllTransactions() -> [MyTransaction]{
+        
+        var allTransactions: [MyTransaction] = []
+        transactionAccess.retreiveAllTransactions()
+        
+        var i = 0
+        while (i < transactionAccess.totalTransactions()) {
+            let newItem = transactionAccess.getTransaction(index: i)
+            allTransactions.append(newItem)
+            i += 1
+        }
+        return allTransactions
     }
 
     //creates a new MyTransaction Object
@@ -144,7 +160,6 @@ class MyTransaction {
         self._totalDue = totalDue
         self._isReoccuring = isReoccuring
         self._isIncome = isIncome
-        //
         self._linkedToGoal = ""
     }
     
@@ -162,7 +177,6 @@ class MyTransaction {
         self._totalDue = totalDue
         self._isReoccuring = isReoccuring
         self._isIncome = isIncome
-        //
         self._linkedToGoal = ""
     }
     
@@ -175,10 +189,9 @@ class MyTransaction {
         self._totalDue = 0.0
         self._isReoccuring = false
         self._isIncome = false
-        //
         self._linkedToGoal = ""
     }
- 
+    
 }
 
 

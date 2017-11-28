@@ -115,6 +115,11 @@ class MyDate {
         return myFormatter.string(from: inputDate)
     }
     
+    func dateToDashedString(inputDate: Date) -> String {
+        myFormatter.dateFormat = "MM-dd-yyyy"
+        return myFormatter.string(from: inputDate)
+    }
+    
     func getTimeZone() -> TimeZone{
         return myCalendar.timeZone
     }

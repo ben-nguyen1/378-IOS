@@ -693,7 +693,6 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         return false
     }
     
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // 'First Responder' is the same as 'input focus'.
         // We are removing input focus from the text field.

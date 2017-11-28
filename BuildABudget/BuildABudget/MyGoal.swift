@@ -59,6 +59,21 @@ class MyGoal {
         set(inputAmount){ _targetAmount = targetAmount}
     }
     
+    //Returns a list of all MyGoals objects in CoreDate
+    func getAllGoals() -> [MyGoal]{
+        
+        var allGoals: [MyGoal] = []
+        goalsAccess.retreiveAllGoals()
+        
+        var i = 0
+        while (i < goalsAccess.totalGoals()) {
+            let newItem = goalsAccess.getGoal(index: i)
+            allGoals.append(newItem)
+            i += 1
+        }
+        return allGoals
+    }
+    
     //contributionList methods
     var allContributions: Double{
         get{ return _contributionList}

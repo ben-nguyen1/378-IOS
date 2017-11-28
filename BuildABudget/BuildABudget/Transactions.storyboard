@@ -13,7 +13,7 @@
         <!--Transactions-->
         <scene sceneID="uhp-ek-hLb">
             <objects>
-                <viewController storyboardIdentifier="transactionsVC" title="Transactions" id="67b-Ak-upU" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="transactionsVC" title="Transactions" id="67b-Ak-upU" customClass="TransactionViewController" customModule="BuildABudget" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="96d-xf-WuQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -25,6 +25,14 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1bX-in-QVu">
+                                <rect key="frame" x="183" y="90" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Export"/>
+                                <connections>
+                                    <action selector="exportButton:" destination="67b-Ak-upU" eventType="touchUpInside" id="BQq-l5-V3S"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="Z2I-nf-fLS"/>

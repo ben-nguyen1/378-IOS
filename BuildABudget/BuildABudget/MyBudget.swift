@@ -51,6 +51,20 @@ class MyBudget {
         set(inputIncome){ _incomeSources = inputIncome }
     }
     
+    func exportBudget() {
+        //The Budget that will be exported will be the up-to-date current budget that is seen by the user in the BudgetViewController
+
+        //NOTE: we are not allowing the user to setup multiple budgets since this is meant to serve a personal budget -> when
+        //      the user changes their personal budget they will not have to save or sort through multiple budgets to display
+        //      the budget they currently want because only one budget is allowed.
+        
+        //Step 1: gather all data points
+        let budgetDescription = "Budget_" + MyDate.dateConverter.dateToDashedString(inputDate: Date())
+        var currentBudgetAccess = BudgetViewController.bc
+        //let budgetExpenseList = currentBudgetAccess.
+        
+    }
+    
     //initializers
     //only for when the access object successfully returns a MyBudget object
     init(description:String,
