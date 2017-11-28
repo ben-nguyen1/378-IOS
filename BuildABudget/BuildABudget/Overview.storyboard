@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -20,25 +20,25 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Budget" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YpU-3c-9x4">
-                                <rect key="frame" x="16" y="20" width="75.5" height="29"/>
+                                <rect key="frame" x="16" y="64" width="75.5" height="29"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$BudgetHead" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b0H-BU-3yp">
-                                <rect key="frame" x="16" y="61" width="343" height="38.5"/>
+                                <rect key="frame" x="16" y="105" width="343" height="38.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Goals" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5TU-v1-K5T">
-                                <rect key="frame" x="16" y="131.5" width="60" height="29"/>
+                                <rect key="frame" x="16" y="175.5" width="60" height="29"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="OJO-eR-01C">
-                                <rect key="frame" x="16" y="176.5" width="343" height="176"/>
+                                <rect key="frame" x="16" y="220.5" width="343" height="176"/>
                                 <color key="backgroundColor" red="0.73674798011779785" green="0.89895081520080566" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="176" id="x74-Cj-g1b"/>
@@ -52,22 +52,22 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GoalName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qNU-9J-wTM">
-                                                    <rect key="frame" x="8" y="8" width="59" height="14.5"/>
+                                                    <rect key="frame" x="15" y="11" width="59" height="14.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="hNo-Me-IjQ">
-                                                    <rect key="frame" x="8" y="30.5" width="327" height="2"/>
+                                                    <rect key="frame" x="15" y="33.5" width="313" height="2"/>
                                                 </progressView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Progress%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AlB-PW-rRu">
-                                                    <rect key="frame" x="141.5" y="8" width="60" height="14.5"/>
+                                                    <rect key="frame" x="141.5" y="11" width="60" height="14.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="due date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5aN-de-jkx">
-                                                    <rect key="frame" x="285" y="8" width="50" height="14.5"/>
+                                                    <rect key="frame" x="278" y="11" width="50" height="14.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -96,13 +96,13 @@
                                 </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reminders" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uDr-eM-iHm">
-                                <rect key="frame" x="16" y="384.5" width="111" height="29"/>
+                                <rect key="frame" x="16" y="428.5" width="111" height="29"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="c0h-89-Uer">
-                                <rect key="frame" x="16" y="429.5" width="343" height="172.5"/>
+                                <rect key="frame" x="16" y="473.5" width="343" height="128.5"/>
                                 <color key="backgroundColor" red="0.73674798011779785" green="0.89895081520080566" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="overviewReminderCell" textLabel="gtN-w6-VDw" detailTextLabel="7ob-pn-WGJ" style="IBUITableViewCellStyleValue1" id="Re9-o1-FSz">
@@ -155,8 +155,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="l2S-g2-6Lc"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Overview" image="Overview - graphs" id="Rgj-hZ-Fpw"/>
-                    <navigationItem key="navigationItem" id="C1D-5T-QUg"/>
+                    <navigationItem key="navigationItem" id="C1D-5T-QUg">
+                        <barButtonItem key="rightBarButtonItem" title="Settings" id="06o-Kq-pyl">
+                            <connections>
+                                <segue destination="w3l-iw-H4n" kind="show" id="An4-ah-ARp"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="budgetHeader" destination="b0H-BU-3yp" id="j3v-th-Gua"/>
@@ -166,7 +171,34 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XXd-F2-ntN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="496.80000000000001" y="105.69715142428787"/>
+            <point key="canvasLocation" x="836" y="105.69715142428787"/>
+        </scene>
+        <!--settingsVC-->
+        <scene sceneID="HXK-05-mDO">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Settings" referencedIdentifier="settingsVC" id="w3l-iw-H4n" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1bN-3Q-HYh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1385" y="-204"/>
+        </scene>
+        <!--Overview-->
+        <scene sceneID="xNz-lq-EPd">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3Ha-xn-IK5" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Overview" image="Overview - graphs" id="Rgj-hZ-Fpw"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="idr-Uc-oAY">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="kn8-v0-DFO" kind="relationship" relationship="rootViewController" id="lgm-lx-JR9"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aCg-2f-V4e" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="159" y="106"/>
         </scene>
     </scenes>
     <resources>
