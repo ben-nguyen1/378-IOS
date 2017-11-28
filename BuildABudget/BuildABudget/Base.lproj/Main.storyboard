@@ -55,7 +55,7 @@
                                     <constraint firstAttribute="width" constant="115" id="eOE-vd-Rlq"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="25"/>
-                                <color key="tintColor" red="0.7122503165737154" green="0.77240640862944165" blue="0.72728933958764697" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="0.71372549019607845" green="0.77254901960784317" blue="0.72549019607843135" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Login">
                                     <color key="titleColor" red="0.93436285620000004" green="0.93436285620000004" blue="0.93436285620000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
@@ -84,7 +84,7 @@
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
                                 <color key="tintColor" red="0.71225031660000004" green="0.77240640859999998" blue="0.72728933959999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Create">
-                                    <color key="titleColor" red="0.93436285620000004" green="0.93436285620000004" blue="0.93436285620000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="goCreateBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Vvp-tZ-2fd"/>

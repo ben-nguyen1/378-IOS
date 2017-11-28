@@ -158,7 +158,7 @@
                     <navigationItem key="navigationItem" id="C1D-5T-QUg">
                         <barButtonItem key="rightBarButtonItem" title="Settings" id="06o-Kq-pyl">
                             <connections>
-                                <segue destination="w3l-iw-H4n" kind="show" id="An4-ah-ARp"/>
+                                <segue destination="gy3-kR-hwi" kind="show" id="PBh-wb-FOy"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -174,12 +174,12 @@
             <point key="canvasLocation" x="836" y="105.69715142428787"/>
         </scene>
         <!--settingsVC-->
-        <scene sceneID="HXK-05-mDO">
+        <scene sceneID="jca-gz-zq4">
             <objects>
-                <viewControllerPlaceholder storyboardName="Settings" referencedIdentifier="settingsVC" id="w3l-iw-H4n" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1bN-3Q-HYh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardIdentifier="settingsVC" storyboardName="Settings" referencedIdentifier="settingsVC" id="gy3-kR-hwi" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FHI-w9-bKu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1385" y="-204"/>
+            <point key="canvasLocation" x="1455" y="-237"/>
         </scene>
         <!--Overview-->
         <scene sceneID="xNz-lq-EPd">
