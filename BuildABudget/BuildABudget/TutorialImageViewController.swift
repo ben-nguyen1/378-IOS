@@ -27,7 +27,7 @@ class TutorialImageViewController: UIViewController {
         label.numberOfLines = 0;
         
         if (fileName == "1") {
-            label.text = "Welcome! New accounts are directed to go through the tutorial. In the future, when you login, you will first see the overview screen. Here, you can see your budget, progress of some of your goals, and a checklist of some unpaid items."
+            label.text = "Welcome! New accounts are directed to go through the tutorial. In the overview, you can see your budget, progress of some of your goals, and a checklist of some unpaid items."
         } else if (fileName == "2") {
             label.text = "This is where you will login. Enter your email address and your password to login into the app."
         } else if (fileName == "3") {
@@ -41,7 +41,13 @@ class TutorialImageViewController: UIViewController {
         }
         
     }
-
+    @IBAction func exit(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarVC") as! TabBarViewController
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.window?.rootViewController = tabBarController
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.  //vsouza-awesome-ios

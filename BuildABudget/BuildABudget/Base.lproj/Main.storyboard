@@ -334,13 +334,13 @@
             </objects>
             <point key="canvasLocation" x="3466" y="-143"/>
         </scene>
-        <!--Tutorial Ref-->
+        <!--Transactions Ref-->
         <scene sceneID="OCR-u2-1wQ">
             <objects>
-                <viewControllerPlaceholder storyboardIdentifier="Tutorial.storyboard" storyboardName="Tutorial" referencedIdentifier="tutorialPageVC" id="OzD-gI-ktl" userLabel="Tutorial Ref" sceneMemberID="viewController">
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IS6-iZ-VX9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardIdentifier="Transactions.storyboard" storyboardName="Transactions" referencedIdentifier="transactionsVC" id="OzD-gI-ktl" userLabel="Transactions Ref" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="gET-Vb-1N0"/>
                 </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="IS6-iZ-VX9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3941" y="542"/>
         </scene>
@@ -411,11 +411,12 @@
             </objects>
             <point key="canvasLocation" x="2884" y="1011"/>
         </scene>
-        <!--Tutorial-->
+        <!--Transactions-->
         <scene sceneID="WaN-tw-gMr">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4rB-OK-xip" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="I6y-O7-ghu" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Tutorial" image="tutorial-icon" id="WaU-bp-snP"/>
+                    <tabBarItem key="tabBarItem" title="Transactions" image="Transactions - action credit card" id="WaU-bp-snP"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="jsj-co-b4l">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -426,7 +427,6 @@
                         <segue destination="OzD-gI-ktl" kind="relationship" relationship="rootViewController" id="Nzk-iN-Daw"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4rB-OK-xip" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3465" y="574"/>
         </scene>
@@ -436,9 +436,9 @@
         <image name="Checklist - checks beside list" width="26" height="26"/>
         <image name="Goals - action flag" width="26" height="26"/>
         <image name="Overview - graphs" width="30" height="30"/>
+        <image name="Transactions - action credit card" width="26" height="26"/>
         <image name="lock" width="50" height="50"/>
         <image name="logo2" width="1235" height="179"/>
         <image name="mail" width="50" height="50"/>
-        <image name="tutorial-icon" width="30" height="30"/>
     </resources>
 </document>

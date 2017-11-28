@@ -26,6 +26,7 @@
 		B882EAA11FB2511800865647 /* GoalsConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B882EA9E1FB2511800865647 /* GoalsConfigViewController.swift */; };
 		B8D8A4471F9FD483003A0A78 /* MyDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D8A4461F9FD483003A0A78 /* MyDate.swift */; };
 		CC1887881FCCE65500A8055E /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC1887871FCCE65500A8055E /* Settings.storyboard */; };
+		CC18878A1FCCE7EB00A8055E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1887891FCCE7EB00A8055E /* SettingsViewController.swift */; };
 		CC457A341F8813E400C98537 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC457A331F8813E400C98537 /* AppDelegate.swift */; };
 		CC457A391F8813E400C98537 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC457A371F8813E400C98537 /* Main.storyboard */; };
 		CC457A3C1F8813E400C98537 /* BuildABudget.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CC457A3A1F8813E400C98537 /* BuildABudget.xcdatamodeld */; };
@@ -64,6 +65,7 @@
 		B882EA9E1FB2511800865647 /* GoalsConfigViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalsConfigViewController.swift; sourceTree = "<group>"; };
 		B8D8A4461F9FD483003A0A78 /* MyDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDate.swift; sourceTree = "<group>"; };
 		CC1887871FCCE65500A8055E /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
+		CC1887891FCCE7EB00A8055E /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		CC457A301F8813E400C98537 /* BuildABudget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BuildABudget.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC457A331F8813E400C98537 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CC457A381F8813E400C98537 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				CC6F13571FAD32B500401E8E /* TutorialPageViewController.swift */,
 				CC6F13591FAD331400401E8E /* TutorialImageViewController.swift */,
 				CC1887871FCCE65500A8055E /* Settings.storyboard */,
+				CC1887891FCCE7EB00A8055E /* SettingsViewController.swift */,
 				B818DC4F1F9D5BCB0084C503 /* AccessService.swift */,
 				CC457A331F8813E400C98537 /* AppDelegate.swift */,
 				B8D8A4461F9FD483003A0A78 /* MyDate.swift */,
@@ -256,6 +259,7 @@
 				CC93DC471F99DAF100070CF7 /* TabBarViewController.swift in Sources */,
 				A6899EFF1FBD6CB100545740 /* OverviewGoalsTableViewCell.swift in Sources */,
 				CC457A341F8813E400C98537 /* AppDelegate.swift in Sources */,
+				CC18878A1FCCE7EB00A8055E /* SettingsViewController.swift in Sources */,
 				B83B50531F9ECE8A0065ED04 /* MyGoal.swift in Sources */,
 				B818DC521F9D6B5B0084C503 /* MyTransaction.swift in Sources */,
 			);

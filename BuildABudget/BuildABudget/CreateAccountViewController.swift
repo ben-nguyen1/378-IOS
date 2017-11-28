@@ -82,13 +82,10 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
                 let OKAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) {
                     (action:UIAlertAction) in
                     
-                    // after creating an account, go back to login screen
-                    // TODO:
-                    // in the future, this will be the tutorial screen
-                    let tabBarController = self.storyboard?.instantiateViewController(withIdentifier: "TabBarVC") as! TabBarViewController
-                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                    tabBarController.selectedIndex = 4
-                    appDelegate.window?.rootViewController = tabBarController
+                    // after creating an account, go to tutorial screen
+                    let storyboard = UIStoryboard(name: "Tutorial", bundle: nil)
+                    let vc = storyboard.instantiateViewController(withIdentifier: "tutorialPageVC") as! TutorialPageViewController
+                    self.present(vc, animated: true, completion: nil)
                 }
                 self.accountSuccessController!.addAction(OKAction)
                 self.present(self.accountSuccessController!, animated: true, completion:nil)

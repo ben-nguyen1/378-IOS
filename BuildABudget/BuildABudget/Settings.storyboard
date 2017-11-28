@@ -13,18 +13,19 @@
         <!--Settings-->
         <scene sceneID="UL8-gM-wUI">
             <objects>
-                <viewController storyboardIdentifier="settingsVC" title="Settings" id="vyP-ba-vj4" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="settingsVC" title="Settings" id="vyP-ba-vj4" customClass="SettingsViewController" customModule="BuildABudget" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6PX-lA-Wql">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vgW-1e-s1F">
-                                <rect key="frame" x="138" y="180" width="42" height="21"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9z4-7j-hjw">
+                                <rect key="frame" x="16" y="276" width="70" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <state key="normal" title="Tutorial"/>
+                                <connections>
+                                    <action selector="tutorial:" destination="vyP-ba-vj4" eventType="touchUpInside" id="5Xo-ce-Lcg"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="o8B-dc-yGw"/>
@@ -32,7 +33,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BkC-tb-MRA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="55" y="-2"/>
+            <point key="canvasLocation" x="53.600000000000001" y="-2.2488755622188905"/>
         </scene>
     </scenes>
 </document>

@@ -13,11 +13,10 @@
         <!--Tutorial-->
         <scene sceneID="jeu-EI-9qO">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fAR-hA-N7Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <pageViewController storyboardIdentifier="tutorialPageVC" autoresizesArchivedViewToFullSize="NO" title="Tutorial" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="Ivu-uF-gQr" customClass="TutorialPageViewController" customModule="BuildABudget" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Tutorial" image="tutorial-icon" id="LKD-OQ-8uc"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </pageViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fAR-hA-N7Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-311" y="188"/>
         </scene>
@@ -41,6 +40,14 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UpO-9I-U5T">
                                 <rect key="frame" x="16" y="56" width="343" height="410"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZGO-td-jd7">
+                                <rect key="frame" x="16" y="18" width="101" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Exit Tutorial"/>
+                                <connections>
+                                    <action selector="exit:" destination="FlK-ev-GTG" eventType="touchUpInside" id="Ygy-B7-d0H"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.99795901505017948" blue="0.98166350056132889" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -64,7 +71,4 @@
             <point key="canvasLocation" x="424.80000000000001" y="187.55622188905548"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="tutorial-icon" width="30" height="30"/>
-    </resources>
 </document>
