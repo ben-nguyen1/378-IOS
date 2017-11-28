@@ -17,6 +17,7 @@
 		B818DC501F9D5BCB0084C503 /* AccessService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B818DC4F1F9D5BCB0084C503 /* AccessService.swift */; };
 		B818DC521F9D6B5B0084C503 /* MyTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B818DC511F9D6B5B0084C503 /* MyTransaction.swift */; };
 		B822B4DA1FCE0A1300FA1586 /* TransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B822B4D91FCE0A1200FA1586 /* TransactionViewController.swift */; };
+		B822B4DC1FCE1FDE00FA1586 /* Reminders.swift in Sources */ = {isa = PBXBuildFile; fileRef = B822B4DB1FCE1FDE00FA1586 /* Reminders.swift */; };
 		B83B50531F9ECE8A0065ED04 /* MyGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83B50521F9ECE8A0065ED04 /* MyGoal.swift */; };
 		B83B50551F9EDB790065ED04 /* MyBudget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83B50541F9EDB790065ED04 /* MyBudget.swift */; };
 		B849D1581FA03752002C7FED /* BudgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B849D1571FA03752002C7FED /* BudgetViewController.swift */; };
@@ -58,6 +59,7 @@
 		B818DC4F1F9D5BCB0084C503 /* AccessService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessService.swift; sourceTree = "<group>"; };
 		B818DC511F9D6B5B0084C503 /* MyTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTransaction.swift; sourceTree = "<group>"; };
 		B822B4D91FCE0A1200FA1586 /* TransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionViewController.swift; sourceTree = "<group>"; };
+		B822B4DB1FCE1FDE00FA1586 /* Reminders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reminders.swift; sourceTree = "<group>"; };
 		B83B50521F9ECE8A0065ED04 /* MyGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyGoal.swift; sourceTree = "<group>"; };
 		B83B50541F9EDB790065ED04 /* MyBudget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBudget.swift; sourceTree = "<group>"; };
 		B849D1571FA03752002C7FED /* BudgetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetViewController.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				B849D15B1FA03FF8002C7FED /* BudgetLineCell.swift */,
 				B86024F51FA934850024A7D1 /* BudgetExpenseCell.swift */,
 				B81632E11F99952A00A04E43 /* Transactions.storyboard */,
+				B822B4D91FCE0A1200FA1586 /* TransactionViewController.swift */,
 				B818DC511F9D6B5B0084C503 /* MyTransaction.swift */,
 				B81632DD1F99945F00A04E43 /* Checklist.storyboard */,
 				E97D493A1FA11FE80019A4DF /* ChecklistViewController.swift */,
@@ -155,10 +158,10 @@
 				B8CAB9F61FCDE053005ED6AD /* Export.swift */,
 				CC457A331F8813E400C98537 /* AppDelegate.swift */,
 				B8D8A4461F9FD483003A0A78 /* MyDate.swift */,
+				B822B4DB1FCE1FDE00FA1586 /* Reminders.swift */,
 				CC457A3D1F8813E400C98537 /* Assets.xcassets */,
 				CC457A421F8813E400C98537 /* Info.plist */,
 				CC457A3A1F8813E400C98537 /* BuildABudget.xcdatamodeld */,
-				B822B4D91FCE0A1200FA1586 /* TransactionViewController.swift */,
 			);
 			path = BuildABudget;
 			sourceTree = "<group>";
@@ -195,6 +198,7 @@
 				TargetAttributes = {
 					CC457A2F1F8813E400C98537 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = K63ZCQD8V4;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -253,6 +257,7 @@
 				CC6F13581FAD32B500401E8E /* TutorialPageViewController.swift in Sources */,
 				CC53D9A81F882504008977D6 /* LoginViewController.swift in Sources */,
 				B849D1581FA03752002C7FED /* BudgetViewController.swift in Sources */,
+				B822B4DC1FCE1FDE00FA1586 /* Reminders.swift in Sources */,
 				CC457A3C1F8813E400C98537 /* BuildABudget.xcdatamodeld in Sources */,
 				B849D15C1FA03FF8002C7FED /* BudgetLineCell.swift in Sources */,
 				CC93DC4B1F99DE6C00070CF7 /* OverViewController.swift in Sources */,
@@ -392,6 +397,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = K63ZCQD8V4;
 				INFOPLIST_FILE = BuildABudget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Ben.BuildABudget;
@@ -404,6 +410,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = K63ZCQD8V4;
 				INFOPLIST_FILE = BuildABudget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Ben.BuildABudget;
