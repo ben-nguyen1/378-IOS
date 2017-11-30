@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A64EC8D61FD0975B0064DC50 /* TransactionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A64EC8D51FD0975B0064DC50 /* TransactionTableViewCell.swift */; };
 		A6899EFF1FBD6CB100545740 /* OverviewGoalsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6899EFE1FBD6CB100545740 /* OverviewGoalsTableViewCell.swift */; };
 		A69674CB1FA440270075EB04 /* ChecklistUnpaidTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69674CA1FA440270075EB04 /* ChecklistUnpaidTableViewCell.swift */; };
 		B81632DC1F998F5900A04E43 /* Budget.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B81632DB1F998F5900A04E43 /* Budget.storyboard */; };
@@ -49,6 +50,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A64EC8D51FD0975B0064DC50 /* TransactionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTableViewCell.swift; sourceTree = "<group>"; };
 		A6899EFE1FBD6CB100545740 /* OverviewGoalsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewGoalsTableViewCell.swift; sourceTree = "<group>"; };
 		A69674CA1FA440270075EB04 /* ChecklistUnpaidTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistUnpaidTableViewCell.swift; sourceTree = "<group>"; };
 		B81632DB1F998F5900A04E43 /* Budget.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Budget.storyboard; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				B849D15B1FA03FF8002C7FED /* BudgetLineCell.swift */,
 				B86024F51FA934850024A7D1 /* BudgetExpenseCell.swift */,
 				B81632E11F99952A00A04E43 /* Transactions.storyboard */,
+				A64EC8D51FD0975B0064DC50 /* TransactionTableViewCell.swift */,
 				B822B4D91FCE0A1200FA1586 /* TransactionViewController.swift */,
 				B818DC511F9D6B5B0084C503 /* MyTransaction.swift */,
 				B81632DD1F99945F00A04E43 /* Checklist.storyboard */,
@@ -262,6 +265,7 @@
 				B849D15C1FA03FF8002C7FED /* BudgetLineCell.swift in Sources */,
 				CC93DC4B1F99DE6C00070CF7 /* OverViewController.swift in Sources */,
 				B882EAA11FB2511800865647 /* GoalsConfigViewController.swift in Sources */,
+				A64EC8D61FD0975B0064DC50 /* TransactionTableViewCell.swift in Sources */,
 				B822B4DA1FCE0A1300FA1586 /* TransactionViewController.swift in Sources */,
 				CC5F83881FB3CA1B00C6720F /* KeyboardInput.swift in Sources */,
 				B882EA9F1FB2511800865647 /* GoalsViewController.swift in Sources */,
