@@ -15,9 +15,62 @@ class Reminders {
     let eventStore = EKEventStore();
     let calendarIdKey = "BuildABudgetCalendar"
     let calendarTitle = "My Budget"
+    static let cal = Reminders()
+    
+    //check if authorized to access calendar
+    func checkAuthorization( callingUIViewController: UIViewController ) -> Bool{
+        
+        let status = EKEventStore.authorizationStatus(for: .event)
+        
+        switch (status) {
+        case .notDetermined:
+            // This happens on first-run.
+            //requestAccessToCalendar()
+            print(">>>REMINDERS: DENYED")
+            needPermission(callingUIViewController: callingUIViewController)
+            return false
+        case .authorized:
+            // Ok to show the calendars in the table view.
+            //showCalendars()
+            print(">>>REMINDERS: SHOWING CAL")
+            return true
+        case .restricted, .denied:
+            // Help the user give us permission to access the calendar.
+            needPermission(callingUIViewController: callingUIViewController)
+            return false
+        }
+        
+    }
+    
+    func needPermission( callingUIViewController: UIViewController ) {
+        // Display an alert controller, telling the user what we need.
+        DispatchQueue.main.async(execute: {
+            let alertController = UIAlertController(title: "Calendar Access", message: "You need to enable access to the calendar. Touch Ok to go to the setting.", preferredStyle: UIAlertControllerStyle.alert)
+            
+            let CancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (action:UIAlertAction) in
+            }
+            alertController.addAction(CancelAction)
+            
+            let OKAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (action:UIAlertAction) in
+                // Help the user give us permission to access the calendar, by navigating them to the relevant setting.
+                let openSettingsUrl = URL(string: UIApplicationOpenSettingsURLString)
+                UIApplication.shared.openURL(openSettingsUrl!)
+            }
+            alertController.addAction(OKAction)
+            print(">>>REMINDERS: SHOULD LAUNCH UIALERT WINDOW HERE")
+            //self.present(alertController, animated: true, completion:nil)
+        })
+    }
     
     //create a new calendar
-    func createBudgetCalendar() {
+    func createBudgetCalendar( callingUIViewController: UIViewController ) {
+        
+        let permissionsCheck = checkAuthorization(callingUIViewController: callingUIViewController)
+        
+        if permissionsCheck == false {
+            print(">>>REMINDERS: we are still not authorized to make changes to calendar")
+            return
+        }
         
         // Setup new calendar
         let budgetCalendar = EKCalendar(for: .event, eventStore: eventStore)
@@ -56,7 +109,15 @@ class Reminders {
     
     
     //delete a new calendar
-    func deleteBudgetCalendar(){
+    func deleteBudgetCalendar( callingUIViewController: UIViewController ){
+        
+        let permissionsCheck = checkAuthorization(callingUIViewController: callingUIViewController)
+        
+        if permissionsCheck == false {
+            print(">>>REMINDERS: we are still not authorized to make changes to calendar")
+            return
+        }
+        
         // Get the calendar identifier we stored earlier.
         let calendarIdentifier = UserDefaults.standard.string(forKey: calendarIdKey)
         
@@ -68,26 +129,22 @@ class Reminders {
             // Delete our new Calendar.
             do {
                 try eventStore.removeCalendar(calendar!, commit: true)
-                /*
-                let alert = UIAlertController(title: "Calendar Deleted", message: "Calendar was successfully deleted", preferredStyle: .alert)
-                let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                alert.addAction(OKAction)
-                self.present(alert, animated: true, completion: nil)
-                 */
                 print(">>>REMINDERS: calendar was successfully deleted")
             } catch _ {
-                /*
-                let alert = UIAlertController(title: "Calendar Delete Error", message: "Calendar could not be deleted", preferredStyle: .alert)
-                let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                alert.addAction(OKAction)
-                self.present(alert, animated: true, completion: nil)
-                */
                 print(">>>REMINDERS: calendar was not deleted")
             }
         }
     }
     //create a new calendar event
-    func createBudgetCalendarEvent(){
+    func createBudgetCalendarEvent(callingUIViewController: UIViewController ){
+        
+        let permissionsCheck = checkAuthorization(callingUIViewController: callingUIViewController)
+        
+        if permissionsCheck == false {
+            print(">>>REMINDERS: we are still not authorized to make changes to calendar")
+            return
+        }
+        
         let calendars = eventStore.calendars(for: EKEntityType.event)
         
         // Iterate through the calendars, looking for our new calendar.
@@ -118,7 +175,15 @@ class Reminders {
     }
     
     //delete a new calendar event
-    func deleteBudgetCalendarEvent() {
+    func deleteBudgetCalendarEvent(callingUIViewController: UIViewController) {
+        
+        let permissionsCheck = checkAuthorization(callingUIViewController: callingUIViewController)
+        
+        if permissionsCheck == false {
+            print(">>>REMINDERS: we are still not authorized to make changes to calendar")
+            return
+        }
+        
         // Get the calendar identifier we stored earlier.
         let calendarIdentifier = UserDefaults.standard.string(forKey: calendarIdKey)
         

@@ -198,7 +198,7 @@
 				TargetAttributes = {
 					CC457A2F1F8813E400C98537 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = K63ZCQD8V4;
+						DevelopmentTeam = BX9PVX84CP;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -397,10 +397,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = K63ZCQD8V4;
+				DEVELOPMENT_TEAM = BX9PVX84CP;
 				INFOPLIST_FILE = BuildABudget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Ben.BuildABudget;
+				PRODUCT_BUNDLE_IDENTIFIER = BuildABudget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -410,10 +410,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = K63ZCQD8V4;
+				DEVELOPMENT_TEAM = BX9PVX84CP;
 				INFOPLIST_FILE = BuildABudget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Ben.BuildABudget;
+				PRODUCT_BUNDLE_IDENTIFIER = BuildABudget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};

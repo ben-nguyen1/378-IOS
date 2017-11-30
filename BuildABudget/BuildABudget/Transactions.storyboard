@@ -33,6 +33,22 @@
                                     <action selector="exportButton:" destination="67b-Ak-upU" eventType="touchUpInside" id="BQq-l5-V3S"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a8c-JA-gBG">
+                                <rect key="frame" x="166" y="182" width="81" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="calendarOff"/>
+                                <connections>
+                                    <action selector="calendarOffButton:" destination="67b-Ak-upU" eventType="touchUpInside" id="P7E-OP-aeJ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="afY-Jg-hWG">
+                                <rect key="frame" x="166" y="144" width="79" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="calendarOn"/>
+                                <connections>
+                                    <action selector="calendarButton:" destination="67b-Ak-upU" eventType="touchUpInside" id="wrU-fr-8Hz"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="Z2I-nf-fLS"/>
