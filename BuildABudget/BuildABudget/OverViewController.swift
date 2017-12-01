@@ -10,7 +10,7 @@ import UIKit
 
 class OverViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var budgetHeader: UILabel!
-    
+    @IBOutlet weak var welcomeText: UILabel!
     @IBOutlet weak var reminderTableView: UITableView!
     @IBOutlet weak var goalsTableView: UITableView!
     var accessService = AccessService.access
@@ -22,7 +22,7 @@ class OverViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
         print("in overview")
-        
+        welcomeText.text = "Hello, \(Account.firstName())"
         reminderTableView.dataSource = self
         goalsTableView.dataSource = self
         reminderTableView.delegate = self

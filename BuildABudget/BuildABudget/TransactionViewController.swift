@@ -37,11 +37,6 @@ class TransactionViewController: UIViewController, UITableViewDataSource, UITabl
     @IBOutlet weak var transactionTextField: UITextField!
     
     @IBOutlet weak var transactionTable: UITableView!
-    
-    @IBAction func spentClicked(_ sender: Any) {
-        addNewTransaction(isIncome: false)
-        updateTransactions()
-    }
 
     @IBAction func receivedClicked(_ sender: Any) {
         addNewTransaction(isIncome: true)
@@ -61,7 +56,7 @@ class TransactionViewController: UIViewController, UITableViewDataSource, UITabl
     func addNewTransaction(isIncome: Bool) {
         self.transactionTextField.layer.borderWidth = 0.0
 
-        guard let costTextField = self.transactionTextField.text , self.moneyValidator.isValidAmount(inputMoneyString: (self.transactionTextField.text)! )  else {
+        guard let costTextField = self.transactionTextField.text, self.moneyValidator.isValidAmount(inputMoneyString: (self.transactionTextField.text)! )  else {
             self.transactionTextField.layer.borderColor = UIColor.red.cgColor
             self.transactionTextField.layer.borderWidth = 1.0
             return
@@ -104,7 +99,7 @@ class TransactionViewController: UIViewController, UITableViewDataSource, UITabl
                 cell.itemLabel!.text = currTrans.desciption.substring(to: tempindex) + "..."
             }
             
-            cell.dateLabel.text = dateConverter.shortDateToString(inputDate: currTrans.datePaidOff)
+            cell.dateLabel.text = dateConverter.shortDateToString(inputDate: currTrans.dueDate)
         }
         
         return cell
@@ -140,6 +135,26 @@ class TransactionViewController: UIViewController, UITableViewDataSource, UITabl
         transactionTable.delegate = self
         transactionTextField.keyboardType = UIKeyboardType.decimalPad
         updateTransactions()
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if (identifier == "transactionGoals") {
+            guard let costTextField = self.transactionTextField.text, self.moneyValidator.isValidAmount(inputMoneyString: (self.transactionTextField.text)! )  else {
+                self.transactionTextField.layer.borderColor = UIColor.red.cgColor
+                self.transactionTextField.layer.borderWidth = 1.0
+                return false
+            }
+        }
+        return true
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        self.transactionTextField.layer.borderWidth = 0.0
+        if (segue.identifier! == "transactionGoals") {
+            let destNav = segue.destination as! UINavigationController
+            let destController = destNav.viewControllers.first as! TransactionGoalTableViewController
+            destController.value = Double(self.transactionTextField.text!)
+        }
     }
     
     override func updateViewConstraints() {

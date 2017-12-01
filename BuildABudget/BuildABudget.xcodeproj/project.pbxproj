@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A64EC8D61FD0975B0064DC50 /* TransactionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A64EC8D51FD0975B0064DC50 /* TransactionTableViewCell.swift */; };
+		A66EA4731FD1010F008E9FB6 /* TransactionGoalTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66EA4721FD1010F008E9FB6 /* TransactionGoalTableViewController.swift */; };
 		A6899EFF1FBD6CB100545740 /* OverviewGoalsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6899EFE1FBD6CB100545740 /* OverviewGoalsTableViewCell.swift */; };
 		A69674CB1FA440270075EB04 /* ChecklistUnpaidTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69674CA1FA440270075EB04 /* ChecklistUnpaidTableViewCell.swift */; };
 		B81632DC1F998F5900A04E43 /* Budget.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B81632DB1F998F5900A04E43 /* Budget.storyboard */; };
@@ -51,6 +52,7 @@
 
 /* Begin PBXFileReference section */
 		A64EC8D51FD0975B0064DC50 /* TransactionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTableViewCell.swift; sourceTree = "<group>"; };
+		A66EA4721FD1010F008E9FB6 /* TransactionGoalTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionGoalTableViewController.swift; sourceTree = "<group>"; };
 		A6899EFE1FBD6CB100545740 /* OverviewGoalsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewGoalsTableViewCell.swift; sourceTree = "<group>"; };
 		A69674CA1FA440270075EB04 /* ChecklistUnpaidTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistUnpaidTableViewCell.swift; sourceTree = "<group>"; };
 		B81632DB1F998F5900A04E43 /* Budget.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Budget.storyboard; sourceTree = "<group>"; };
@@ -140,8 +142,9 @@
 				B849D15B1FA03FF8002C7FED /* BudgetLineCell.swift */,
 				B86024F51FA934850024A7D1 /* BudgetExpenseCell.swift */,
 				B81632E11F99952A00A04E43 /* Transactions.storyboard */,
-				A64EC8D51FD0975B0064DC50 /* TransactionTableViewCell.swift */,
+				A66EA4721FD1010F008E9FB6 /* TransactionGoalTableViewController.swift */,
 				B822B4D91FCE0A1200FA1586 /* TransactionViewController.swift */,
+				A64EC8D51FD0975B0064DC50 /* TransactionTableViewCell.swift */,
 				B818DC511F9D6B5B0084C503 /* MyTransaction.swift */,
 				B81632DD1F99945F00A04E43 /* Checklist.storyboard */,
 				E97D493A1FA11FE80019A4DF /* ChecklistViewController.swift */,
@@ -279,6 +282,7 @@
 				B83B50531F9ECE8A0065ED04 /* MyGoal.swift in Sources */,
 				B818DC521F9D6B5B0084C503 /* MyTransaction.swift in Sources */,
 				B8CAB9F71FCDE053005ED6AD /* Export.swift in Sources */,
+				A66EA4731FD1010F008E9FB6 /* TransactionGoalTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
