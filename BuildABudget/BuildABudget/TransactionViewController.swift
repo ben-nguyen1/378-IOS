@@ -36,6 +36,7 @@ class TransactionViewController: UIViewController, UITableViewDataSource, UITabl
     
     @IBOutlet weak var transactionTextField: UITextField!
     
+    @IBOutlet weak var amountLabel: UILabel!
     @IBOutlet weak var transactionTable: UITableView!
 
     @IBAction func receivedClicked(_ sender: Any) {
@@ -121,6 +122,22 @@ class TransactionViewController: UIViewController, UITableViewDataSource, UITabl
 
     func updateTransactions() {
         transactions = TransactionRetrieval.getAllTransactions()
+        
+        var amount: Double = 0.0
+        for i in 0..<transactions.count {
+            if transactions[i].isIncome {
+                amount += transactions[i].totalDue
+            } else {
+                amount -= transactions[i].totalDue
+            }
+        }
+        self.amountLabel.text = "$\(amount)"
+        if (amount >= 0) {
+            amountLabel.textColor = UIColor(red:0.32, green:0.64, blue:0.33, alpha:1.0)
+        } else {
+            amountLabel.textColor = UIColor.red
+        }
+
         self.transactionTable.reloadData()
     }
     

@@ -157,6 +157,7 @@
                     <tabBarItem key="tabBarItem" title="Transactions" image="Transactions - action credit card" id="sVd-mP-log"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="amountLabel" destination="kw8-FT-2ox" id="L9i-2k-B84"/>
                         <outlet property="transactionTable" destination="WpL-gr-itp" id="Hfp-VQ-zBR"/>
                         <outlet property="transactionTextField" destination="PkK-m4-1Y3" id="Yq3-c1-6Dp"/>
                     </connections>
