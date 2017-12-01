@@ -227,15 +227,17 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         var limit = BudgetAccess.totalTransactions()
         for i in 0..<limit {
             let temp = BudgetAccess.getTransaction(index: i)
-            if temp.isIncome {
-                incomeList.append(temp)
-                incomeTotal += temp.totalDue
-                print("incomeTotal = \(incomeTotal)")
-            }
-            else {
-                expenseList.append(temp)
-                expenseTotal += temp.totalDue
-                print("expenseTotal = \(expenseTotal)")
+            if temp.isReoccuring {
+                if temp.isIncome {
+                    incomeList.append(temp)
+                    incomeTotal += temp.totalDue
+                    print("incomeTotal = \(incomeTotal)")
+                }
+                else {
+                    expenseList.append(temp)
+                    expenseTotal += temp.totalDue
+                    print("expenseTotal = \(expenseTotal)")
+                }
             }
         }
         

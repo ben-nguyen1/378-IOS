@@ -49,7 +49,7 @@ class TransactionGoalTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "transactionGoalCell", for: indexPath)
 
         cell.detailTextLabel?.text = goalsList[indexPath.row].desciption
         cell.textLabel?.text = goalsList[indexPath.row].getProgressString()
