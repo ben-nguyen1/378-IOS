@@ -8,7 +8,16 @@
 
 import UIKit
 
-class SettingsTableViewController: UITableViewController {    
+class SettingsTableViewController: UITableViewController {
+    var changeEmailAlertController:UIAlertController? = nil
+    var changePasswordAlertController:UIAlertController? = nil
+    var alertErrorController:UIAlertController? = nil
+    
+    var newEmailTextField: UITextField? = nil
+    var oldPasswordTextField: UITextField? = nil
+    var newPasswordTextField: UITextField? = nil
+    var confirmNewPasswordTextField: UITextField? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Settings"
@@ -20,7 +29,101 @@ class SettingsTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-
+    @IBAction func changeEmail(_ sender: UIButton) {
+        self.changeEmailAlertController = UIAlertController(title: "Change Email", message: "Fill out the forms", preferredStyle: UIAlertControllerStyle.alert)
+        
+        let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { (action) -> Void in
+            print("Ok Button Pressed")
+            if (Account.pass() == self.oldPasswordTextField!.text) {
+                print("password matches!")
+                Account.setUserName((self.newEmailTextField?.text)!)
+                print(Account.userName())
+            } else {
+                print("password do not match")
+                self.alertErrorController = UIAlertController(title: "Error!!", message: "Password does not match", preferredStyle: UIAlertControllerStyle.alert)
+                
+                let OKAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default){
+                    (action:UIAlertAction) in
+                }
+                
+                self.alertErrorController!.addAction(OKAction)
+                self.present(self.alertErrorController!, animated: true, completion:nil)
+            }
+        })
+        let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (action) -> Void in
+            print("Cancel Button Pressed")
+        }
+        
+        self.changeEmailAlertController!.addAction(ok)
+        self.changeEmailAlertController!.addAction(cancel)
+        
+        self.changeEmailAlertController!.addTextField { (textField) -> Void in
+            // Enter the textfiled customization code here.
+            self.newEmailTextField = textField
+            self.newEmailTextField?.placeholder = "New Email"
+        }
+        self.changeEmailAlertController!.addTextField { (textField) -> Void in
+            // Enter the textfiled customization code here.
+            self.oldPasswordTextField = textField
+            self.oldPasswordTextField?.placeholder = "Password"
+            self.oldPasswordTextField?.isSecureTextEntry = true
+        }
+        
+        present(self.changeEmailAlertController!, animated: true, completion: nil)
+    }
+    
+    @IBAction func changePassword(_ sender: Any) {
+        self.changePasswordAlertController = UIAlertController(title: "Change Password", message: "Fill out the forms", preferredStyle: UIAlertControllerStyle.alert)
+        
+        let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { (action) -> Void in
+            print("Ok Button Pressed")
+            if (Account.pass() == self.oldPasswordTextField!.text && self.newPasswordTextField!.text == self.confirmNewPasswordTextField!.text) {
+                print("password matches!")
+                Account.setPass((self.newPasswordTextField?.text)!)
+                print(Account.userName())
+            } else {
+                print("password do not match")
+                self.alertErrorController = UIAlertController(title: "Error!!", message: "Something doesn't match!", preferredStyle: UIAlertControllerStyle.alert)
+                
+                let OKAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default){
+                    (action:UIAlertAction) in
+                }
+                
+                self.alertErrorController!.addAction(OKAction)
+                self.present(self.alertErrorController!, animated: true, completion:nil)
+            }
+        })
+        let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (action) -> Void in
+            print("Cancel Button Pressed")
+        }
+        
+        self.changePasswordAlertController!.addAction(ok)
+        self.changePasswordAlertController!.addAction(cancel)
+        
+        self.changePasswordAlertController!.addTextField { (textField) -> Void in
+            // Enter the textfiled customization code here.
+            self.oldPasswordTextField = textField
+            self.oldPasswordTextField?.placeholder = "Current password"
+            self.oldPasswordTextField?.isSecureTextEntry = true
+        }
+        self.changePasswordAlertController!.addTextField { (textField) -> Void in
+            // Enter the textfiled customization code here.
+            self.newPasswordTextField = textField
+            self.newPasswordTextField?.placeholder = "New password"
+            self.newPasswordTextField?.isSecureTextEntry = true
+        }
+        
+        self.changePasswordAlertController!.addTextField { (textField) -> Void in
+            // Enter the textfiled customization code here.
+            self.confirmNewPasswordTextField = textField
+            self.confirmNewPasswordTextField?.placeholder = "Confirm new password"
+            self.confirmNewPasswordTextField?.isSecureTextEntry = true
+        }
+        
+        present(self.changePasswordAlertController!, animated: true, completion: nil)
+    }
+    
+    
     @IBAction func tutorialsBtn(_ sender: UIButton) {
         let buttonPosition = sender.convert(CGPoint(), to:tableView)
         let indexPath = tableView.indexPathForRow(at:buttonPosition)
@@ -32,11 +135,20 @@ class SettingsTableViewController: UITableViewController {
         let vc = storyboard.instantiateViewController(withIdentifier: "tutorialPageVC") as! TutorialPageViewController
         present(vc, animated: true, completion: nil)
     }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
+    @IBAction func logout(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "loginViewController") as! LoginViewController
+        present(vc, animated: true, completion: nil)
+    }
+    
+    
     // MARK: - Table view data source
 
 //    override func numberOfSections(in tableView: UITableView) -> Int {
