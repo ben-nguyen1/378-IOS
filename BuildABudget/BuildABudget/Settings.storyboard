@@ -42,6 +42,9 @@
                                                         <segment title="£"/>
                                                         <segment title="€"/>
                                                     </segments>
+                                                    <connections>
+                                                        <action selector="segCurrencyAction:" destination="yfZ-He-npB" eventType="valueChanged" id="Wx1-86-9Co"/>
+                                                    </connections>
                                                 </segmentedControl>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -155,6 +158,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="W3C-8L-112"/>
+                    <connections>
+                        <outlet property="segCurrency" destination="iKo-O2-T8G" id="lSa-mH-mda"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zo6-Si-Ihj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

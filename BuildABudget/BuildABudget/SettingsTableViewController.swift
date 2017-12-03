@@ -18,6 +18,8 @@ class SettingsTableViewController: UITableViewController {
     var newPasswordTextField: UITextField? = nil
     var confirmNewPasswordTextField: UITextField? = nil
     
+    @IBOutlet weak var segCurrency: UISegmentedControl!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Settings"
@@ -29,6 +31,39 @@ class SettingsTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        let currency = Account.currency()
+        if (currency == "$") {
+            segCurrency.selectedSegmentIndex = 0
+        } else if (currency == "€") {
+            segCurrency.selectedSegmentIndex = 1
+        } else {
+            segCurrency.selectedSegmentIndex = 2
+        }
+        
+    }
+    
+    @IBAction func segCurrencyAction(_ sender: Any) {
+        switch self.segCurrency.selectedSegmentIndex {
+            case 0:
+                Account.setCurrency("$")
+                segCurrency.selectedSegmentIndex = 0
+                print("dollar")
+            case 1:
+                Account.setCurrency("€")
+                segCurrency.selectedSegmentIndex = 1
+                print("euro")
+            case 2:
+                Account.setCurrency("£")
+                segCurrency.selectedSegmentIndex = 2
+                print("pound")
+            default:
+                break
+        }
+    }
+    
+    
     @IBAction func changeEmail(_ sender: UIButton) {
         self.changeEmailAlertController = UIAlertController(title: "Change Email", message: "Fill out the forms", preferredStyle: UIAlertControllerStyle.alert)
         

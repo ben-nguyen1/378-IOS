@@ -152,14 +152,16 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
                 let index = currItem.desciption.index(currItem.desciption.startIndex, offsetBy: 5)
                 cell.expenseLabel!.text = currItem.desciption.substring(to: index) + "..."
             }
-            cell.amountLabel!.text = "$\(currItem.totalDue)"
+            let currency = Account.currency()
+            cell.amountLabel!.text = "\(currency)\(currItem.totalDue)"
             cell.dueDateLabel.text = dateConverter.dateToString(inputDate: currItem.dueDate)
             return cell
         } else {
+            let currency = Account.currency()
             let newCell = tableView.dequeueReusableCell(withIdentifier: "paidCell") as! ChecklistPaidTableViewCell
             let currItem = paidItems[indexPath.row]
 
-            newCell.amountLabel.text = "$\(currItem.totalDue)"
+            newCell.amountLabel.text = "\(currency)\(currItem.totalDue)"
             newCell.dateLabel!.text = dateConverter.dateToString(inputDate: currItem.datePaidOff)
             
             if (currItem.desciption.count < 8) {

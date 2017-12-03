@@ -76,6 +76,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
                 Account.setLasttName(lastName.text!)
                 Account.setUserName(email.text!)
                 Account.setPass(pass.text!)
+                Account.setCurrency("$")
                 
                 self.accountSuccessController = UIAlertController(title: "Alert", message: "Your account has been made!", preferredStyle: UIAlertControllerStyle.alert)
                 

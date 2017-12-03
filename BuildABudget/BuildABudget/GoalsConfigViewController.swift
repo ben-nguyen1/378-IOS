@@ -304,7 +304,8 @@ class GoalsConfigViewController: UIViewController, UITextFieldDelegate {
             self.amountRemainingLabel.text          = String(describing: (thisGoal?.getRemainingAmount())! )
             
             self.progressPercentLabel.text          = self.progressPercentLabel.text! + "%"
-            self.amountRemainingLabel.text          = "$" + self.amountRemainingLabel.text!
+            let currency = Account.currency()
+            self.amountRemainingLabel.text          = "\(currency)" + self.amountRemainingLabel.text!
             self.goalProgressbar.setProgress((self.thisGoal?.getProgress())! , animated: false)
         } else {
             

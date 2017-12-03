@@ -85,8 +85,9 @@ class TransactionViewController: UIViewController, UITableViewDataSource, UITabl
         } else {
             let index = indexPath.row - 1
             let currTrans = transactions[index]
-
-            cell.costLabel.text = "$\(currTrans.totalDue)"
+            
+            let currency = Account.currency()
+            cell.costLabel.text = "\(currency)\(currTrans.totalDue)"
             if (currTrans.isIncome) {
                 cell.costLabel.textColor = UIColor(red:0.32, green:0.64, blue:0.33, alpha:1.0)
             } else {
@@ -131,7 +132,8 @@ class TransactionViewController: UIViewController, UITableViewDataSource, UITabl
                 amount -= transactions[i].totalDue
             }
         }
-        self.amountLabel.text = "$\(amount)"
+        let currency = Account.currency()
+        self.amountLabel.text = "\(currency)\(amount)"
         if (amount >= 0) {
             amountLabel.textColor = UIColor(red:0.32, green:0.64, blue:0.33, alpha:1.0)
         } else {

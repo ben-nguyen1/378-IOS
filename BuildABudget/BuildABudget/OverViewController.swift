@@ -29,9 +29,11 @@ class OverViewController: UIViewController, UITableViewDataSource, UITableViewDe
         goalsTableView.delegate = self
         self.navigationItem.setHidesBackButton(true, animated:true);
         self.title = "Overview"
+        
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        print(Account.currency())
         super.viewWillAppear(animated)
         self.update()
     }
@@ -134,11 +136,12 @@ class OverViewController: UIViewController, UITableViewDataSource, UITableViewDe
             }
         }
 
+        let currency = Account.currency()
         if (incomeTotal - expenseTotal >= 0.0) {
-            self.budgetHeader.text = String(format: "$   %.2F", (incomeTotal - expenseTotal))
+            self.budgetHeader.text = String(format: "\(currency)   %.2F", (incomeTotal - expenseTotal))
             self.budgetHeader.textColor = UIColor(red:0.32, green:0.64, blue:0.33, alpha:1.0)
         } else {
-            self.budgetHeader.text = String(format: "$ %.2F", (incomeTotal - expenseTotal))
+            self.budgetHeader.text = String(format: "\(currency) %.2F", (incomeTotal - expenseTotal))
             self.budgetHeader.textColor = UIColor.red
         }
     }
