@@ -128,7 +128,7 @@ class OverViewController: UIViewController, UITableViewDataSource, UITableViewDe
         var limit = accessService.totalTransactions()
         for i in 0..<limit {
             let temp = accessService.getTransaction(index: i)
-            if temp.isIncome {
+            if temp.isIncome && !temp.isReoccuring{
                 incomeList.append(temp)
                 incomeTotal += temp.totalDue
             }

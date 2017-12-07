@@ -118,7 +118,11 @@ class TransactionViewController: UIViewController, UITableViewDataSource, UITabl
             if (currTrans.desciption.count < 8) {
                 cell.itemLabel!.text = currTrans.desciption
             } else {
-                let tempindex = currTrans.desciption.index(currTrans.desciption.startIndex, offsetBy: 5)
+                var maxIndex = 15
+                if currTrans.desciption.count < maxIndex {
+                    maxIndex = currTrans.desciption.count
+                }
+                let tempindex = currTrans.desciption.index(currTrans.desciption.startIndex, offsetBy: maxIndex)
                 cell.itemLabel!.text = currTrans.desciption.substring(to: tempindex) + "..."
             }
             
@@ -144,15 +148,17 @@ class TransactionViewController: UIViewController, UITableViewDataSource, UITabl
 
     func updateTransactions() {
         
-        transactions = TransactionRetrieval.getAllTransactions()
-        
+        //transactions = TransactionRetrieval.getAllTransactions()
+        transactions = TransactionRetrieval.getAllNonReoccuringTransactions()
         
         var amount: Double = 0.0
         for i in 0..<transactions.count {
-            if transactions[i].isIncome {
-                amount += transactions[i].totalDue
-            } else {
-                amount -= transactions[i].totalDue
+            if dateConverter.dateIsInThisMonth(inputDate: transactions[i].datePaidOff ) &&  transactions[i].isReoccuring == false { //this makes sure that we only use transactions which occured in this calendar month to calculate the amount remainning
+                if transactions[i].isIncome {
+                    amount += transactions[i].totalDue
+                } else {
+                    amount -= transactions[i].totalDue
+                }
             }
         }
         let currency = Account.currency()

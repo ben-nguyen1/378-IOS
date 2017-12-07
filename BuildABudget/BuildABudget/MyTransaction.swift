@@ -158,6 +158,21 @@ class MyTransaction {
         print(">>>MYTRANSACTION: ERROR -> could not find the linked MyTransaction for goal")
         return MyTransaction.init() //the description property of thie MyTransaction is set to "error" which is what we will check in the calling function
     }
+    
+    func findReocurringMyTransactionLinkedToMyGoal( inputDescription: String ) -> MyTransaction{
+        
+        let list = getAllTransactions()
+        for item in list {
+            if item.desciption == inputDescription && item.linkedToGoal == inputDescription && item.isReoccuring {
+                return item
+            }
+        }
+        
+        //We only get here if we did not find anything
+        print(">>>MYTRANSACTION: ERROR -> could not find the linked MyTransaction for goal")
+        return MyTransaction.init() //the description property of thie MyTransaction is set to "error" which is what we will check in the calling function
+    }
+    
 
     //checks if the remainning amount of a MyGoal linked MyTransaction is less than the monthlyContribution amount -> returns the lowest value
     func adjustExpenseAmountString( inputTransaction: MyTransaction) -> String {

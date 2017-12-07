@@ -29,6 +29,7 @@ class GoalsConfigViewController: UIViewController, UITextFieldDelegate {
     var isNewGoal = true //value is only changed when the GoalsCell segue sets this to false to indicate thisGoal is an existing MyGoal
     let bvc = BudgetViewController.bc
     let reminder = Reminders.agent
+    let transactionAgent = MyTransaction.agent
 
     static let gcvc = GoalsConfigViewController()
     @IBOutlet weak var errorMessageLabel: UILabel!
@@ -188,7 +189,7 @@ class GoalsConfigViewController: UIViewController, UITextFieldDelegate {
     func transactionLinkedToGoalStillExists(inputGoalDescription: String ) -> Bool{
         print("MADE IT TO : transactionLinkedToGoalStillExists")
         var oldTransactionLinkedToThisGoal = MyTransaction.init()
-        oldTransactionLinkedToThisGoal = oldTransactionLinkedToThisGoal.findMyTransactionLinkedToMyGoal(inputDescription: inputGoalDescription )
+        oldTransactionLinkedToThisGoal = oldTransactionLinkedToThisGoal.findReocurringMyTransactionLinkedToMyGoal(inputDescription: inputGoalDescription )
         print("oldTransactionLinkedToThisGoal = \(oldTransactionLinkedToThisGoal)")
         
         if oldTransactionLinkedToThisGoal.desciption == "error" {
@@ -333,6 +334,10 @@ class GoalsConfigViewController: UIViewController, UITextFieldDelegate {
         
         //set default error message
         errorMessageLabel.text  = ""
+        let linkedTransactionStillExists = transactionAgent.findReocurringMyTransactionLinkedToMyGoal(inputDescription: (thisGoal?.desciption)!)
+        if linkedTransactionStillExists.desciption == "error"{
+            errorMessageLabel.text  = "Press SAVE to restore monthly contribution."
+        }
         
         // set keyboard dismiss
         nameTextField.delegate = self;

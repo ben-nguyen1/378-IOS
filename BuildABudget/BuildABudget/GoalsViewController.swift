@@ -51,7 +51,7 @@ class GoalsViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         var markAsNeedsAttention:Int = 0 // key: 0 = no change to background color, 1 = change to orange (gets user attention), 2 = change to green
         var foundTransaction:MyTransaction = MyTransaction.init()
-        foundTransaction = foundTransaction.findMyTransactionLinkedToMyGoal( inputDescription: goalAtIndex.desciption )
+        foundTransaction = foundTransaction.findReocurringMyTransactionLinkedToMyGoal( inputDescription: goalAtIndex.desciption )
         if goalAtIndex.getProgress() >= 100.0 {
             markAsNeedsAttention = 1 //change background to green
         } else if foundTransaction.desciption == "error" {
@@ -109,7 +109,6 @@ class GoalsViewController: UIViewController, UITableViewDataSource, UITableViewD
         let existingGoal = segue.destination as! GoalsConfigViewController
         if let indexPath = self.goalsTable.indexPathForSelectedRow{
             existingGoal.thisGoal = self.goalsList[indexPath.row]
-            //existingGoal.existingGoalCopy = goalsList[indexPath.row]
             existingGoal.isNewGoal = false
             existingGoal.deleteGoalDelegate? = self
             existingGoal.validGoalDelegate? = self
@@ -122,10 +121,7 @@ class GoalsViewController: UIViewController, UITableViewDataSource, UITableViewD
             let showRemoveGoalSlideOption = UITableViewRowAction(style: .normal, title: "Delete") {
                 action, index in
                 let removedThisGoalWhenClicked = self.goalsList[index.row]
-                //call are you sure window
-                //self.GoalsAccess.deleteGoal(input: removedThisGoalWhenClicked)
                 
-                //self.removeThisGoalFromGoalsList( goalToRemove: removedThisGoalWhenClicked)
                 self.deleteThisGoal( goalToDelete: removedThisGoalWhenClicked)
                 self.update()
             }

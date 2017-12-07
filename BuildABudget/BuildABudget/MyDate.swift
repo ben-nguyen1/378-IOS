@@ -50,7 +50,7 @@ class MyDate {
         return yesterday
     }
     
-    func makeDate(inputDay: Int, inputMonth: Int, inputYear: Int, inputMinute: Int, inputHour: Int) -> Date{
+    func makeExactDateTime(inputDay: Int, inputMonth: Int, inputYear: Int, inputMinute: Int, inputHour: Int) -> Date{
         
         var components = DateComponents()
         components.day = inputDay
@@ -59,6 +59,15 @@ class MyDate {
         components.minute = inputMinute
         components.hour = inputHour
         
+        return myCalendar.date(from: components)!
+    }
+    
+    func makeDate(inputDay: Int, inputMonth: Int, inputYear: Int) -> Date{
+        
+        var components = DateComponents()
+        components.day = inputDay
+        components.month = inputMonth
+        components.year = inputYear
         return myCalendar.date(from: components)!
     }
     
@@ -122,6 +131,45 @@ class MyDate {
     
     func getTimeZone() -> TimeZone{
         return myCalendar.timeZone
+    }
+    
+    func getMonthBeginning( ) -> Date {
+        
+        let today = Date()
+        let month = self.month(inputDate: today)
+        let day = 1
+        let year = self.year(inputDate: today)
+        return self.makeDate(inputDay: day, inputMonth: month, inputYear: year)
+        
+    }
+    
+    func getMonthEnd( ) -> Date {
+        
+        //get the beginning of next month
+        let today = Date()
+        let month = self.month(inputDate: today) + 1
+        let day = 1
+        let year = self.year(inputDate: today)
+        let firstDayOfNextMonth = self.makeDate(inputDay: day, inputMonth: month, inputYear: year)
+        
+        //calculate beginning of next month - 1 day
+        return self.getDateXNumDaysFromNow(inputStartDate: firstDayOfNextMonth, inputXNumDays: -1)
+        
+    }
+    
+    func dateIsInThisMonth(inputDate: Date) -> Bool {
+        
+        print("TEST: inputDate.datePaidOff = \(inputDate)")
+        print("TEST: beginning of month = \(self.getMonthBeginning())")
+        print("TEST: end of month = \(self.getMonthEnd())\n")
+
+        
+        if inputDate > self.getMonthBeginning() && inputDate < self.getMonthEnd() {
+            return true //input date is within this calendar month's range
+        } else if inputDate == self.getMonthBeginning() || inputDate == self.getMonthEnd() {
+            return true //input date is within this calendar month's range
+        }
+        return false //this means inputDate is not in this calendar month
     }
     
     func isValidMMDDYYYYFormat(inputDateString: String?) -> Bool {

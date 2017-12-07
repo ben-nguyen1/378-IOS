@@ -698,6 +698,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             } else if digitChars.contains(indexChar) {
                 numDigitsChars += 1
             } else {
+                print("found a Char")
                 return false //this is when we find any char that is not a digit or decimal point
             }
         }

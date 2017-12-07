@@ -344,6 +344,7 @@ class AccessService {
         record.setValue(input.endDate, forKey: "endDate")
         record.setValue(input.allExpenses, forKey: "expenseSources")
         record.setValue(input.allIncome, forKey: "incomeSources")
+        record.setValue(input.accountBalance, forKey: "accountBalance")
         
         // Commit the changes.
         do {
@@ -368,17 +369,19 @@ class AccessService {
         if (budgets != nil) && index < budgets.count {
             let record = budgets[index]
             let rDescription =      record.value(forKey: "budgetDescription") as! String
-            let rStartDate = record.value(forKey: "startDate") as! Date
+            let rStartDate =        record.value(forKey: "startDate") as! Date
             let rEndDate =          record.value(forKey: "endDate") as! Date
-            let rExpenseSources =      record.value(forKey: "expenseSources") as! [MyTransaction]
-            let rIncomeSources =         record.value(forKey: "incomeSources") as! [MyTransaction]
+            let rExpenseSources =   record.value(forKey: "expenseSources") as! [MyTransaction]
+            let rIncomeSources =    record.value(forKey: "incomeSources") as! [MyTransaction]
+            let rAccountBalance =   record.value(forKey: "accountBalance") as! Double
             
             
             return MyBudget(description: rDescription,
                             startDate: rStartDate,
                             endDate: rEndDate,
                             expenseSources: rExpenseSources,
-                            incomeSources: rIncomeSources)
+                            incomeSources: rIncomeSources,
+                            accountBalance: rAccountBalance)
             
         } else {
             return MyBudget()//returns a blank budget when we first open the BudgetViewController

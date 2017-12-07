@@ -16,9 +16,11 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var lastName: UITextField!
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var pass: UITextField!
+    @IBOutlet weak var initialAccountBalance: UITextField!
     
     var alertErrorController:UIAlertController? = nil
     var accountSuccessController:UIAlertController? = nil
+    let budgetAgent = MyBudget.agent
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +45,10 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         pass.placeholder = "Password"
         pass.delegate = self
         pass.isSecureTextEntry = true
+        
+        initialAccountBalance.text = nil
+        initialAccountBalance.placeholder = "Initial Account Balance"
+        initialAccountBalance.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -61,8 +67,18 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
             self.present(self.alertErrorController!, animated: true, completion:nil)
         } else {
             print("New Account")
-            if (firstName.text!.isEmpty || lastName.text!.isEmpty || email.text!.isEmpty || pass.text!.isEmpty) {
+            if (firstName.text!.isEmpty || lastName.text!.isEmpty || email.text!.isEmpty || pass.text!.isEmpty || initialAccountBalance.text!.isEmpty) {
                 self.alertErrorController = UIAlertController(title: "Alert", message: "All fields must be entered", preferredStyle: UIAlertControllerStyle.alert)
+                
+                let OKAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) {
+                    (action:UIAlertAction) in
+                }
+                self.alertErrorController!.addAction(OKAction)
+                
+                self.present(self.alertErrorController!, animated: true, completion:nil)
+            } else if isValidAmount(inputAmount: initialAccountBalance.text!) == false {
+                print("TEST: isValidAmount = false")
+                self.alertErrorController = UIAlertController(title: "Alert", message: "Amount must be between 0.00 and 100000000.00", preferredStyle: UIAlertControllerStyle.alert)
                 
                 let OKAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) {
                     (action:UIAlertAction) in
@@ -77,6 +93,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
                 Account.setUserName(email.text!)
                 Account.setPass(pass.text!)
                 Account.setCurrency("$")
+                self.createInitialBudgetObject()
                 
                 self.accountSuccessController = UIAlertController(title: "Alert", message: "Your account has been made!", preferredStyle: UIAlertControllerStyle.alert)
                 
@@ -114,6 +131,26 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
     // From the Apple documentation: Asks the delegate if the text field
     // should process the pressing of the return button.
     //
+    
+    func isValidAmount( inputAmount: String) -> Bool{
+        
+        let budgetVCAgent = BudgetViewController.bc
+        let answer = budgetVCAgent.isValidAmount(inputMoneyString: inputAmount)
+        print("isValidAmount = \(answer)")
+        return answer
+    }
+    
+    func createInitialBudgetObject(){
+        
+        let access = AccessService.access
+        let newBudgetObject = MyBudget(description: "Budget",
+                                       startDate:   Date(),
+                                       endDate:     Date()
+        )
+        newBudgetObject.accountBalance = (self.initialAccountBalance.text! as NSString).doubleValue
+        
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // 'First Responder' is the same as 'input focus'.
         // We are removing input focus from the text field.

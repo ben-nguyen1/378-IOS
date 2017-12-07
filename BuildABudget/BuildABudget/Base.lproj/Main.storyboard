@@ -191,8 +191,28 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create an Account" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JGi-yj-Qn7">
+                                <rect key="frame" x="26.5" y="100" width="322" height="43"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="43" id="GuR-Cv-z8T"/>
+                                    <constraint firstAttribute="width" constant="322" id="Iaa-wA-FgT"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="34"/>
+                                <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Initial Account Balance" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CXk-Y6-fjd">
+                                <rect key="frame" x="50" y="322" width="274" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="QoY-Px-4dV"/>
+                                    <constraint firstAttribute="width" constant="274" id="ifL-32-KFa"/>
+                                </constraints>
+                                <color key="textColor" red="0.23137254900000001" green="0.34901960780000002" blue="0.59607843140000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5xe-JS-M7A">
-                                <rect key="frame" x="140.5" y="336" width="94" height="38"/>
+                                <rect key="frame" x="140" y="371" width="94" height="38"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="94" id="dFp-XL-XdP"/>
@@ -207,37 +227,31 @@
                                     <action selector="createBtn:" destination="KUP-xm-pDP" eventType="touchUpInside" id="L4i-a8-G5m"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create an Account" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JGi-yj-Qn7">
-                                <rect key="frame" x="26.5" y="100" width="322" height="43"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="43" id="GuR-Cv-z8T"/>
-                                    <constraint firstAttribute="width" constant="322" id="Iaa-wA-FgT"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="34"/>
-                                <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.74194099410000003" green="0.89924364700000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="CXk-Y6-fjd" firstAttribute="centerX" secondItem="DRU-Iw-qDZ" secondAttribute="centerX" id="1dX-wG-SdB"/>
                             <constraint firstItem="18T-Zi-2uw" firstAttribute="centerX" secondItem="DRU-Iw-qDZ" secondAttribute="centerX" id="31x-cA-rlI"/>
                             <constraint firstItem="JGi-yj-Qn7" firstAttribute="top" secondItem="XBZ-kG-3Pe" secondAttribute="bottom" constant="36" id="4Yp-zP-PHH"/>
                             <constraint firstItem="JGi-yj-Qn7" firstAttribute="centerX" secondItem="DRU-Iw-qDZ" secondAttribute="centerX" id="6oE-Yn-U2b"/>
-                            <constraint firstItem="5xe-JS-M7A" firstAttribute="top" secondItem="sOw-Ba-0lF" secondAttribute="bottom" constant="22" id="7Hl-sz-rpu"/>
                             <constraint firstItem="MQJ-YW-vbv" firstAttribute="centerX" secondItem="DRU-Iw-qDZ" secondAttribute="centerX" id="Ek5-XW-EeJ"/>
                             <constraint firstItem="18T-Zi-2uw" firstAttribute="top" secondItem="11o-Uf-Gyj" secondAttribute="bottom" constant="8" id="EkU-8u-Nra"/>
                             <constraint firstItem="sOw-Ba-0lF" firstAttribute="centerX" secondItem="DRU-Iw-qDZ" secondAttribute="centerX" id="H6O-yN-f3g"/>
+                            <constraint firstItem="5xe-JS-M7A" firstAttribute="top" secondItem="CXk-Y6-fjd" secondAttribute="bottom" constant="19" id="HOA-Ug-EIc"/>
                             <constraint firstItem="11o-Uf-Gyj" firstAttribute="top" secondItem="JGi-yj-Qn7" secondAttribute="bottom" constant="27" id="P8x-k7-hqM"/>
                             <constraint firstItem="sOw-Ba-0lF" firstAttribute="top" secondItem="MQJ-YW-vbv" secondAttribute="bottom" constant="8" id="SES-jy-70c"/>
                             <constraint firstItem="5xe-JS-M7A" firstAttribute="centerX" secondItem="DRU-Iw-qDZ" secondAttribute="centerX" id="Uhi-YA-lPD"/>
                             <constraint firstItem="MQJ-YW-vbv" firstAttribute="top" secondItem="18T-Zi-2uw" secondAttribute="bottom" constant="8" id="ckX-Te-NvL"/>
                             <constraint firstItem="11o-Uf-Gyj" firstAttribute="centerX" secondItem="DRU-Iw-qDZ" secondAttribute="centerX" id="eyL-yc-9fe"/>
+                            <constraint firstItem="CXk-Y6-fjd" firstAttribute="top" secondItem="sOw-Ba-0lF" secondAttribute="bottom" constant="8" id="spb-7v-SwB"/>
+                            <constraint firstItem="5xe-JS-M7A" firstAttribute="top" secondItem="CXk-Y6-fjd" secondAttribute="bottom" constant="19" id="uRC-G3-1UL"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="create" destination="5xe-JS-M7A" id="OMB-ly-Le0"/>
                         <outlet property="email" destination="MQJ-YW-vbv" id="N38-Xy-gIJ"/>
                         <outlet property="firstName" destination="11o-Uf-Gyj" id="cnW-aI-BGc"/>
+                        <outlet property="initialAccountBalance" destination="CXk-Y6-fjd" id="oKn-8O-1ty"/>
                         <outlet property="lastName" destination="18T-Zi-2uw" id="pVU-HU-dHP"/>
                         <outlet property="pass" destination="sOw-Ba-0lF" id="KGS-YS-YOc"/>
                     </connections>
@@ -337,10 +351,10 @@
         <!--Transactions Ref-->
         <scene sceneID="OCR-u2-1wQ">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="IS6-iZ-VX9" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewControllerPlaceholder storyboardIdentifier="Transactions.storyboard" storyboardName="Transactions" referencedIdentifier="transactionsVC" id="OzD-gI-ktl" userLabel="Transactions Ref" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="gET-Vb-1N0"/>
                 </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IS6-iZ-VX9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3941" y="542"/>
         </scene>
@@ -414,7 +428,6 @@
         <!--Transactions-->
         <scene sceneID="WaN-tw-gMr">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4rB-OK-xip" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="I6y-O7-ghu" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Transactions" image="Transactions - action credit card" id="WaU-bp-snP"/>
                     <toolbarItems/>
@@ -427,6 +440,7 @@
                         <segue destination="OzD-gI-ktl" kind="relationship" relationship="rootViewController" id="Nzk-iN-Daw"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4rB-OK-xip" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3465" y="574"/>
         </scene>

@@ -24,7 +24,10 @@ class MyBudget {
     
     fileprivate var _expenseSources: [MyTransaction] //list all monthly bills
     fileprivate var _incomeSources: [MyTransaction] //list all income streams
-
+    
+    fileprivate var _accountBalance: Double //this holds the entire cumulative balance that the user has to this date. (only add/subtract non-reoccuring MyTransactions and the initial input value from the user for their account balance on account creation)
+    static let agent = MyBudget()
+    
     //getters/setters
     var desciption:String {
         get{ return _description}
@@ -51,6 +54,11 @@ class MyBudget {
         set(inputIncome){ _incomeSources = inputIncome }
     }
     
+    var accountBalance: Double {
+        get{ return _accountBalance}
+        set(inputAccountBalance){ _accountBalance = accountBalance }
+    }
+    
     func exportBudget() {
         //The Budget that will be exported will be the up-to-date current budget that is seen by the user in the BudgetViewController
 
@@ -71,7 +79,8 @@ class MyBudget {
          startDate:Date,
          endDate:Date,
          expenseSources:[MyTransaction],
-         incomeSources:[MyTransaction]
+         incomeSources:[MyTransaction],
+         accountBalance:Double
         ) {
         
         self._description = description
@@ -79,8 +88,9 @@ class MyBudget {
         self._endDate = endDate
         self._expenseSources = expenseSources
         self._incomeSources = incomeSources
+        self._accountBalance = accountBalance
     }
-    //only for when a brand new MyBudget object is created
+    //only for when a brand new MyBudget object is created -> such as at account creation time
     init(description:String,
          startDate:Date,
          endDate:Date
@@ -91,6 +101,7 @@ class MyBudget {
         self._endDate = endDate
         self._expenseSources = []
         self._incomeSources = []
+        self._accountBalance = 0.0
     }
     
     //when the access object has to return an error
@@ -100,6 +111,7 @@ class MyBudget {
         self._endDate = Date()
         self._expenseSources = []
         self._incomeSources = []
+        self._accountBalance = 0.0
     }
 }
 
