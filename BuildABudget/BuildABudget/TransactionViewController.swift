@@ -63,7 +63,7 @@ class TransactionViewController: UIViewController, UITableViewDataSource, UITabl
             return
         }
         let date = Date()
-        let datePaidOff = dateConverter.setToYesterday(today: Date())
+        let datePaidOff = Date()//dateConverter.setToYesterday(today: Date())
         
         /*
         let newTransaction = MyTransaction(description: "Trans-\(date.description(with: nil))",
@@ -122,7 +122,7 @@ class TransactionViewController: UIViewController, UITableViewDataSource, UITabl
                 cell.itemLabel!.text = currTrans.desciption.substring(to: tempindex) + "..."
             }
             
-            cell.dateLabel.text = dateConverter.shortDateToString(inputDate: currTrans.dueDate)
+            cell.dateLabel.text = dateConverter.shortDateToString(inputDate: currTrans.datePaidOff)
         }
         
         return cell
@@ -163,7 +163,8 @@ class TransactionViewController: UIViewController, UITableViewDataSource, UITabl
             amountLabel.textColor = UIColor.red
         }
         
-        transactions = transactions.reversed()
+        var tempList = transactions
+        self.transactions = tempList.sorted(by: { $0.datePaidOff > $1.datePaidOff } )
 
         self.transactionTable.reloadData()
         /*

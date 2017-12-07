@@ -77,7 +77,12 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
         
         //sort unpaidItems by dueDate
         var tempList = unpaidItems
-        unpaidItems = tempList.sorted(by: { $0.dueDate > $1.dueDate }) //double check this implementation
+        self.unpaidItems = tempList.sorted(by: { $0.dueDate > $1.dueDate }) //double check this implementation
+        //unpaidItems.sort { $0.dueDate, $1.dueDate) -> Bool in
+        
+        //meetingsData.sort({ $0.meetingDate.compare($1.meetingDate) == .OrderedAscending })
+        
+        
         
         /*
         
