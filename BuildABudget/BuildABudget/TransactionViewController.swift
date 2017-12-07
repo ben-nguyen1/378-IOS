@@ -146,6 +146,7 @@ class TransactionViewController: UIViewController, UITableViewDataSource, UITabl
         
         transactions = TransactionRetrieval.getAllTransactions()
         
+        
         var amount: Double = 0.0
         for i in 0..<transactions.count {
             if transactions[i].isIncome {
@@ -161,6 +162,8 @@ class TransactionViewController: UIViewController, UITableViewDataSource, UITabl
         } else {
             amountLabel.textColor = UIColor.red
         }
+        
+        transactions = transactions.reversed()
 
         self.transactionTable.reloadData()
         /*
