@@ -143,7 +143,7 @@ class TransactionViewController: UIViewController, UITableViewDataSource, UITabl
     }
 
     func updateTransactions() {
-        /*
+        
         transactions = TransactionRetrieval.getAllTransactions()
         
         var amount: Double = 0.0
@@ -163,7 +163,7 @@ class TransactionViewController: UIViewController, UITableViewDataSource, UITabl
         }
 
         self.transactionTable.reloadData()
-        */
+        /*
         var amount: Double = 0.0
         var list = TransactionRetrieval.getAllNonReoccuringTransactions()
         for item in list {
@@ -180,6 +180,7 @@ class TransactionViewController: UIViewController, UITableViewDataSource, UITabl
         } else {
             amountLabel.textColor = UIColor.red
         }
+ */
         
         self.transactionTable.reloadData()
         

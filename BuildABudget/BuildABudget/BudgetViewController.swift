@@ -236,7 +236,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         incomeTotal = 0.0
         expenseTotal = 0.0
         
-        /*
+        
         var i = 0
         let limit = BudgetAccess.totalTransactions()
         for i in 0..<limit {
@@ -254,7 +254,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
                 }
             }
         }
-         */
+         /*
         let list = transactionAgent.getAllReoccuringTransactions()
         for item in list {
             if item.isReoccuring{
@@ -268,6 +268,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
                 }
             }
         }
+ */
         
         //calculate the budget deficit/surplus
         differenceAmount = incomeTotal - expenseTotal

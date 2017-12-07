@@ -56,7 +56,7 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
         unpaidItems = []
         paidItems = []
 
-        /*
+        
         ChecklistAccess.retreiveAllTransactions()
         var i = 0
         while (i < ChecklistAccess.totalTransactions()) {
@@ -73,7 +73,13 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
             i += 1
         }
         print(i)
-         */
+        
+        
+        //sort unpaidItems by dueDate
+        var tempList = unpaidItems
+        unpaidItems = tempList.sorted(by: { $0.dueDate > $1.dueDate }) //double check this implementation
+        
+        /*
         
         let list:[MyTransaction] = transactionAgent.getAllReoccuringTransactions()
         for item in list{
@@ -86,6 +92,7 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
                 }
             }
         }
+ */
     }
     
     func createOneTimeTransactionCopy( originalReoccurringTransaction: MyTransaction) -> MyTransaction {
@@ -118,6 +125,7 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
         return 0
     }
 
+    //swipe options
     func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
         let paid = UITableViewRowAction(style: .normal, title: "Paid") { action, index in
             var transactionToChange = self.unpaidItems[index.row]
@@ -129,6 +137,8 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
             let copy = self.createOneTimeTransactionCopy(originalReoccurringTransaction: transactionToChange)
             self.ChecklistAccess.saveTransaction(input: copy)
             
+            //now resave transactionToChange with new next month's due date -> ex: if this due date is 12/8/2017 then next due date is 1/8/2018
+            transactionToChange.dueDate = self.dateConverter.getDateXNumDaysFromNow(inputStartDate: transactionToChange.dueDate, inputXNumDays: 30) //may want to change the static 30 days input to reflect varying month lengths
             self.ChecklistAccess.saveTransaction(input: transactionToChange)
             self.updateTables()
             print("paid button tapped \(index.row)")
@@ -170,8 +180,9 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
         return tableView == self.unpaidTableView
     }
     
+    //setup the table cells
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if (tableView == self.unpaidTableView) {
+        if (tableView == self.unpaidTableView) { //top UITableView
             let cell = tableView.dequeueReusableCell(withIdentifier: "unpaidCell")! as! ChecklistUnpaidTableViewCell
             let currItem = unpaidItems[indexPath.row]
             
@@ -184,6 +195,11 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
             let currency = Account.currency()
             cell.amountLabel!.text = "\(currency)\(currItem.totalDue)"
             cell.dueDateLabel.text = dateConverter.shortDateToString(inputDate: currItem.dueDate)
+            
+            
+            if self.dateConverter.day(inputDate: currItem.dueDate) <= self.dateConverter.day(inputDate: Date()) || currItem.isPastDue() {
+                cell.contentView.backgroundColor = UIColor.orange
+            }
             return cell
         } else {
             let currency = Account.currency()
