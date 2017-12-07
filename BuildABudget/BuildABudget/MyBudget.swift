@@ -73,6 +73,27 @@ class MyBudget {
         
     }
     
+    func getCurrentAccountBalance() -> Double {
+        
+        var subTotal = 0.0
+        let list = MyTransaction.agent.getAllNonReoccuringTransactions()
+        for item in list {
+            if item.isIncome {
+                subTotal += item.totalDue
+            } else {
+                subTotal -= item.totalDue
+            }
+        }
+        
+        let currentBalance = self.accountBalance + subTotal
+        print("MYBUDGET: intial balance = \(self.accountBalance)")
+        print("MYBUDGET: subTotal = \(subTotal)")
+        print("MYBUDGET: currentBalance = \(currentBalance)")
+
+        
+        return currentBalance
+    }
+    
     //initializers
     //only for when the access object successfully returns a MyBudget object
     init(description:String,

@@ -334,9 +334,11 @@ class GoalsConfigViewController: UIViewController, UITextFieldDelegate {
         
         //set default error message
         errorMessageLabel.text  = ""
-        let linkedTransactionStillExists = transactionAgent.findReocurringMyTransactionLinkedToMyGoal(inputDescription: (thisGoal?.desciption)!)
-        if linkedTransactionStillExists.desciption == "error"{
-            errorMessageLabel.text  = "Press SAVE to restore monthly contribution."
+        if isNewGoal == false {
+            let linkedTransactionStillExists = transactionAgent.findReocurringMyTransactionLinkedToMyGoal(inputDescription: (thisGoal?.desciption)!)
+            if linkedTransactionStillExists.desciption == "error"{
+                errorMessageLabel.text  = "Press SAVE to restore monthly contribution."
+            }
         }
         
         // set keyboard dismiss
