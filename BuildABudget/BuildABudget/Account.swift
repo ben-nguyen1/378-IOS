@@ -15,6 +15,7 @@ class Account: NSObject {
     fileprivate static let kLastNameKey = "lastName"
     fileprivate static let kPassKey = "pass"
     fileprivate static let kCurrencyKey = "currency"
+    fileprivate static let kCalIdKey = "calID"
     
     class func setUserName(_ userName:String) {
         UserDefaults.standard.set(userName, forKey: kUserNameKey)
@@ -41,6 +42,11 @@ class Account: NSObject {
         UserDefaults.standard.synchronize()
     }
     
+    class func setCalId(_ calId:String) {
+        UserDefaults.standard.set(calId, forKey: kCalIdKey)
+        UserDefaults.standard.synchronize()
+    }
+    
     class func userName() -> String {
         return UserDefaults.standard.object(forKey: kUserNameKey) as! String
     }
@@ -60,6 +66,9 @@ class Account: NSObject {
     class func currency() -> String {
         return UserDefaults.standard.object(forKey: kCurrencyKey) as! String
     }
-
+    
+    class func calId() -> String {
+        return UserDefaults.standard.object(forKey: kCalIdKey) as! String
+    }
 }
 

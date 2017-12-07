@@ -197,7 +197,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lQO-Pm-arN">
-                                <rect key="frame" x="82" y="95" width="277" height="30"/>
+                                <rect key="frame" x="189" y="95" width="170" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -275,9 +275,9 @@
                             <constraint firstItem="Aay-DH-UrA" firstAttribute="top" secondItem="Cui-Dg-fEb" secondAttribute="bottom" constant="20" id="XWg-Bc-QwX"/>
                             <constraint firstItem="ZhU-KA-2BY" firstAttribute="top" secondItem="lQO-Pm-arN" secondAttribute="bottom" constant="23" id="ZXH-AT-n2s"/>
                             <constraint firstItem="moA-mP-eXj" firstAttribute="top" secondItem="Igv-HF-2vK" secondAttribute="bottom" constant="118" id="b0J-AL-lYU"/>
+                            <constraint firstItem="lQO-Pm-arN" firstAttribute="leading" secondItem="Bzp-Rv-Ewk" secondAttribute="trailing" constant="123" id="bxf-cl-dai"/>
                             <constraint firstItem="uOb-fg-mBc" firstAttribute="centerX" secondItem="IBR-m4-UeD" secondAttribute="centerX" id="cG7-cW-JAB"/>
                             <constraint firstItem="XQ6-JZ-qO0" firstAttribute="centerX" secondItem="IBR-m4-UeD" secondAttribute="centerX" id="cH3-ES-Lsz"/>
-                            <constraint firstItem="lQO-Pm-arN" firstAttribute="leading" secondItem="Bzp-Rv-Ewk" secondAttribute="trailing" constant="16" id="dez-jv-2Lg"/>
                             <constraint firstItem="bm9-gL-LZg" firstAttribute="top" secondItem="XQ6-JZ-qO0" secondAttribute="bottom" constant="59" id="dgp-OM-Z4f"/>
                             <constraint firstItem="iII-E7-hcS" firstAttribute="top" secondItem="GFh-Sz-Kyg" secondAttribute="bottom" constant="33" id="env-sy-VtP"/>
                             <constraint firstItem="uOb-fg-mBc" firstAttribute="top" secondItem="uIi-yR-VDP" secondAttribute="top" constant="46" id="h4S-UW-NGo"/>
@@ -434,7 +434,6 @@ AAAAAAAAAAAAGTc
         </image>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="5Hx-1J-HTL"/>
         <segue reference="Ryd-wc-AAL"/>
     </inferredMetricsTieBreakers>
 </document>

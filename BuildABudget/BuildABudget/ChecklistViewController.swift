@@ -14,6 +14,7 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
     // Var with ability to interface with the coreData storage methods
     let ChecklistAccess = AccessService.access
     let GoalsVC = GoalsViewController.gvc
+    let transactionAgent = MyTransaction.agent
     
     var dateConverter = MyDate()
     var unpaidItems: [MyTransaction] = []
@@ -29,7 +30,7 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
     var moneyValidator = BudgetViewController.bc
     
     //Set custom colors
-    let moneyPositiveColor = UIColor(red:0.32, green:0.64, blue:0.33, alpha:1.0)    //hex: 0x51A453
+    let moneyPositiveColor = UIColor(red:0.32, green:0.64, blue:0.33, alpha:1.0)  //hex: 0x51A453
     let textFieldErrorColor = UIColor(red:1.00, green:0.00, blue:0.00, alpha:1.0) //hex: FF0000
     
     override func viewDidLoad() {
@@ -50,10 +51,12 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
         // Dispose of any resources that can be recreated.
     }
     
+    //this method sorts all MyTransaction objects, which do not belong to completed goals, into paid and unpaid lists
     func updateCheckListItems() {
         unpaidItems = []
         paidItems = []
 
+        /*
         ChecklistAccess.retreiveAllTransactions()
         var i = 0
         while (i < ChecklistAccess.totalTransactions()) {
@@ -62,12 +65,33 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
                 if (currTransaction.isPastDue()) {
                     paidItems.append(currTransaction)
                 } else {
-                    unpaidItems.append(currTransaction)
+                    if currTransaction.linkedTransactionHasAmountGreaterThanZero(inputTransaction: currTransaction) == true {
+                        unpaidItems.append(currTransaction)
+                    }
                 }
             }
             i += 1
         }
         print(i)
+         */
+        
+        let list:[MyTransaction] = transactionAgent.getAllReoccuringTransactions()
+        for item in list{
+            if item.isReoccuring && !item.isIncome {
+                if item.isPastDue() {
+                    paidItems.append(item)
+                }
+                else {
+                    unpaidItems.append(item)
+                }
+            }
+        }
+    }
+    
+    func createOneTimeTransactionCopy( originalReoccurringTransaction: MyTransaction) -> MyTransaction {
+        var copyOfOriginal = MyTransaction.init() //dummy value
+        copyOfOriginal = copyOfOriginal.copy(originalTransaction: originalReoccurringTransaction)
+        return copyOfOriginal
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -96,14 +120,20 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
 
     func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
         let paid = UITableViewRowAction(style: .normal, title: "Paid") { action, index in
-            let transactionToChange = self.unpaidItems[index.row]
+            var transactionToChange = self.unpaidItems[index.row]
             self.applyPaymentToGoal(inputTransaction: transactionToChange)
-            print(">>>line 104")
             self.ChecklistAccess.deleteTransaction(input: transactionToChange)
+            
             transactionToChange.datePaidOff = Date()
+            //now save a NON-reoccurring MyTransaction -> this will be used by TransactionViewController
+            let copy = self.createOneTimeTransactionCopy(originalReoccurringTransaction: transactionToChange)
+            self.ChecklistAccess.saveTransaction(input: copy)
+            
             self.ChecklistAccess.saveTransaction(input: transactionToChange)
             self.updateTables()
             print("paid button tapped \(index.row)")
+            
+            
         }
         paid.backgroundColor = UIColor.green
         
@@ -118,22 +148,21 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func applyPaymentToGoal(inputTransaction: MyTransaction) {
-        print(">>>Made it to line 124")
         let targetGoal = GoalsVC.getSpecificGoal(goalName: inputTransaction.linkedToGoal)
         if targetGoal.desciption == "error"{
-            print("Could not find MyTransaction linked to \(inputTransaction.linkedToGoal)")
+            //print("Could not find MyTransaction linked to \(inputTransaction.linkedToGoal)")
             return
         }
         else {
             //add the totalDue amount from the transaction to the goal's contributionList
-            print(">>>Applying payment to goal \(targetGoal.desciption) , original contributionList = \(targetGoal.allContributions)")
+            //print(">>>Applying payment to goal \(targetGoal.desciption) , original contributionList = \(targetGoal.allContributions)")
             targetGoal.allContributions += inputTransaction.totalDue
-            print(">>>Payment to goal \(targetGoal.desciption) , new contributionList = \(targetGoal.allContributions)")
+            //print(">>>Payment to goal \(targetGoal.desciption) , new contributionList = \(targetGoal.allContributions)")
             
             //save this updated goal by deleting the old instance of the goal and then saving targetGoal
             ChecklistAccess.deleteGoal(input: targetGoal)
             ChecklistAccess.saveGoal(input: targetGoal)
-            print(">>>CHecklist: \(targetGoal)")
+            print(">>>Checklist: \(targetGoal)")
         }
     }
     
@@ -154,7 +183,7 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
             }
             let currency = Account.currency()
             cell.amountLabel!.text = "\(currency)\(currItem.totalDue)"
-            cell.dueDateLabel.text = dateConverter.dateToString(inputDate: currItem.dueDate)
+            cell.dueDateLabel.text = dateConverter.shortDateToString(inputDate: currItem.dueDate)
             return cell
         } else {
             let currency = Account.currency()
@@ -162,7 +191,7 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
             let currItem = paidItems[indexPath.row]
 
             newCell.amountLabel.text = "\(currency)\(currItem.totalDue)"
-            newCell.dateLabel!.text = dateConverter.dateToString(inputDate: currItem.datePaidOff)
+            newCell.dateLabel!.text = dateConverter.shortDateToString(inputDate: currItem.datePaidOff)
             
             if (currItem.desciption.count < 8) {
                 newCell.expenseLabel!.text = currItem.desciption
@@ -175,7 +204,6 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     @IBAction func addExpense(_ sender: Any) {
-        
         addExpense( errorField: "none", errorMessage: "Enter the details for the new checklist expense.", previousTextFieldInput: [])
     }
     
@@ -298,10 +326,20 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
             //set the data that we grabbed into local variables
             description = descriptionTextField
             transactionDate = self.dateConverter.stringToDate(inputString: dueDateTextField)
+            let datePaidOff = self.dateConverter.setToYesterday(today: Date()) //added by chris 
             cost = (costTextField as NSString).doubleValue
             
-            //Build the MyTransaction Object
-            let newExpense = MyTransaction(description: description, dueDate: transactionDate!, totalDue: cost, isReoccuring: true, isIncome: false)
+            let newExpense = MyTransaction.create(iDes: description,
+                                                  iIniDate: Date(),
+                                                  iDueDate: transactionDate!,
+                                                  iDatePaidOff: datePaidOff,
+                                                  iTotalDue: cost,
+                                                  iIsReoccuring: true,
+                                                  iIsIncome: false,
+                                                  iLinkedToGoal: "",
+                                                  iReminderID: "",
+                                                  createNewReminder: true,
+                                                  callingVC: self)
             
             self.ChecklistAccess.saveTransaction(input: newExpense)
             self.updateTables()

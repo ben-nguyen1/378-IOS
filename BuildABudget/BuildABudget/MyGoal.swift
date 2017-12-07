@@ -32,6 +32,7 @@ class MyGoal {
     //instanciate a MyDate object to be used within this class
     let goalsDate = MyDate.dateConverter
     let goalsAccess = AccessService.access
+    let goalsReminder = Reminders.agent
     
     //getters/setters
     var desciption:String {
@@ -83,7 +84,7 @@ class MyGoal {
     //ToString FUNCTIONS
     //return the targetDate as a string
     func tagetDateToString() -> String{
-        return goalsDate.shortDateToString(inputDate: _targetDate)
+        return goalsDate.dateToString(inputDate: _targetDate)
     }
     
     //return the startDate as a string
@@ -98,6 +99,17 @@ class MyGoal {
     
     func targetAmountToString() -> String {
         return String(targetAmount)
+    }
+    
+    func setEqualToGoal( oldGoal: MyGoal) -> MyGoal {
+        
+        return MyGoal.create(iContributionList: oldGoal.allContributions,
+                             iDescription: oldGoal.desciption,
+                             iMonthlyContribution: oldGoal.monthlyContribution,
+                             iStartDate: oldGoal.startDate,
+                             iTargetDate: oldGoal.targetDate,
+                             iTargetAmount: oldGoal.targetAmount)
+        
     }
     
     //func for calculating the estimated completion date
@@ -125,20 +137,25 @@ class MyGoal {
     func getRemainingAmount() -> Double {
         print(">>>MyGoal: Made it to getRemainingAmount()")
         print("Goal name = \(self.targetAmount) - \(self._contributionList)")
-        return self.targetAmount - self._contributionList
+        var subTotal =  self.targetAmount - self._contributionList
+        if subTotal < 0 {
+            subTotal = 0
+        }
+        return subTotal
     }
     
     func getProgressString() -> String{
-        let tempDouble:Double =  (self.getCurrentSavedAmount() / self.targetAmount)
+        let tempDouble:Double =  (self.getCurrentSavedAmount() / self.targetAmount) * 100
         return String(format: "%.2F", tempDouble )
     }
     
     func getProgress() -> Float{
-        return Float(self.getCurrentSavedAmount() / self.targetAmount)
+        return Float(self.getCurrentSavedAmount() / self.targetAmount) * 100
     }
     
     func saveMyGoal(inputGoal: MyGoal){
         goalsAccess.saveGoal(input: inputGoal)
+        //goalsReminder.createReoccuranceRule(occuranceNumericalDay: 28, endDate: inputGoal.targetDate) //all MyGoal objects are set to be paid on each 28th of the month -> reminders will be the same
     }
     
     func deleteMyGoal(inputGoal: MyGoal){
@@ -161,6 +178,17 @@ class MyGoal {
                         startDate:              iStartDate,
                         targetDate:             iTargetDate,
                         targetAmount:           iTargetAmount )
+    }
+    
+    func findMyGoalByName( inputName: String) -> MyGoal {
+        
+        let list = getAllGoals()
+        for item in list {
+            if item.desciption == inputName{
+                return item
+            }
+        }
+        return MyGoal() //this has a description of "error" which indicates that we have not found the MyGoal object we searched for
     }
     
     //initializers

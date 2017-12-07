@@ -26,7 +26,7 @@ class GoalsCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func config( inputName: String, inputProgress: Float, inputProgressString: String, inputEstimatedCompletionDateString: String, inputStartDateString: String) {
+    func config( inputName: String, inputProgress: Float, inputProgressString: String, inputEstimatedCompletionDateString: String, inputStartDateString: String, backGroundColorOrange: Int) {
         
         goalName.text = inputName //Unexpectedly found nil while unwrapping an Optional Value
         estimatedCompletionDate.text = inputEstimatedCompletionDateString
@@ -35,9 +35,21 @@ class GoalsCell: UITableViewCell {
         
         //setup the progressBar
         progressBar.progressTintColor = setupProgressBar(inputPercentProgress: (inputProgress * 0.1) * 0.1)
-        progressBar.trackTintColor = UIColor.orange
+        progressBar.trackTintColor = UIColor.white
         progressBar.setProgress( (inputProgress * 0.1) * 0.1, animated: true)
         self.contentView.layer
+        if backGroundColorOrange == 1 {
+            self.contentView.backgroundColor = UIColor.green
+        } else if backGroundColorOrange == 2 {
+            self.contentView.backgroundColor = UIColor.orange
+        }
+        
+        //set cell shadow
+        //self.contentView.layer.cornerRadius = 10
+        self.contentView.layer.shadowColor = UIColor.gray.cgColor
+        //self.contentView.layer.shadowRadius = 3
+        self.contentView.layer.shadowOpacity = 0.5
+        self.contentView.clipsToBounds = true
     }
     
     //sets the progress bar color based on the percent progress toward completion

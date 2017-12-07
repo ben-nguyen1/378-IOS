@@ -18,6 +18,7 @@ class GoalsViewController: UIViewController, UITableViewDataSource, UITableViewD
     let goalDate = MyDate()
     let reuseIdentifier = "GoalsCell"
     static let gvc = GoalsViewController()
+    let reminder = Reminders.agent
     
     //UIViewController functions
     override func viewDidLoad() {
@@ -48,13 +49,22 @@ class GoalsViewController: UIViewController, UITableViewDataSource, UITableViewD
         let cell = tableView.dequeueReusableCell(withIdentifier: "GoalsCell", for: indexPath) as! GoalsCell
         let goalAtIndex = goalsList[indexPath.item]
         
+        var markAsNeedsAttention:Int = 0 // key: 0 = no change to background color, 1 = change to orange (gets user attention), 2 = change to green
+        var foundTransaction:MyTransaction = MyTransaction.init()
+        foundTransaction = foundTransaction.findMyTransactionLinkedToMyGoal( inputDescription: goalAtIndex.desciption )
+        if goalAtIndex.getProgress() >= 100.0 {
+            markAsNeedsAttention = 1 //change background to green
+        } else if foundTransaction.desciption == "error" {
+            markAsNeedsAttention = 2 //change background to orange
+        }
+        
         //config( inputName: String, inputProgress: Float, inputEstimatedCompletionDate: Date)
         cell.config( inputName:                          goalAtIndex.desciption,
                      inputProgress:                      goalAtIndex.getProgress(),
                      inputProgressString:                goalAtIndex.getProgressString(),
                      inputEstimatedCompletionDateString: goalDate.dateToString(inputDate: ( goalAtIndex.getEstimatedCompletionDate() )),
-                     inputStartDateString:               goalDate.dateToString(inputDate: ( goalAtIndex.startDate ) )
-        )
+                     inputStartDateString:               goalDate.dateToString(inputDate: ( goalAtIndex.startDate )),
+                     backGroundColorOrange:              markAsNeedsAttention )
         return cell
     }
     
@@ -141,6 +151,18 @@ class GoalsViewController: UIViewController, UITableViewDataSource, UITableViewD
         //now pass to AccessService class to delete the coreDate NSObject for inputGoal
         print("!!!--- MADE IT TO GOALSVC deleteThisGoal func ---!!!")
         self.GoalsAccess.deleteGoal(input: goalToDelete)
+        
+        //delete this MyTransaction reminder associated with this MyGoal object
+        var oldMyTransactionLinkedToThisGoal:MyTransaction = MyTransaction.init()
+        print("TEST 1: oldMyTransactionLinkedToThisGoal = \(oldMyTransactionLinkedToThisGoal.desciption)\n\(oldMyTransactionLinkedToThisGoal.linkedToGoal)")
+
+        oldMyTransactionLinkedToThisGoal = oldMyTransactionLinkedToThisGoal.findMyTransactionLinkedToMyGoal( inputDescription: goalToDelete.desciption )
+        print("TEST 2: oldMyTransactionLinkedToThisGoal = \(oldMyTransactionLinkedToThisGoal.desciption)\n\(oldMyTransactionLinkedToThisGoal.linkedToGoal)")
+
+        if oldMyTransactionLinkedToThisGoal.desciption != "error"{
+            AccessService.access.deleteTransaction(input: oldMyTransactionLinkedToThisGoal)
+            reminder.deleteCalendarEvent(callingUIViewController: self, callingReoccuringTransaction: oldMyTransactionLinkedToThisGoal)
+        }
     }
     
     func removeThisGoalFromGoalsList( goalToRemove: MyGoal) {
@@ -154,8 +176,26 @@ class GoalsViewController: UIViewController, UITableViewDataSource, UITableViewD
                 print("goalsList count after = \(goalsList.count)")
             }
         }
+        
         deleteThisGoal( goalToDelete: goalToRemove)
     }
+    
+    /*
+    //finds if this transaction is unique based on the inputTransaction description and the LinkedToGoal property
+    func findMyTransactionLinkedToMyGoal( inputTransaction: MyTransaction ) -> MyTransaction{
+        
+        var list = getAllTransactions()
+        for item in list {
+            if item.desciption == inputTransaction.desciption && item.linkedToGoal == inputTransaction.linkedToGoal {
+                return item
+            }
+        }
+        
+        //We only get here if we did not find anything
+        print(">>>MYTRANSACTION: ERROR -> could not find the linked MyTransaction for goal")
+        return MyTransaction.init() //the description property of thie MyTransaction is set to "error" which is what we will check in the calling function
+    }
+ */
     
 }//end of class
 

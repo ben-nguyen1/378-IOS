@@ -14,6 +14,7 @@ class OverViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var reminderTableView: UITableView!
     @IBOutlet weak var goalsTableView: UITableView!
     var accessService = AccessService.access
+    let reminderAgent = Reminders.agent
     
     var dateConverter = MyDate()
     var reminders: [MyTransaction] = []
@@ -29,6 +30,7 @@ class OverViewController: UIViewController, UITableViewDataSource, UITableViewDe
         goalsTableView.delegate = self
         self.navigationItem.setHidesBackButton(true, animated:true);
         self.title = "Overview"
+        reminderAgent.checkAuthorization(callingUIViewController: self)
         
     }
 

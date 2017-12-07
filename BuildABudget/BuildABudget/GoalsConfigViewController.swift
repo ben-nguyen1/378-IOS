@@ -28,6 +28,8 @@ class GoalsConfigViewController: UIViewController, UITextFieldDelegate {
     var thisGoal:MyGoal? //= nil //must be var because this could be overwritten by a cell seque.
     var isNewGoal = true //value is only changed when the GoalsCell segue sets this to false to indicate thisGoal is an existing MyGoal
     let bvc = BudgetViewController.bc
+    let reminder = Reminders.agent
+
     static let gcvc = GoalsConfigViewController()
     @IBOutlet weak var errorMessageLabel: UILabel!
     @IBOutlet weak var nameTextField:                UITextField!
@@ -44,6 +46,7 @@ class GoalsConfigViewController: UIViewController, UITextFieldDelegate {
     let textFieldErrorColor = UIColor(red:1.00, green:0.00, blue:0.00, alpha:1.0) //hex: FF0000
     
     @IBAction func cancelButton(_ sender: Any) {} //button action only returns you to GoalsVC screen
+    
     @IBAction func saveGoalButton(_ sender: Any) {
         
         //grab all the data from the alert window's text fields -> we are bringing them in as string first and checking that the input is valid
@@ -54,8 +57,8 @@ class GoalsConfigViewController: UIViewController, UITextFieldDelegate {
         
         let noEmptyFields:     Bool = allFieldsFilledOut()
         let fieldsWereChanged: Bool = existingGoalValuesChangedByUser( inputNameString:                newNameString,
-                                                                       inputTargetDateString:          newMonthlyContributionString,
-                                                                       inputMonthlyContributionString: newTargetDateString,
+                                                                       inputTargetDateString:          newTargetDateString,
+                                                                       inputMonthlyContributionString: newMonthlyContributionString,
                                                                        inputTargetAmountString:        newTargetAmountString )
         //check name field
         if ((self.nameTextField?.text)?.isEmpty)! {
@@ -125,6 +128,9 @@ class GoalsConfigViewController: UIViewController, UITextFieldDelegate {
             self.monthlyContributionTextField?.layer.borderColor = UIColor.white.cgColor
         }
         
+        //let test = transactionLinkedToGoalStillExists(inputGoalDescription: thisGoal?.desciption )
+        //print("TEST RESULTS = \(test)")
+            
         if isNewGoal == true && noEmptyFields {
             
             thisGoal = MyGoal.create( iContributionList:    0.0,
@@ -137,13 +143,9 @@ class GoalsConfigViewController: UIViewController, UITextFieldDelegate {
             thisGoal?.saveMyGoal(inputGoal: thisGoal!)//pass this newly constructed MyGoal object to MyGoal class to be saved
             
             //save the monthly contribution as an expense
-            saveNewMonthlyContributionAsBudgetExpense(gDes: newNameString, gTotalDue: newMonthlyContributionString, gGoalName: (thisGoal?.desciption)!)
+            saveNewMonthlyContributionAsBudgetExpense(inputGoal: thisGoal!)
             self.sequeBackToGoalsVC( conditional: true)
-        }
-            
-        else if isNewGoal == false && noEmptyFields && fieldsWereChanged == true {
-            
-            print("!!! TEST: thisGoal = \(String(describing: thisGoal))")
+        } else if ( (isNewGoal == false && noEmptyFields && fieldsWereChanged == true) || (transactionLinkedToGoalStillExists(inputGoalDescription: (thisGoal?.desciption)! ) == false ) ) {
             //since we are not allowing duplicate MyGoal records we have to delete the original thisGoal from CoreDate
             if self.thisGoal === nil {
                 print("HELP: this goal is nil -> thisGoal == \(String(describing: thisGoal!))")
@@ -152,10 +154,21 @@ class GoalsConfigViewController: UIViewController, UITextFieldDelegate {
             else {
                 print("HELP: this goal is not nil")
             }
+            
+            let contributionTotal = thisGoal?.allContributions
+            
+            //delete the old instance of the transaction only if the MonthlyContribution text field has changed
+            //if thisGoal?.monthlyContribution != Double(newMonthlyContributionString)! {
+                var oldTransactionLinkedToThisGoal = MyTransaction.init()
+                oldTransactionLinkedToThisGoal = oldTransactionLinkedToThisGoal.findMyTransactionLinkedToMyGoal(inputDescription: (thisGoal?.desciption)!)
+                GoalsConfigAccess.deleteTransaction(input: oldTransactionLinkedToThisGoal)
+            //}
+            
+            
             GoalsConfigAccess.deleteGoal(input: thisGoal!)
             
             //Now that the original thisGoal is not in CoreDate we can save an updated version of thisGoal
-            thisGoal = MyGoal.create( iContributionList:    0.0,
+            thisGoal = MyGoal.create( iContributionList:    contributionTotal!,
                                       iDescription:         newNameString,
                                       iMonthlyContribution: Double(newMonthlyContributionString)!,
                                       iStartDate:           Date(),
@@ -165,36 +178,56 @@ class GoalsConfigViewController: UIViewController, UITextFieldDelegate {
             thisGoal?.saveMyGoal(inputGoal: thisGoal!)//pass this newly constructed MyGoal object to MyGoal class to be saved
         
             //save the monthly contribution as an expense
-            saveNewMonthlyContributionAsBudgetExpense(gDes: newNameString, gTotalDue: newMonthlyContributionString, gGoalName: (thisGoal?.desciption)!)
+            saveNewMonthlyContributionAsBudgetExpense(inputGoal: thisGoal!)
             self.sequeBackToGoalsVC( conditional: true)
         } else {
             print("ERROR: no goals Saved")//error
         }
     }
     
-    func saveNewMonthlyContributionAsBudgetExpense(gDes:            String,
-                                                   gTotalDue:       String,
-                                                   gGoalName:       String) {
+    func transactionLinkedToGoalStillExists(inputGoalDescription: String ) -> Bool{
+        print("MADE IT TO : transactionLinkedToGoalStillExists")
+        var oldTransactionLinkedToThisGoal = MyTransaction.init()
+        oldTransactionLinkedToThisGoal = oldTransactionLinkedToThisGoal.findMyTransactionLinkedToMyGoal(inputDescription: inputGoalDescription )
+        print("oldTransactionLinkedToThisGoal = \(oldTransactionLinkedToThisGoal)")
+        
+        if oldTransactionLinkedToThisGoal.desciption == "error" {
+            return false
+        }
+        else {
+            return true
+        }
+    }
+    
+    func saveNewMonthlyContributionAsBudgetExpense( inputGoal: MyGoal) {
+        
+        var gDes = inputGoal.desciption
+        var gTotalDue = inputGoal.monthlyContribution
+        var gGoalName = inputGoal.desciption
         
         //all error checking is assumed to be completed in saveButton action
+        
         let now = Date()
         let goalMonth:Int = thisDate.month(inputDate: now)
         let goalDay:Int = thisDate.day(inputDate: now)
         let goalYear:Int = thisDate.year(inputDate: now)
         let monthlyDueDate:Date = thisDate.makeDateSetToDay28(inputMonth: goalMonth, inputYear: goalYear)
         
-        //Build the MyTransaction Object
-        let newBudgetExpense = MyTransaction.createMonthlyGoalContribution( iDes: gDes,
-                                                                            iIniDate:         Date(),
-                                                                            iDueDate:         monthlyDueDate, //always set to 28th of every month -> design choice since there is always a 28th of the month
-                                                                            iDatePaidOff:     MyDate.dateConverter.setToYesterday(today: Date()),
-                                                                            iTotalDue:        (gTotalDue as NSString).doubleValue,
-                                                                            iIsReoccuring:    true,
-                                                                            iIsIncome:        false,
-                                                                            iLinkedToGoal:    gGoalName)
+        let newExpense = MyTransaction.create(iDes:              gDes,
+                                              iIniDate:          Date(),
+                                              iDueDate:          monthlyDueDate,
+                                              iDatePaidOff:      MyDate.dateConverter.setToYesterday(today: Date()),
+                                              iTotalDue:         gTotalDue,
+                                              iIsReoccuring:     true,
+                                              iIsIncome:         false,
+                                              iLinkedToGoal:     gGoalName,
+                                              iReminderID:       "",
+                                              createNewReminder: true,
+                                              callingVC:         self)
+        
         
         //save the MyTransaction Object to CoreData
-        AccessService.access.saveTransaction(input: newBudgetExpense)
+        AccessService.access.saveTransaction(input: newExpense)
     }
     
     func allFieldsFilledOut() -> Bool{
@@ -217,13 +250,37 @@ class GoalsConfigViewController: UIViewController, UITextFieldDelegate {
                                           inputTargetAmountString: String
         ) -> Bool{
         
+        /*
+        print("-------------------------------------------------------------------------")
+        print("thisGoal?.desciption = \(thisGoal?.desciption) -> \(inputNameString)")
+        if thisGoal?.desciption == inputNameString {
+            print("---> true")
+        }
+        print("thisGoal?.tagetDateToString()  = \(thisGoal?.tagetDateToString()) -> \(inputTargetDateString )")
+        if thisGoal?.tagetDateToString() == inputTargetDateString {
+            print("---> true")
+        }
+        print("thisGoal?.monthlyContributionToString() = \(thisGoal?.monthlyContributionToString()) -> \(inputMonthlyContributionString)")
+        if thisGoal?.monthlyContributionToString() == inputMonthlyContributionString {
+            print("---> true")
+        }
+        print("thisGoal?.targetAmountToString() = \(thisGoal?.targetAmountToString()) -> \(inputTargetAmountString)")
+        if thisGoal?.targetAmountToString() == inputTargetAmountString {
+            print("---> true")
+        }
+        print("-------------------------------------------------------------------------")
+        */
+        
         //if the user either did not change any field or did so only to change the value of the changed field back to the original value
         if (thisGoal?.desciption                    == inputNameString                &&
             thisGoal?.tagetDateToString()           == inputTargetDateString          && //misspelling should not be corrected for BETA
             thisGoal?.monthlyContributionToString() == inputMonthlyContributionString &&
             thisGoal?.targetAmountToString()        == inputTargetAmountString ) {
+            
+            errorMessageLabel.text = "No changes were made."
             return false
         } else {
+            
             return true //the user must have changed one field from its existing value
         }
     }
@@ -263,7 +320,6 @@ class GoalsConfigViewController: UIViewController, UITextFieldDelegate {
     }
     
     func sequeBackToGoalsVC( conditional: Bool) {
-    
         if( conditional == true ) {
             self.performSegue(withIdentifier: "backToGoalsVC", sender: self)
         }

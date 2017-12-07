@@ -63,8 +63,29 @@ class TransactionViewController: UIViewController, UITableViewDataSource, UITabl
             return
         }
         let date = Date()
-        let newTransaction = MyTransaction(description: "Trans-\(date.description(with: nil))", dueDate: date, totalDue: (costTextField as NSString).doubleValue, isReoccuring: false, isIncome: isIncome)
+        let datePaidOff = dateConverter.setToYesterday(today: Date())
+        
+        /*
+        let newTransaction = MyTransaction(description: "Trans-\(date.description(with: nil))",
+            dueDate: date,
+            totalDue: (costTextField as NSString).doubleValue,
+            isReoccuring: false,
+            isIncome: isIncome)
         newTransaction.datePaidOff = date
+        */
+        
+        let newTransaction = MyTransaction.create(iDes: "Trans-\(date.description(with: nil))",
+                                                  iIniDate: Date(),
+                                                  iDueDate: date,
+                                                  iDatePaidOff: datePaidOff,
+                                                  iTotalDue: (costTextField as NSString).doubleValue,
+                                                  iIsReoccuring: false,
+                                                  iIsIncome: isIncome,
+                                                  iLinkedToGoal: "", //check if this is correct
+                                                  iReminderID: "",
+                                                  createNewReminder: true,
+                                                  callingVC: self)
+        
         transactionAccess.saveTransaction(input: newTransaction)
     }
     
@@ -122,6 +143,7 @@ class TransactionViewController: UIViewController, UITableViewDataSource, UITabl
     }
 
     func updateTransactions() {
+        /*
         transactions = TransactionRetrieval.getAllTransactions()
         
         var amount: Double = 0.0
@@ -141,6 +163,26 @@ class TransactionViewController: UIViewController, UITableViewDataSource, UITabl
         }
 
         self.transactionTable.reloadData()
+        */
+        var amount: Double = 0.0
+        var list = TransactionRetrieval.getAllNonReoccuringTransactions()
+        for item in list {
+            if item.isIncome {
+                amount += item.totalDue
+            } else {
+                amount -= item.totalDue
+            }
+        }
+        let currency = Account.currency()
+        self.amountLabel.text = "\(currency)\(amount)"
+        if (amount >= 0) {
+            amountLabel.textColor = UIColor(red:0.32, green:0.64, blue:0.33, alpha:1.0)
+        } else {
+            amountLabel.textColor = UIColor.red
+        }
+        
+        self.transactionTable.reloadData()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

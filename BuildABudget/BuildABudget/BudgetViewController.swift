@@ -50,6 +50,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     var BudgetAccess = AccessService.access
     let thisDate = MyDate.dateConverter
     static let bc = BudgetViewController()
+    let transactionAgent = MyTransaction.agent
     
     //var dueDatePicker
     let dueDatePicker = UIDatePicker()
@@ -96,8 +97,14 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "BudgetExpenseCell", for: indexPath) as! BudgetExpenseCell
             //set up the cell
-            let shortDate = thisDate.shortDateToString(inputDate: (expenseList[indexPath.item].dueDate) )
-            cell.config(inputName: expenseList[indexPath.item].desciption, inputDate: shortDate, inputAmount: expenseList[indexPath.item].totalDue.description) //may need to chnage how to parameters dueDate and amount are converted to string.
+            var dueDate = expenseList[indexPath.item].dueDate
+            if dueDate < Date() { //if the due date has passed
+                dueDate = thisDate.getDateXNumDaysFromNow(inputStartDate: dueDate, inputXNumDays: 30)
+            }
+            let shortDate = thisDate.shortDateToString(inputDate: dueDate )
+            let amount = expenseList[indexPath.item].adjustExpenseAmountString(inputTransaction: expenseList[indexPath.item] )
+            
+            cell.config(inputName: expenseList[indexPath.item].desciption, inputDate: shortDate, inputAmount: amount) //may need to chnage how to parameters dueDate and amount are converted to string.
             cell.inViewTable = 222
             return cell
         }
@@ -157,13 +164,17 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             totalDue = (totalDueTextField as NSString).doubleValue
             
             //Build the MyTransaction Object
-            let newBudgetItem = MyTransaction.create( iDes: description,
-                                                      iIniDate: Date(),
-                                                      iDueDate: dueDate!,
-                                                      iDatePaidOff: MyDate.dateConverter.setToYesterday(today: Date()),
-                                                      iTotalDue: totalDue,
-                                                      iIsReoccuring: true,
-                                                      iIsIncome: isIncome)
+            let newBudgetItem = MyTransaction.create(iDes:              description,
+                                                     iIniDate:          Date(),
+                                                     iDueDate:          dueDate!,
+                                                     iDatePaidOff:      MyDate.dateConverter.setToYesterday(today: Date()),
+                                                     iTotalDue:         totalDue,
+                                                     iIsReoccuring:     true,
+                                                     iIsIncome:         isIncome,
+                                                     iLinkedToGoal:     "",
+                                                     iReminderID:       "",
+                                                     createNewReminder: true,
+                                                     callingVC:         self )
             
             //save the MyTransaction Object to CoreData
             AccessService.access.saveTransaction(input: newBudgetItem)
@@ -212,6 +223,8 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         super.didReceiveMemoryWarning()
     }
     
+
+    
     //update incomeList, expenseList, incomeTotal, expenseTotal
     func update(){
         
@@ -223,8 +236,9 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         incomeTotal = 0.0
         expenseTotal = 0.0
         
+        /*
         var i = 0
-        var limit = BudgetAccess.totalTransactions()
+        let limit = BudgetAccess.totalTransactions()
         for i in 0..<limit {
             let temp = BudgetAccess.getTransaction(index: i)
             if temp.isReoccuring {
@@ -235,8 +249,22 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
                 }
                 else {
                     expenseList.append(temp)
-                    expenseTotal += temp.totalDue
+                    expenseTotal += temp.adjustExpenseAmountDouble(inputTransaction: temp)
                     print("expenseTotal = \(expenseTotal)")
+                }
+            }
+        }
+         */
+        let list = transactionAgent.getAllReoccuringTransactions()
+        for item in list {
+            if item.isReoccuring{
+                if item.isIncome {
+                    incomeList.append(item)
+                    incomeTotal += item.totalDue
+                }
+                else {
+                    expenseList.append(item)
+                    expenseTotal += item.adjustExpenseAmountDouble(inputTransaction: item)
                 }
             }
         }
@@ -363,27 +391,27 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             }
             
             let yesterday:Date = self.thisDate.setToYesterday(today: Date())
-            print("!!!--- yesterday = \(self.thisDate.setToYesterday(today: yesterday))")
+            //print("!!!--- yesterday = \(self.thisDate.setToYesterday(today: yesterday))")
             let inputDate:Date = self.thisDate.stringToDate(inputString: (self.dueDateTextField?.text)!)
-            print("!!!--- inputDate = \(self.thisDate.stringToDate(inputString: (self.dueDateTextField?.text)!)))")
+            //print("!!!--- inputDate = \(self.thisDate.stringToDate(inputString: (self.dueDateTextField?.text)!)))")
             let isValidDateFormat:Bool = self.thisDate.isValidMMDDYYYYFormat(inputDateString: (self.dueDateTextField?.text)!)
             
             guard let dueDateTextField = self.dueDateTextField?.text,  !(self.dueDateTextField?.text?.isEmpty)!, inputDate > yesterday, isValidDateFormat else {
                 
                 if (self.dueDateTextField?.text?.isEmpty)! {
                     self.addIncome( errorField: "dueDateTextField", errorMessage: "Date cannot be blank", previousTextFieldInput: rawTextFieldInput)
-                    print("bad input due date")
+                    //print("bad input due date")
                     return
                 }
                 
                 if !(inputDate > yesterday) {
                     self.addIncome( errorField: "dueDateTextField", errorMessage: "Date cannot be in the past", previousTextFieldInput: rawTextFieldInput)
-                    print("bad input due date")
+                    //print("bad input due date")
                     return
                 }
                 
                 self.addIncome( errorField: "dueDateTextField", errorMessage: "Please enter a date in MM/DD/YYYY format", previousTextFieldInput: rawTextFieldInput)
-                print("bad input due date")
+                //print("bad input due date")
                 return
             }
             
@@ -393,13 +421,17 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             totalDue = (totalDueTextField as NSString).doubleValue
             
             //Build the MyTransaction Object
-            let newBudgetItem = MyTransaction.create( iDes:             description,
-                                                      iIniDate:         Date(),
-                                                      iDueDate:         dueDate!,
-                                                      iDatePaidOff:     MyDate.dateConverter.setToYesterday(today: Date()),
-                                                      iTotalDue:        totalDue,
-                                                      iIsReoccuring:    true,
-                                                      iIsIncome:        isIncome)
+            let newBudgetItem = MyTransaction.create(iDes:              description,
+                                                     iIniDate:          Date(),
+                                                     iDueDate:          dueDate!,
+                                                     iDatePaidOff:      MyDate.dateConverter.setToYesterday(today: Date()),
+                                                     iTotalDue:         totalDue,
+                                                     iIsReoccuring:     true,
+                                                     iIsIncome:         isIncome,
+                                                     iLinkedToGoal:     "",
+                                                     iReminderID:       "",
+                                                     createNewReminder: true,
+                                                     callingVC:         self )
             
             //save the MyTransaction Object to CoreData
             AccessService.access.saveTransaction(input: newBudgetItem)
@@ -546,13 +578,18 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             totalDue = (totalDueTextField as NSString).doubleValue
             
             //Build the MyTransaction Object
-            let newBudgetItem = MyTransaction.create( iDes:             description,
-                                                      iIniDate:         Date(),
-                                                      iDueDate:         dueDate!,
-                                                      iDatePaidOff:     MyDate.dateConverter.setToYesterday(today: Date()),
-                                                      iTotalDue:        totalDue,
-                                                      iIsReoccuring:    true,
-                                                      iIsIncome:        isIncome)
+            let newBudgetItem = MyTransaction.create(iDes:              description,
+                                                     iIniDate:          Date(),
+                                                     iDueDate:          dueDate!,
+                                                     iDatePaidOff:      MyDate.dateConverter.setToYesterday(today: Date()),
+                                                     iTotalDue:         totalDue,
+                                                     iIsReoccuring:     true,
+                                                     iIsIncome:         isIncome,
+                                                     iLinkedToGoal:     "",
+                                                     iReminderID:       "",
+                                                     createNewReminder: true,
+                                                     callingVC:         self )
+            
             
             //save the MyTransaction Object to CoreData
             AccessService.access.saveTransaction(input: newBudgetItem)

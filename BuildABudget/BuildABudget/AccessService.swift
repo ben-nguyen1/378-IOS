@@ -91,6 +91,7 @@ class AccessService {
         record.setValue(input.targetAmount,         forKey: "targetAmount")
         // Commit the changes.
         do {
+            //save the actual goal
             try managedContext.save()
             goals.append(record)
             print("AccessService: Successful save -> goals count = \(goals.count)")
@@ -198,7 +199,8 @@ class AccessService {
                 input.desciption == transaction.value(forKey: "transactionDescription") as! String &&
                 input.isIncome == transaction.value(forKey: "isIncome") as! Bool &&
                 input.isReoccuring == transaction.value(forKey: "isReoccuring") as! Bool) &&
-                input.linkedToGoal == transaction.value(forKey: "linkedToGoal") as! String {
+                input.linkedToGoal == transaction.value(forKey: "linkedToGoal") as! String &&
+                input.reminderID == transaction.value(forKey: "reminderID") as! String  {
                     context.delete(transaction)
                 }
             }
@@ -234,6 +236,8 @@ class AccessService {
         record.setValue(input.isIncome, forKey: "isIncome")
         record.setValue(input.isReoccuring, forKey: "isReoccuring")
         record.setValue(input.linkedToGoal, forKey: "linkedToGoal")
+        record.setValue(input.reminderID, forKey: "reminderID")
+
         
         //test values received by printing them out
         print("============================================")
@@ -247,6 +251,7 @@ class AccessService {
         print("IsReoccuring = \(input.isReoccuring)")
         print("IsIncome = \(input.isIncome)")
         print("IsLinkedToGoal = \(input.linkedToGoal)")
+        print("reminderID = \(input.reminderID)")
         print("\n\(record)")
         print("============================================")
         
@@ -279,6 +284,8 @@ class AccessService {
             let rIsReoccuring =     record.value(forKey: "isReoccuring") as! Bool//
             let rIsIncome =         record.value(forKey: "isIncome") as! Bool//
             let rIsLinkedToGoal =   record.value(forKey: "linkedToGoal") as! String//
+            let rReminderID =       record.value(forKey: "reminderID") as! String//
+
             
             return MyTransaction(description:       rDescription,
                                  initialInputDate:  rInitialInputDate,
@@ -287,7 +294,8 @@ class AccessService {
                                  totalDue:          rTotalDue,
                                  isReoccuring:      rIsReoccuring,
                                  isIncome:          rIsIncome,
-                                 isLinkedToGoal:    rIsLinkedToGoal)
+                                 isLinkedToGoal:    rIsLinkedToGoal,
+                                 reminderID:        rReminderID )
         } else {
             return MyTransaction()
         }

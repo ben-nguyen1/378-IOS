@@ -28,8 +28,11 @@ class TransactionGoalTableViewController: UITableViewController {
         let limit = GoalsAccess.totalGoals()
         for i in 0..<limit {
             let currentGoalRecord = GoalsAccess.getGoal(index: i)
-            goalsList.append( currentGoalRecord )
+            if currentGoalRecord.getRemainingAmount() > 0 { //do not allow users to apply funds to goals that are completed
+                goalsList.append( currentGoalRecord )
+            }
         }
+        //print("TEST: value = \(value)")
     }
 
     override func didReceiveMemoryWarning() {
@@ -64,14 +67,55 @@ class TransactionGoalTableViewController: UITableViewController {
     
     func addNewTransaction(connectedGoal: MyGoal?) {
         let date = Date()
-        let newTransaction = MyTransaction(description: "Trans-\(date.description(with: nil))", dueDate: date, totalDue: value!, isReoccuring: false, isIncome: false)
-        newTransaction.datePaidOff = date
-        if (connectedGoal == nil) {
-            newTransaction.linkedToGoal = ""
-        } else {
-            newTransaction.linkedToGoal = (connectedGoal?.desciption)! //TODO: verify if this is how to link transactions
+        //let newTransaction = MyTransaction(description: "Trans-\(date.description(with: nil))", dueDate: date, totalDue: value!, isReoccuring: false, isIncome: false)
+        //newTransaction.datePaidOff = date
+        let newTransaction = MyTransaction.create(  iDes: "Trans-\(date.description(with: nil))",
+                                                    iIniDate: date,
+                                                    iDueDate: date,
+                                                    iDatePaidOff: date,
+                                                    iTotalDue: value!,
+                                                    iIsReoccuring: false, //set to false to indicate that we will only set a NON-reoccuring calendar event
+                                                    iIsIncome: false,
+                                                    iLinkedToGoal: "", //while this MyTransaction is being applied to a MyGoal object it is not being set as a reoccuring payment from the GoalsConfigViewController
+                                                    iReminderID: "",
+                                                    createNewReminder: true, //set to true to allow them to keep a record of when they paid this MyTransaction on the BuildABudgetCalendar
+                                                    callingVC: self)
+        
+        if connectedGoal != nil {
+            
+            //create an identitical MyGoal object and apply the funds to it, then delete the original
+            let newGoal:MyGoal = connectedGoal!.setEqualToGoal(oldGoal: connectedGoal!)
+
+            if newGoal.getRemainingAmount() < value! {
+                newGoal.allContributions += newGoal.getRemainingAmount() //if we are trying to apply more funds than amount remaining then only apply the amount that remains toward the goal balance
+            } else {
+                newGoal.allContributions += value!
+            }
+            
+            GoalsAccess.saveTransaction(input: newTransaction)
+            GoalsAccess.deleteGoal(input: connectedGoal!) //deleted the old goal
+            GoalsAccess.saveGoal(input: newGoal) //saved a new copy of the old goal with the allContributions attribute increased by the amount of var value
+            
         }
-        GoalsAccess.saveTransaction(input: newTransaction)
+        
+        /*
+        if (connectedGoal == nil) {
+            //newTransaction.linkedToGoal = ""
+            
+            
+            GoalsAccess.saveTransaction(input: newTransaction)
+        } else {
+            //newTransaction.linkedToGoal = (connectedGoal?.desciption)! //TODO: verify if this is how to link transactions
+            
+            
+            //get the MyGoal object that these funds are being applied to and save it
+            
+            (connectedGoal?.desciption)!
+            GoalsAccess.saveTransaction(input: newTransaction)
+        }
+        //GoalsAccess.saveTransaction(input: newTransaction)
+ */
+        
     }
 
     /*
