@@ -1,0 +1,25 @@
+Implementation Contributions:
+
+    Ben Nguyen 33.33%
+        - Settings Screen
+        - Moving tutorials to Settings
+        - Quality Assurance
+
+    Chris Cale 33.33%
+        - Notifications
+        - Exports
+        - Bug Fies
+
+    Nicholas Cobb 33.3%
+        - Transaction Screen
+        - Constraints
+
+Grading Level:
+    - Same grade for all members.
+
+Differences:
+    - Test Transactions simply become 'Transacations', allowing users to enter a 1 time transcation (such as buying coffee) and keeping a record of all transactions
+    - Replaced visuals with Export. We did not feel like we could implement what visuals could've been, so we went ahead and did the stretch goal of an export function.
+
+Special Instructions:
+    - None.
