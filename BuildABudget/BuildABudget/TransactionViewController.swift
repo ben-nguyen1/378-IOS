@@ -14,13 +14,12 @@ protocol ExportDelegate: class {
 }
 
 protocol ReminderDelegate: class {
-    
     func createBudgetCalendar( callingUIViewController: UIViewController )
-    
     func deleteBudgetCalendar( callingUIViewController: UIViewController )
 }
 
 class TransactionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
     let TransactionRetrieval = MyTransaction()
     var transactions: [MyTransaction]  = []
     let dateConverter = MyDate()
@@ -29,14 +28,11 @@ class TransactionViewController: UIViewController, UITableViewDataSource, UITabl
     
     
     var moneyValidator = BudgetViewController.bc
-    
     let exporter = Export.transferAgent
     weak var delegate: ExportDelegate?
     weak var reminderDelegate: ReminderDelegate?
     
-    
     @IBOutlet weak var transactionTextField: UITextField!
-    
     @IBOutlet weak var amountLabel: UILabel!
     @IBOutlet weak var transactionTable: UITableView!
 
@@ -46,13 +42,8 @@ class TransactionViewController: UIViewController, UITableViewDataSource, UITabl
     }
 
     @IBAction func exportButton(_ sender: Any) {
-        print(">>>TRANSACTIONSVC: startig exporting csv")
         let thisVC:UIViewController = self
         exporter.exportMyData( callingUIViewController: thisVC)
-        
-        //delegate?.exportMyData( callingUIViewController: thisVC)
-        print(">>>TRANSACTIONSVC: finished exporting csv")
-
     }
     
     func addNewTransaction(isIncome: Bool) {
@@ -65,15 +56,6 @@ class TransactionViewController: UIViewController, UITableViewDataSource, UITabl
         }
         let date = Date()
         let datePaidOff = Date()//dateConverter.setToYesterday(today: Date())
-        
-        /*
-        let newTransaction = MyTransaction(description: "Trans-\(date.description(with: nil))",
-            dueDate: date,
-            totalDue: (costTextField as NSString).doubleValue,
-            isReoccuring: false,
-            isIncome: isIncome)
-        newTransaction.datePaidOff = date
-        */
         
         let newTransaction = MyTransaction.create(iDes: "Trans-\(date.description(with: nil))",
                                                   iIniDate: Date(),
@@ -108,8 +90,7 @@ class TransactionViewController: UIViewController, UITableViewDataSource, UITabl
             let index = indexPath.row - 1
             let currTrans = transactions[index]
             
-            let currency = Account.currency()
-            cell.costLabel.text = "\(currency)\(transactionAgent.getFormattedAmount(inputAmount: currTrans.totalDue) )"
+            cell.costLabel.text = "\(Account.currency()) \(transactionAgent.getFormattedAmount(inputAmount: currTrans.totalDue) )"
             if (currTrans.isIncome) {
                 cell.costLabel.textColor = UIColor(red:0.32, green:0.64, blue:0.33, alpha:1.0)
             } else {
@@ -126,10 +107,8 @@ class TransactionViewController: UIViewController, UITableViewDataSource, UITabl
                 let tempindex = currTrans.desciption.index(currTrans.desciption.startIndex, offsetBy: maxIndex)
                 cell.itemLabel!.text = currTrans.desciption.substring(to: tempindex) + "..."
             }
-            
             cell.dateLabel.text = dateConverter.shortDateToString(inputDate: currTrans.datePaidOff)
         }
-        
         return cell
     }
     
@@ -147,12 +126,10 @@ class TransactionViewController: UIViewController, UITableViewDataSource, UITabl
                 original.dueDate = self.dateConverter.getDateXNumDaysFromNow(inputStartDate: original.dueDate, inputXNumDays: -30) //may want to change the static 30 days input to reflect varying month lengths
                
                 self.transactionAccess.saveTransaction(input: original)
-                
             }
             
             self.transactionAccess.deleteTransaction(input: self.transactions[index.row - 1])
             self.updateTransactions()
-            print("delete button tapped \(index.row)")
         }
         delete.backgroundColor = UIColor.red
         return [delete]
@@ -160,7 +137,6 @@ class TransactionViewController: UIViewController, UITableViewDataSource, UITabl
 
     func updateTransactions() {
         
-        //transactions = TransactionRetrieval.getAllTransactions()
         transactions = TransactionRetrieval.getAllNonReoccuringTransactions()
         
         var amount: Double = 0.0
@@ -173,8 +149,8 @@ class TransactionViewController: UIViewController, UITableViewDataSource, UITabl
                 }
             }
         }
-        let currency = Account.currency()
-        self.amountLabel.text = "\(currency)\(amount)"
+        let amountString = transactionAgent.getFormattedAmount(inputAmount: amount)
+        self.amountLabel.text = "\(Account.currency()) \(amountString)"
         if (amount >= 0) {
             amountLabel.textColor = UIColor(red:0.32, green:0.64, blue:0.33, alpha:1.0)
         } else {
@@ -183,27 +159,7 @@ class TransactionViewController: UIViewController, UITableViewDataSource, UITabl
         
         var tempList = transactions
         self.transactions = tempList.sorted(by: { $0.datePaidOff > $1.datePaidOff } )
-
         self.transactionTable.reloadData()
-        /*
-        var amount: Double = 0.0
-        var list = TransactionRetrieval.getAllNonReoccuringTransactions()
-        for item in list {
-            if item.isIncome {
-                amount += item.totalDue
-            } else {
-                amount -= item.totalDue
-            }
-        }
-        let currency = Account.currency()
-        self.amountLabel.text = "\(currency)\(amount)"
-        if (amount >= 0) {
-            amountLabel.textColor = UIColor(red:0.32, green:0.64, blue:0.33, alpha:1.0)
-        } else {
-            amountLabel.textColor = UIColor.red
-        }
- */
-        
         self.transactionTable.reloadData()
         
     }

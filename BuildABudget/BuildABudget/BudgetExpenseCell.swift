@@ -10,7 +10,7 @@ import UIKit
 class BudgetExpenseCell: UITableViewCell {
     
     var inViewTable: Int = 0
-    
+
     @IBOutlet weak var itemName: UILabel!
     @IBOutlet weak var dueDate: UILabel!
     @IBOutlet weak var amount: UILabel!
@@ -26,7 +26,6 @@ class BudgetExpenseCell: UITableViewCell {
     func config(inputName: String, inputDate: String, inputAmount: String) {
         itemName.text = inputName
         dueDate.text = inputDate
-        amount.text = "$\(inputAmount)"
+        amount.text = "\(Account.currency()) \(inputAmount)"
     }
-
 }

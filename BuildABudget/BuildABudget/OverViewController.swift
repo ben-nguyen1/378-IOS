@@ -5,10 +5,15 @@
 //  Created by Ben Nguyen on 10/20/17.
 //  Copyright © 2017 Ben Nguyen. All rights reserved.
 //
-
 import UIKit
 
 class OverViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    var currency = Account.currency()
+    var dateConverter = MyDate()
+    var reminders: [MyTransaction] = []
+    var goalsList: [MyGoal] = []
+    
     @IBOutlet weak var budgetHeader: UILabel!
     @IBOutlet weak var welcomeText: UILabel!
     @IBOutlet weak var reminderTableView: UITableView!
@@ -16,13 +21,11 @@ class OverViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var accessService = AccessService.access
     let reminderAgent = Reminders.agent
     
-    var dateConverter = MyDate()
-    var reminders: [MyTransaction] = []
-    var goalsList: [MyGoal] = []
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("in overview")
+        self.currency = Account.currency()
         welcomeText.text = "Hello, \(Account.firstName())"
         reminderTableView.dataSource = self
         goalsTableView.dataSource = self
@@ -30,12 +33,11 @@ class OverViewController: UIViewController, UITableViewDataSource, UITableViewDe
         goalsTableView.delegate = self
         self.navigationItem.setHidesBackButton(true, animated:true);
         self.title = "Overview"
-        reminderAgent.checkAuthorization(callingUIViewController: self)
-        
+        reminderAgent.checkAuthorization(callingUIViewController: self) //this prompts user to allow us to access the calendar
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        print(Account.currency())
+        self.currency = Account.currency()
         super.viewWillAppear(animated)
         self.update()
     }
@@ -69,7 +71,6 @@ class OverViewController: UIViewController, UITableViewDataSource, UITableViewDe
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "overviewGoalCell")! as! OverviewGoalsTableViewCell
-            
             let goal = self.goalsList[indexPath.row]
             
             cell.dueDateLabel.text = dateConverter.dateToString(inputDate: goal.targetDate)
@@ -139,17 +140,15 @@ class OverViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         
         if (incomeTotal - expenseTotal >= 0.0) {
-            self.budgetHeader.text = String(format: "$   %.2F", (incomeTotal - expenseTotal))
+            self.budgetHeader.text = String(format: "\(currency) %.2F", (incomeTotal - expenseTotal))
             self.budgetHeader.textColor = UIColor(red:0.32, green:0.64, blue:0.33, alpha:1.0)
         } else {
-            self.budgetHeader.text = String(format: "$ %.2F", (incomeTotal - expenseTotal))
+            self.budgetHeader.text = String(format: "\(currency) %.2F", (incomeTotal - expenseTotal))
             self.budgetHeader.textColor = UIColor.red
         }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-
 }

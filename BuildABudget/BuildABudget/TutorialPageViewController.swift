@@ -5,7 +5,6 @@
 //  Created by Ben Nguyen on 11/3/17.
 //  Copyright © 2017 Ben Nguyen. All rights reserved.
 //
-
 import UIKit
 
 class TutorialPageViewController: UIPageViewController {
@@ -65,7 +64,6 @@ class TutorialPageViewController: UIPageViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 }
 
 extension TutorialPageViewController: UIPageViewControllerDataSource {

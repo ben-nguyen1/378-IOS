@@ -5,13 +5,11 @@
 //  Created by Ben Nguyen on 10/6/17.
 //  Copyright © 2017 Ben Nguyen. All rights reserved.
 //
-
 import UIKit
 
 class CreateAccountViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var create: UIButton!
-    
     @IBOutlet weak var firstName: UITextField!
     @IBOutlet weak var lastName: UITextField!
     @IBOutlet weak var email: UITextField!
@@ -109,8 +107,6 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
                 self.accountSuccessController!.addAction(OKAction)
                 self.present(self.accountSuccessController!, animated: true, completion:nil)
             }
-            
-
         }
     }
     
@@ -139,9 +135,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
     }
     
     // Called when the user touches on the main view (outside the UITextField).
-    //
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
-
 }

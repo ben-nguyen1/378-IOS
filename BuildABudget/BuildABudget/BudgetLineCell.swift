@@ -5,14 +5,12 @@
 //  Created by chris on 10/24/17.
 //  Copyright © 2017 Ben Nguyen. All rights reserved.
 //
-
 import UIKit
 
 class BudgetLineCell: UITableViewCell {
     
     var inViewTable: Int = 0
     @IBOutlet weak var itemName: UILabel!
-    
     @IBOutlet weak var dueDate: UILabel!
     @IBOutlet weak var amount: UILabel!
     
@@ -27,7 +25,7 @@ class BudgetLineCell: UITableViewCell {
     func config(inputName: String, inputDate: String, inputAmount: String) {
         itemName.text = inputName
         dueDate.text = inputDate
-        amount.text = "$\(inputAmount)"
+        amount.text = "\(Account.currency()) \(inputAmount)"
     }
     
 }

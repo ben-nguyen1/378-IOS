@@ -130,12 +130,10 @@ class MyGoal {
     
     //loop through all MyTransaction objects in contributionList and adds up the totalDue amounts.
     func getCurrentSavedAmount() -> Double {
-        print(">>>MyGoal: contributionList = \(_contributionList)")
         return _contributionList
     }
     
     func getRemainingAmount() -> Double {
-        print(">>>MyGoal: Made it to getRemainingAmount()")
         print("Goal name = \(self.targetAmount) - \(self._contributionList)")
         var subTotal =  self.targetAmount - self._contributionList
         if subTotal < 0 {
@@ -155,11 +153,9 @@ class MyGoal {
     
     func saveMyGoal(inputGoal: MyGoal){
         goalsAccess.saveGoal(input: inputGoal)
-        //goalsReminder.createReoccuranceRule(occuranceNumericalDay: 28, endDate: inputGoal.targetDate) //all MyGoal objects are set to be paid on each 28th of the month -> reminders will be the same
     }
     
     func deleteMyGoal(inputGoal: MyGoal){
-        print(">>>REACHED MYGOAL deleteMyGoal()")
         goalsAccess.deleteGoal(input: inputGoal)
     }
     
@@ -171,7 +167,6 @@ class MyGoal {
                         iTargetDate:            Date,
                         iTargetAmount:          Double ) -> MyGoal {
      
-        print("MADE IT TO MyGoal creat()")
         return MyGoal ( contributionList:       iContributionList,
                         description:            iDescription,
                         monthlyContribution:    iMonthlyContribution,
@@ -215,7 +210,6 @@ class MyGoal {
         self._targetAmount        = -1.0
         self._contributionList    = 0.0
     }
-    
 }
 
 

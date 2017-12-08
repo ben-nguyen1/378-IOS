@@ -125,7 +125,7 @@
         <!--GoalsConfigViewController-->
         <scene sceneID="jMn-J7-Gmo">
             <objects>
-                <viewController id="bFe-4T-s2A" userLabel="GoalsConfigViewController" customClass="GoalsConfigViewController" customModule="BuildABudget" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Goals Configuration" id="bFe-4T-s2A" userLabel="GoalsConfigViewController" customClass="GoalsConfigViewController" customModule="BuildABudget" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IBR-m4-UeD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -142,8 +142,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" translatesAutoresizingMaskIntoConstraints="NO" id="Aay-DH-UrA">
-                                <rect key="frame" x="32" y="485" width="343" height="2.5"/>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Aay-DH-UrA">
+                                <rect key="frame" x="16" y="485" width="343" height="2"/>
                             </progressView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount Remaining:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZdL-Ck-ecN">
                                 <rect key="frame" x="16" y="506.5" width="149" height="21"/>
@@ -265,6 +265,7 @@
                             <constraint firstItem="Cui-Dg-fEb" firstAttribute="top" secondItem="bm9-gL-LZg" secondAttribute="bottom" constant="20" id="FZV-mI-Sm8"/>
                             <constraint firstItem="Aay-DH-UrA" firstAttribute="trailing" secondItem="IBR-m4-UeD" secondAttribute="trailingMargin" constant="16" id="IQV-jP-ifp"/>
                             <constraint firstItem="Aay-DH-UrA" firstAttribute="top" secondItem="TRc-3A-r62" secondAttribute="bottom" constant="20" id="KKF-fm-QR6"/>
+                            <constraint firstItem="Aay-DH-UrA" firstAttribute="trailing" secondItem="IBR-m4-UeD" secondAttribute="trailingMargin" id="MO3-tD-APJ"/>
                             <constraint firstItem="Bzp-Rv-Ewk" firstAttribute="leading" secondItem="uIi-yR-VDP" secondAttribute="leading" constant="16" id="Med-RI-jah"/>
                             <constraint firstItem="ZdL-Ck-ecN" firstAttribute="leading" secondItem="uIi-yR-VDP" secondAttribute="leading" constant="16" id="NCi-pf-jp4"/>
                             <constraint firstItem="lQO-Pm-arN" firstAttribute="top" secondItem="uOb-fg-mBc" secondAttribute="bottom" constant="8" id="Odt-OP-0rm"/>
@@ -293,8 +294,8 @@
                             <constraint firstItem="bm9-gL-LZg" firstAttribute="leading" secondItem="uIi-yR-VDP" secondAttribute="leading" constant="16" id="wwk-mI-e9y"/>
                             <constraint firstItem="lQO-Pm-arN" firstAttribute="top" secondItem="uOb-fg-mBc" secondAttribute="bottom" constant="8" id="xEn-JL-Hrt"/>
                             <constraint firstItem="W5Y-m3-fXg" firstAttribute="centerX" secondItem="IBR-m4-UeD" secondAttribute="centerX" id="xck-mZ-UdQ"/>
+                            <constraint firstItem="Aay-DH-UrA" firstAttribute="leading" secondItem="IBR-m4-UeD" secondAttribute="leadingMargin" id="y2w-Q8-mch"/>
                             <constraint firstItem="uIi-yR-VDP" firstAttribute="trailing" secondItem="7O8-Di-Pk8" secondAttribute="trailing" constant="16" id="yqY-UW-KfD"/>
-                            <constraint firstItem="Aay-DH-UrA" firstAttribute="leading" secondItem="IBR-m4-UeD" secondAttribute="leadingMargin" constant="16" id="z2g-9t-7Au"/>
                             <constraint firstItem="Igv-HF-2vK" firstAttribute="leading" secondItem="q6S-K1-ZvF" secondAttribute="trailing" constant="8" id="zQR-BR-xPI"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="uIi-yR-VDP"/>
@@ -434,6 +435,7 @@ AAAAAAAAAAAAGTc
         </image>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="5Hx-1J-HTL"/>
         <segue reference="Ryd-wc-AAL"/>
     </inferredMetricsTieBreakers>
 </document>

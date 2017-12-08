@@ -6,7 +6,6 @@
 //  Copyright © 2017 Chris Cale. All rights reserved.
 //
 protocol MoneyDelegate {
-    
     func isValidAmount( inputMoneyString: String? ) -> Bool
 }
 
@@ -40,11 +39,11 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     var incomeTotal:Double = 0.0
     var expenseTotal:Double = 0.0
     var differenceAmount = 0.0
-    
+
     //UIAlert field vars
     var descriptionTextField: UITextField? = nil
     var dueDateTextField: UITextField? = nil
-    var totalDueTextField: UITextField? = nil //Double? = nil
+    var totalDueTextField: UITextField? = nil
     
     //var with ability to interface with the coreData storage methods
     var BudgetAccess = AccessService.access
@@ -56,12 +55,12 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     let dueDatePicker = UIDatePicker()
     
     //Set custom colors
-    let moneyPositiveColor = UIColor(red:0.32, green:0.64, blue:0.33, alpha:1.0)    //hex: 0x51A453
+    let moneyPositiveColor = UIColor(red:0.32, green:0.64, blue:0.33, alpha:1.0)  //hex: 0x51A453
     let textFieldErrorColor = UIColor(red:1.00, green:0.00, blue:0.00, alpha:1.0) //hex: FF0000
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        thisBudget = BudgetAccess.getBudget(index: 0) //for right now it is hard coded to only get the first budget, we might allow users to save multiple budgets later on.
+        thisBudget = BudgetAccess.getBudget(index: 0) //we only allow one MyBudget object in this app per initial project specifications - future revisions could allow for multiple budgets
         self.update()
     }
     
@@ -69,11 +68,9 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if tableView.tag == 111{//incomeTable
-            print("incomeList = \(incomeList.count)")
             return incomeList.count //+ 1
         }
         else if tableView.tag == 222{//expenseTable
-            print("expenseList = \(expenseList.count)")
             return expenseList.count //+ 1
         }
         else {
@@ -85,7 +82,6 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if (tableView == self.incomeTable){//tableView.tag == 111    incomeTable
-            
             let cell = tableView.dequeueReusableCell(withIdentifier: "BudgetLineCell", for: indexPath) as! BudgetLineCell
             //set up the cell
             let shortDate = thisDate.shortDateToString(inputDate: (incomeList[indexPath.item].dueDate) )
@@ -153,9 +149,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         let saveAction = UIAlertAction(title: "Save", style: .default) { (action: UIAlertAction!) -> Void in
             
             //grab all the data from the alert window's text fields
-            guard let descriptionTextField = self.descriptionTextField?.text, self.isValidDescription(input: (self.descriptionTextField?.text)!) else {
-                print("<<<<<< HERE >>>>>")
-                return }
+            guard let descriptionTextField = self.descriptionTextField?.text, self.isValidDescription(input: (self.descriptionTextField?.text)!) else { return }
             guard let totalDueTextField = self.totalDueTextField?.text else { return }
             guard let dueDateTextField = self.dueDateTextField?.text else { return }
             
@@ -181,7 +175,6 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             AccessService.access.saveTransaction(input: newBudgetItem)
             
             self.update()
-            print("\n\nFinished Saving a new BudgetLineItem")
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .default) {
@@ -208,6 +201,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         //set each table's data source
         incomeTable.dataSource = self
         expenseTable.dataSource = self
@@ -215,16 +209,12 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         //set each table's delegate
         incomeTable.delegate = self
         expenseTable.delegate = self
-        
         navigationItem.title = "Budget"
-        print("IN BUDGET")
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-
     
     //update incomeList, expenseList, incomeTotal, expenseTotal
     func update(){
@@ -237,7 +227,6 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         incomeTotal = 0.0
         expenseTotal = 0.0
         
-        
         var i = 0
         let limit = BudgetAccess.totalTransactions()
         for i in 0..<limit {
@@ -246,52 +235,32 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
                 if temp.isIncome {
                     incomeList.append(temp)
                     incomeTotal += temp.totalDue
-                    print("incomeTotal = \(incomeTotal)")
                 }
                 else {
                     expenseList.append(temp)
                     expenseTotal += temp.adjustExpenseAmountDouble(inputTransaction: temp)
-                    print("expenseTotal = \(expenseTotal)")
                 }
             }
         }
-         /*
-        let list = transactionAgent.getAllReoccuringTransactions()
-        for item in list {
-            if item.isReoccuring{
-                if item.isIncome {
-                    incomeList.append(item)
-                    incomeTotal += item.totalDue
-                }
-                else {
-                    expenseList.append(item)
-                    expenseTotal += item.adjustExpenseAmountDouble(inputTransaction: item)
-                }
-            }
-        }
- */
         
         //calculate the budget deficit/surplus
         differenceAmount = incomeTotal - expenseTotal
         
-        let currency = Account.currency()
-        
         //display the incomeTotal, expenseTotal, differenceAmount on view controller
-        self.incomeLabel.text = String(format: "\(currency)   %.2F", incomeTotal)
-        self.expenseLabel.text = String(format: "\(currency) -%.2F", expenseTotal)
-        self.differenceLabel.text = String(format: "\(currency)   %.2F", differenceAmount)
-        
-        self.extraIncomeLabel.text = String(format: "\(currency) %.2F", incomeTotal)
-        self.extraExpenseLabel.text = String(format: "\(currency) %.2F", expenseTotal)
+        self.incomeLabel.text = String(format: "\(Account.currency())   %.2F", incomeTotal)
+        self.expenseLabel.text = String(format: "\(Account.currency()) -%.2F", expenseTotal)
+        self.differenceLabel.text = String(format: "\(Account.currency())   %.2F", differenceAmount)
+        self.extraIncomeLabel.text = String(format: "\(Account.currency()) %.2F", incomeTotal)
+        self.extraExpenseLabel.text = String(format: "\(Account.currency()) %.2F", expenseTotal)
         
         //change differenceLabel text color if value is positive or negative
         if differenceAmount >= 0.0 {
             self.differenceLabel.textColor = moneyPositiveColor //= UIColor(red:0.32, green:0.64, blue:0.33, alpha:1.0)
-            self.differenceLabel.text = String(format: "\(currency)   %.2F", differenceAmount)
+            self.differenceLabel.text = String(format: "\(Account.currency())   %.2F", differenceAmount)
         }
         else {
             self.differenceLabel.textColor = UIColor.red
-            self.differenceLabel.text = String(format: "\(currency) %.2F", differenceAmount)
+            self.differenceLabel.text = String(format: "\(Account.currency()) %.2F", differenceAmount)
         }
         
         //reload the UITables to display the new transaction data
@@ -381,39 +350,34 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             guard let descriptionTextField = self.descriptionTextField?.text , self.isValidDescription(input: (self.descriptionTextField?.text)!) else {
                 
                 self.addIncome( errorField: "descriptionTextField", errorMessage: "Description cannot be blank", previousTextFieldInput: rawTextFieldInput)
-                print("bad input description")
+                //print("bad input description")
                 return
             }
             
             guard let totalDueTextField = self.totalDueTextField?.text , self.isValidAmount(inputMoneyString: (self.totalDueTextField?.text)! ) else {
                 
                 self.addIncome( errorField: "totalDueTextField", errorMessage: "Amount must be between 0.00 and 100000000.00", previousTextFieldInput: rawTextFieldInput)
-                print("bad input amount")
+                //print("bad input amount")
                 return
             }
             
             let yesterday:Date = self.thisDate.setToYesterday(today: Date())
-            //print("!!!--- yesterday = \(self.thisDate.setToYesterday(today: yesterday))")
             let inputDate:Date = self.thisDate.stringToDate(inputString: (self.dueDateTextField?.text)!)
-            //print("!!!--- inputDate = \(self.thisDate.stringToDate(inputString: (self.dueDateTextField?.text)!)))")
             let isValidDateFormat:Bool = self.thisDate.isValidMMDDYYYYFormat(inputDateString: (self.dueDateTextField?.text)!)
             
             guard let dueDateTextField = self.dueDateTextField?.text,  !(self.dueDateTextField?.text?.isEmpty)!, inputDate > yesterday, isValidDateFormat else {
                 
                 if (self.dueDateTextField?.text?.isEmpty)! {
                     self.addIncome( errorField: "dueDateTextField", errorMessage: "Date cannot be blank", previousTextFieldInput: rawTextFieldInput)
-                    //print("bad input due date")
                     return
                 }
                 
                 if !(inputDate > yesterday) {
                     self.addIncome( errorField: "dueDateTextField", errorMessage: "Date cannot be in the past", previousTextFieldInput: rawTextFieldInput)
-                    //print("bad input due date")
                     return
                 }
                 
                 self.addIncome( errorField: "dueDateTextField", errorMessage: "Please enter a date in MM/DD/YYYY format", previousTextFieldInput: rawTextFieldInput)
-                //print("bad input due date")
                 return
             }
             
@@ -439,7 +403,6 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             AccessService.access.saveTransaction(input: newBudgetItem)
             
             self.update()
-            print("\nFinished Saving a new BudgetLineItem")
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .default) {
@@ -534,25 +497,20 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             rawTextFieldInput.append( (self.totalDueTextField?.text)! )
             rawTextFieldInput.append( (self.dueDateTextField?.text)! )
             
-            
             guard let descriptionTextField = self.descriptionTextField?.text , self.isValidDescription(input: (self.descriptionTextField?.text)!) else {
                 
                 self.addExpense( errorField: "descriptionTextField", errorMessage: "Description cannot be blank", previousTextFieldInput: rawTextFieldInput)
-                print("bad input description")
                 return
             }
             
             guard let totalDueTextField = self.totalDueTextField?.text , self.isValidAmount(inputMoneyString: (self.totalDueTextField?.text)! ) else {
                 
                 self.addExpense( errorField: "totalDueTextField", errorMessage: "Amount must be between 0.00 and 100000000.00", previousTextFieldInput: rawTextFieldInput)
-                print("bad input amount")
                 return
             }
             
             let yesterday:Date = self.thisDate.setToYesterday(today: Date())
-            print("!!!--- yesterday = \(self.thisDate.setToYesterday(today: yesterday))")
             let inputDate:Date = self.thisDate.stringToDate(inputString: (self.dueDateTextField?.text)!)
-            print("!!!--- inputDate = \(self.thisDate.stringToDate(inputString: (self.dueDateTextField?.text)!)))")
             let isValidDateFormat:Bool = self.thisDate.isValidMMDDYYYYFormat(inputDateString: (self.dueDateTextField?.text)!)
             
             guard let dueDateTextField = self.dueDateTextField?.text,  !(self.dueDateTextField?.text?.isEmpty)!, inputDate > yesterday, isValidDateFormat else {
@@ -592,12 +550,10 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
                                                      createNewReminder: true,
                                                      callingVC:         self )
             
-            
             //save the MyTransaction Object to CoreData
             AccessService.access.saveTransaction(input: newBudgetItem)
             
             self.update()
-            print("\nFinished Saving a new BudgetLineItem")
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .default) {
@@ -616,16 +572,13 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     //swipe to delete functionality
     func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
         
-        print("income count = \(self.incomeList.count)\texpense count = \(self.incomeList.count)")
         if (tableView == self.incomeTable) {
             
             let removeIncome = UITableViewRowAction(style: .normal, title: "Delete") {action, index in
                 
                 let removedTransaction = self.incomeList[index.row]
-                
                 self.BudgetAccess.deleteTransaction(input: removedTransaction)
                 self.update()
-                print(">>>REMOVED INCOME TRANSACTION\(index.row)\tnew income count = \(self.incomeList.count)")
             }
             removeIncome.backgroundColor = UIColor.red
             return [removeIncome]
@@ -635,7 +588,6 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
                 action, index in
                 self.BudgetAccess.deleteTransaction(input: self.expenseList[index.row])
                 self.update()
-                print(">>>REMOVED EXPENSE TRANSACTION\(index.row)\tnew income count = \(self.expenseList.count)")
             }
             removeExpense.backgroundColor = UIColor.red
             return [removeExpense]
@@ -647,10 +599,9 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         if textField == dueDateTextField {//set the text field that should display the UIDatePicker
             let myDatePicker = UIDatePicker()
             myDatePicker.datePickerMode = .date
+            
             //set Date picker bounds
             myDatePicker.minimumDate = Date()
-            
-            
             textField.inputView = myDatePicker
             myDatePicker.addTarget(self, action: #selector(setSelectedDate(sender: )), for: .valueChanged) //this sends the currently selected date at every instance that user pauses to the setSelectedDate(sender: UIDatePicker) method
         }
@@ -664,7 +615,6 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     //check if input money value is a valid number
     func isValidAmount( inputMoneyString: String? ) -> Bool {
         
-        print("checking with regex")
         //confirm that the input value is not an empty string.
         guard inputMoneyString! != "" &&  inputMoneyString != nil else {
             return false
@@ -679,7 +629,6 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         //this .range() method takes a regex pattern and returns the first instance of a matching string.
         //As long as the .range() function does not return nil (no match) then any match will return true.
         let regexCheck1:Bool = inputMoneyString!.range(of: regexPatternGood, options: .regularExpression, range: nil, locale: nil) != nil
-        print("input amount = \(inputMoneyString) --- regex = \(regexCheck1)")
         
         //char sets to test against
         let nonDigitChars = CharacterSet.letters
@@ -699,7 +648,6 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             } else if digitChars.contains(indexChar) {
                 numDigitsChars += 1
             } else {
-                print("found a Char")
                 return false //this is when we find any char that is not a digit or decimal point
             }
         }
@@ -714,12 +662,9 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         }
         
         if regexCheck1 && regexCheck2 {
-            
             let testIfAmountIsNotTooBigOrTooSmall = Double(inputMoneyString!) as? Double
-            print("Test amount = \(testIfAmountIsNotTooBigOrTooSmall)")
             
             if testIfAmountIsNotTooBigOrTooSmall! < 1000000000.00 {
-                print ("-----> input amount is not too big")
             } else {
                 print("Error: input amount is too big")
                 return false
@@ -733,7 +678,6 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             }
             return true
         }
-        
         return false
     }
     
@@ -748,7 +692,6 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
-    
 }
 
 

@@ -22,7 +22,6 @@ class GoalsViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     //UIViewController functions
     override func viewDidLoad() {
-        print("\n>>>REACHED GOALSVC - viewDidLoad()")
         super.viewDidLoad()
         self.goalsTable.rowHeight = 75
         update()
@@ -32,7 +31,6 @@ class GoalsViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("\n>>>REACHED GOALSVC - viewWillAppear()")
         self.goalsTable.rowHeight = 75
         update()
         goalsTable.dataSource = self
@@ -85,8 +83,6 @@ class GoalsViewController: UIViewController, UITableViewDataSource, UITableViewD
             goalsList.append( currentGoalRecord )
         }
         self.goalsTable.reloadData()//force the goalsTable to reload the GoalsCells it displays
-        print(">>>GOALSVC: finished updating the goalsList")
-        print("goalsList count = \(goalsList.count) , AccessService goals count = \(GoalsAccess.totalGoals())\n")
     }
     
     func getSpecificGoal( goalName: String ) -> MyGoal{
@@ -121,7 +117,6 @@ class GoalsViewController: UIViewController, UITableViewDataSource, UITableViewD
             let showRemoveGoalSlideOption = UITableViewRowAction(style: .normal, title: "Delete") {
                 action, index in
                 let removedThisGoalWhenClicked = self.goalsList[index.row]
-                
                 self.deleteThisGoal( goalToDelete: removedThisGoalWhenClicked)
                 self.update()
             }
@@ -145,15 +140,11 @@ class GoalsViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func deleteThisGoal( goalToDelete: MyGoal) {
         //now pass to AccessService class to delete the coreDate NSObject for inputGoal
-        print("!!!--- MADE IT TO GOALSVC deleteThisGoal func ---!!!")
         self.GoalsAccess.deleteGoal(input: goalToDelete)
         
         //delete this MyTransaction reminder associated with this MyGoal object
         var oldMyTransactionLinkedToThisGoal:MyTransaction = MyTransaction.init()
-        print("TEST 1: oldMyTransactionLinkedToThisGoal = \(oldMyTransactionLinkedToThisGoal.desciption)\n\(oldMyTransactionLinkedToThisGoal.linkedToGoal)")
-
         oldMyTransactionLinkedToThisGoal = oldMyTransactionLinkedToThisGoal.findMyTransactionLinkedToMyGoal( inputDescription: goalToDelete.desciption )
-        print("TEST 2: oldMyTransactionLinkedToThisGoal = \(oldMyTransactionLinkedToThisGoal.desciption)\n\(oldMyTransactionLinkedToThisGoal.linkedToGoal)")
 
         if oldMyTransactionLinkedToThisGoal.desciption != "error"{
             AccessService.access.deleteTransaction(input: oldMyTransactionLinkedToThisGoal)
@@ -162,37 +153,16 @@ class GoalsViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func removeThisGoalFromGoalsList( goalToRemove: MyGoal) {
-    
         var index = 0
         let limit = self.goalsList.count
         for index in 0..<limit {
             if goalToRemove.desciption == self.goalsList[index].desciption {
-                print(">>>GOALSVC: removed \(goalToRemove.desciption) from goalsList\ngoalsList count before = \(goalsList.count)")
                 self.goalsList.remove(at: index)
-                print("goalsList count after = \(goalsList.count)")
             }
         }
-        
         deleteThisGoal( goalToDelete: goalToRemove)
     }
-    
-    /*
-    //finds if this transaction is unique based on the inputTransaction description and the LinkedToGoal property
-    func findMyTransactionLinkedToMyGoal( inputTransaction: MyTransaction ) -> MyTransaction{
-        
-        var list = getAllTransactions()
-        for item in list {
-            if item.desciption == inputTransaction.desciption && item.linkedToGoal == inputTransaction.linkedToGoal {
-                return item
-            }
-        }
-        
-        //We only get here if we did not find anything
-        print(">>>MYTRANSACTION: ERROR -> could not find the linked MyTransaction for goal")
-        return MyTransaction.init() //the description property of thie MyTransaction is set to "error" which is what we will check in the calling function
-    }
- */
-    
+
 }//end of class
 
 

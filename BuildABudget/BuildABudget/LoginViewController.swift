@@ -5,7 +5,6 @@
 //  Created by Ben Nguyen on 10/6/17.
 //  Copyright © 2017 Ben Nguyen. All rights reserved.
 //
-
 import UIKit
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
@@ -36,7 +35,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     @IBAction func loginBtn(_ sender: Any) {
@@ -52,10 +50,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 (action:UIAlertAction) in
             }
             self.alertErrorController!.addAction(OKAction)
-            
             self.present(self.alertErrorController!, animated: true, completion:nil)
         }
-        
     }
     
     @IBAction func goCreateBtn(_ sender: Any) {
@@ -77,7 +73,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     // Called when the user touches on the main view (outside the UITextField).
-    //
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }

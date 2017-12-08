@@ -356,10 +356,12 @@ class GoalsConfigViewController: UIViewController, UITextFieldDelegate {
             
             //setup all UITextfields
             self.nameTextField.text                 = self.thisGoal?.desciption
-            self.targetAmountTextField.text         = "\((self.thisGoal?.targetAmount)!)"//String(describing: self.thisGoal?.targetAmount)
+            let inputTargetAmount = transactionAgent.getFormattedAmount(inputAmount: (self.thisGoal?.targetAmount)!)
+            self.targetAmountTextField.text         = "\(inputTargetAmount)"//String(describing: self.thisGoal?.targetAmount)
             let tempDateToString:String             = thisDate.dateToString(inputDate: (self.thisGoal?.targetDate)!)
             self.targetDateTextField.text           = tempDateToString
-            self.monthlyContributionTextField.text  = "\(((self.thisGoal?.monthlyContribution))!)"
+            let inputMonthlyContribution = transactionAgent.getFormattedAmount(inputAmount: (self.thisGoal?.monthlyContribution)!)
+            self.monthlyContributionTextField.text  = "\(inputMonthlyContribution)"
             
             //setup all UILabels
             self.estimatedCompletionDateLabel.text  = thisDate.dateToString(inputDate: (thisGoal?.getEstimatedCompletionDate())!)
@@ -367,9 +369,15 @@ class GoalsConfigViewController: UIViewController, UITextFieldDelegate {
             self.amountRemainingLabel.text          = String(describing: (thisGoal?.getRemainingAmount())! )
             
             self.progressPercentLabel.text          = self.progressPercentLabel.text! + "%"
-            let currency = Account.currency()
-            self.amountRemainingLabel.text          = "\(currency)" + self.amountRemainingLabel.text!
-            self.goalProgressbar.setProgress((self.thisGoal?.getProgress())! , animated: false)
+            let inputAmountRemaining = transactionAgent.getFormattedAmount(inputAmount: (self.thisGoal?.getRemainingAmount())!)
+
+            self.amountRemainingLabel.text          = "\(Account.currency()) " + inputAmountRemaining
+            
+            let inputProgress = self.thisGoal?.getProgress()
+            //let progressBarPercent = setupProgressBar(inputPercentProgress: (inputProgress * 0.1) * 0.1)
+            let inputProgressBarPercent = (self.thisGoal?.getProgress())!
+            self.goalProgressbar.setProgress( (( inputProgressBarPercent * 0.1) * 0.1), animated: false)
+
         } else {
             
             self.estimatedCompletionDateLabel.text  = ""

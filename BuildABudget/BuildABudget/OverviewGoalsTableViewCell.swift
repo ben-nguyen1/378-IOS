@@ -5,7 +5,6 @@
 //  Created by Nicholas Cobb on 11/15/17.
 //  Copyright © 2017 Ben Nguyen. All rights reserved.
 //
-
 import UIKit
 
 class OverviewGoalsTableViewCell: UITableViewCell {
@@ -21,8 +20,5 @@ class OverviewGoalsTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
-
 }

@@ -18,13 +18,10 @@ class MyBudget {
     
     //vars
     fileprivate var _description: String
-    
     fileprivate var _startDate: Date
     fileprivate var _endDate: Date//may need to be revised to match to end of month instead of keeping as a static date
-    
     fileprivate var _expenseSources: [MyTransaction] //list all monthly bills
     fileprivate var _incomeSources: [MyTransaction] //list all income streams
-    
     fileprivate var _accountBalance: Double //this holds the entire cumulative balance that the user has to this date. (only add/subtract non-reoccuring MyTransactions and the initial input value from the user for their account balance on account creation)
     static let agent = MyBudget()
     
@@ -69,8 +66,6 @@ class MyBudget {
         //Step 1: gather all data points
         let budgetDescription = "Budget_" + MyDate.dateConverter.dateToDashedString(inputDate: Date())
         var currentBudgetAccess = BudgetViewController.bc
-        //let budgetExpenseList = currentBudgetAccess.
-        
     }
     
     func getCurrentAccountBalance() -> Double {
@@ -86,11 +81,9 @@ class MyBudget {
         }
         
         let currentBalance = self.accountBalance + subTotal
-        print("MYBUDGET: intial balance = \(self.accountBalance)")
-        print("MYBUDGET: subTotal = \(subTotal)")
-        print("MYBUDGET: currentBalance = \(currentBalance)")
-
-        
+        //print("MYBUDGET: intial balance = \(self.accountBalance)")
+        //print("MYBUDGET: subTotal = \(subTotal)")
+        //print("MYBUDGET: currentBalance = \(currentBalance)")
         return currentBalance
     }
     
@@ -111,6 +104,7 @@ class MyBudget {
         self._incomeSources = incomeSources
         self._accountBalance = accountBalance
     }
+    
     //only for when a brand new MyBudget object is created -> such as at account creation time
     init(description:String,
          startDate:Date,

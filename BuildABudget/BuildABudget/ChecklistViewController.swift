@@ -170,14 +170,11 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
         }
         else {
             //add the totalDue amount from the transaction to the goal's contributionList
-            //print(">>>Applying payment to goal \(targetGoal.desciption) , original contributionList = \(targetGoal.allContributions)")
             targetGoal.allContributions += inputTransaction.totalDue
-            //print(">>>Payment to goal \(targetGoal.desciption) , new contributionList = \(targetGoal.allContributions)")
             
             //save this updated goal by deleting the old instance of the goal and then saving targetGoal
             ChecklistAccess.deleteGoal(input: targetGoal)
             ChecklistAccess.saveGoal(input: targetGoal)
-            print(">>>Checklist: \(targetGoal)")
         }
     }
     
@@ -197,8 +194,7 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
                 let index = currItem.desciption.index(currItem.desciption.startIndex, offsetBy: 5)
                 cell.expenseLabel!.text = currItem.desciption.substring(to: index) + "..."
             }
-            let currency = Account.currency()
-            cell.amountLabel!.text = "\(currency)\(currItem.totalDue)"
+            cell.amountLabel!.text = "\(Account.currency()) \(transactionAgent.getFormattedAmount(inputAmount: currItem.totalDue))"
             cell.dueDateLabel.text = dateConverter.shortDateToString(inputDate: currItem.dueDate)
             
             
@@ -207,11 +203,10 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
             }
             return cell
         } else {
-            let currency = Account.currency()
             let newCell = tableView.dequeueReusableCell(withIdentifier: "paidCell") as! ChecklistPaidTableViewCell
             let currItem = paidItems[indexPath.row]
 
-            newCell.amountLabel.text = "\(currency)\(transactionAgent.getFormattedAmount(inputAmount: currItem.totalDue) )"
+            newCell.amountLabel.text = "\(Account.currency()) \(transactionAgent.getFormattedAmount(inputAmount: currItem.totalDue) )"
             newCell.dateLabel!.text = dateConverter.shortDateToString(inputDate: currItem.datePaidOff)
             
             if (currItem.desciption.count < 8) {

@@ -5,7 +5,6 @@
 //  Created by Ben Nguyen on 10/20/17.
 //  Copyright © 2017 Ben Nguyen. All rights reserved.
 //
-
 import Foundation
 
 class Account: NSObject {
