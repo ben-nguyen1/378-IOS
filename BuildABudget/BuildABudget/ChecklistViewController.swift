@@ -211,7 +211,7 @@ class ChecklistViewController: UIViewController, UITableViewDataSource, UITableV
             let newCell = tableView.dequeueReusableCell(withIdentifier: "paidCell") as! ChecklistPaidTableViewCell
             let currItem = paidItems[indexPath.row]
 
-            newCell.amountLabel.text = "\(currency)\(currItem.totalDue)"
+            newCell.amountLabel.text = "\(currency)\(transactionAgent.getFormattedAmount(inputAmount: currItem.totalDue) )"
             newCell.dateLabel!.text = dateConverter.shortDateToString(inputDate: currItem.datePaidOff)
             
             if (currItem.desciption.count < 8) {

@@ -16,7 +16,8 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var lastName: UITextField!
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var pass: UITextField!
-    @IBOutlet weak var initialAccountBalance: UITextField!
+    //below commented code is for future use with setting up initial account balance - not part of initial project proposal
+    //@IBOutlet weak var initialAccountBalance: UITextField!
     
     var alertErrorController:UIAlertController? = nil
     var accountSuccessController:UIAlertController? = nil
@@ -46,15 +47,16 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         pass.delegate = self
         pass.isSecureTextEntry = true
         
-        initialAccountBalance.text = nil
-        initialAccountBalance.placeholder = "Initial Account Balance"
-        initialAccountBalance.delegate = self
+        //below commented code is for future use with setting up initial account balance - not part of initial project proposal
+        //initialAccountBalance.text = nil
+        //initialAccountBalance.placeholder = "Initial Account Balance"
+        //initialAccountBalance.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
+
     @IBAction func createBtn(_ sender: Any) {
         if UserDefaults.standard.object(forKey: "userName") != nil {
             self.alertErrorController = UIAlertController(title: "Alert", message: "An account on this device already exist.", preferredStyle: UIAlertControllerStyle.alert)
@@ -67,7 +69,9 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
             self.present(self.alertErrorController!, animated: true, completion:nil)
         } else {
             print("New Account")
-            if (firstName.text!.isEmpty || lastName.text!.isEmpty || email.text!.isEmpty || pass.text!.isEmpty || initialAccountBalance.text!.isEmpty) {
+            if (firstName.text!.isEmpty || lastName.text!.isEmpty || email.text!.isEmpty || pass.text!.isEmpty ) {
+            //below commented code is for future use with setting up initial account balance - not part of initial project proposal, if using below line of code then comment out the one line of code above
+            //if (firstName.text!.isEmpty || lastName.text!.isEmpty || email.text!.isEmpty || pass.text!.isEmpty || initialAccountBalance.text!.isEmpty) {
                 self.alertErrorController = UIAlertController(title: "Alert", message: "All fields must be entered", preferredStyle: UIAlertControllerStyle.alert)
                 
                 let OKAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) {
@@ -76,16 +80,13 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
                 self.alertErrorController!.addAction(OKAction)
                 
                 self.present(self.alertErrorController!, animated: true, completion:nil)
-            } else if isValidAmount(inputAmount: initialAccountBalance.text!) == false {
-                print("TEST: isValidAmount = false")
-                self.alertErrorController = UIAlertController(title: "Alert", message: "Amount must be between 0.00 and 100000000.00", preferredStyle: UIAlertControllerStyle.alert)
-                
-                let OKAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) {
-                    (action:UIAlertAction) in
-                }
-                self.alertErrorController!.addAction(OKAction)
-                
-                self.present(self.alertErrorController!, animated: true, completion:nil)
+            //below commented code is for future use with setting up initial account balance - not part of initial project proposal
+            //} else if isValidAmount(inputAmount: initialAccountBalance.text!) == false {
+            //    print("TEST: isValidAmount = false")
+            //    self.alertErrorController = UIAlertController(title: "Alert", message: "Amount must be between 0.00 and 100000000.00", preferredStyle: UIAlertControllerStyle.alert)
+            //    let OKAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (action:UIAlertAction) in }
+            //    self.alertErrorController!.addAction(OKAction)
+            //    self.present(self.alertErrorController!, animated: true, completion:nil)
             } else {
                 // add info to UserDefaults
                 Account.setFirstName(firstName.text!)
@@ -93,7 +94,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
                 Account.setUserName(email.text!)
                 Account.setPass(pass.text!)
                 Account.setCurrency("$")
-                self.createInitialBudgetObject()
+                //self.createInitialBudgetObject() //for use with setting up initial amount
                 
                 self.accountSuccessController = UIAlertController(title: "Alert", message: "Your account has been made!", preferredStyle: UIAlertControllerStyle.alert)
                 
@@ -113,43 +114,22 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    //this function is for future code involving setting up an initial account balance as reported by user
+    //func isValidAmount( inputAmount: String) -> Bool{
+    //    let budgetVCAgent = BudgetViewController.bc
+    //    let answer = budgetVCAgent.isValidAmount(inputMoneyString: inputAmount)
+    //    print("isValidAmount = \(answer)")
+    //    return answer
+    //}
     
-    // This method is called when the user touches the Return key on the
-    // keyboard. The 'textField' passed in is a pointer to the textField
-    // the cursor was in at the time they touched the Return key on the
-    // keyboard.
-    //
-    // From the Apple documentation: Asks the delegate if the text field
-    // should process the pressing of the return button.
-    //
-    
-    func isValidAmount( inputAmount: String) -> Bool{
-        
-        let budgetVCAgent = BudgetViewController.bc
-        let answer = budgetVCAgent.isValidAmount(inputMoneyString: inputAmount)
-        print("isValidAmount = \(answer)")
-        return answer
-    }
-    
-    func createInitialBudgetObject(){
-        
-        let access = AccessService.access
-        let newBudgetObject = MyBudget(description: "Budget",
-                                       startDate:   Date(),
-                                       endDate:     Date()
-        )
-        newBudgetObject.accountBalance = (self.initialAccountBalance.text! as NSString).doubleValue
-        
-    }
+    //this function is for future code involving setting up an initial account balance as reported by user
+    //func createInitialBudgetObject(){
+    //    let access = AccessService.access
+    //    let newBudgetObject = MyBudget(description: "Budget",
+    //                                   startDate:   Date(),
+    //                                   endDate:     Date() )
+    //    newBudgetObject.accountBalance = (self.initialAccountBalance.text! as NSString).doubleValue
+    //}
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // 'First Responder' is the same as 'input focus'.

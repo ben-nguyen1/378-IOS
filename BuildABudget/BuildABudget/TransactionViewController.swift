@@ -25,6 +25,7 @@ class TransactionViewController: UIViewController, UITableViewDataSource, UITabl
     var transactions: [MyTransaction]  = []
     let dateConverter = MyDate()
     let transactionAccess = AccessService.access
+    let transactionAgent = MyTransaction.agent
     
     
     var moneyValidator = BudgetViewController.bc
@@ -108,7 +109,7 @@ class TransactionViewController: UIViewController, UITableViewDataSource, UITabl
             let currTrans = transactions[index]
             
             let currency = Account.currency()
-            cell.costLabel.text = "\(currency)\(currTrans.totalDue)"
+            cell.costLabel.text = "\(currency)\(transactionAgent.getFormattedAmount(inputAmount: currTrans.totalDue) )"
             if (currTrans.isIncome) {
                 cell.costLabel.textColor = UIColor(red:0.32, green:0.64, blue:0.33, alpha:1.0)
             } else {
@@ -138,6 +139,17 @@ class TransactionViewController: UIViewController, UITableViewDataSource, UITabl
     
     func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
         let delete = UITableViewRowAction(style: .normal, title: "Delete") { action, index in
+            
+            if (self.transactions[index.row - 1]).linkedToGoal != "" {
+                let original = MyTransaction.agent.findMyTransactionLinkedToMyGoal( inputDescription: self.transactions[index.row - 1].linkedToGoal )
+                original.isReoccuring = true
+                self.transactionAccess.deleteTransaction(input: original)
+                original.dueDate = self.dateConverter.getDateXNumDaysFromNow(inputStartDate: original.dueDate, inputXNumDays: -30) //may want to change the static 30 days input to reflect varying month lengths
+               
+                self.transactionAccess.saveTransaction(input: original)
+                
+            }
+            
             self.transactionAccess.deleteTransaction(input: self.transactions[index.row - 1])
             self.updateTransactions()
             print("delete button tapped \(index.row)")

@@ -82,6 +82,10 @@ class MyTransaction {
         
     }
     
+    func getFormattedAmount( inputAmount: Double) -> String{
+        return String(format: "%.2f", inputAmount) as String
+    }
+    
     //Returns a list of all MyTransactions objects in CoreDate
     func getAllTransactions() -> [MyTransaction]{
         

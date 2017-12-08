@@ -92,29 +92,16 @@ class TransactionGoalTableViewController: UITableViewController {
                 newGoal.allContributions += value!
             }
             
+            let today = MyDate.dateConverter.shortDateToString(inputDate: Date())
+            newTransaction.desciption = "\(newGoal.desciption)-\(today)"
+            
             GoalsAccess.saveTransaction(input: newTransaction)
             GoalsAccess.deleteGoal(input: connectedGoal!) //deleted the old goal
             GoalsAccess.saveGoal(input: newGoal) //saved a new copy of the old goal with the allContributions attribute increased by the amount of var value
             
-        }
-        
-        /*
-        if (connectedGoal == nil) {
-            //newTransaction.linkedToGoal = ""
-            
-            
-            GoalsAccess.saveTransaction(input: newTransaction)
         } else {
-            //newTransaction.linkedToGoal = (connectedGoal?.desciption)! //TODO: verify if this is how to link transactions
-            
-            
-            //get the MyGoal object that these funds are being applied to and save it
-            
-            (connectedGoal?.desciption)!
             GoalsAccess.saveTransaction(input: newTransaction)
         }
-        //GoalsAccess.saveTransaction(input: newTransaction)
- */
         
     }
 

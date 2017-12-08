@@ -89,7 +89,8 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             let cell = tableView.dequeueReusableCell(withIdentifier: "BudgetLineCell", for: indexPath) as! BudgetLineCell
             //set up the cell
             let shortDate = thisDate.shortDateToString(inputDate: (incomeList[indexPath.item].dueDate) )
-            cell.config(inputName: incomeList[indexPath.item].desciption, inputDate: shortDate, inputAmount: incomeList[indexPath.item].totalDue.description) //may need to chnage how to parameters dueDate and amount are converted to string.
+            let totalDue = transactionAgent.getFormattedAmount(inputAmount: incomeList[indexPath.item].totalDue)
+            cell.config(inputName: incomeList[indexPath.item].desciption, inputDate: shortDate, inputAmount: totalDue ) //may need to chnage how to parameters dueDate and amount are converted to string.
             cell.inViewTable = 111
             return cell
         }
@@ -102,8 +103,8 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
                 dueDate = thisDate.getDateXNumDaysFromNow(inputStartDate: dueDate, inputXNumDays: 30)
             }
             let shortDate = thisDate.shortDateToString(inputDate: dueDate )
-            let amount = expenseList[indexPath.item].adjustExpenseAmountString(inputTransaction: expenseList[indexPath.item] )
-            
+            let temp = expenseList[indexPath.item].adjustExpenseAmountDouble(inputTransaction: expenseList[indexPath.item] )
+            let amount = transactionAgent.getFormattedAmount(inputAmount: temp)
             cell.config(inputName: expenseList[indexPath.item].desciption, inputDate: shortDate, inputAmount: amount) //may need to chnage how to parameters dueDate and amount are converted to string.
             cell.inViewTable = 222
             return cell

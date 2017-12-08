@@ -128,7 +128,7 @@ class OverViewController: UIViewController, UITableViewDataSource, UITableViewDe
         var limit = accessService.totalTransactions()
         for i in 0..<limit {
             let temp = accessService.getTransaction(index: i)
-            if temp.isIncome && !temp.isReoccuring{
+            if temp.isIncome {
                 incomeList.append(temp)
                 incomeTotal += temp.totalDue
             }
@@ -137,27 +137,12 @@ class OverViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 expenseTotal += temp.totalDue
             }
         }
-
-        let currency = Account.currency()
         
-        
-        let budgetAgent = MyBudget.agent
-        
-        let list = MyTransaction.agent.getAllNonReoccuringTransactions()
-            for item in list {
-                print("item: \(item.desciption) = \(item.totalDue)")
-            }
-        print("account balance = \(budgetAgent.getCurrentAccountBalance())")
-        
-        
-        if (  budgetAgent.getCurrentAccountBalance() >= 0.0) {
-        //if (incomeTotal - expenseTotal >= 0.0) {
-            //self.budgetHeader.text = String(format: "\(currency)   %.2F", (incomeTotal - expenseTotal))
-            self.budgetHeader.text = String(format: "\(currency)   %.2F", (budgetAgent.getCurrentAccountBalance()))
+        if (incomeTotal - expenseTotal >= 0.0) {
+            self.budgetHeader.text = String(format: "$   %.2F", (incomeTotal - expenseTotal))
             self.budgetHeader.textColor = UIColor(red:0.32, green:0.64, blue:0.33, alpha:1.0)
         } else {
-            //self.budgetHeader.text = String(format: "\(currency) %.2F", (incomeTotal - expenseTotal))
-            self.budgetHeader.text = String(format: "\(currency) %.2F", (budgetAgent.getCurrentAccountBalance()))
+            self.budgetHeader.text = String(format: "$ %.2F", (incomeTotal - expenseTotal))
             self.budgetHeader.textColor = UIColor.red
         }
     }
